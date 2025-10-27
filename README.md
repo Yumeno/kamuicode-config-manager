@@ -14,12 +14,12 @@
   "mcpServers": {  
     "file-upload-kamui-fal": {  
       "type": "http",  
-      "url": "\[https://sample.domain/uploader/fal\](https://sample.domain/uploader/fal)",  
+      "url": "\[https://sample.domain/.../...\](https://sample.domain/.../...)",  
       "description": "File Upload to FAL..."  
     },  
     "t2i-kamui-dreamina-v31": {  
       "type": "http",  
-      "url": "\[https://sample.domain/t2i/fal/bytedance/dreamina/v3.1/text-to-image\](https://sample.domain/t2i/fal/bytedance/dreamina/v3.1/text-to-image)",  
+      "url": "\[https://sample.domain/t2i/.../...\](https://sample.domain/t2i/.../...",  
       "description": "Bytedance Dreamina v3.1..."  
     }  
     // ...  
