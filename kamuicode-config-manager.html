@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- タイトルを変更 -->
+    <title>kamuicode Config Manager</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- js-yaml CDN (YAMLパーサー) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <!-- Alpine.js CDN (リアクティブUI) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <style>
+        /* Interフォントの読み込み */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* テーブルのレイアウトを固定し、セルの折り返しを強制 */
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+        th, td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        /* ソートアイコン用のカスタムスタイル */
+        .sort-icon {
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        th:hover .sort-icon {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Alpine.jsの関数定義 -->
+    <script>
+        function modelManager() {
+            return {
+                // --- 状態 ---
+                masterList: [],        // 全モデルのリスト (JSON順)
+                filteredList: [],      // 表示用のフィルタ済みリスト
+                jsonFile: null,
+                yamlFile: null,
+                jsonContent: null,
+                yamlContent: null,
+                yamlLookup: new Map(), // YAML高速検索用
+                categories: [],        // フィルタ用のカテゴリ一覧
+                filesReady: false,
+                errorMessage: '',
+                
+                // ★ ソート状態 (3状態: 'asc', 'desc', 'none')
+                sortState: { key: '', order: 'none' }, // key: 'name' or 'release_date'
+
+                // --- フィルタとオプション ---
+                filterCategory: '',
+                filterText: '',
+                
+                // ★ 出力ファイル名を変更
+                outputFileName: 'mcp-kamui-code-filtered',
+
+                // --- ファイル読み込み ---
+                loadJson(event) {
+                    this.errorMessage = ''; // エラーメッセージをクリア
+                    this.jsonFile = event.target.files[0];
+                    if (this.jsonFile) {
+                        this.readFile(this.jsonFile, (content) => {
+                            try {
+                                this.jsonContent = JSON.parse(content);
+                                this.filesReady = true; // ★ JSONが読み込めたらUI表示フラグを立てる
+                                this.checkReady();
+                            } catch (e) {
+                                this.errorMessage = `JSONの解析に失敗しました: ${e.message}`;
+                            }
+                        });
+                    }
+                },
+                loadYaml(event) {
+                    this.errorMessage = ''; // エラーメッセージをクリア
+                    this.yamlFile = event.target.files[0];
+                    if (this.yamlFile) {
+                        this.readFile(this.yamlFile, (content) => {
+                            try {
+                                // ★ 引用符で囲まれていない : を含むYAMLのための安全なロード
+                                this.yamlContent = jsyaml.load(content, { schema: jsyaml.FAILSAFE_SCHEMA });
+                                this.checkReady();
+                            } catch (e) {
+                                this.errorMessage = `YAMLの解析に失敗しました: ${e.message}`;
+                            }
+                        });
+                    }
+                },
+                readFile(file, callback) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => callback(e.target.result);
+                    reader.onerror = () => {
+                        this.errorMessage = `ファイル ${file.name} の読み込みに失敗しました。`;
+                    };
+                    reader.readAsText(file);
+                },
+
+                // ★ 日付文字列をパースするヘルパー関数
+                parseDate(dateStr) {
+                    if (!dateStr) return null;
+                    
+                    // YYYY年MM月DD日
+                    let match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+                    if (match) {
+                        return new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
+                    }
+                    
+                    // YYYY年MM月頃 または YYYY年MM月
+                    match = dateStr.match(/(\d{4})年(\d{1,2})月/);
+                    if (match) {
+                        return new Date(parseInt(match[1]), parseInt(match[2]) - 1, 1);
+                    }
+
+                    // 不明, N/A など
+                    return null; 
+                },
+
+                // --- データ処理 ---
+                buildYamlLookup(yamlData) {
+                    this.yamlLookup.clear();
+                    if (!yamlData || !yamlData.ai_models) return;
+
+                    for (const [category, models] of Object.entries(yamlData.ai_models)) {
+                        if (Array.isArray(models)) {
+                            models.forEach(model => {
+                                if (model && model.server_name) {
+                                    model.category = category; // カテゴリ情報をモデル自体に追加
+                                    this.yamlLookup.set(model.server_name, model);
+                                }
+                            });
+                        }
+                    }
+                },
+                checkReady() {
+                    // ★ JSONコンテンツがあれば、YAMLがなくてもリスト構築を実行
+                    if (this.jsonContent) {
+                        this.buildMasterList();
+                    }
+                },
+                buildMasterList() {
+                    this.errorMessage = '';
+                    this.masterList = [];
+                    this.filteredList = [];
+                    
+                    try {
+                        this.buildYamlLookup(this.yamlContent);
+                    } catch (e) {
+                        this.errorMessage = `YAMLの構造の処理中にエラー: ${e.message}`;
+                        return;
+                    }
+
+                    const jsonServers = this.jsonContent.mcpServers;
+                    if (!jsonServers) {
+                        this.errorMessage = "JSONファイルに 'mcpServers' キーが見つかりません。";
+                        return;
+                    }
+
+                    for (const serverName of Object.keys(jsonServers)) {
+                        const serverInfo = jsonServers[serverName];
+                        const yamlDetails = this.yamlLookup.get(serverName);
+                        let sortableDate = null; // ソート用の日付データを準備
+
+                        if (yamlDetails) {
+                            sortableDate = this.parseDate(yamlDetails.release_date); // 日付をパース
+                            // YAMLに情報がある場合
+                            this.masterList.push({
+                                checked: true,
+                                server_name: serverName,
+                                category: yamlDetails.category,
+                                name: yamlDetails.name,
+                                release_date: yamlDetails.release_date,
+                                features: yamlDetails.features,
+                                sortable_date: sortableDate, // ソート用日付を追加
+                                server_info: serverInfo
+                            });
+                        } else {
+                            // JSONにしか情報がない場合
+                            this.masterList.push({
+                                checked: true,
+                                server_name: serverName,
+                                category: '(未分類)',
+                                name: serverName, // モデル名としてキーを使用
+                                release_date: '',
+                                features: serverInfo.description || '(解説なし)', // JSONのdescriptionを流用
+                                sortable_date: null, // ソート用日付(null)を追加
+                                server_info: serverInfo
+                            });
+                        }
+                    }
+                    this.populateCategories();
+                    this.applyFilters();
+                },
+                populateCategories() {
+                    const categories = new Set(this.masterList.map(m => m.category));
+                    this.categories = ['(未分類)', ...Array.from(categories).filter(c => c !== '(未分類)').sort()];
+                },
+
+                // ★ YAMLをクリアしてリストを再構築する関数を追加
+                clearYaml() {
+                    this.yamlFile = null;
+                    this.yamlContent = null;
+                    this.yamlLookup.clear();
+                    // ファイル入力の値をリセット
+                    const yamlInput = document.getElementById('yamlInput');
+                    if (yamlInput) {
+                        yamlInput.value = '';
+                    }
+                    // YAMLなしでリストを再構築 (JSONがある場合のみ)
+                    if (this.jsonContent) {
+                        this.buildMasterList();
+                    }
+                },
+
+                // --- UI操作 ---
+                applyFilters() {
+                    const category = this.filterCategory;
+                    const text = this.filterText.toLowerCase();
+
+                    // フィルタリング (この時点では masterList の順序 = JSON順)
+                    this.filteredList = this.masterList.filter(model => {
+                        const categoryMatch = !category || model.category === category;
+                        const textMatch = !text || 
+                                          model.name.toLowerCase().includes(text) ||
+                                          (model.features && model.features.toLowerCase().includes(text)) || // featuresがnullでないかチェック
+                                          model.server_name.toLowerCase().includes(text);
+                        return categoryMatch && textMatch;
+                    });
+
+                    // --- ★ ソート処理 (状態が 'none' でない場合のみ実行) ---
+                    if (this.sortState.order !== 'none') {
+                        const isAsc = this.sortState.order === 'asc';
+                        
+                        this.filteredList.sort((a, b) => {
+                            let valA, valB;
+
+                            if (this.sortState.key === 'release_date') {
+                                valA = a.sortable_date;
+                                valB = b.sortable_date;
+
+                                // null (不明な日付) の扱い: 昇順では最後、降順では最初
+                                if (valA === null && valB === null) return 0;
+                                if (valA === null) return isAsc ? 1 : -1;
+                                if (valB === null) return isAsc ? -1 : 1;
+
+                            } else {
+                                // 'name' または他のキーでのソート
+                                valA = a[this.sortState.key];
+                                valB = b[this.sortState.key];
+                            }
+                            
+                            // 実際の比較
+                            if (valA < valB) {
+                                return isAsc ? -1 : 1;
+                            }
+                            if (valA > valB) {
+                                return isAsc ? 1 : -1;
+                            }
+                            return 0;
+                        });
+                    }
+                    // sortState.order が 'none' の場合は、フィルタされただけのリスト (JSON順) がそのまま使われる
+                },
+                
+                // ★ ソート実行用の関数 (3状態切り替え)
+                sortBy(key) {
+                    if (this.sortState.key === key) {
+                        // 同じキーをクリックした場合
+                        if (this.sortState.order === 'asc') {
+                            this.sortState.order = 'desc';
+                        } else if (this.sortState.order === 'desc') {
+                            this.sortState.order = 'none'; // 解除 (JSON順に戻る)
+                        } else {
+                            this.sortState.order = 'asc';
+                        }
+                    } else {
+                        // 別のキーをクリックした場合
+                        this.sortState.key = key;
+                        this.sortState.order = 'asc'; // 昇順で開始
+                    }
+                    // フィルタ（とソート）を再適用
+                    this.applyFilters();
+                },
+
+                // ソートアイコン表示用のヘルパー
+                getSortIcon(key) {
+                    if (this.sortState.key !== key || this.sortState.order === 'none') {
+                        return '▲▼'; // デフォルト (ソート解除状態)
+                    }
+                    if (this.sortState.order === 'asc') {
+                        return '▲'; // 昇順
+                    }
+                    return '▼'; // 降順
+                },
+
+                toggleAll(checkState) {
+                    // フィルタリングされたリスト *だけ* をトグルする
+                    this.filteredList.forEach(model => {
+                        const originalModel = this.masterList.find(m => m.server_name === model.server_name);
+                        if (originalModel) {
+                            originalModel.checked = checkState;
+                        }
+                    });
+                    // フィルタを再適用して表示を更新
+                    this.applyFilters();
+                },
+                generateJson() {
+                    const output = {
+                        mcpServers: {}
+                    };
+                    
+                    this.masterList
+                        .filter(model => model.checked)
+                        .forEach(model => {
+                            let finalServerInfo = model.server_info;
+                            output.mcpServers[model.server_name] = finalServerInfo;
+                        });
+
+                    const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    
+                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}.json` : 'mcp-kamui-code-filtered.json';
+                    a.download = fileName;
+                    
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            };
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <div class="container mx-auto p-4 lg:p-8" x-data="modelManager()">
+        <header class="mb-6">
+            <!-- タイトルを変更 -->
+            <h1 class="text-3xl font-bold text-gray-800">kamuicode Config Manager</h1>
+            <p class="text-gray-600 mt-1">JSON (mcpServers) と YAML (model memo) をアップロードして管理します。</p>
+        </header>
+
+        <!-- エラーメッセージ -->
+        <template x-if="errorMessage">
+            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                <strong class="font-bold">エラー: </strong>
+                <span class="block sm:inline" x-text="errorMessage"></span>
+            </div>
+        </template>
+
+        <!-- 1. ファイル入力エリア -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-lg font-semibold mb-3">1. mcpServers (.json)</h2>
+                <input type="file" @change="loadJson" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <!-- ★ YAMLセクションに見出し変更とクリアボタンを追加 -->
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-lg font-semibold">2. Model Memo (.yaml) <span class="text-sm font-normal text-gray-500">(任意)</span></h2>
+                    <template x-if="yamlContent">
+                        <button @click="clearYaml" class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">YAMLクリア</button>
+                    </template>
+                </div>
+                <!-- ★ id="yamlInput" を追加 -->
+                <input type="file" @change="loadYaml" accept=".yaml, .yml" id="yamlInput" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-colors">
+            </div>
+        </div>
+
+        <!-- 2. オプションとフィルタ (ファイルが準備OKなら表示) -->
+        <template x-if="filesReady">
+            <!-- ★ grid-cols-3 を grid-cols-2 に変更 -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-xl font-semibold mb-4">オプション & フィルタ</h2>
+                <!-- ★ ドメイン入力欄を削除し、グリッドを2列に変更 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- カテゴリフィルタ -->
+                    <div>
+                        <label for="filterCategory" class="block text-sm font-medium text-gray-700">カテゴリで絞り込み</label>
+                        <select id="filterCategory" x-model="filterCategory" @change="applyFilters" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">すべてのカテゴリ</option>
+                            <template x-for="category in categories" :key="category">
+                                <option :value="category" x-text="category"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <!-- テキストフィルタ -->
+                    <div>
+                        <label for="filterText" class="block text-sm font-medium text-gray-700">テキストで絞り込み</label>
+                        <input type="search" id="filterText" x-model="filterText" @input.debounce.300ms="applyFilters" placeholder="モデル名, 解説..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                </div>
+            </div>
+        </template>
+
+        <!-- 3. モデル一覧テーブル (ファイルが準備OKなら表示) -->
+        <template x-if="filesReady">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-4 md:p-6 border-b border-gray-200">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center">
+                        <h2 class="text-xl font-semibold mb-3 md:mb-0">
+                            モデル一覧 
+                            <span class="text-base font-normal text-gray-600" x-text="`(${filteredList.length} / ${masterList.length} 件)`"></span>
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button @click="toggleAll(true)" class="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">フィルタ内すべてチェック</button>
+                            <button @click="toggleAll(false)" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">フィルタ内すべて解除</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- テーブルコンテナ -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="w-16 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <!-- チェックボックスヘッダー -->
+                                </th>
+                                <th scope="col" class="w-48 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">カテゴリ</th>
+                                
+                                <!-- ★ 「モデル名」のヘッダー (ソート対応) -->
+                                <th scope="col" class="w-64 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" @click="sortBy('name')">
+                                    <div class="flex items-center">
+                                        モデル名
+                                        <span class="ml-1 text-gray-700 sort-icon" 
+                                              :class="{ 'opacity-100': sortState.key === 'name' }"
+                                              x-text="getSortIcon('name')"></span>
+                                    </div>
+                                </th>
+                                
+                                <!-- ★ 「リリース時期」のヘッダー (ソート対応) -->
+                                <th scope="col" class="w-40 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" @click="sortBy('release_date')">
+                                    <div class="flex items-center">
+                                        リリース時期
+                                        <span class="ml-1 text-gray-700 sort-icon" 
+                                              :class="{ 'opacity-100': sortState.key === 'release_date' }"
+                                              x-text="getSortIcon('release_date')"></span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解説</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-if="filteredList.length === 0">
+                                <tr>
+                                    <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                        ファイルが読み込まれていないか、フィルタに一致するモデルがありません。
+                                    </td>
+                                </tr>
+                            </template>
+                            <template x-for="model in filteredList" :key="model.server_name">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-4 text-center">
+                                        <!-- masterList の状態を直接トグルする -->
+                                        <input type="checkbox" x-model="masterList.find(m => m.server_name === model.server_name).checked" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600" x-text="model.category"></td>
+                                    <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                                        <span x-text="model.name"></span>
+                                        <span class="block text-xs text-gray-400" x-text="model.server_name"></span>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600" x-text="model.release_date"></td>
+                                    <td class="px-4 py-4 text-sm text-gray-600" x-text="model.features"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+
+        <!-- 4. 出力エリア (ファイルが準備OKなら表示) -->
+        <template x-if="filesReady">
+            <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">3. JSONを出力</h2>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-grow">
+                        <label for="outputFileName" class="block text-sm font-medium text-gray-700">出力ファイル名</label>
+                        <input type="text" id="outputFileName" x-model="outputFileName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="flex-shrink-0 md:mt-6">
+                        <button @click="generateJson" class="w-full md:w-auto px-6 py-2.5 text-base font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                            JSONを生成して保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </div> <!-- /x-data="modelManager" -->
+</body>
+</html>
+
