@@ -304,6 +304,10 @@ ai_models:
       server_name: v2v-kamui-bria-bg-removal
       release_date: 不明
       features: "(Bria AI / fal.ai) 入力された動画から背景を自動的に除去（切り抜き）する。fal.ai上では Bria RMBG 2.0 がホストされている。"
+    - name: BiRefNet V2 Video
+      server_name: v2v-kamui-birefnet-v2-video
+      release_date: 2025年1月30日頃 (fal.ai利用可能)
+      features: "(fal.ai) 高解像度の動画背景除去モデル BiRefNet のバージョン2。"
     - name: Creatify AI Lipsync
       server_name: v2v-kamui-creatify-lipsync
       release_date: 不明
