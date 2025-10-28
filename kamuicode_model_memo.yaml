@@ -80,7 +80,7 @@ ai_models:
     - name: FLUX Kontext Max (fal.ai)
       server_name: i2i-kamui-flux-kontext-max
       release_date: 2025年5月29日 #[修正] Kontextスイートのリリース日 (ソース193, 280)
-      features: "(Black Forest Labs) FLUX Kontextモデルのおそらく高品質版または最大機能版。"
+      features: "(Black Forest Labs) FLUX Kontextモデルの高品質版。"
     - name: FLUX Krea LoRA
       server_name: i2i-kamui-flux-krea-lora
       release_date: 2025年8月頃
