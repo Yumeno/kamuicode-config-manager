@@ -68,6 +68,10 @@ ai_models:
       server_name: t2i-kamui-gpt-image-1-mini
       release_date: 2025年10月6日
       features: "(fal.ai) 高度なマルチモーダル能力を持つ画像生成モデル。自然言語プロンプトからの高品質な画像生成。"
+    - name: Piflow (π-Qwen)
+      server_name: t2i-kamui-piflow
+      release_date: 2025年10月27日
+      features: "(Stanford / Adobe / fal.ai) Policy-based flow model（π-Flow）による高速画像生成。Qwen-Imageベースで、4ステップ推論でteacherモデルレベルの品質を維持しながら優れた多様性を実現。オープンソース（Apache 2.0）。"      
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -299,6 +303,10 @@ ai_models:
       server_name: i2v-kamui-ltxv-2
       release_date: 2025年10月24日 #[修正] fal.aiローンチ日 (ソース204)
       features: "(fal.ai) 高解像度（最大2160p）、高FPS（最大50）、オプションで音声生成に対応した、画像からのプロフェッショナル向け動画生成。"
+    - name: Minimax Hailuo 2.3 Fast Pro
+      server_name: i2v-kamui-hailuo-23-fast-pro
+      release_date: 2025年10月28日
+      features: "(Minimax) Hailuo 2.3の高速Pro版（1080p）。映画レベルのリアリズム、微細表情の自然な再現、高速処理（Fast版で約50秒で768p動画生成）、バッチ生成コストを最大50%削減。eコマース広告や製品ショーケースに最適。"      
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
