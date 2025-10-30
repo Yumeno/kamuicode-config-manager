@@ -535,4 +535,4 @@ ai_models:
       server_name: i2i3d-kamui-meshy-v5-remesh
       release_date: 2025年8月8日
       features: "(Meshy AI) 既存の3Dモデルのメッシュ（ポリゴン）を再構築（リメッシュ）し、トポロジを最適化したり、ポリゴン数を調整したりするユーティリティ。"
-}
+

@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- タイトルを変更 -->
     <title>kamuicode Config Manager</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- js-yaml CDN (YAMLパーサー) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <!-- Alpine.js CDN (リアクティブUI) -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
     <style>
         /* Interフォントの読み込み */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -34,6 +33,10 @@
         th:hover .sort-icon {
             opacity: 1;
         }
+        /* Alpine.js で非表示にするためのクラス */
+        .hidden {
+            display: none;
+        }
     </style>
 
     <!-- Alpine.jsの関数定義 -->
@@ -47,20 +50,25 @@
                 yamlFile: null,
                 jsonContent: null,
                 yamlContent: null,
+                // チェック状態ファイル用の変数
+                checkStateFile: null,
+                checkStateContent: null,
                 yamlLookup: new Map(), // YAML高速検索用
                 categories: [],        // フィルタ用のカテゴリ一覧
                 filesReady: false,
                 errorMessage: '',
                 
-                // ★ ソート状態 (3状態: 'asc', 'desc', 'none')
+                // ソート状態 (3状態: 'asc', 'desc', 'none')
                 sortState: { key: '', order: 'none' }, // key: 'name' or 'release_date'
 
                 // --- フィルタとオプション ---
                 filterCategory: '',
                 filterText: '',
                 
-                // ★ 出力ファイル名を変更
+                // 出力ファイル名を変更
                 outputFileName: 'mcp-kamui-code-filtered',
+                // チェック状態YAMLの出力ファイル名 (デフォルト)
+                outputCheckStateFileName: 'mcp-check-state',
 
                 // --- ファイル読み込み ---
                 loadJson(event) {
@@ -70,7 +78,7 @@
                         this.readFile(this.jsonFile, (content) => {
                             try {
                                 this.jsonContent = JSON.parse(content);
-                                this.filesReady = true; // ★ JSONが読み込めたらUI表示フラグを立てる
+                                this.filesReady = true; // JSONが読み込めたらUI表示フラグを立てる
                                 this.checkReady();
                             } catch (e) {
                                 this.errorMessage = `JSONの解析に失敗しました: ${e.message}`;
@@ -84,7 +92,7 @@
                     if (this.yamlFile) {
                         this.readFile(this.yamlFile, (content) => {
                             try {
-                                // ★ 引用符で囲まれていない : を含むYAMLのための安全なロード
+                                // 引用符で囲まれていない : を含むYAMLのための安全なロード
                                 this.yamlContent = jsyaml.load(content, { schema: jsyaml.FAILSAFE_SCHEMA });
                                 this.checkReady();
                             } catch (e) {
@@ -92,6 +100,23 @@
                             }
                         });
                     }
+                },
+                // チェック状態YAMLを読み込む関数
+                loadCheckState(event) {
+                    this.errorMessage = '';
+                    this.checkStateFile = event.target.files[0];
+                    if (this.checkStateFile) {
+                        this.readFile(this.checkStateFile, (content) => {
+                            try {
+                                this.checkStateContent = jsyaml.load(content);
+                                this.applyCheckState(); // 読み込んだらすぐに適用
+                            } catch (e) {
+                                this.errorMessage = `状態YAMLの解析に失敗しました: ${e.message}`;
+                            }
+                        });
+                    }
+                    // ファイル選択がキャンセルされた場合も考慮し、inputの値をリセット
+                    event.target.value = '';
                 },
                 readFile(file, callback) {
                     const reader = new FileReader();
@@ -102,7 +127,7 @@
                     reader.readAsText(file);
                 },
 
-                // ★ 日付文字列をパースするヘルパー関数
+                // 日付文字列をパースするヘルパー関数
                 parseDate(dateStr) {
                     if (!dateStr) return null;
                     
@@ -139,7 +164,7 @@
                     }
                 },
                 checkReady() {
-                    // ★ JSONコンテンツがあれば、YAMLがなくてもリスト構築を実行
+                    // JSONコンテンツがあれば、YAMLがなくてもリスト構築を実行
                     if (this.jsonContent) {
                         this.buildMasterList();
                     }
@@ -195,14 +220,15 @@
                         }
                     }
                     this.populateCategories();
-                    this.applyFilters();
+                    this.applyCheckState(); // リスト構築後に状態を適用
+                    this.applyFilters(); // フィルタ（ソート含む）を適用
                 },
                 populateCategories() {
                     const categories = new Set(this.masterList.map(m => m.category));
                     this.categories = ['(未分類)', ...Array.from(categories).filter(c => c !== '(未分類)').sort()];
                 },
 
-                // ★ YAMLをクリアしてリストを再構築する関数を追加
+                // YAMLをクリアしてリストを再構築する関数
                 clearYaml() {
                     this.yamlFile = null;
                     this.yamlContent = null;
@@ -216,6 +242,40 @@
                     if (this.jsonContent) {
                         this.buildMasterList();
                     }
+                },
+
+                // チェック状態をクリアする関数
+                clearCheckState() {
+                    this.checkStateFile = null;
+                    this.checkStateContent = null;
+                    // inputの値をリセット
+                    const checkStateInput = this.$refs.checkStateInput;
+                    if (checkStateInput) {
+                        checkStateInput.value = '';
+                    }
+                    // masterListのチェックをすべてtrueに戻す
+                    if (this.masterList.length > 0) {
+                        this.masterList.forEach(model => model.checked = true);
+                        this.applyFilters(); // UIを更新
+                    }
+                },
+
+                // チェック状態をmasterListに適用する関数
+                applyCheckState() {
+                    if (!this.checkStateContent || this.masterList.length === 0) {
+                        return; // 状態データがないか、リストがまだない場合は何もしない
+                    }
+                    
+                    this.masterList.forEach(model => {
+                        const serverName = model.server_name;
+                        // 状態YAMLにキーが存在するかチェック
+                        if (this.checkStateContent.hasOwnProperty(serverName)) {
+                            model.checked = this.checkStateContent[serverName];
+                        }
+                        // 存在しないキーは変更しない（デフォルトのtrueのまま）
+                    });
+                    
+                    this.applyFilters(); // UIを更新
                 },
 
                 // --- UI操作 ---
@@ -233,7 +293,7 @@
                         return categoryMatch && textMatch;
                     });
 
-                    // --- ★ ソート処理 (状態が 'none' でない場合のみ実行) ---
+                    // --- ソート処理 (状態が 'none' でない場合のみ実行) ---
                     if (this.sortState.order !== 'none') {
                         const isAsc = this.sortState.order === 'asc';
                         
@@ -268,7 +328,7 @@
                     // sortState.order が 'none' の場合は、フィルタされただけのリスト (JSON順) がそのまま使われる
                 },
                 
-                // ★ ソート実行用の関数 (3状態切り替え)
+                // ソート実行用の関数 (3状態切り替え)
                 sortBy(key) {
                     if (this.sortState.key === key) {
                         // 同じキーをクリックした場合
@@ -334,6 +394,37 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
+                },
+
+                // チェック状態をYAMLとして保存する関数
+                generateCheckStateYaml() {
+                    const output = {};
+                    // masterList全体をループし、状態を記録
+                    this.masterList.forEach(model => {
+                        output[model.server_name] = model.checked;
+                    });
+
+                    let yamlString;
+                    try {
+                        yamlString = jsyaml.dump(output);
+                    } catch (e) {
+                        this.errorMessage = `状態YAMLの生成に失敗しました: ${e.message}`;
+                        return;
+                    }
+
+                    const blob = new Blob([yamlString], { type: 'text/yaml' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    
+                    // ★ ファイル名入力欄を削除したため、デフォルト名を使用
+                    const fileName = `${this.outputCheckStateFileName}.yaml`;
+                    a.download = fileName;
+                    
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
                 }
             };
         }
@@ -343,7 +434,7 @@
 
     <div class="container mx-auto p-4 lg:p-8" x-data="modelManager()">
         <header class="mb-6">
-            <!-- タイトルを変更 -->
+            <!-- タイトル -->
             <h1 class="text-3xl font-bold text-gray-800">kamuicode Config Manager</h1>
             <p class="text-gray-600 mt-1">JSON (mcpServers) と YAML (model memo) をアップロードして管理します。</p>
         </header>
@@ -356,67 +447,81 @@
             </div>
         </template>
 
-        <!-- 1. ファイル入力エリア -->
+        <!-- 1. ファイル入力エリア (JSONとYAML) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-lg font-semibold mb-3">1. mcpServers (.json)</h2>
                 <input type="file" @change="loadJson" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <!-- ★ YAMLセクションに見出し変更とクリアボタンを追加 -->
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-lg font-semibold">2. Model Memo (.yaml) <span class="text-sm font-normal text-gray-500">(任意)</span></h2>
                     <template x-if="yamlContent">
                         <button @click="clearYaml" class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">YAMLクリア</button>
                     </template>
                 </div>
-                <!-- ★ id="yamlInput" を追加 -->
                 <input type="file" @change="loadYaml" accept=".yaml, .yml" id="yamlInput" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-colors">
             </div>
         </div>
 
-        <!-- 2. オプションとフィルタ (ファイルが準備OKなら表示) -->
-        <template x-if="filesReady">
-            <!-- ★ grid-cols-3 を grid-cols-2 に変更 -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 class="text-xl font-semibold mb-4">オプション & フィルタ</h2>
-                <!-- ★ ドメイン入力欄を削除し、グリッドを2列に変更 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- カテゴリフィルタ -->
-                    <div>
-                        <label for="filterCategory" class="block text-sm font-medium text-gray-700">カテゴリで絞り込み</label>
-                        <select id="filterCategory" x-model="filterCategory" @change="applyFilters" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="">すべてのカテゴリ</option>
-                            <template x-for="category in categories" :key="category">
-                                <option :value="category" x-text="category"></option>
-                            </template>
-                        </select>
-                    </div>
-
-                    <!-- テキストフィルタ -->
-                    <div>
-                        <label for="filterText" class="block text-sm font-medium text-gray-700">テキストで絞り込み</label>
-                        <input type="search" id="filterText" x-model="filterText" @input.debounce.300ms="applyFilters" placeholder="モデル名, 解説..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-
-                </div>
-            </div>
-        </template>
-
-        <!-- 3. モデル一覧テーブル (ファイルが準備OKなら表示) -->
+        <!-- ★ 3. モデル一覧テーブル (ファイルが準備OKなら表示) -->
         <template x-if="filesReady">
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <!-- ★★★ ヘッダー: タイトル と 状態I/Oボタン ★★★ -->
                 <div class="p-4 md:p-6 border-b border-gray-200">
                     <div class="flex flex-col md:flex-row justify-between md:items-center">
+                        <!-- タイトル -->
                         <h2 class="text-xl font-semibold mb-3 md:mb-0">
-                            モデル一覧 
+                            3. モデル一覧 
                             <span class="text-base font-normal text-gray-600" x-text="`(${filteredList.length} / ${masterList.length} 件)`"></span>
                         </h2>
-                        <div class="flex space-x-2">
-                            <button @click="toggleAll(true)" class="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">フィルタ内すべてチェック</button>
-                            <button @click="toggleAll(false)" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">フィルタ内すべて解除</button>
+                        
+                        <!-- 状態管理ボタン (小さく) -->
+                        <div class="flex items-center space-x-2">
+                            <!-- 状態読み込みボタン (inputを隠す) -->
+                            <input type="file" @change="loadCheckState" accept=".yaml, .yml" id="checkStateInput" x-ref="checkStateInput" class="hidden">
+                            <button type="button" @click="$refs.checkStateInput.click()" class="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
+                                状態を読み込む
+                            </button>
+                            <!-- 状態保存ボタン -->
+                            <button @click="generateCheckStateYaml" class="px-3 py-1.5 text-xs font-medium text-green-800 bg-green-200 rounded-lg hover:bg-green-300 transition-colors">
+                                状態を保存
+                            </button>
+                            <!-- クリアボタン (読み込み後) -->
+                            <template x-if="checkStateContent">
+                                <button @click="clearCheckState" class="flex-shrink-0 px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors" title="読み込んだ状態をクリア">
+                                    クリア
+                                </button>
+                            </template>
                         </div>
+                    </div>
+                </div>
+
+                <!-- ★★★ フィルタ と 一括チェック/解除 ★★★ -->
+                <div class="p-4 md:p-6 border-b border-gray-200 bg-gray-50/50">
+                    <!-- フィルタ機能 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="filterCategory" class="block text-sm font-medium text-gray-700">カテゴリで絞り込み</label>
+                            <select id="filterCategory" x-model="filterCategory" @change="applyFilters" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="">すべてのカテゴリ</option>
+                                <template x-for="category in categories" :key="category">
+                                    <option :value="category" x-text="category"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="filterText" class="block text-sm font-medium text-gray-700">テキストで絞り込み</label>
+                            <input type="search" id="filterText" x-model="filterText" @input.debounce.300ms="applyFilters" placeholder="モデル名, 解説..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4 border-gray-200">
+
+                    <!-- 一括チェック/解除ボタン (右寄せ) -->
+                    <div class="flex justify-end space-x-2">
+                         <button @click="toggleAll(true)" class="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">フィルタ内すべてチェック</button>
+                         <button @click="toggleAll(false)" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">フィルタ内すべて解除</button>
                     </div>
                 </div>
 
@@ -430,7 +535,7 @@
                                 </th>
                                 <th scope="col" class="w-48 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">カテゴリ</th>
                                 
-                                <!-- ★ 「モデル名」のヘッダー (ソート対応) -->
+                                <!-- 「モデル名」のヘッダー (ソート対応) -->
                                 <th scope="col" class="w-64 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" @click="sortBy('name')">
                                     <div class="flex items-center">
                                         モデル名
@@ -440,7 +545,7 @@
                                     </div>
                                 </th>
                                 
-                                <!-- ★ 「リリース時期」のヘッダー (ソート対応) -->
+                                <!-- 「リリース時期」のヘッダー (ソート対応) -->
                                 <th scope="col" class="w-40 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" @click="sortBy('release_date')">
                                     <div class="flex items-center">
                                         リリース時期
@@ -481,13 +586,14 @@
             </div>
         </template>
 
-        <!-- 4. 出力エリア (ファイルが準備OKなら表示) -->
+        <!-- ★ 4. JSONを出力 (ファイルが準備OKなら表示) -->
         <template x-if="filesReady">
             <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">3. JSONを出力</h2>
+                <!-- ★ 見出し番号を変更 -->
+                <h2 class="text-xl font-semibold mb-4">4. 最終JSONを出力</h2>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-grow">
-                        <label for="outputFileName" class="block text-sm font-medium text-gray-700">出力ファイル名</label>
+                        <label for="outputFileName" class="block text-sm font-medium text-gray-700">出力JSONファイル名</label>
                         <input type="text" id="outputFileName" x-model="outputFileName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                     <div class="flex-shrink-0 md:mt-6">
@@ -502,4 +608,5 @@
     </div> <!-- /x-data="modelManager" -->
 </body>
 </html>
+
 
