@@ -218,6 +218,10 @@ ai_models:
       server_name: t2v-kamui-ltxv-2
       release_date: 2025年10月24日 #[修正] fal.aiローンチ日 (ソース204)
       features: "(fal.ai) 高解像度（最大2160p）、高FPS（最大50）、オプションで音声生成に対応したプロフェッショナル向け動画生成。"
+    - name: LongCat Video (480p)
+      server_name: t2v-kamui-longcat-video-480p
+      release_date: 2025年10月27日
+      features: "(Meituan / fal.ai) Meituanが公開した13.6BパラメータのDiTモデル。これは480p/15fpsのベース生成モデル。フレーム制御(162)、アスペクト比(16:9, 9:16, 1:1)、FPS(15)、品質、出力形式(MP4/WebM/ProRes/GIF)、シード値のカスタマイズに対応。"      
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -453,6 +457,14 @@ ai_models:
       server_name: t2s-kamui-index-tts-2-text-to-speech
       release_date: 2025年9月8日
       features: "(fal.ai) 参照音声から感情スタイルを転移できる、表現力豊かな音声合成。感情の強さ（幸福、怒りなど）を細かく制御可能。"
+    - name: Minimax Speech-2.6 HD
+      server_name: t2s-kamui-minimax-speech-26-hd
+      release_date: 2025年10月30日
+      features: "(Minimax) 最新の高品質音声合成。ポーズ指定(<#x#>)、音量正規化、音声パラメータ（速度、ピッチ、感情）制御、高度なオーディオ設定（最大44.1kHz, 256kbps）、35以上の言語に対応。(ソース1.2, 1.5, 2.1)"
+    - name: Minimax Speech-2.6 Turbo
+      server_name: t2s-kamui-minimax-speech-26-turbo
+      release_date: 2025年10月30日
+      features: "(Minimax) 最新の高速音声合成（E2E遅延<250ms）。ポーズ指定(<#x#>)、音量正規化、音声パラメータ（速度、ピッチ、感情）制御、高度なオーディオ設定（最大44.1kHz, 256kbps）、35以上の言語に対応。(ソース1.2, 1.3, 1.5)"
   text_to_audio_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
