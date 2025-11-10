@@ -155,11 +155,11 @@ ai_models:
       features: "(fal.ai) 高度なマルチモーダル能力を使用し、自然言語プロンプトで複数の画像をインテリジェントに編集。"
     - name: Image Apps V2 Outpaint
       server_name: i2i-kamui-image-apps-v2-outpaint
-      release_date: # 不明（要調査）
+      release_date: 2025年11月5日頃
       features: "(fal.ai) AIによるアウトペインティングで画像の境界を越えてコンテンツを拡張。画像の枠外に新しい要素を追加する。"
     - name: Easel AI Fashion Size Estimator
       server_name: i2i-kamui-easel-ai-fashion-size-estimator
-      release_date: # 不明（要調査）
+      release_date: 2025年9月4日頃
       features: "(Easel AI / fal.ai) 人物画像から服のサイズ（S/M/L/XL）と身体測定値を推定する。"
     - name: Chrono Edit
       server_name: i2i-kamui-chrono-edit
@@ -438,7 +438,7 @@ ai_models:
       features: "(fal.ai / Wan-AI) 動画と画像からムーブモードで新しい動画を生成。複数の解像度（480p、580p、720p）、ガイダンススケール制御、推論ステップ、安全チェッカー、shift値、ビデオ品質設定（低、中、高、最大）、書き込みモード（高速、バランス、小サイズ）、オプションでフレームのZIP出力、高速化・品質向上のためのターボモードをサポート。"
     - name: ByteDance Video Upscaler
       server_name: v2v-kamui-bytedance-upscale-video
-      release_date: # 不明（要調査）
+      release_date: 2025年11月4日
       features: "(ByteDance / fal.ai) ByteDanceの高度なアップスケーラーモデルを使用して動画を4倍の解像度にアップスケール。最大4K（1080p、2k、4k）までの目標解像度と最大60fpsのFPS（30fps、60fps）をサポート。動画の品質とディテールを向上させるのに最適。"
     - name: FAL Workflow Utilities Auto-Subtitle
       server_name: v2v-kamui-fal-workflow-utilities-auto-subtitle
