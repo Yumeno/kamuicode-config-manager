@@ -71,7 +71,15 @@ ai_models:
     - name: Piflow (π-Qwen)
       server_name: t2i-kamui-piflow
       release_date: 2025年10月27日
-      features: "(Stanford / Adobe / fal.ai) Policy-based flow model（π-Flow）による高速画像生成。Qwen-Imageベースで、4ステップ推論でteacherモデルレベルの品質を維持しながら優れた多様性を実現。オープンソース（Apache 2.0）。"      
+      features: "(Stanford / Adobe / fal.ai) Policy-based flow model（π-Flow）による高速画像生成。Qwen-Imageベースで、4ステップ推論でteacherモデルレベルの品質を維持しながら優れた多様性を実現。オープンソース（Apache 2.0）。"
+    - name: Bria Fibo Generate
+      server_name: t2i-kamui-bria-fibo-generate
+      release_date: 2025年11月3日
+      features: "(Bria AI / fal.ai) テキストプロンプトまたは構造化プロンプトから高品質な画像を生成。"
+    - name: Emu 3.5 Image
+      server_name: t2i-kamui-emu-3-5-image
+      release_date: 2025年10月28日頃
+      features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキストベースの画像生成。JPEG、PNG、WebP出力形式、安全チェッカー、シード制御、同期モードをサポート。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -145,6 +153,22 @@ ai_models:
       server_name: i2i-kamui-gpt-image-1-mini-edit
       release_date: 2025年10月6日
       features: "(fal.ai) 高度なマルチモーダル能力を使用し、自然言語プロンプトで複数の画像をインテリジェントに編集。"
+    - name: Image Apps V2 Outpaint
+      server_name: i2i-kamui-image-apps-v2-outpaint
+      release_date: 2025年11月5日頃
+      features: "(fal.ai) AIによるアウトペインティングで画像の境界を越えてコンテンツを拡張。画像の枠外に新しい要素を追加する。"
+    - name: Easel AI Fashion Size Estimator
+      server_name: i2i-kamui-easel-ai-fashion-size-estimator
+      release_date: 2025年9月4日頃
+      features: "(Easel AI / fal.ai) 人物画像から服のサイズ（S/M/L/XL）と身体測定値を推定する。"
+    - name: Chrono Edit
+      server_name: i2i-kamui-chrono-edit
+      release_date: 2025年10月29日
+      features: "(NVIDIA / fal.ai) 時間推論機能を持つ高度な画像編集。テキストプロンプトによる編集で、時間的理解を強化。カスタマイズ可能な解像度（480p、720p）、出力形式（jpeg、png、webp）、安全チェッカーをサポート。"
+    - name: Emu 3.5 Image (Edit)
+      server_name: i2i-kamui-emu-3-5-image-edit
+      release_date: 2025年10月28日頃
+      features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキスト記述による画像編集。カスタマイズ可能な解像度（480p、720p）、出力形式（jpeg、png、webp）、安全チェッカー、シード制御をサポート。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -221,7 +245,23 @@ ai_models:
     - name: LongCat Video (480p)
       server_name: t2v-kamui-longcat-video-480p
       release_date: 2025年10月27日
-      features: "(Meituan / fal.ai) Meituanが公開した13.6BパラメータのDiTモデル。これは480p/15fpsのベース生成モデル。フレーム制御(162)、アスペクト比(16:9, 9:16, 1:1)、FPS(15)、品質、出力形式(MP4/WebM/ProRes/GIF)、シード値のカスタマイズに対応。"      
+      features: "(Meituan / fal.ai) Meituanが公開した13.6BパラメータのDiTモデル。これは480p/15fpsのベース生成モデル。フレーム制御(162)、アスペクト比(16:9, 9:16, 1:1)、FPS(15)、品質、出力形式(MP4/WebM/ProRes/GIF)、シード値のカスタマイズに対応。"
+    - name: Minimax Hailuo 2.3 Pro (Text-to-Video)
+      server_name: t2v-kamui-hailuo-23-pro
+      release_date: 2025年10月28日
+      features: "(Minimax / fal.ai) 最新のHailuo 2.3 Proモデルを使用したテキストからの高品質動画生成。プロンプト最適化による品質向上をサポート。"
+    - name: LongCat Video (720p)
+      server_name: t2v-kamui-longcat-video-720p
+      release_date: 2025年10月27日
+      features: "(Meituan / fal.ai) LongCatモデルの720p/30fps高解像度版。詳細なテキストプロンプトから高品質動画を生成。フレーム制御（デフォルト: 162）、推論ステップ（デフォルト: 40）、refinementステップ（デフォルト: 40）、ガイダンススケール（デフォルト: 4）、アスペクト比（16:9, 9:16, 1:1）、FPS（デフォルト: 30）、ビデオ品質（低/中/高/最大）、出力形式（MP4, WebM, ProRes, GIF）、加速レベル、シード制御をサポート。"
+    - name: Sana Video
+      server_name: t2v-kamui-sana-video
+      release_date: 2024年10月27日
+      features: "(NVIDIA / fal.ai) Sana Videoモデルによるテキストから動画を生成。カスタマイズ可能なパラメータ：ネガティブプロンプト、解像度（480p）、フレーム数（デフォルト: 81）、FPS（デフォルト: 16）、モーションスコア（デフォルト: 30）、ガイダンススケール（デフォルト: 6）、推論ステップ（デフォルト: 28）、シード値による再現可能な生成をサポート。"
+    - name: Infinity Star
+      server_name: t2v-kamui-fal-infinity-star
+      release_date: 2025年11月6日
+      features: "(Foundation Vision / fal.ai) Infinity Starモデルによる高品質動画生成。ネガティブプロンプト、推論ステップ、ガイダンススケール、tau video、APG、アスペクト比（16:9, 1:1, 9:16）、シード、プロンプト強化をサポート。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -310,7 +350,19 @@ ai_models:
     - name: Minimax Hailuo 2.3 Fast Pro
       server_name: i2v-kamui-hailuo-23-fast-pro
       release_date: 2025年10月28日
-      features: "(Minimax) Hailuo 2.3の高速Pro版（1080p）。映画レベルのリアリズム、微細表情の自然な再現、高速処理（Fast版で約50秒で768p動画生成）、バッチ生成コストを最大50%削減。eコマース広告や製品ショーケースに最適。"      
+      features: "(Minimax) Hailuo 2.3の高速Pro版（1080p）。映画レベルのリアリズム、微細表情の自然な再現、高速処理（Fast版で約50秒で768p動画生成）、バッチ生成コストを最大50%削減。eコマース広告や製品ショーケースに最適。"
+    - name: LongCat Video (480p) Image-to-Video
+      server_name: i2v-kamui-longcat-video-480p
+      release_date: 2025年10月27日
+      features: "(Meituan / fal.ai) 画像と詳細なプロンプトガイダンスから高品質な動画を生成（480p版）。カスタマイズ可能なフレーム（デフォルト: 162）、推論ステップ（デフォルト: 40）、ガイダンススケール（デフォルト: 4）、FPS（デフォルト: 15）、ビデオ品質（低/中/高/最大）、出力形式（MP4, WebM, ProRes, GIF）、加速レベル、シード制御をサポート。"
+    - name: LongCat Video (720p) Image-to-Video
+      server_name: i2v-kamui-longcat-video-720p
+      release_date: 2025年10月27日
+      features: "(Meituan / fal.ai) 画像と詳細なプロンプトガイダンスから高品質な動画を生成（720p版）。カスタマイズ可能なフレーム（デフォルト: 162）、推論ステップ（デフォルト: 40）、refinementステップ（デフォルト: 40）、ガイダンススケール（デフォルト: 4）、FPS（デフォルト: 30）、ビデオ品質（低/中/高/最大）、出力形式（MP4, WebM, ProRes, GIF）、加速レベル、シード制御をサポート。"
+    - name: Minimax Hailuo 2.3 Pro (Image-to-Video)
+      server_name: i2v-kamui-hailuo-23-pro
+      release_date: 2025年10月28日
+      features: "(Minimax / fal.ai) 最新のHailuo 2.3 Proモデルを使用した画像から動画への高品質変換。テキストプロンプトガイダンスと画像入力をサポート。プロンプト最適化による品質向上に対応。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -380,6 +432,18 @@ ai_models:
       server_name: v2v-kamui-wan-vace-apps-long-reframe
       release_date: 2025年5月16日 #[修正] (ソース21, 40, 75, 109)
       features: "(fal.ai / Wan-AI) Wan VACE 2.1を使用。長い動画をシーンごとに自動検出し、指定したアスペクト比に再構成（リフレーム）する。" #[検証済] (ソース21, 75)
+    - name: WAN v2.2-14b (Animate Move) (fal.ai)
+      server_name: v2v-kamui-wan-v2-2-14b-animate-move
+      release_date: 2025年9月19日
+      features: "(fal.ai / Wan-AI) 動画と画像からムーブモードで新しい動画を生成。複数の解像度（480p、580p、720p）、ガイダンススケール制御、推論ステップ、安全チェッカー、shift値、ビデオ品質設定（低、中、高、最大）、書き込みモード（高速、バランス、小サイズ）、オプションでフレームのZIP出力、高速化・品質向上のためのターボモードをサポート。"
+    - name: ByteDance Video Upscaler
+      server_name: v2v-kamui-bytedance-upscale-video
+      release_date: 2025年11月4日
+      features: "(ByteDance / fal.ai) ByteDanceの高度なアップスケーラーモデルを使用して動画を4倍の解像度にアップスケール。最大4K（1080p、2k、4k）までの目標解像度と最大60fpsのFPS（30fps、60fps）をサポート。動画の品質とディテールを向上させるのに最適。"
+    - name: FAL Workflow Utilities Auto-Subtitle
+      server_name: v2v-kamui-fal-workflow-utilities-auto-subtitle
+      release_date: 2025年1月24日
+      features: "(fal.ai) カラオケスタイルの単語レベルハイライト付き字幕を動画に自動生成・追加。複数言語（en、es、fr、de、it、pt、nl、ja、zh、ko）、Google Fonts、カスタマイズ可能なスタイル（フォントサイズ、太さ、色、ストローク、背景）、位置制御、字幕セグメントあたりの単語数（1-12）、アニメーション効果をサポート。動画へのプロフェッショナルな字幕追加に最適。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
@@ -486,6 +550,10 @@ ai_models:
       server_name: t2a-kamui-beatoven-sound-effect-generation
       release_date: 2025年10月21日 #[修正] (ソース24, 40, 86, 112)
       features: "(Beatoven AI / fal.ai) テキスト記述から高解像度（44.1kHzステレオ）の効果音（SFX）を生成。"
+    - name: Minimax Music V2
+      server_name: t2m-kamui-minimax-music-v2
+      release_date: 2025年10月31日
+      features: "(Minimax / fal.ai) 歌詞とスタイル制御に基づいて音楽を生成。長い歌詞（10-3000文字）、構造タグ（[Intro]、[Verse]、[Chorus]、[Bridge]、[Outro]）、カスタマイズ可能なオーディオ設定（サンプルレート、ビットレート、フォーマット）をサポート。"
   video_to_audio:
     - name: ThinkSound (fal.ai)
       server_name: v2a-kamui-thinksound
@@ -518,6 +586,14 @@ ai_models:
       server_name: train-kamui-flux-kontext
       release_date: 2025年10月14日
       features: "(Black Forest Labs / fal.ai) FLUX Kontextモデル（おそらくLoRAなど）を、ユーザー自身のデータセットでファインチューニングするためのトレーニング機能。"
+    - name: Alibaba Qwen Image Edit (Trainer)
+      server_name: train-kamui-qwen-image-edit
+      release_date: 2025年8月19日
+      features: "(Alibaba / fal.ai) Qwen Image Editモデル用のLoRAウェイトをトレーニングする機能。"
+    - name: Alibaba Qwen Image Edit Plus (Trainer)
+      server_name: train-kamui-qwen-image-edit-plus
+      release_date: 2025年8月19日
+      features: "(Alibaba / fal.ai) Qwen Image Edit Plusモデル用のLoRAウェイトをトレーニングする機能。複数参照画像のサポートを含む拡張版。"
   utility_and_analysis:
     - name: File Upload (fal.ai)
       server_name: file-upload-kamui-fal
@@ -535,4 +611,12 @@ ai_models:
       server_name: i2i3d-kamui-meshy-v5-remesh
       release_date: 2025年8月8日
       features: "(Meshy AI) 既存の3Dモデルのメッシュ（ポリゴン）を再構築（リメッシュ）し、トポロジを最適化したり、ポリゴン数を調整したりするユーティリティ。"
+    - name: MiniMax Voice Clone
+      server_name: voice-clone-kamui-minimax
+      release_date: 2025年8月7日
+      features: "(Minimax / fal.ai) 音声サンプル（10秒以上）から音声をクローンし、Speech 2.6 HD/Turboで使用するためのカスタムvoice_idを生成。プレビュー音声生成を含む。クローンされた音声はTTS使用がない場合7日後に失効する。"
+    - name: Bria Fibo Structured Prompt Generator
+      server_name: misc-kamui-bria-fibo-generate-structured-prompt
+      release_date: 2025年11月3日
+      features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
 
