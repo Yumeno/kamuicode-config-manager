@@ -1,0 +1,74 @@
+# リリース日が不明なモデルのリスト
+
+このドキュメントは、Web検索で特定できなかったモデルのリリース日をリストアップしています。
+これらのモデルについては、X（Twitter）のGrokを使用した追加調査が必要です。
+
+## 不明モデル一覧
+
+### 1. Image Apps V2 Outpaint
+- **モデル名**: Image Apps V2 Outpaint
+- **server_name**: `i2i-kamui-image-apps-v2-outpaint`
+- **推測される開発元**: fal.ai（独自開発）
+- **調査で確認した情報源**:
+  - fal.ai モデルページ: https://fal.ai/models/fal-ai/image-apps-v2/outpaint
+  - 機能説明: 方向性を持ったアウトペイント（左、右、上、中央）、拡張された領域のみを生成
+- **不明な理由**: fal.aiの公式ブログやX投稿で明確なリリース日のアナウンスが見つからなかった
+- **備考**: モデルは現在fal.aiで利用可能。第三者ツール（Toolplay.aiなど）でも使用されている
+
+### 2. Easel AI Fashion Size Estimator
+- **モデル名**: Easel AI Fashion Size Estimator
+- **server_name**: `i2i-kamui-easel-ai-fashion-size-estimator`
+- **推測される開発元**: Easel AI
+- **調査で確認した情報源**:
+  - fal.ai モデルページ: https://fal.ai/models/easel-ai/fashion-size-estimator
+  - fal.ai ブログ（2025年3月）: Easel AIの画像編集モデルがfal.aiで利用可能になった旨の記事
+  - 機能説明: 人体画像から服のサイズ（S/M/L/XL）と身体測定値（身長、バスト、ウエスト、ヒップ）を推定
+  - 価格: $0.01/生成
+- **不明な理由**: Easel AIのfal.ai統合は2025年3月頃と判明したが、Fashion Size Estimatorの具体的なリリース日は不明
+- **備考**: Easel AIは他にもFashion Photoshoot、Fashion Try-on、Face/Body Swapモデルをfal.aiで提供している
+
+### 3. ByteDance Video Upscaler
+- **モデル名**: ByteDance Video Upscaler
+- **server_name**: `v2v-kamui-bytedance-upscale-video`
+- **推測される開発元**: ByteDance
+- **調査で確認した情報源**:
+  - fal.ai モデルページ: https://fal.ai/models/fal-ai/bytedance-upscaler/upscale/video
+  - fal.ai X（Twitter）投稿: ByteDance Video Upscalerの提供開始を告知
+    - ツイートURL: https://x.com/fal/status/1985768545595130015
+  - 機能説明: 1080p、2K、4K解像度へのアップスケール、30/60fps対応、プロフェッショナルグレードの品質向上
+  - 価格: $0.0072/秒（1080pアップスケール）
+- **不明な理由**: fal.aiのX投稿やモデルページは確認できたが、正確なリリース日（年月日）が記載されていなかった
+- **備考**:
+  - X投稿のステータスID（1985768545595130015）から、おおよその投稿時期を特定できる可能性がある
+  - Topaz Video AIやSima Upscalerなど、他のビデオアップスケーラーもfal.aiで提供されている
+
+## 追加調査の推奨事項
+
+### X（Twitter）での調査キーワード例
+1. **Image Apps V2 Outpaint**:
+   - `fal.ai image apps v2 outpaint`
+   - `@fal outpaint release`
+   - `fal.ai directional outpainting`
+
+2. **Easel AI Fashion Size Estimator**:
+   - `easel ai fashion size estimator release`
+   - `@fal easel ai fashion`
+   - `easel ai fal.ai march 2025`
+
+3. **ByteDance Video Upscaler**:
+   - `fal.ai bytedance upscaler`
+   - `@fal bytedance video upscaler`
+   - ステータスID `1985768545595130015` から投稿日時を特定
+
+### その他の調査方法
+- fal.aiのGitHubリポジトリのコミット履歴を確認
+- fal.aiのChangelogを確認
+- ByteDanceの公式リリース情報を確認（Seedance Upscalerなどの関連モデル）
+- Easel AIの公式ウェブサイトやブログを確認
+
+## まとめ
+
+- **調査完了**: 18/21モデル（85.7%）
+- **要追加調査**: 3/21モデル（14.3%）
+
+これらのモデルについて、X（Twitter）のGrokを使用した調査を実施することで、より正確なリリース日を特定できる可能性があります。
