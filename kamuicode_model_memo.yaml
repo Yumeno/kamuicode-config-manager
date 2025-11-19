@@ -169,6 +169,30 @@ ai_models:
       server_name: i2i-kamui-emu-3-5-image-edit
       release_date: 2025年10月28日頃
       features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキスト記述による画像編集。カスタマイズ可能な解像度（480p、720p）、出力形式（jpeg、png、webp）、安全チェッカー、シード制御をサポート。"
+    - name: Crystal Upscaler
+      server_name: i2i-kamui-crystal-upscaler
+      release_date: 2025年11月5日
+      features: "(fal.ai) AIによる画像アップスケーリング技術。高品質なアップスケーリングを提供。"
+    - name: Qwen Image Edit Plus LoRA Gallery (Add Background)
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-add-background
+      release_date: 2025年11月11日頃
+      features: "(Alibaba / fal.ai) 製品/オブジェクトから白背景を削除し、リアルなシーン環境を追加。照明、視点、影を自動調整。eコマース製品写真、スタジオ撮影のライフスタイル画像化、カタログ製品の環境コンテキスト作成に最適。"
+    - name: Qwen Image Edit Plus LoRA Gallery (Face to Full Portrait)
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-face-to-full-portrait
+      release_date: 2025年11月11日頃
+      features: "(Alibaba / fal.ai) トリミングされた顔画像から全身ポートレートを生成。全身または上半身の構図、服装、ポーズ、設定をプロンプトで指定可能。IDフォトやヘッドショットからの完全なポートレート作成、単一の顔からの多様なポートレートバリエーション生成、キャラクターデザインとコンセプトアート、プロフィール写真の強化に最適。"
+    - name: Qwen Image Edit Plus LoRA Gallery (Group Photo)
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-group-photo
+      release_date: 2025年11月11日頃
+      features: "(Alibaba / fal.ai) レトロスタイルのグループ写真をビンテージ効果で作成。複数の被写体間で高いキャラクター一貫性を維持し、ノスタルジックなビンテージ効果（粒子、ぼかし、色シフト）を追加。80年代/90年代のレトロ写真スタイルを適用。個別ポートレートからのグループ写真作成、ビンテージスタイルの写真合成、レトロなソーシャルメディアコンテンツに最適。"
+    - name: Qwen Image Edit Plus LoRA Gallery (Integrate Product)
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-integrate-product
+      release_date: 2025年11月11日頃
+      features: "(Alibaba / fal.ai) 製品/要素を背景画像にシームレスに統合。視点角度の自動補正、シーンに合わせた照明と影の調整、リアルな製品配置のための自然な統合を実現。製品写真とeコマース、シーンへのオブジェクト合成、リアルなモックアップ作成、建築ビジュアライゼーションに最適。"
+    - name: Qwen Image Edit Plus LoRA Gallery (Next Scene)
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-next-scene
+      release_date: 2025年11月11日頃
+      features: "(Alibaba / fal.ai) シネマティックなショット進行とシーン遷移を作成。カメラムーブメント（ドリーショット、プッシュイン、プルバック、トラッキングムーブ）、フレーミング進化（ワイドからクローズアップ、角度シフト、リフレーミング）、環境の展開（新キャラクター、拡張された景色、空間進行）、雰囲気のシフト（照明変化、天候進化、時間遷移）を生成。映画・アニメーションのストーリーボード生成、フレーム一貫性を持つシネマティックAI動画パイプライン、連続的なナラティブワークフローに最適。プロンプトは'Next Scene:'で始め、カメラ/シーンの変化を記述。推奨LoRA強度: 0.7-0.8。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -444,6 +468,14 @@ ai_models:
       server_name: v2v-kamui-fal-workflow-utilities-auto-subtitle
       release_date: 2025年1月24日
       features: "(fal.ai) カラオケスタイルの単語レベルハイライト付き字幕を動画に自動生成・追加。複数言語（en、es、fr、de、it、pt、nl、ja、zh、ko）、Google Fonts、カスタマイズ可能なスタイル（フォントサイズ、太さ、色、ストローク、背景）、位置制御、字幕セグメントあたりの単語数（1-12）、アニメーション効果をサポート。動画へのプロフェッショナルな字幕追加に最適。"
+    - name: Pixverse Swap
+      server_name: v2v-kamui-pixverse-swap
+      release_date: 2025年11月初旬
+      features: "(Pixverse / fal.ai) Pixverse Fusion architectureを使用した動画内の顔、オブジェクト、背景の交換機能。複数のスワップモード（person、object、background）、カスタマイズ可能な解像度（360p、540p、720p）、キーフレーム選択、元の音声保存をサポート。動画フェイススワッピングやオブジェクト置換に最適。"
+    - name: Editto Video Inpainting
+      server_name: v2v-kamui-fal-editto
+      release_date: 2025年10月頃
+      features: "(fal.ai) テキストプロンプトに基づいて動画の特定領域を編集する動画インペインティング。ネガティブプロンプト、フレームマッチング、解像度（auto、240p、360p、480p、580p、720p）、アスペクト比（auto、16:9、1:1、9:16）、推論ステップ、ガイダンススケール、サンプラー（unipc、dpm++、euler）、加速（none、low、regular）、ビデオ品質（低、中、高、最大）、ビデオ書き込みモード（高速、バランス、小）、フレーム補間、時間的ダウンサンプリング、自動ダウンサンプリング、同期モード、フレームZIPエクスポートをサポート。動画編集、オブジェクト除去、背景置換、動画強化に最適。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
@@ -529,6 +561,10 @@ ai_models:
       server_name: t2s-kamui-minimax-speech-26-turbo
       release_date: 2025年10月30日
       features: "(Minimax) 最新の高速音声合成（E2E遅延<250ms）。ポーズ指定(<#x#>)、音量正規化、音声パラメータ（速度、ピッチ、感情）制御、高度なオーディオ設定（最大44.1kHz, 256kbps）、35以上の言語に対応。(ソース1.2, 1.3, 1.5)"
+    - name: Maya-1-Voice
+      server_name: t2s-kamui-maya
+      release_date: 2025年11月頃
+      features: "(Maya Research) 感情タグ（<laugh>、<excited>、<sigh>など）をテキストに埋め込める高表現力の音声合成システム。カスタマイズ可能な音声特性（年齢、アクセント、ピッチ、音色、ペース、トーン、強度）、高度なパラメータ（temperature、top_p、max_tokens、repetition_penalty）をサポート。出力形式: WAVまたはMP3（24kHzモノラル）。音声ファイルには持続時間、サンプルレート、生成時間、rtfメトリクスが含まれる。3Bパラメータのオープンソースモデル（単一GPU上で動作）。"
   text_to_audio_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
@@ -619,4 +655,8 @@ ai_models:
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
+    - name: Bria Fibo Mashup
+      server_name: misc-kamui-bria-fibo-mashup
+      release_date: 2025年11月3日
+      features: "(Bria AI / fal.ai) 被写体、シーン、スタイル画像を組み合わせて新しい画像を生成する合成ツール。Bria FIBOモデル（8Bパラメータ）の一部機能で、決定論的な視覚生成を提供。エンタープライズグレードのAI生成に最適。"
 
