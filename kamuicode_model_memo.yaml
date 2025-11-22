@@ -93,6 +93,14 @@ ai_models:
       server_name: i2i-kamui-aura-sr
       release_date: 2024年6月頃
       features: "画像の超解像（アップスケーリング）に特化したモデル。"
+    - name: Crystal Upscaler
+      server_name: i2i-kamui-crystal-upscaler
+      release_date: 2025年10月22日
+      features: "(fal.ai / Clarity AI) 肖像画や顔のディテール強化に特化した高度な画像アップスケーラー。"
+    - name: Bria Fibo Mashup
+      server_name: misc-kamui-bria-fibo-mashup
+      release_date: 2025年11月3日
+      features: "(Bria AI / fal.ai) 主題、シーン、スタイルの画像を組み合わせて新しい画像を生成するマッシュアップ機能。"
     - name: FLUX Kontext LoRA (fal.ai)
       server_name: i2i-kamui-flux-kontext-lora
       release_date: 2025年5月29日 #[修正] Kontextスイートのリリース日 (ソース193, 280)
@@ -141,6 +149,26 @@ ai_models:
       server_name: i2i-kamui-qwen-image-edit-plus
       release_date: 2025年8月19日
       features: "(Alibaba) Qwen Image Editの拡張版。複数画像のサポート、カスタムサイズ、安全チェッカーなど機能が豊富。"
+    - name: "Qwen Image Edit Plus (LoRA: Add Background)"
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-add-background
+      release_date: 2025年9月23日
+      features: "(Alibaba / fal.ai) 商品画像から白背景を除去し、リアルなシーン背景を追加・合成する。"
+    - name: "Qwen Image Edit Plus (LoRA: Face to Portrait)"
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-face-to-full-portrait
+      release_date: 2025年9月23日
+      features: "(Alibaba / fal.ai) クロップされた顔画像から、全身または上半身のポートレートを生成する。"
+    - name: "Qwen Image Edit Plus (LoRA: Group Photo)"
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-group-photo
+      release_date: 2025年9月23日
+      features: "(Alibaba / fal.ai) 個別のポートレートから、レトロスタイルの集合写真を合成する。"
+    - name: "Qwen Image Edit Plus (LoRA: Integrate Product)"
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-integrate-product
+      release_date: 2025年9月23日
+      features: "(Alibaba / fal.ai) 商品や要素を背景画像に自然に融合・合成する。"
+    - name: "Qwen Image Edit Plus (LoRA: Next Scene)"
+      server_name: i2i-kamui-qwen-image-edit-plus-lora-gallery-next-scene
+      release_date: 2025年9月23日
+      features: "(Alibaba / fal.ai) 映画的なショット進行やシーン遷移（次のシーン）を生成する。"
     - name: WAN 2.5 Preview (fal.ai)
       server_name: i2i-kamui-wan-25-preview
       release_date: 2025年9月24日 #[修正] fal.aiローンチ日 (ソース204)
@@ -476,6 +504,14 @@ ai_models:
       server_name: v2v-kamui-fal-sam-3-video
       release_date: 2025年11月19日
       features: "(Meta / fal.ai) Segment Anything Model 3による動画セグメンテーション。テキスト、ポイント、ボックスプロンプトで動画内のオブジェクトを正確に追跡・切り抜き。"
+    - name: Pixverse Swap
+      server_name: v2v-kamui-pixverse-swap
+      release_date: 2025年11月4日頃
+      features: "(Pixverse / fal.ai) 動画内の顔、物体、または背景を、テキスト、画像、またはビデオを使用して交換する。モーション、表情、照明を維持。"
+    - name: Editto Video Inpainting
+      server_name: v2v-kamui-fal-editto
+      release_date: 2025年11月頃
+      features: "(fal.ai) テキストプロンプトに基づいて動画の特定領域を修正するビデオインペインティングモデル。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
@@ -561,6 +597,10 @@ ai_models:
       server_name: t2s-kamui-minimax-speech-26-turbo
       release_date: 2025年10月30日
       features: "(Minimax) 最新の高速音声合成（E2E遅延<250ms）。ポーズ指定(<#x#>)、音量正規化、音声パラメータ（速度、ピッチ、感情）制御、高度なオーディオ設定（最大44.1kHz, 256kbps）、35以上の言語に対応。(ソース1.2, 1.3, 1.5)"
+    - name: Maya-1-Voice
+      server_name: t2s-kamui-maya
+      release_date: 2025年11月6日
+      features: "(Maya Research / fal.ai) テキストから感情豊かな音声を生成するAI音声合成モデル。年齢、アクセント、ピッチなどを制御可能。"
   text_to_audio_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
