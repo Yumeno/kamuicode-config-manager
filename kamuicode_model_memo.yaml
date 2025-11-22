@@ -44,10 +44,18 @@ ai_models:
       server_name: t2i-kamui-nano-banana
       release_date: 2025年8月26日 #[修正] fal.aiローンチ日 (ソース124, 147, 204)
       features: "(Google) Gemini 2.5 Flashの画像生成機能。非常に高速な画像生成と編集が可能。(Proprietary)" #[追加] (ソース124, 146)
+    - name: Nano Banana Pro (Google Gemini 2.5 Flash Image Pro)
+      server_name: t2i-kamui-fal-nano-banana-pro
+      release_date: 2025年11月20日
+      features: "(Google / fal.ai) Gemini 2.5 Flash ImageのPro版。より高品質な生成と複雑なプロンプト理解が可能。"
     - name: Google Gemini 2.5 Flash (Text-to-Image)
       server_name: t2i-kamui-gemini-25-flash-image
       release_date: 2025年6月17日 #[修正] GA（一般提供）開始日 (ソース145, 234)
       features: "(Google) Googleの最新マルチモーダルモデルGemini 2.5 Flashによる、テキストからの画像生成。(Proprietary)" #[追加] (ソース124, 144)
+    - name: Google Gemini 3 Pro Image Preview
+      server_name: t2i-kamui-fal-gemini-3-pro-image-preview
+      release_date: 2025年11月20日
+      features: "(Google / fal.ai) Googleの最新フラッグシップモデルGemini 3 Proの画像生成プレビュー版。最高峰の画質とプロンプト忠実度。"
     - name: ByteDance Seedream V4
       server_name: t2i-kamui-seedream-v4
       release_date: 2025年9月9日
@@ -113,10 +121,18 @@ ai_models:
       server_name: i2i-kamui-nano-banana-edit
       release_date: 2025年8月26日 #[修正] fal.aiローンチ日 (ソース124, 147, 204)
       features: "(Google) Gemini 2.5 Flash Imageによる、非常に高速なAI画像編集および変換。(Proprietary)" #[追加] (ソース124, 146)
+    - name: Nano Banana Pro Edit (fal.ai)
+      server_name: i2i-kamui-fal-nano-banana-pro-edit
+      release_date: 2025年11月20日
+      features: "(Google / fal.ai) Gemini 2.5 Flash Image Proによる高度な画像編集。複数入力画像や複雑な指示に対応。"
     - name: Google Gemini 2.5 Flash (Image Edit)
       server_name: i2i-kamui-gemini-25-flash-image-edit
       release_date: 2025年6月17日 #[修正] GA（一般提供）開始日 (ソース145, 234)
       features: "(Google) Gemini 2.5 Flashの高度なマルチモーダル能力を使用した、テキスト指示による画像編集。(Proprietary)" #[追加] (ソース124, 144)
+    - name: Google Gemini 3 Pro Image Preview Edit
+      server_name: i2i-kamui-fal-gemini-3-pro-image-preview-edit
+      release_date: 2025年11月20日
+      features: "(Google / fal.ai) Gemini 3 Proを使用した最高品質の画像編集。スタイル転送やオブジェクト操作に優れる。"
     - name: ByteDance Seedream V4 (Edit)
       server_name: i2i-kamui-seedream-v4-edit
       release_date: 2025年9月9日
@@ -169,6 +185,10 @@ ai_models:
       server_name: i2i-kamui-emu-3-5-image-edit
       release_date: 2025年10月28日頃
       features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキスト記述による画像編集。カスタマイズ可能な解像度（480p、720p）、出力形式（jpeg、png、webp）、安全チェッカー、シード制御をサポート。"
+    - name: SAM 3 Image Segmentation
+      server_name: i2i-kamui-fal-sam-3-image
+      release_date: 2025年11月19日
+      features: "(Meta / fal.ai) Segment Anything Model 3。テキスト、ポイント、ボックスプロンプトによる高精度な画像セグメンテーション。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -258,6 +278,10 @@ ai_models:
       server_name: t2v-kamui-sana-video
       release_date: 2024年10月27日
       features: "(NVIDIA / fal.ai) Sana Videoモデルによるテキストから動画を生成。カスタマイズ可能なパラメータ：ネガティブプロンプト、解像度（480p）、フレーム数（デフォルト: 81）、FPS（デフォルト: 16）、モーションスコア（デフォルト: 30）、ガイダンススケール（デフォルト: 6）、推論ステップ（デフォルト: 28）、シード値による再現可能な生成をサポート。"
+    - name: Sana Video (New)
+      server_name: t2v-kamui-fal-sana-video
+      release_date: 2025年10月13日
+      features: "(NVIDIA / fal.ai) 最新のSana Videoモデル。線形拡散Transformer (DiT) を採用し、高解像度かつ効率的な動画生成を実現。"
     - name: Infinity Star
       server_name: t2v-kamui-fal-infinity-star
       release_date: 2025年11月6日
@@ -335,6 +359,10 @@ ai_models:
       server_name: i2v-kamui-lynx
       release_date: 2025年9月22日 #[修正] (ソース14, 39, 73, 104)
       features: "(fal.ai) プロンプト指導に基づき、被写体画像（主題）の一貫性を保ちながらアニメーション化。" #[検証済] (ソース14, 73)
+    - name: ByteDance Lynx (Image-to-Video)
+      server_name: i2v-kamui-bytedance-lynx
+      release_date: 2025年9月22日
+      features: "(ByteDance) 2025年9月に公開された高忠実度な画像動画生成モデル。DiTベースで、画像のアイデンティティを保持しながら動画化。"
     - name: Pixverse V5
       server_name: i2v-kamui-pixverse-v5
       release_date: 2025年8月28日
@@ -444,6 +472,10 @@ ai_models:
       server_name: v2v-kamui-fal-workflow-utilities-auto-subtitle
       release_date: 2025年1月24日
       features: "(fal.ai) カラオケスタイルの単語レベルハイライト付き字幕を動画に自動生成・追加。複数言語（en、es、fr、de、it、pt、nl、ja、zh、ko）、Google Fonts、カスタマイズ可能なスタイル（フォントサイズ、太さ、色、ストローク、背景）、位置制御、字幕セグメントあたりの単語数（1-12）、アニメーション効果をサポート。動画へのプロフェッショナルな字幕追加に最適。"
+    - name: SAM 3 Video Segmentation
+      server_name: v2v-kamui-fal-sam-3-video
+      release_date: 2025年11月19日
+      features: "(Meta / fal.ai) Segment Anything Model 3による動画セグメンテーション。テキスト、ポイント、ボックスプロンプトで動画内のオブジェクトを正確に追跡・切り抜き。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
@@ -619,4 +651,3 @@ ai_models:
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
-
