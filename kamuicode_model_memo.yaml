@@ -88,19 +88,19 @@ ai_models:
       server_name: t2i-kamui-emu-3-5-image
       release_date: 2025年10月28日頃
       features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキストベースの画像生成。JPEG、PNG、WebP出力形式、安全チェッカー、シード制御、同期モードをサポート。"
-- name: FLUX.2 Trainer (Kamui Code)
+    - name: FLUX.2 Trainer (Kamui Code)
       server_name: train-kamui-flux-2-trainer
       release_date: 2025年11月25日
       features: "(Black Forest Labs / Kamui Code) 2025年11月に登場した最新モデルFLUX.2 [dev]のLoRA学習機能。FLUX.2は32Bパラメータを持ち、前世代と比較してプロンプト追従性、テキスト描写能力、画質（最大4MP）が大幅に向上。独自のスタイルやキャラクターの一貫性を保ったモデルを作成可能。"
-- name: FLUX.2 [flex]
+    - name: FLUX.2 [flex]
       server_name: t2i-kamui-flux-2-flex
       release_date: 2025年11月25日
       features: "(Black Forest Labs) FLUX.1の後継となる高品質モデル。API専用で提供される。推論ステップ数やガイダンススケールを細かく調整可能で、生成速度と品質のバランスを柔軟に制御できる点が特徴。文字生成能力も大幅に向上している。"
-- name: FLUX.2 [dev]
+    - name: FLUX.2 [dev]
       server_name: t2i-kamui-flux-2-lora
       release_date: 2025年11月25日
       features: "(Black Forest Labs) FLUX.1の後継となる32Bパラメータの画像生成モデル。フォトリアリズム、プロンプト忠実性、文字生成能力が大幅に向上し、複数の参照画像を用いた生成（Multi-Reference）にも対応。本エンドポイントではLoRAを適用した生成が可能。"
-- name: Flux-2 LoRA Gallery Ballpoint Pen Sketch
+    - name: Flux-2 LoRA Gallery Ballpoint Pen Sketch
       server_name: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
       release_date: 2025年11月25日
       features: "(fal.ai / Kamui Code) Black Forest Labsの最新モデルFLUX.2をベースにした、ボールペン画風LoRAモデル。トリガーワード「b4llp01nt」を使用することで、手描きのボールペンスケッチのような質感を再現可能。"
@@ -233,27 +233,27 @@ ai_models:
       server_name: i2i-kamui-fal-sam-3-image
       release_date: 2025年11月19日
       features: "(Meta / fal.ai) Segment Anything Model 3。テキスト、ポイント、ボックスプロンプトによる高精度な画像セグメンテーション。"
-- name: Flux-2 Trainer Edit
+    - name: Flux-2 Trainer Edit
       server_name: train-kamui-flux-2-trainer-edit
       release_date: 2025年11月25日
       features: "(Black Forest Labs) 最新の画像生成モデルFlux.2 EditをベースとしたLoRA学習用トレーナー。変更前と変更後の画像ペアを用いて、特定の編集タスク（スタイル変換、オブジェクト操作など）をモデルに学習させることが可能。ベースとなるFlux.2はマルチリファレンス対応やプロンプト追従性が大幅に向上している。"
-- name: FLUX.2 [dev]
+    - name: FLUX.2 [dev]
       server_name: i2i-kamui-flux-2-lora-edit
       release_date: 2025年11月25日
       features: "(Black Forest Labs) 最新のFLUX.2 [dev]をベースにした画像編集モデル。LoRAをサポートし、スタイル転送やドメイン特化の高度な編集が可能。複数画像を参照するMulti-reference機能も特徴。"
-- name: FLUX.2 [flex] Edit
+    - name: FLUX.2 [flex] Edit
       server_name: i2i-kamui-flux-2-flex-edit
       release_date: 2025年11月25日
       features: "(Black Forest Labs) 高品質な画像編集モデル。推論ステップ数やガイダンススケールを調整可能で、速度と品質のバランスを制御できるのが特徴。自然言語指示や複数画像の参照による一貫性のある編集、HEXカラー指定に対応。"
-- name: ChronoEdit
+    - name: ChronoEdit
     server_name: i2i-kamui-fal-chrono-edit-lora
     release_date: 2025年10月29日
     features: "(NVIDIA) 画像編集を動画生成タスクとして再定義し、時間的推論（Temporal Reasoning）を用いて物理的に整合性の取れた編集を実現するモデル。LoRAサポート、解像度変更、プロンプト拡張機能を備える。"
-- name: ChronoEdit Paint Brush
+    - name: ChronoEdit Paint Brush
     server_name: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
     release_date: 2025年11月16日
     features: "(NVIDIA) 時間的推論を用いた画像編集モデルChronoEditのPaint Brush LoRA版。編集を動画生成として扱うことで物理的な整合性を保ち、スケッチによる直感的な画像編集が可能。"
-- name: ChronoEdit LoRA Gallery Upscaler
+    - name: ChronoEdit LoRA Gallery Upscaler
       server_name: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
       release_date: 2025年11月10日
       features: "(NVIDIA) 動画生成モデルの文脈推論能力を応用した画像編集モデルChronoEditのアップスケーラーLoRA。物理的な整合性を維持しながら画像を詳細化・高解像度化する。fal.ai経由で提供され、追加LoRAの適用もサポート。"
