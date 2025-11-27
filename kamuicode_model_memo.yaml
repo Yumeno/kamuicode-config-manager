@@ -691,3 +691,55 @@ ai_models:
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
+
+# --- Auto Added by Gemini ---
+# category: text_to_image
+- name: Flux-2 Trainer
+  server_name: train-kamui-flux-2-trainer
+  release_date: 調査困難
+  features: "Black Forest Labs Train Text To Image model with consistent style images. Train LoRA weights for Flux-2 model via Kamui Code ⭐"
+# category: image_training
+- name: Flux-2 Trainer Edit
+  server_name: train-kamui-flux-2-trainer-edit
+  release_date: 調査困難
+  features: "(Black Forest Labs) 画像ペアを用いたFlux-2 EditモデルのLoRA学習ツール。Kamui Codeで提供。"
+# category: text_to_image
+- name: Flux-2 Flex
+  server_name: t2i-kamui-flux-2-flex
+  release_date: 調査困難
+  features: "(Kamui Code) Text-to-image generation model. fal.ai / Replicate 独自提携モデルの可能性がある。"
+# category: text_to_image
+- name: Flux-2 LoRA
+  server_name: t2i-kamui-flux-2-lora
+  release_date: 2024年04月01日
+  features: "Kamui CodeによるFLUX.2向けLoRAモデル。カスタムスタイルの適用と微調整されたモデルバリエーションを提供。fal.aiで利用可能。"
+# category: image_to_image
+- name: Flux-2 LoRA Edit
+  server_name: i2i-kamui-flux-2-lora-edit
+  release_date: 調査困難
+  features: "Black Forest Labs Specialized style transfer and domain-specific modifications via Kamui Code"
+# category: text_to_image
+    - name: Flux-2 LoRA Gallery Ballpoint Pen Sketch
+      server_name: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
+      release_date: 調査困難
+      features: "(Kamui Code) ボールペン画スケッチスタイルの画像を生成。プロンプトに 'b4llp01nt' をトリガーワードとして使用。"
+# category: image_to_image
+- name: Flux-2 Flex Edit
+  server_name: i2i-kamui-flux-2-flex-edit
+  release_date: 調査困難
+  features: "Black Forest LabsによるKamui Codeで、テキストプロンプトを使用して画像を編集する機能を提供"
+# category: image_to_image
+- name: ChronoEdit LoRA
+  server_name: i2i-kamui-fal-chrono-edit-lora
+  release_date: 調査困難
+  features: "Kamui Codeによる、時間的推論機能とLoRAサポートを備えた画像編集モデル。テキストプロンプトを使用して画像を編集可能。解像度、出力形式、時間的推論ステップ、プロンプト拡張、ターボモード、セーフティチェッカーをカスタマイズ可能。"
+# category: image_to_image
+- name: ChronoEdit LoRA Gallery Paintbrush
+  server_name: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
+  release_date: 調査困難
+  features: "Kamui Codeによるpaintbrushスタイルの画像編集LoRA。マスク領域のサポート、LoRAスケーリング、追加LoRAに対応。fal.aiを通じて提供。"
+# category: image_to_image
+- name: ChronoEdit LoRA Gallery Upscaler
+  server_name: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
+  release_date: 調査困難
+  features: "Kamui Codeによる画像アップスケーラー。LoRAスケールと追加LoRAをサポート。画像URL、アップスケールファクター、ガイダンススケールなどをカスタマイズ可能。fal.ai / Replicate 独自提携モデルに該当すると思われるが、fal.aiのブログ、Changelog、Xアカウントに情報が見当たらず。"
