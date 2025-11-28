@@ -426,19 +426,58 @@ function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, model
 // トリガー管理 / GitHub API / ユーティリティ
 // ==========================================
 
+/**
+ * Resume用の継続トリガーを作成する
+ * トリガーのUniqueIdをスクリプトプロパティに保存し、後で特定・削除できるようにする
+ */
 function setContinuationTrigger() {
-  const triggers = ScriptApp.getProjectTriggers();
-  for (const trigger of triggers) {
-    if (trigger.getHandlerFunction() === 'main') return;
+  const props = PropertiesService.getScriptProperties();
+  const existingTriggerId = props.getProperty('CONTINUATION_TRIGGER_ID');
+
+  // 既に継続トリガーが登録されている場合はスキップ
+  if (existingTriggerId) {
+    const triggers = ScriptApp.getProjectTriggers();
+    for (const trigger of triggers) {
+      if (trigger.getUniqueId() === existingTriggerId) {
+        console.log('Continuation trigger already exists.');
+        return;
+      }
+    }
+    // IDは保存されているがトリガーが見つからない場合はクリア
+    props.deleteProperty('CONTINUATION_TRIGGER_ID');
   }
-  ScriptApp.newTrigger('main').timeBased().after(1 * 60 * 1000).create();
+
+  // 新規トリガーを作成しIDを保存
+  const newTrigger = ScriptApp.newTrigger('main').timeBased().after(1 * 60 * 1000).create();
+  props.setProperty('CONTINUATION_TRIGGER_ID', newTrigger.getUniqueId());
+  console.log(`Continuation trigger created: ${newTrigger.getUniqueId()}`);
 }
 
+/**
+ * 継続トリガーのみを削除する
+ * スクリプトプロパティに保存されたIDと一致するトリガーだけを削除し、
+ * ユーザーが設定した定期実行トリガーは保持する
+ */
 function deleteContinuationTriggers() {
+  const props = PropertiesService.getScriptProperties();
+  const continuationTriggerId = props.getProperty('CONTINUATION_TRIGGER_ID');
+
+  if (!continuationTriggerId) {
+    console.log('No continuation trigger ID found.');
+    return;
+  }
+
   const triggers = ScriptApp.getProjectTriggers();
   for (const trigger of triggers) {
-    if (trigger.getHandlerFunction() === 'main') ScriptApp.deleteTrigger(trigger);
+    if (trigger.getUniqueId() === continuationTriggerId) {
+      ScriptApp.deleteTrigger(trigger);
+      console.log(`Continuation trigger deleted: ${continuationTriggerId}`);
+      break;
+    }
   }
+
+  // IDをクリア
+  props.deleteProperty('CONTINUATION_TRIGGER_ID');
 }
 
 function extractServerNamesFromYaml(yamlContent) {
