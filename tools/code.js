@@ -14,25 +14,61 @@
 // ==========================================
 // 設定
 // ==========================================
-const CONFIG = {
+
+// デフォルト設定値
+const DEFAULT_CONFIG = {
   // GitHub設定
   REPO_OWNER: 'Yumeno',
   REPO_NAME: 'kamuicode-config-manager',
   BRANCH: 'main',
-  
-  // ファイルパス
+
+  // ファイルパス (スクリプトプロパティで上書き可能)
   YAML_PATH: 'kamuicode_model_memo.yaml',
   RULES_PATH: 'docs/development/model_release_date_research_rules.md',
   UNKNOWN_MD_PATH: 'docs/development/unknown_release_dates.md',
 
   // 実行制限設定 (ミリ秒) - 4分半で切り上げ
   MAX_EXECUTION_TIME_MS: 4.5 * 60 * 1000,
-  
+
   // コミットメッセージ
   // Issue #2 に関連付けるため (Refs #2) を追加
   COMMIT_MSG_YAML: 'chore(yaml): update model memo via Gemini Auto-Research (Refs #2)',
-  COMMIT_MSG_MD: 'docs: update unknown release dates via Gemini Auto-Research (Refs #2)'
+  COMMIT_MSG_MD: 'docs: update unknown release dates via Gemini Auto-Research (Refs #2)',
+
+  // YAMLインデント設定 (スペース数)
+  // 既存ファイルのフォーマットに合わせて調整可能
+  INDENT_SIZE: 2
 };
+
+/**
+ * スクリプトプロパティから設定を取得する
+ * 未設定の場合はデフォルト値を使用
+ */
+function getConfig() {
+  const props = PropertiesService.getScriptProperties();
+
+  return {
+    // GitHub設定
+    REPO_OWNER: props.getProperty('REPO_OWNER') || DEFAULT_CONFIG.REPO_OWNER,
+    REPO_NAME: props.getProperty('REPO_NAME') || DEFAULT_CONFIG.REPO_NAME,
+    BRANCH: props.getProperty('BRANCH') || DEFAULT_CONFIG.BRANCH,
+
+    // ファイルパス (スクリプトプロパティキー: PATH_YAML, PATH_RULES, PATH_UNKNOWN_MD)
+    YAML_PATH: props.getProperty('PATH_YAML') || DEFAULT_CONFIG.YAML_PATH,
+    RULES_PATH: props.getProperty('PATH_RULES') || DEFAULT_CONFIG.RULES_PATH,
+    UNKNOWN_MD_PATH: props.getProperty('PATH_UNKNOWN_MD') || DEFAULT_CONFIG.UNKNOWN_MD_PATH,
+
+    // 実行制限設定
+    MAX_EXECUTION_TIME_MS: DEFAULT_CONFIG.MAX_EXECUTION_TIME_MS,
+
+    // コミットメッセージ
+    COMMIT_MSG_YAML: DEFAULT_CONFIG.COMMIT_MSG_YAML,
+    COMMIT_MSG_MD: DEFAULT_CONFIG.COMMIT_MSG_MD,
+
+    // YAMLインデント設定
+    INDENT_SIZE: parseInt(props.getProperty('INDENT_SIZE') || DEFAULT_CONFIG.INDENT_SIZE, 10)
+  };
+}
 
 // ==========================================
 // メイン関数
@@ -40,7 +76,10 @@ const CONFIG = {
 function main() {
   const startTime = Date.now();
   const props = PropertiesService.getScriptProperties();
-  
+
+  // 設定を取得 (スクリプトプロパティから、未設定の場合はデフォルト値を使用)
+  const CONFIG = getConfig();
+
   // 必須プロパティの取得
   const geminiKey = props.getProperty('GEMINI_API_KEY');
   const githubToken = props.getProperty('GITHUB_TOKEN');
@@ -177,10 +216,10 @@ function main() {
       // 変更を適用 (テキスト操作)
       // 複数件ある場合、文字列が変化するので都度検索して挿入
       for (const update of resultsToCommit.yamlUpdates) {
-        newYamlContent = insertIntoYaml(newYamlContent, update.category, update.entry);
+        newYamlContent = insertIntoYaml(newYamlContent, update.category, update.entry, CONFIG.INDENT_SIZE);
       }
 
-      updateGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, newYamlContent, yamlFile.sha, CONFIG.COMMIT_MSG_YAML, githubToken);
+      updateGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, newYamlContent, yamlFile.sha, CONFIG.COMMIT_MSG_YAML, githubToken, CONFIG.BRANCH);
       console.log('YAML updated successfully.');
     } catch (e) {
       console.error(`Failed to update YAML: ${e.message}`);
@@ -212,7 +251,7 @@ function main() {
         newMdContent += additionBlock;
       }
 
-      updateGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.UNKNOWN_MD_PATH, newMdContent, mdFile.sha, CONFIG.COMMIT_MSG_MD, githubToken);
+      updateGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.UNKNOWN_MD_PATH, newMdContent, mdFile.sha, CONFIG.COMMIT_MSG_MD, githubToken, CONFIG.BRANCH);
       console.log('Markdown updated successfully.');
     } catch (e) {
       console.error(`Failed to update Markdown: ${e.message}`);
@@ -232,25 +271,36 @@ function main() {
 
 /**
  * YAMLテキスト内の適切な位置にエントリを挿入する
+ * @param {string} yamlContent - 既存のYAMLコンテンツ
+ * @param {string} category - 挿入先カテゴリ (例: text_to_image)
+ * @param {string} entry - 挿入するエントリ (インデントなし)
+ * @param {number} indentSize - 基本インデント幅 (スペース数)
  */
-function insertIntoYaml(yamlContent, category, entry) {
-  // 1. エントリのインデント処理 (一律4スペースを追加)
+function insertIntoYaml(yamlContent, category, entry, indentSize) {
+  // デフォルト値 (引数が未指定の場合)
+  indentSize = indentSize || DEFAULT_CONFIG.INDENT_SIZE;
+
+  // インデント文字列を生成
+  const baseIndent = ' '.repeat(indentSize);           // カテゴリ用 (2スペース)
+  const listIndent = ' '.repeat(indentSize * 2);       // リストアイテム用 (4スペース)
+
+  // 1. エントリのインデント処理
   // Geminiにはフラットに出力させるため、ここで階層構造(リストアイテム)のインデントを付与する
   const cleanEntryLines = entry.trim().split('\n');
-  const indentedEntry = cleanEntryLines.map(line => '    ' + line).join('\n');
+  const indentedEntry = cleanEntryLines.map(line => listIndent + line).join('\n');
 
   // 2. カテゴリブロックを探す (例: "  text_to_image:")
-  const categoryRegex = new RegExp(`^\\s{0,2}${category}:`, 'm');
+  const categoryRegex = new RegExp(`^\\s{0,${indentSize}}${category}:`, 'm');
   const match = categoryRegex.exec(yamlContent);
 
   if (match) {
     // カテゴリが存在する場合:
-    // 次のカテゴリ(インデント0-2の行)またはファイル末尾を探し、その直前に挿入
+    // 次のカテゴリ(インデント0-indentSizeの行)またはファイル末尾を探し、その直前に挿入
     const startIdx = match.index + match[0].length;
     const remaining = yamlContent.substring(startIdx);
-    
-    // 次のカテゴリ開始行を探す (正規表現: 行頭スペース0-2個 + 文字 + コロン)
-    const nextKeyRegex = /^\s{0,2}[a-z0-9_]+:/m;
+
+    // 次のカテゴリ開始行を探す (正規表現: 行頭スペース0-indentSize個 + 文字 + コロン)
+    const nextKeyRegex = new RegExp(`^\\s{0,${indentSize}}[a-z0-9_]+:`, 'm');
     const nextMatch = nextKeyRegex.exec(remaining);
 
     let insertPos;
@@ -259,14 +309,13 @@ function insertIntoYaml(yamlContent, category, entry) {
     } else {
       insertPos = yamlContent.length;
     }
-    
+
     // 挿入 (インデント済みエントリを追加)
     return yamlContent.substring(0, insertPos) + indentedEntry + "\n" + yamlContent.substring(insertPos);
 
   } else {
     // カテゴリが存在しない場合: ファイル末尾に新設
-    // カテゴリ自体は2スペース、要素は4スペースインデント
-    return yamlContent + `\n  ${category}:\n${indentedEntry}\n`;
+    return yamlContent + `\n${baseIndent}${category}:\n${indentedEntry}\n`;
   }
 }
 
@@ -415,13 +464,16 @@ function fetchGithubFile(owner, repo, path, token) {
   return { content: Utilities.newBlob(Utilities.base64Decode(data.content)).getDataAsString('UTF-8'), sha: data.sha };
 }
 
-function updateGithubFile(owner, repo, path, newContent, sha, message, token) {
+function updateGithubFile(owner, repo, path, newContent, sha, message, token, branch) {
+  // branch が未指定の場合はデフォルト値を使用
+  branch = branch || DEFAULT_CONFIG.BRANCH;
+
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
   const payload = {
     message: message,
     content: Utilities.base64Encode(newContent, Utilities.Charset.UTF_8),
     sha: sha,
-    branch: CONFIG.BRANCH
+    branch: branch
   };
   const options = {
     method: 'put',
