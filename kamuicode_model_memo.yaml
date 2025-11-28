@@ -257,6 +257,10 @@ ai_models:
       server_name: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
       release_date: 2025年11月10日
       features: "(NVIDIA) 動画生成モデルの文脈推論能力を応用した画像編集モデルChronoEditのアップスケーラーLoRA。物理的な整合性を維持しながら画像を詳細化・高解像度化する。fal.ai経由で提供され、追加LoRAの適用もサポート。"
+    - name: Flux-2 LoRA Gallery Apartment Staging
+      server_name: i2i-kamui-fal-flux-2-lora-gallery-apartment-staging
+      release_date: 2025年11月25日
+      features: "(fal.ai) FLUX.2をベースにした不動産ステージング用LoRAモデル。空の部屋の写真をアップロードするだけで、モダンな家具や装飾を配置した内装イメージを生成する。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
