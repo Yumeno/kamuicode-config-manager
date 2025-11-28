@@ -246,13 +246,13 @@ ai_models:
       release_date: 2025年11月25日
       features: "(Black Forest Labs) 高品質な画像編集モデル。推論ステップ数やガイダンススケールを調整可能で、速度と品質のバランスを制御できるのが特徴。自然言語指示や複数画像の参照による一貫性のある編集、HEXカラー指定に対応。"
     - name: ChronoEdit
-    server_name: i2i-kamui-fal-chrono-edit-lora
-    release_date: 2025年10月29日
-    features: "(NVIDIA) 画像編集を動画生成タスクとして再定義し、時間的推論（Temporal Reasoning）を用いて物理的に整合性の取れた編集を実現するモデル。LoRAサポート、解像度変更、プロンプト拡張機能を備える。"
+      server_name: i2i-kamui-fal-chrono-edit-lora
+      release_date: 2025年10月29日
+      features: "(NVIDIA) 画像編集を動画生成タスクとして再定義し、時間的推論（Temporal Reasoning）を用いて物理的に整合性の取れた編集を実現するモデル。LoRAサポート、解像度変更、プロンプト拡張機能を備える。"
     - name: ChronoEdit Paint Brush
-    server_name: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
-    release_date: 2025年11月16日
-    features: "(NVIDIA) 時間的推論を用いた画像編集モデルChronoEditのPaint Brush LoRA版。編集を動画生成として扱うことで物理的な整合性を保ち、スケッチによる直感的な画像編集が可能。"
+      server_name: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
+      release_date: 2025年11月16日
+      features: "(NVIDIA) 時間的推論を用いた画像編集モデルChronoEditのPaint Brush LoRA版。編集を動画生成として扱うことで物理的な整合性を保ち、スケッチによる直感的な画像編集が可能。"
     - name: ChronoEdit LoRA Gallery Upscaler
       server_name: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
       release_date: 2025年11月10日
