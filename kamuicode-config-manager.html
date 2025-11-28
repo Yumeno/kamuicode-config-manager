@@ -587,26 +587,34 @@
                             <!-- 標準モード詳細 (選択時のみ表示) -->
                             <template x-if="yamlMode === 'standard'">
                                 <div class="mt-3 pt-3 border-t border-gray-200">
-                                    <div class="flex items-center justify-between">
-                                        <div class="text-xs text-gray-600">
-                                            <template x-if="yamlLastUpdated">
-                                                <span>最終更新: <span x-text="yamlLastUpdated"></span></span>
-                                            </template>
-                                            <template x-if="!yamlLastUpdated">
-                                                <span class="text-amber-600">まだ読み込まれていません</span>
-                                            </template>
+                                    <!-- 未読み込み時: 読み込みを促すUI -->
+                                    <template x-if="!yamlLastUpdated && !isLoadingYaml">
+                                        <div class="text-center">
+                                            <p class="text-xs text-amber-600 mb-2">モデル情報がまだ読み込まれていません</p>
+                                            <button @click="fetchLatestYaml"
+                                                    class="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors">
+                                                モデル情報を読み込む
+                                            </button>
                                         </div>
-                                        <button @click="fetchLatestYaml"
-                                                :disabled="isLoadingYaml"
-                                                class="px-3 py-1.5 text-xs font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
-                                            <template x-if="isLoadingYaml">
-                                                <span>読み込み中...</span>
-                                            </template>
-                                            <template x-if="!isLoadingYaml">
-                                                <span>最新情報に更新</span>
-                                            </template>
-                                        </button>
-                                    </div>
+                                    </template>
+                                    <!-- 読み込み中 -->
+                                    <template x-if="isLoadingYaml">
+                                        <div class="text-center">
+                                            <p class="text-xs text-gray-600">読み込み中...</p>
+                                        </div>
+                                    </template>
+                                    <!-- 読み込み済み: 更新日時と更新ボタン -->
+                                    <template x-if="yamlLastUpdated && !isLoadingYaml">
+                                        <div class="flex items-center justify-between">
+                                            <div class="text-xs text-gray-600">
+                                                <span>最終更新: <span x-text="yamlLastUpdated"></span></span>
+                                            </div>
+                                            <button @click="fetchLatestYaml"
+                                                    class="px-3 py-1.5 text-xs font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors">
+                                                最新に更新
+                                            </button>
+                                        </div>
+                                    </template>
                                 </div>
                             </template>
                         </div>
