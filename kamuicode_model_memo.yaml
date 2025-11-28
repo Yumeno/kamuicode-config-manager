@@ -358,6 +358,14 @@ ai_models:
       server_name: t2v-kamui-fal-infinity-star
       release_date: 2025年11月6日
       features: "(Foundation Vision / fal.ai) Infinity Starモデルによる高品質動画生成。ネガティブプロンプト、推論ステップ、ガイダンススケール、tau video、APG、アスペクト比（16:9, 1:1, 9:16）、シード、プロンプト強化をサポート。"
+    - name: LTX-2
+      server_name: t2v-kamui-ltx-2
+      release_date: 2025年10月23日
+      features: "(Lightricks) ネイティブ4K解像度、50fps、同期オーディオ生成に対応した次世代動画生成モデル。高速な生成と映画のような高品質な出力を両立し、Text-to-VideoおよびImage-to-Videoをサポート。"
+    - name: LTX-2 Fast
+      server_name: t2v-kamui-ltx-2-fast
+      release_date: 2025年10月23日
+      features: "(Lightricks) 高品質な動画生成モデルLTX-2の高速推論版。ネイティブ4K解像度、50fps、音声同期生成をサポートし、最大20秒の動画生成が可能。オープンソースの基盤モデルとして開発された。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -463,6 +471,14 @@ ai_models:
       server_name: i2v-kamui-hailuo-23-pro
       release_date: 2025年10月28日
       features: "(Minimax / fal.ai) 最新のHailuo 2.3 Proモデルを使用した画像から動画への高品質変換。テキストプロンプトガイダンスと画像入力をサポート。プロンプト最適化による品質向上に対応。"
+    - name: LTX-2
+      server_name: i2v-kamui-ltx-2
+      release_date: 2025年10月23日
+      features: "(Lightricks) 高品質な動画生成モデル。画像からの動画生成に対応し、最大4K解像度・50fps・10秒間の生成が可能。映像と同期した音声生成機能も備え、プロフェッショナルな動画制作を支援する。"
+    - name: LTX-2 Image-to-Video Fast
+      server_name: i2v-kamui-ltx-2-fast
+      release_date: 2025年10月24日
+      features: "(Lightricks) 次世代の動画生成モデルLTX-2の高速推論版。4K解像度、音声同期生成、最大20秒の長尺動画生成に対応し、従来のモデルよりも高速かつ低コストでシネマティックな動画を生成可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -556,6 +572,10 @@ ai_models:
       server_name: v2v-kamui-fal-editto
       release_date: 2025年11月頃
       features: "(fal.ai) テキストプロンプトに基づいて動画の特定領域を修正するビデオインペインティングモデル。"
+    - name: LTX-2
+      server_name: r2v-kamui-ltx-2
+      release_date: 2025年10月23日
+      features: "(Lightricks) プロンプトを用いて動画の特定部分を修正（リテイク）できる動画生成・編集モデル。音声や映像の置換、開始時間・長さの指定が可能で、4K解像度や音声同期生成にも対応する。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
