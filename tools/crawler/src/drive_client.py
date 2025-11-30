@@ -32,23 +32,20 @@ class MCPServerConfig:
 
 
 class DriveClient:
-    """Client for fetching MCP configuration from Google Drive (API Key auth)."""
+    """Client for fetching MCP configuration from Google Drive (public files)."""
 
-    DRIVE_API_URL = "https://www.googleapis.com/drive/v3/files"
+    # Direct download URL for public files (no API key required)
+    DRIVE_DOWNLOAD_URL = "https://drive.google.com/uc"
 
-    def __init__(self, api_key: str | None = None):
-        """
-        Initialize DriveClient.
-
-        Args:
-            api_key: Google Drive API key.
-                     If None, uses GOOGLE_API_KEY env var.
-        """
-        self._api_key = api_key or os.environ.get("GOOGLE_API_KEY")
+    def __init__(self):
+        """Initialize DriveClient."""
+        pass
 
     async def fetch_mcp_config(self, file_id: str) -> list[MCPServerConfig]:
         """
         Fetch MCP configuration JSON from Google Drive.
+
+        Note: The file must be shared as "Anyone with the link can view".
 
         Args:
             file_id: Google Drive file ID of the MCP config JSON.
@@ -59,23 +56,17 @@ class DriveClient:
         Raises:
             Exception: If file cannot be fetched or parsed.
         """
-        if not self._api_key:
-            raise ValueError(
-                "API key not provided. Set GOOGLE_API_KEY environment variable "
-                "or pass api_key to constructor."
-            )
-
         logger.info(f"Fetching MCP config from Drive file: {file_id}")
 
-        # Build URL for file download
-        url = f"{self.DRIVE_API_URL}/{file_id}"
+        # Build URL for direct file download (public files)
+        url = self.DRIVE_DOWNLOAD_URL
         params = {
-            "alt": "media",
-            "key": self._api_key,
+            "export": "download",
+            "id": file_id,
         }
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params) as response:
+            async with session.get(url, params=params, allow_redirects=True) as response:
                 if response.status != 200:
                     error_text = await response.text()
                     raise Exception(
@@ -83,6 +74,14 @@ class DriveClient:
                     )
 
                 content = await response.text()
+
+                # Check if we got an HTML page (usually means file is not public)
+                if content.strip().startswith("<!DOCTYPE") or content.strip().startswith("<html"):
+                    raise Exception(
+                        "Received HTML instead of JSON. "
+                        "Make sure the file is shared as 'Anyone with the link can view'."
+                    )
+
                 data = json.loads(content)
 
         # Extract MCP servers from the config

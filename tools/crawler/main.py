@@ -9,8 +9,7 @@ Usage:
     python main.py [--output PATH] [--max-concurrent N] [--timeout SECONDS]
 
 Environment Variables:
-    GOOGLE_API_KEY: Google Drive API key
-    DRIVE_FILE_ID: Google Drive file ID for MCP config JSON
+    DRIVE_FILE_ID: Google Drive file ID for MCP config JSON (file must be public)
 """
 
 import argparse
@@ -104,11 +103,6 @@ async def main() -> int:
         logger.error("DRIVE_FILE_ID environment variable is not set")
         return 1
 
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        logger.error("GOOGLE_API_KEY environment variable is not set")
-        return 1
-
     # Determine output path
     if args.output:
         output_path = Path(args.output)
@@ -124,7 +118,7 @@ async def main() -> int:
     # Step 1: Fetch MCP config from Google Drive
     logger.info("Step 1: Fetching MCP configuration from Google Drive...")
     try:
-        drive_client = DriveClient(api_key)
+        drive_client = DriveClient()
         server_configs = await drive_client.fetch_mcp_config(drive_file_id)
         logger.info(f"Found {len(server_configs)} MCP servers in configuration")
     except Exception as e:
