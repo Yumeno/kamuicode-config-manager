@@ -59,14 +59,16 @@ class ServerResult:
 class MCPClient:
     """Client for fetching tool schemas from MCP servers."""
 
-    def __init__(self, timeout: float = 30.0):
+    def __init__(self, timeout: float = 60.0, delay: float = 0.5):
         """
         Initialize MCPClient.
 
         Args:
             timeout: Timeout in seconds for each server connection.
+            delay: Delay in seconds between requests (to reduce server load).
         """
         self.timeout = timeout
+        self.delay = delay
 
     async def fetch_tools_schema(
         self,
@@ -161,25 +163,30 @@ class MCPClient:
     async def fetch_multiple(
         self,
         servers: list[tuple[str, str, dict[str, str] | None]],
-        max_concurrent: int = 50,
+        max_concurrent: int = 10,
     ) -> list[ServerResult]:
         """
         Fetch tool schemas from multiple MCP servers concurrently.
 
         Args:
             servers: List of (server_id, server_url, headers) tuples.
-            max_concurrent: Maximum concurrent connections.
+            max_concurrent: Maximum concurrent connections (default: 10).
 
         Returns:
             List of ServerResult objects.
         """
         semaphore = asyncio.Semaphore(max_concurrent)
+        results: list[ServerResult] = []
 
         async def fetch_with_limit(
             server_id: str, server_url: str, headers: dict[str, str] | None
         ) -> ServerResult:
             async with semaphore:
-                return await self.fetch_tools_schema(server_id, server_url, headers)
+                result = await self.fetch_tools_schema(server_id, server_url, headers)
+                # Add delay between requests to reduce server load
+                if self.delay > 0:
+                    await asyncio.sleep(self.delay)
+                return result
 
         tasks = [
             fetch_with_limit(server_id, server_url, headers)

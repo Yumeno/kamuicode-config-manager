@@ -52,16 +52,24 @@ def parse_args() -> argparse.Namespace:
         "--max-concurrent",
         "-c",
         type=int,
-        default=50,
-        help="Maximum concurrent connections (default: 50)",
+        default=10,
+        help="Maximum concurrent connections (default: 10)",
     )
 
     parser.add_argument(
         "--timeout",
         "-t",
         type=float,
-        default=30.0,
-        help="Timeout per server in seconds (default: 30.0)",
+        default=60.0,
+        help="Timeout per server in seconds (default: 60.0)",
+    )
+
+    parser.add_argument(
+        "--delay",
+        "-d",
+        type=float,
+        default=0.5,
+        help="Delay between requests in seconds (default: 0.5)",
     )
 
     parser.add_argument(
@@ -133,8 +141,9 @@ async def main() -> int:
     logger.info(f"Step 2: Crawling {len(server_configs)} MCP servers...")
     logger.info(f"  Max concurrent: {args.max_concurrent}")
     logger.info(f"  Timeout: {args.timeout}s")
+    logger.info(f"  Delay: {args.delay}s")
 
-    mcp_client = MCPClient(timeout=args.timeout)
+    mcp_client = MCPClient(timeout=args.timeout, delay=args.delay)
 
     # Prepare server list (id, url, headers)
     servers = [
