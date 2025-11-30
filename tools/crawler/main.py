@@ -92,6 +92,14 @@ def parse_args() -> argparse.Namespace:
         help="Enable verbose logging",
     )
 
+    parser.add_argument(
+        "--limit",
+        "-l",
+        type=int,
+        default=None,
+        help="Limit number of servers to crawl (for testing)",
+    )
+
     return parser.parse_args()
 
 
@@ -136,6 +144,11 @@ async def main() -> int:
     if not server_configs:
         logger.warning("No MCP servers found in configuration")
         return 0
+
+    # Apply limit if specified
+    if args.limit is not None:
+        server_configs = server_configs[:args.limit]
+        logger.info(f"Limited to first {len(server_configs)} server(s) for testing")
 
     # Step 2: Crawl MCP servers
     logger.info(f"Step 2: Crawling {len(server_configs)} MCP servers...")
