@@ -6,8 +6,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from mcp import ClientSession
-from mcp.client.sse import sse_client
+import aiohttp
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ class ServerResult:
 
 
 class MCPClient:
-    """Client for fetching tool schemas from MCP servers."""
+    """Client for fetching tool schemas from MCP servers via Streamable HTTP."""
 
     def __init__(self, timeout: float = 60.0, delay: float = 0.5):
         """
@@ -81,7 +80,7 @@ class MCPClient:
 
         Args:
             server_id: Unique identifier for the server.
-            server_url: URL of the MCP server (SSE endpoint).
+            server_url: URL of the MCP server.
             headers: Optional headers for authentication.
 
         Returns:
@@ -129,7 +128,12 @@ class MCPClient:
         headers: dict[str, str] | None = None,
     ) -> list[ToolSchema]:
         """
-        Internal method to fetch tools from MCP server via SSE.
+        Internal method to fetch tools from MCP server via Streamable HTTP.
+
+        Uses JSON-RPC protocol:
+        1. Send 'initialize' request
+        2. Send 'tools/list' request
+        3. Parse tool schemas from response
 
         Args:
             server_url: URL of the MCP server.
@@ -140,26 +144,71 @@ class MCPClient:
         """
         tools: list[ToolSchema] = []
 
-        # Debug: log headers being sent
-        logger.debug(f"Connecting to {server_url} with headers: {list(headers.keys()) if headers else 'None'}")
+        # Prepare headers
+        request_headers = {"Content-Type": "application/json"}
+        if headers:
+            request_headers.update(headers)
 
-        # Create SSE client connection
-        async with sse_client(server_url, headers=headers) as (read_stream, write_stream):
-            async with ClientSession(read_stream, write_stream) as session:
-                # Initialize the session
-                await session.initialize()
+        logger.debug(f"Connecting to {server_url} with headers: {list(request_headers.keys())}")
 
-                # Request tools list
-                result = await session.list_tools()
+        async with aiohttp.ClientSession() as session:
+            # Step 1: Initialize
+            init_payload = {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "initialize",
+                "params": {
+                    "protocolVersion": "2024-11-05",
+                    "capabilities": {},
+                    "clientInfo": {"name": "mcp-catalog-crawler", "version": "1.0.0"},
+                },
+            }
 
-                # Convert to ToolSchema objects
-                for tool in result.tools:
-                    tool_schema = ToolSchema(
-                        name=tool.name,
-                        description=tool.description,
-                        input_schema=tool.inputSchema if hasattr(tool, "inputSchema") else None,
-                    )
-                    tools.append(tool_schema)
+            async with session.post(
+                server_url, json=init_payload, headers=request_headers
+            ) as response:
+                if response.status != 200:
+                    error_text = await response.text()
+                    raise Exception(f"Initialize failed: {response.status} - {error_text}")
+
+                init_result = await response.json()
+                if "error" in init_result:
+                    raise Exception(f"Initialize error: {init_result['error']}")
+
+            logger.debug(f"Initialize successful for {server_url}")
+
+            # Step 2: Get tools list
+            tools_payload = {
+                "jsonrpc": "2.0",
+                "id": 2,
+                "method": "tools/list",
+                "params": {},
+            }
+
+            async with session.post(
+                server_url, json=tools_payload, headers=request_headers
+            ) as response:
+                if response.status != 200:
+                    error_text = await response.text()
+                    raise Exception(f"tools/list failed: {response.status} - {error_text}")
+
+                tools_result = await response.json()
+                if "error" in tools_result:
+                    raise Exception(f"tools/list error: {tools_result['error']}")
+
+            # Parse tools from result
+            result_data = tools_result.get("result", {})
+            tools_data = result_data.get("tools", [])
+
+            for tool_data in tools_data:
+                tool_schema = ToolSchema(
+                    name=tool_data.get("name", ""),
+                    description=tool_data.get("description"),
+                    input_schema=tool_data.get("inputSchema"),
+                )
+                tools.append(tool_schema)
+
+            logger.debug(f"Found {len(tools)} tools at {server_url}")
 
         return tools
 
@@ -179,7 +228,6 @@ class MCPClient:
             List of ServerResult objects.
         """
         semaphore = asyncio.Semaphore(max_concurrent)
-        results: list[ServerResult] = []
 
         async def fetch_with_limit(
             server_id: str, server_url: str, headers: dict[str, str] | None

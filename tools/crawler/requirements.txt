@@ -6,6 +6,3 @@ pyyaml>=6.0.1
 
 # Environment variables
 python-dotenv>=1.0.0
-
-# MCP SDK (Model Context Protocol)
-mcp>=1.0.0
