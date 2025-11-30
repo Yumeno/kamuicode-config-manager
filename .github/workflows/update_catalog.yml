@@ -2,8 +2,8 @@ name: Update MCP Tool Catalog
 
 on:
   schedule:
-    # Run daily at UTC 3:00 (JST 12:00)
-    - cron: '0 3 * * *'
+    # Run daily at UTC 13:00 (JST 22:00)
+    - cron: '0 13 * * *'
   workflow_dispatch:
     # Allow manual trigger
     inputs:
