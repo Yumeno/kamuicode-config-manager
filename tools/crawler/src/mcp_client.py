@@ -140,6 +140,9 @@ class MCPClient:
         """
         tools: list[ToolSchema] = []
 
+        # Debug: log headers being sent
+        logger.debug(f"Connecting to {server_url} with headers: {list(headers.keys()) if headers else 'None'}")
+
         # Create SSE client connection
         async with sse_client(server_url, headers=headers) as (read_stream, write_stream):
             async with ClientSession(read_stream, write_stream) as session:
