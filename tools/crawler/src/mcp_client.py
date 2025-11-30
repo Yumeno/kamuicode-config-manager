@@ -175,6 +175,12 @@ class MCPClient:
                 if "error" in init_result:
                     raise Exception(f"Initialize error: {init_result['error']}")
 
+                # Get session ID from response header
+                session_id = response.headers.get("Mcp-Session-Id")
+                if session_id:
+                    request_headers["Mcp-Session-Id"] = session_id
+                    logger.debug(f"Got session ID: {session_id}")
+
             logger.debug(f"Initialize successful for {server_url}")
 
             # Step 2: Get tools list
