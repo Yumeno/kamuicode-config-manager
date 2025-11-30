@@ -1,0 +1,8 @@
+# Async HTTP client
+aiohttp>=3.9.0
+
+# YAML processing
+pyyaml>=6.0.1
+
+# Environment variables
+python-dotenv>=1.0.0
