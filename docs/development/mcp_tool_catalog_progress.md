@@ -37,8 +37,9 @@ tools/crawler/
 #### drive_client.py
 - `DriveClient` クラス: Google Drive APIを使用してMCP設定JSONを取得
 - `MCPServerConfig` dataclass: サーバー設定を構造化
-- サービスアカウント認証対応
+- **APIキー認証方式**（公開ファイル用、サービスアカウント不要）
 - Claude Desktop形式のJSON構造をパース
+- aiohttp による非同期HTTP通信
 
 #### mcp_client.py
 - `MCPClient` クラス: MCP SDKを使用してSSE接続
@@ -55,7 +56,7 @@ tools/crawler/
 
 #### main.py
 - CLI引数対応: `--output`, `--max-concurrent`, `--timeout`, `--merge`, `--dry-run`, `--verbose`
-- 環境変数: `GOOGLE_APPLICATION_CREDENTIALS`, `DRIVE_FILE_ID`
+- 環境変数: `GOOGLE_API_KEY`, `DRIVE_FILE_ID`
 - 処理フロー: Drive取得 → MCPクロール → YAML生成 → ファイル出力
 
 ---
@@ -67,7 +68,7 @@ tools/crawler/
 - [ ] Python仮想環境セットアップ・依存インストール
 
 ### Phase 2への準備
-- 認証情報の準備（GCPサービスアカウントキー）
+- Google Drive APIキーの準備
 - テスト用MCPサーバーの選定
 
 ---
@@ -76,10 +77,17 @@ tools/crawler/
 
 ### セキュリティ
 - `.env` ファイルは `.gitignore` に追加済み
-- サービスアカウントキー（*.json）は `.gitignore` に追加済み
 - 生成されるYAMLには認証情報（headers）を**含めない**
 
 ### 動作確認に必要なもの
-1. GCPサービスアカウントキー（JSON形式）
+1. Google Drive APIキー（Google Cloud Consoleで取得）
 2. Google DriveファイルID（mcp_config.json）
-3. Python 3.11+ 環境
+3. Driveファイルを「リンクを知っている全員」に公開設定
+4. Python 3.11+ 環境
+
+### APIキー取得手順
+1. [Google Cloud Console](https://console.cloud.google.com/) にアクセス
+2. プロジェクトを選択（または新規作成）
+3. **APIとサービス** → **有効なAPIとサービス** → **Google Drive API** を有効化
+4. **APIとサービス** → **認証情報** → **認証情報を作成** → **APIキー**
+5. 作成されたAPIキーをコピーして `.env` に設定

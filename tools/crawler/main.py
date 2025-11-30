@@ -9,7 +9,7 @@ Usage:
     python main.py [--output PATH] [--max-concurrent N] [--timeout SECONDS]
 
 Environment Variables:
-    GOOGLE_APPLICATION_CREDENTIALS: Path to GCP service account key JSON
+    GOOGLE_API_KEY: Google Drive API key
     DRIVE_FILE_ID: Google Drive file ID for MCP config JSON
 """
 
@@ -104,9 +104,9 @@ async def main() -> int:
         logger.error("DRIVE_FILE_ID environment variable is not set")
         return 1
 
-    credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
-    if not credentials_path:
-        logger.error("GOOGLE_APPLICATION_CREDENTIALS environment variable is not set")
+    api_key = os.environ.get("GOOGLE_API_KEY")
+    if not api_key:
+        logger.error("GOOGLE_API_KEY environment variable is not set")
         return 1
 
     # Determine output path
@@ -124,8 +124,8 @@ async def main() -> int:
     # Step 1: Fetch MCP config from Google Drive
     logger.info("Step 1: Fetching MCP configuration from Google Drive...")
     try:
-        drive_client = DriveClient(credentials_path)
-        server_configs = drive_client.fetch_mcp_config(drive_file_id)
+        drive_client = DriveClient(api_key)
+        server_configs = await drive_client.fetch_mcp_config(drive_file_id)
         logger.info(f"Found {len(server_configs)} MCP servers in configuration")
     except Exception as e:
         logger.error(f"Failed to fetch MCP config from Drive: {e}")

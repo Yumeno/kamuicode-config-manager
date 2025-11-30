@@ -6,10 +6,7 @@ import os
 from dataclasses import dataclass
 from typing import Any
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseDownload
-import io
+import aiohttp
 
 logger = logging.getLogger(__name__)
 
@@ -35,40 +32,21 @@ class MCPServerConfig:
 
 
 class DriveClient:
-    """Client for fetching MCP configuration from Google Drive."""
+    """Client for fetching MCP configuration from Google Drive (API Key auth)."""
 
-    SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
+    DRIVE_API_URL = "https://www.googleapis.com/drive/v3/files"
 
-    def __init__(self, credentials_path: str | None = None):
+    def __init__(self, api_key: str | None = None):
         """
         Initialize DriveClient.
 
         Args:
-            credentials_path: Path to service account JSON key file.
-                            If None, uses GOOGLE_APPLICATION_CREDENTIALS env var.
+            api_key: Google Drive API key.
+                     If None, uses GOOGLE_API_KEY env var.
         """
-        self._credentials_path = credentials_path or os.environ.get(
-            "GOOGLE_APPLICATION_CREDENTIALS"
-        )
-        self._service = None
+        self._api_key = api_key or os.environ.get("GOOGLE_API_KEY")
 
-    def _get_service(self):
-        """Get or create Google Drive service."""
-        if self._service is None:
-            if not self._credentials_path:
-                raise ValueError(
-                    "Credentials path not provided. Set GOOGLE_APPLICATION_CREDENTIALS "
-                    "environment variable or pass credentials_path to constructor."
-                )
-
-            credentials = service_account.Credentials.from_service_account_file(
-                self._credentials_path, scopes=self.SCOPES
-            )
-            self._service = build("drive", "v3", credentials=credentials)
-
-        return self._service
-
-    def fetch_mcp_config(self, file_id: str) -> list[MCPServerConfig]:
+    async def fetch_mcp_config(self, file_id: str) -> list[MCPServerConfig]:
         """
         Fetch MCP configuration JSON from Google Drive.
 
@@ -81,23 +59,31 @@ class DriveClient:
         Raises:
             Exception: If file cannot be fetched or parsed.
         """
+        if not self._api_key:
+            raise ValueError(
+                "API key not provided. Set GOOGLE_API_KEY environment variable "
+                "or pass api_key to constructor."
+            )
+
         logger.info(f"Fetching MCP config from Drive file: {file_id}")
 
-        service = self._get_service()
+        # Build URL for file download
+        url = f"{self.DRIVE_API_URL}/{file_id}"
+        params = {
+            "alt": "media",
+            "key": self._api_key,
+        }
 
-        # Download file content
-        request = service.files().get_media(fileId=file_id)
-        file_buffer = io.BytesIO()
-        downloader = MediaIoBaseDownload(file_buffer, request)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params) as response:
+                if response.status != 200:
+                    error_text = await response.text()
+                    raise Exception(
+                        f"Failed to fetch file from Drive: {response.status} - {error_text}"
+                    )
 
-        done = False
-        while not done:
-            _, done = downloader.next_chunk()
-
-        # Parse JSON
-        file_buffer.seek(0)
-        content = file_buffer.read().decode("utf-8")
-        data = json.loads(content)
+                content = await response.text()
+                data = json.loads(content)
 
         # Extract MCP servers from the config
         servers = self._extract_servers(data)

@@ -1,7 +1,3 @@
-# Google Drive API
-google-auth>=2.27.0
-google-api-python-client>=2.114.0
-
 # Async HTTP client
 aiohttp>=3.9.0
 
