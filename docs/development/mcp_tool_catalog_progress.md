@@ -139,9 +139,95 @@ tools/crawler/
 
 ### 次のステップ
 
-1. リポジトリに `DRIVE_FILE_ID` シークレットを設定
-2. Actionsタブから手動実行でワークフローをテスト
-3. 動作確認後、定期実行を有効化
+1. 下記のワークフローファイルをGitHub上で手動作成
+2. リポジトリに `DRIVE_FILE_ID` シークレットを設定
+3. Actionsタブから手動実行でワークフローをテスト
+4. 動作確認後、定期実行を有効化
+
+### ワークフローファイル（手動追加が必要）
+
+GitHub Appの権限制限により、以下のファイルは手動でGitHub上に追加する必要があります。
+
+**ファイルパス**: `.github/workflows/update_catalog.yml`
+
+```yaml
+name: Update MCP Tool Catalog
+
+on:
+  schedule:
+    # Run daily at UTC 3:00 (JST 12:00)
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+    inputs:
+      dry_run:
+        description: 'Dry run (do not commit changes)'
+        required: false
+        default: false
+        type: boolean
+      max_concurrent:
+        description: 'Maximum concurrent connections'
+        required: false
+        default: '10'
+        type: string
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: tools/crawler/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/crawler/requirements.txt
+
+      - name: Run crawler
+        env:
+          DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
+        run: |
+          cd tools/crawler
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python main.py --dry-run --verbose --max-concurrent ${{ inputs.max_concurrent || '10' }}
+          else
+            python main.py --max-concurrent ${{ inputs.max_concurrent || '10' }}
+          fi
+
+      - name: Check for changes
+        id: changes
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          if git diff --quiet mcp_tool_catalog.yaml 2>/dev/null; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if changed
+        if: ${{ steps.changes.outputs.changed == 'true' && inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add mcp_tool_catalog.yaml
+          git commit -m "chore(catalog): update MCP tool catalog [skip ci]"
+          git push
+```
+
+**追加方法**:
+1. GitHubリポジトリの「Add file」→「Create new file」
+2. ファイル名に `.github/workflows/update_catalog.yml` と入力
+3. 上記の内容をペースト
+4. コミット
 
 ---
 
