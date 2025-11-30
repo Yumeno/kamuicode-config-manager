@@ -50,21 +50,26 @@ jobs:
             python main.py --max-concurrent ${{ inputs.max_concurrent || '10' }}
           fi
 
-      - name: Check for changes
-        id: changes
+      - name: Commit and push if changed
         if: ${{ inputs.dry_run != 'true' }}
         run: |
-          if git diff --quiet mcp_tool_catalog.yaml 2>/dev/null; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
+          # Check if file was generated
+          if [ ! -f mcp_tool_catalog.yaml ]; then
+            echo "No catalog file generated, skipping commit"
+            exit 0
           fi
 
-      - name: Commit and push if changed
-        if: ${{ steps.changes.outputs.changed == 'true' && inputs.dry_run != 'true' }}
-        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage the file (handles both new and modified files)
           git add mcp_tool_catalog.yaml
-          git commit -m "chore(catalog): update MCP tool catalog [skip ci]"
-          git push
+
+          # Commit only if there are staged changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(catalog): update MCP tool catalog [skip ci]"
+            git push
+            echo "Changes committed and pushed"
+          fi
