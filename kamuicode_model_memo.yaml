@@ -104,6 +104,14 @@ ai_models:
       server_name: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
       release_date: 2025年11月25日
       features: "(fal.ai / Kamui Code) Black Forest Labsの最新モデルFLUX.2をベースにした、ボールペン画風LoRAモデル。トリガーワード「b4llp01nt」を使用することで、手描きのボールペンスケッチのような質感を再現可能。"
+    - name: Ovis Image
+      server_name: t2i-kamui-ovis-image
+      release_date: 2025年11月29日
+      features: "(AIDC-AI) テキストレンダリング（文字生成）に特化した7Bパラメータの画像生成モデル。Ovis-U1をベースとし、画像内の文字再現性においてGPT-4oに匹敵する性能を持つオープンソースモデル。"
+    - name: Z-Image Turbo
+      server_name: t2i-kamui-fal-z-image-turbo
+      release_date: 2025年11月27日
+      features: "(Tongyi-MAI) Alibabaの研究部門が開発した6Bパラメータの高速画像生成モデル。わずか8ステップで高品質な画像を生成でき、日本語と英語のテキストレンダリングに優れる。16GB VRAMのGPUでも動作する効率性が特徴。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
