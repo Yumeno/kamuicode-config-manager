@@ -99,17 +99,49 @@ tools/crawler/
 
 ---
 
-## Phase 3: GitHub Actions への統合（未着手）
+## Phase 3: GitHub Actions への統合 ✅ 完了
 
-### 未完了タスク
+### 完了タスク
 
-| # | タスク | 状態 | 備考 |
-|---|--------|------|------|
-| 3.1 | workflowsディレクトリ作成 | ⏳ 未着手 | `.github/workflows/` |
-| 3.2 | ワークフロー定義 | ⏳ 未着手 | `update_catalog.yml` |
-| 3.3 | Secrets設定ドキュメント | ⏳ 未着手 | README更新 |
-| 3.4 | 手動実行テスト | ⏳ 未着手 | workflow_dispatch |
-| 3.5 | 定期実行設定 | ⏳ 未着手 | schedule トリガー |
+| # | タスク | 状態 | 完了日 | 備考 |
+|---|--------|------|--------|------|
+| 3.1 | workflowsディレクトリ作成 | ✅ 完了 | 2025-11-30 | `.github/workflows/` |
+| 3.2 | ワークフロー定義 | ✅ 完了 | 2025-11-30 | `update_catalog.yml` |
+| 3.3 | Secrets設定ドキュメント | ✅ 完了 | 2025-11-30 | `tools/crawler/README.md` |
+| 3.4 | 手動実行テスト | 📋 要動作確認 | - | workflow_dispatch で検証が必要 |
+| 3.5 | 定期実行設定 | ✅ 完了 | 2025-11-30 | 毎日 UTC 3:00 (JST 12:00) |
+
+### 作成ファイル
+
+```
+.github/
+└── workflows/
+    └── update_catalog.yml     # GitHub Actions定義
+
+tools/crawler/
+└── README.md                  # セットアップガイド・Secrets設定ドキュメント
+```
+
+### ワークフロー機能
+
+- **定期実行**: 毎日 UTC 3:00（JST 12:00）に自動実行
+- **手動実行**: Actions タブから `workflow_dispatch` で即時実行可能
+- **オプション**: `dry_run`（テスト実行）、`max_concurrent`（並列数）
+- **自動コミット**: 変更がある場合のみカタログを更新してコミット
+
+### 必要なSecrets
+
+| Secret名 | 説明 |
+|----------|------|
+| `DRIVE_FILE_ID` | Google DriveファイルのID |
+
+**注意**: 実際のDrive File IDはユーザーが別途設定する必要があります。
+
+### 次のステップ
+
+1. リポジトリに `DRIVE_FILE_ID` シークレットを設定
+2. Actionsタブから手動実行でワークフローをテスト
+3. 動作確認後、定期実行を有効化
 
 ---
 
