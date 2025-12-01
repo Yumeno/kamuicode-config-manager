@@ -7,6 +7,14 @@ on:
   workflow_dispatch:
     # Allow manual trigger
     inputs:
+      mode:
+        description: 'Update mode'
+        required: true
+        default: 'merge'
+        type: choice
+        options:
+          - merge
+          - full_rebuild
       dry_run:
         description: 'Dry run (do not commit changes)'
         required: false
@@ -44,11 +52,22 @@ jobs:
           DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
         run: |
           cd tools/crawler
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            python main.py --dry-run --verbose --max-concurrent ${{ inputs.max_concurrent || '10' }}
-          else
-            python main.py --max-concurrent ${{ inputs.max_concurrent || '10' }}
+
+          # Build options
+          OPTIONS="--max-concurrent ${{ inputs.max_concurrent || '10' }}"
+
+          # Add merge option for scheduled runs or when mode is 'merge'
+          # full_rebuild mode does NOT use --merge (complete overwrite)
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.mode }}" = "merge" ]; then
+            OPTIONS="$OPTIONS --merge"
           fi
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            OPTIONS="$OPTIONS --dry-run --verbose"
+          fi
+
+          echo "Running: python main.py $OPTIONS"
+          python main.py $OPTIONS
 
       - name: Commit and push if changed
         if: ${{ inputs.dry_run != 'true' }}
