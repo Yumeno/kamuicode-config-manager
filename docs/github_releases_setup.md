@@ -17,11 +17,14 @@ GitHub Releases を利用することで、ユーザーは以下のメリット�
 ```
 kamuicode-config-manager-vX.X.X.zip
 ├── kamuicode-config-manager.html  # メインアプリケーション
-├── kamuicode_model_memo.yaml      # 初期同梱版モデル定義
+├── kamuicode_model_memo.yaml      # モデル定義ファイル
+├── mcp_tool_catalog.yaml          # MCPツールカタログ
 └── README.md                      # 使い方ガイド
 ```
 
 > **注意**: `tools/`, `docs/`, `.claude/` などの開発用ファイルは含めません。
+
+> **Note**: YAMLファイルはアプリ内からWeb取得も可能ですが、オフライン利用のため同梱しています。
 
 ## リリース作成手順
 
@@ -70,6 +73,7 @@ cd /tmp/release-build
 # 必要なファイルのみコピー
 cp /path/to/repo/kamuicode-config-manager.html .
 cp /path/to/repo/kamuicode_model_memo.yaml .
+cp /path/to/repo/mcp_tool_catalog.yaml .
 cp /path/to/repo/README.md .
 
 # ZIP作成
@@ -134,6 +138,7 @@ jobs:
           mkdir release
           cp kamuicode-config-manager.html release/
           cp kamuicode_model_memo.yaml release/
+          cp mcp_tool_catalog.yaml release/
           cp README.md release/
           cd release && zip -r ../release.zip .
 
