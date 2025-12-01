@@ -50,6 +50,9 @@
             // GitHub Raw URL
             const GITHUB_YAML_URL = 'https://raw.githubusercontent.com/Yumeno/kamuicode-config-manager/main/kamuicode_model_memo.yaml';
 
+            // GitHub Raw URL for MCP Tool Catalog
+            const CATALOG_YAML_URL = 'https://raw.githubusercontent.com/Yumeno/kamuicode-config-manager/main/mcp_tool_catalog.yaml';
+
             return {
                 // --- 状態 ---
                 masterList: [],        // 全モデルのリスト (JSON順)
@@ -83,6 +86,14 @@
                 outputFileName: 'mcp-kamui-code-filtered',
                 // チェック状態YAMLの出力ファイル名 (デフォルト)
                 outputCheckStateFileName: 'mcp-check-state',
+
+                // --- MCPツールカタログ関連 ---
+                catalogData: null,           // カタログ全体のデータ
+                catalogLookup: new Map(),    // server_name -> サーバー情報のマップ
+                catalogLoaded: false,        // カタログ読み込み済みフラグ
+                isLoadingCatalog: false,     // カタログ読み込み中フラグ
+                selectedServer: null,        // 選択されたサーバー（ツール詳細用）
+                showServerDialog: false,     // ダイアログ表示フラグ
 
                 // --- 初期化 ---
                 init() {
@@ -526,6 +537,139 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
+                },
+
+                // --- MCPツールカタログ関連のメソッド ---
+
+                // カタログをGitHubから読み込む
+                async loadCatalog() {
+                    this.isLoadingCatalog = true;
+                    this.errorMessage = '';
+                    this.successMessage = '';
+
+                    try {
+                        const response = await fetch(CATALOG_YAML_URL);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        const yamlText = await response.text();
+
+                        // YAMLをパース
+                        this.catalogData = jsyaml.load(yamlText, { schema: jsyaml.FAILSAFE_SCHEMA });
+
+                        if (this.catalogData && this.catalogData.servers) {
+                            this.buildCatalogLookup();
+                            this.catalogLoaded = true;
+                            this.successMessage = `MCPツールカタログを読み込みました（${this.catalogData.servers.length}サーバー）`;
+                        } else {
+                            throw new Error('カタログデータの形式が不正です');
+                        }
+                    } catch (e) {
+                        this.errorMessage = `カタログの読み込みに失敗しました: ${e.message}`;
+                    } finally {
+                        this.isLoadingCatalog = false;
+                    }
+                },
+
+                // ローカルファイルからカタログを読み込む
+                loadCatalogFromFile(event) {
+                    this.errorMessage = '';
+                    this.successMessage = '';
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.isLoadingCatalog = true;
+                        this.readFile(file, (content) => {
+                            try {
+                                this.catalogData = jsyaml.load(content, { schema: jsyaml.FAILSAFE_SCHEMA });
+
+                                if (this.catalogData && this.catalogData.servers) {
+                                    this.buildCatalogLookup();
+                                    this.catalogLoaded = true;
+                                    this.successMessage = `MCPツールカタログを読み込みました（${this.catalogData.servers.length}サーバー）`;
+                                } else {
+                                    throw new Error('カタログデータの形式が不正です');
+                                }
+                            } catch (e) {
+                                this.errorMessage = `カタログYAMLの解析に失敗しました: ${e.message}`;
+                            } finally {
+                                this.isLoadingCatalog = false;
+                            }
+                        });
+                    }
+                    event.target.value = '';
+                },
+
+                // カタログのLookupを構築（server_name -> サーバー情報）
+                buildCatalogLookup() {
+                    this.catalogLookup.clear();
+                    if (!this.catalogData || !this.catalogData.servers) return;
+
+                    this.catalogData.servers.forEach(server => {
+                        if (server && server.id) {
+                            this.catalogLookup.set(server.id, server);
+                        }
+                    });
+                },
+
+                // server_nameに対応するカタログ情報を取得
+                getCatalogServer(serverName) {
+                    return this.catalogLookup.get(serverName);
+                },
+
+                // server_nameに対応するツール数を取得
+                getToolCount(serverName) {
+                    const server = this.catalogLookup.get(serverName);
+                    return server && server.tools ? server.tools.length : 0;
+                },
+
+                // サーバー詳細ダイアログを開く（server_nameから）
+                openToolDialog(serverName) {
+                    const server = this.catalogLookup.get(serverName);
+                    if (server) {
+                        this.selectedServer = server;
+                        this.showServerDialog = true;
+                        document.body.style.overflow = 'hidden';
+                    }
+                },
+
+                // サーバー詳細ダイアログを閉じる
+                closeServerDialog() {
+                    this.showServerDialog = false;
+                    this.selectedServer = null;
+                    document.body.style.overflow = '';
+                },
+
+                // ツールをsubmit -> status -> resultの順にソートして取得
+                getSortedTools(server) {
+                    if (!server || !server.tools) return [];
+
+                    const order = { 'submit': 0, 'status': 1, 'result': 2 };
+
+                    return [...server.tools].sort((a, b) => {
+                        // ツール名の末尾からタイプを判定
+                        const getType = (name) => {
+                            if (name.endsWith('_submit') || name.includes('submit')) return 'submit';
+                            if (name.endsWith('_status') || name.includes('status')) return 'status';
+                            if (name.endsWith('_result') || name.includes('result')) return 'result';
+                            return 'other';
+                        };
+
+                        const typeA = getType(a.name);
+                        const typeB = getType(b.name);
+                        const orderA = order[typeA] !== undefined ? order[typeA] : 3;
+                        const orderB = order[typeB] !== undefined ? order[typeB] : 3;
+
+                        return orderA - orderB;
+                    });
+                },
+
+                // カタログをクリア
+                clearCatalog() {
+                    this.catalogData = null;
+                    this.catalogLookup.clear();
+                    this.catalogLoaded = false;
+                    this.selectedServer = null;
+                    this.showServerDialog = false;
                 }
             };
         }
@@ -653,15 +797,31 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <!-- ★★★ ヘッダー: タイトル と 状態I/Oボタン ★★★ -->
                 <div class="p-4 md:p-6 border-b border-gray-200">
-                    <div class="flex flex-col md:flex-row justify-between md:items-center">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center gap-3">
                         <!-- タイトル -->
-                        <h2 class="text-xl font-semibold mb-3 md:mb-0">
+                        <h2 class="text-xl font-semibold">
                             3. モデル一覧
                             <span class="text-base font-normal text-gray-600" x-text="`(${filteredList.length} / ${masterList.length} 件)`"></span>
                         </h2>
 
-                        <!-- 状態管理ボタン (小さく) -->
-                        <div class="flex items-center space-x-2">
+                        <!-- ボタングループ -->
+                        <div class="flex flex-wrap items-center gap-2">
+                            <!-- ツールカタログ読み込み -->
+                            <button @click="loadCatalog"
+                                    :disabled="isLoadingCatalog"
+                                    class="px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors disabled:opacity-50">
+                                <span x-show="!isLoadingCatalog && !catalogLoaded">ツールカタログ読込</span>
+                                <span x-show="isLoadingCatalog">読込中...</span>
+                                <span x-show="catalogLoaded && !isLoadingCatalog">カタログ読込済</span>
+                            </button>
+                            <template x-if="catalogLoaded">
+                                <button @click="clearCatalog" class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">
+                                    カタログクリア
+                                </button>
+                            </template>
+
+                            <span class="text-gray-300">|</span>
+
                             <!-- 状態読み込みボタン (inputを隠す) -->
                             <input type="file" @change="loadCheckState" accept=".yaml, .yml" id="checkStateInput" x-ref="checkStateInput" class="hidden">
                             <button type="button" @click="$refs.checkStateInput.click()" class="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
@@ -739,12 +899,13 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解説</th>
+                                <th scope="col" class="w-28 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ツール詳細</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <template x-if="filteredList.length === 0">
                                 <tr>
-                                    <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                    <td colspan="6" class="px-6 py-10 text-center text-gray-500">
                                         ファイルが読み込まれていないか、フィルタに一致するモデルがありません。
                                     </td>
                                 </tr>
@@ -762,6 +923,20 @@
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.release_date"></td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.features"></td>
+                                    <td class="px-4 py-4 text-center">
+                                        <template x-if="catalogLoaded && getCatalogServer(model.server_name)">
+                                            <button @click.stop="openToolDialog(model.server_name)"
+                                                    class="px-2 py-1 text-xs font-medium text-purple-700 bg-purple-100 rounded hover:bg-purple-200 transition-colors">
+                                                詳細 (<span x-text="getToolCount(model.server_name)"></span>)
+                                            </button>
+                                        </template>
+                                        <template x-if="!catalogLoaded">
+                                            <span class="text-xs text-gray-400">-</span>
+                                        </template>
+                                        <template x-if="catalogLoaded && !getCatalogServer(model.server_name)">
+                                            <span class="text-xs text-gray-400">N/A</span>
+                                        </template>
+                                    </td>
                                 </tr>
                             </template>
                         </tbody>
@@ -784,6 +959,91 @@
                         <button @click="generateJson" class="w-full md:w-auto px-6 py-2.5 text-base font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
                             JSONを生成して保存
                         </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- ==================== ツール詳細ダイアログ ==================== -->
+        <template x-if="showServerDialog && selectedServer">
+            <div class="fixed inset-0 z-50 overflow-y-auto" @keydown.escape.window="closeServerDialog()">
+                <!-- オーバーレイ -->
+                <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="closeServerDialog()"></div>
+
+                <!-- ダイアログ本体 -->
+                <div class="flex min-h-full items-center justify-center p-4">
+                    <div class="relative bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden" @click.stop>
+                        <!-- ヘッダー -->
+                        <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-start z-10">
+                            <div class="flex-1 pr-4">
+                                <h3 class="text-xl font-bold text-gray-900 mb-1" x-text="selectedServer.id"></h3>
+                                <p class="text-sm text-gray-500 break-all" x-text="selectedServer.url"></p>
+                            </div>
+                            <button @click="closeServerDialog()"
+                                    class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- コンテンツ -->
+                        <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 100px);">
+                            <!-- ツール一覧 -->
+                            <h4 class="text-lg font-semibold text-gray-800 mb-4">ツール一覧 (<span x-text="selectedServer.tools ? selectedServer.tools.length : 0"></span>)</h4>
+
+                            <template x-if="selectedServer.tools && selectedServer.tools.length > 0">
+                                <div class="space-y-4">
+                                    <template x-for="(tool, index) in getSortedTools(selectedServer)" :key="index">
+                                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                            <!-- ツールヘッダー -->
+                                            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                                                <h5 class="font-mono font-semibold text-purple-700" x-text="tool.name"></h5>
+                                            </div>
+                                            <!-- ツール詳細 -->
+                                            <div class="p-4">
+                                                <!-- 説明 -->
+                                                <p class="text-sm text-gray-700 mb-4" x-text="tool.description"></p>
+
+                                                <!-- 入力スキーマ -->
+                                                <template x-if="tool.inputSchema">
+                                                    <div>
+                                                        <h6 class="text-sm font-semibold text-gray-600 mb-2">入力パラメータ</h6>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <template x-if="tool.inputSchema.properties">
+                                                                <div class="space-y-3">
+                                                                    <template x-for="(prop, propName) in tool.inputSchema.properties" :key="propName">
+                                                                        <div class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3 p-2 bg-white rounded border border-gray-100">
+                                                                            <div class="flex items-center gap-2">
+                                                                                <code class="text-sm font-mono text-purple-600" x-text="propName"></code>
+                                                                                <span class="px-1.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded" x-text="prop.type"></span>
+                                                                                <template x-if="tool.inputSchema.required && tool.inputSchema.required.includes(propName)">
+                                                                                    <span class="px-1.5 py-0.5 text-xs font-medium bg-red-100 text-red-700 rounded">必須</span>
+                                                                                </template>
+                                                                            </div>
+                                                                            <p class="text-sm text-gray-600 flex-1" x-text="prop.description || '(説明なし)'"></p>
+                                                                        </div>
+                                                                    </template>
+                                                                </div>
+                                                            </template>
+                                                            <template x-if="!tool.inputSchema.properties">
+                                                                <p class="text-sm text-gray-500 italic">パラメータなし</p>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <template x-if="!selectedServer.tools || selectedServer.tools.length === 0">
+                                <div class="text-center py-8 text-gray-500">
+                                    このサーバーにはツールが登録されていません。
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>

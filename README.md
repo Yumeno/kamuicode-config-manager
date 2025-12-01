@@ -3,9 +3,7 @@
 AIモデルのサーバー構成を簡単に管理できるWebアプリケーションです。
 複数のモデルから必要なものだけを選んで、フィルタリングされた設定ファイルを出力できます。
 
-## 概要
-
-このツールは以下の機能を提供します：
+## 機能
 
 - **モデル構成の読み込み**: JSON形式のサーバー構成ファイルを読み込み
 - **詳細情報の表示**: YAMLファイルからモデルの詳細情報（カテゴリ、正式名称、リリース日、説明）を表示
@@ -15,29 +13,26 @@ AIモデルのサーバー構成を簡単に管理できるWebアプリケーシ
 - **柔軟なフィルタリング**: カテゴリやキーワードでモデルを絞り込み
 - **チェック状態の管理**: 必要なモデルだけを選択し、その状態を保存・復元
 - **設定ファイルの出力**: 選択したモデルだけを含む新しいJSON設定ファイルを生成
+- **MCPツールカタログ**: 各MCPサーバーが提供するツール情報（名前、説明、入力パラメータ）を閲覧
 
-## ダウンロード・インストール
+## ダウンロード
 
-### 方法1: HTMLファイルをダウンロード（推奨）
+[Releases ページ](https://github.com/Yumeno/kamuicode-config-manager/releases)から最新版のZIPをダウンロードしてください。
 
-**必要なのは `kamuicode-config-manager.html` ファイル1つだけです。**
+### ZIPの内容
 
-1. [Releases ページ](https://github.com/Yumeno/kamuicode-config-manager/releases) から最新版のZIPをダウンロード
-2. 解凍して `kamuicode-config-manager.html` を任意の場所に保存
-3. ブラウザでHTMLファイルを開く
-
-または、[kamuicode-config-manager.html](./kamuicode-config-manager.html) を直接ダウンロードしても使えます。
-
-> **Note**: モデル情報はアプリ内から直接GitHubより取得できるため、YAMLファイルの同梱は不要です。
-
-### 方法2: リポジトリをクローン（開発者向け）
-
-```bash
-git clone https://github.com/Yumeno/kamuicode-config-manager.git
-cd kamuicode-config-manager
+```
+kamuicode-config-manager-vX.X.X.zip
+├── kamuicode-config-manager.html  # メインアプリケーション
+├── kamuicode_model_memo.yaml      # モデル定義ファイル
+├── mcp_tool_catalog.yaml          # MCPツールカタログ
+└── README.md                      # このファイル
 ```
 
-### HTMLファイルの開き方
+## インストール
+
+1. ダウンロードしたZIPを任意のフォルダに解凍
+2. `kamuicode-config-manager.html` をブラウザで開く
 
 ```bash
 # Windowsの場合
@@ -51,6 +46,12 @@ xdg-open kamuicode-config-manager.html
 ```
 
 または、ファイルエクスプローラーから `kamuicode-config-manager.html` をダブルクリックして開いてください。
+
+## 動作環境
+
+- モダンブラウザ（Chrome, Firefox, Edge, Safari の最新版）
+- JavaScript有効
+- インターネット接続（Web更新機能使用時）
 
 ## 使い方
 
@@ -82,8 +83,6 @@ xdg-open kamuicode-config-manager.html
 
 モデルの詳細情報（カテゴリ、正式名称、リリース日、特徴）を読み込むことで、一覧がより分かりやすくなります。
 
-**2つのモードから選択できます：**
-
 #### 標準モデル情報を使用（推奨）
 
 GitHubリポジトリから最新のモデル定義を直接取得します。
@@ -93,11 +92,6 @@ GitHubリポジトリから最新のモデル定義を直接取得します。
 3. インターネット経由で最新のYAMLが取得され、自動的に適用されます
 4. 読み込み後は **「最新に更新」** ボタンで再取得できます
 
-**メリット：**
-- YAMLファイルをダウンロードする必要がない
-- 常に最新のモデル情報を使用できる
-- 設定は自動保存され、次回起動時も維持される
-
 #### カスタムYAMLファイルを使用
 
 独自に編集したYAMLファイルや、ローカルに保存したファイルを使用します。
@@ -105,11 +99,6 @@ GitHubリポジトリから最新のモデル定義を直接取得します。
 1. **「カスタムYAMLファイルを使用」** を選択
 2. ファイル選択ボタンから任意の `.yaml` または `.yml` ファイルを選択
 3. 選択したファイルの内容が適用されます
-
-**メリット：**
-- オフライン環境でも使用可能
-- 独自のモデル定義を追加・編集できる
-- カスタム設定も自動保存される
 
 **YAML形式の例：**
 ```yaml
@@ -171,6 +160,33 @@ t2i-kamui-flux-krea-lora: false
 3. チェックがONのモデルだけを含むJSONファイルがダウンロードされます
    - 元のmcpServers形式と同じ構造で出力されます
 
+### MCPツールカタログの利用（任意）
+
+各MCPサーバーが提供するツールの詳細情報を確認できます。
+
+#### ツールカタログの読み込み
+
+1. モデル一覧のヘッダーにある **「ツールカタログ読込」** ボタンをクリック
+2. GitHubから最新のカタログ（`mcp_tool_catalog.yaml`）が自動取得されます
+3. 読み込み完了後、各モデル行の「ツール詳細」列にボタンが表示されます
+
+#### ツール詳細の確認
+
+1. **「詳細 (N)」** ボタンをクリック（Nはツール数）
+   - カタログに該当サーバーがない場合は「N/A」と表示されます
+2. ダイアログが開き、そのサーバーが提供するツール一覧が表示されます
+3. 各ツールについて以下の情報を確認できます：
+   - **ツール名**: 関数名（submit / status / result の順で表示）
+   - **説明**: ツールの機能説明
+   - **入力パラメータ**: パラメータ名、型、必須/任意、説明
+
+#### ダイアログの操作
+
+- **ESCキー** または **オーバーレイをクリック** でダイアログを閉じます
+- ダイアログ内はスクロール可能です
+
+> **Note**: ツールカタログは定期的に更新されます。最新情報を取得するには「カタログクリア」後に再度読み込んでください。
+
 ## トラブルシューティング
 
 ### YAMLファイルが正しく読み込めない
@@ -186,43 +202,10 @@ t2i-kamui-flux-krea-lora: false
 - ブラウザのキャッシュをクリアして再試行してください
 - 「カスタムYAMLファイルを使用」モードに切り替えて、ローカルファイルを使用してください
 
-## 開発者向け情報
-
-### フォルダ構成
-
-```
-/ (ルート)
-├── kamuicode-config-manager.html  # メインアプリケーション
-├── kamuicode_model_memo.yaml      # モデル定義ファイル
-├── README.md                      # このファイル
-├── tools/                         # 開発ツール
-│   ├── code.js                    # Auto Updater (GAS)
-│   └── README.md
-└── docs/                          # ドキュメント
-    ├── README.md                  # ドキュメント目次
-    ├── github_releases_setup.md   # Releases設定手順
-    └── development/               # 開発者向けドキュメント
-        ├── model_release_date_research_rules.md
-        └── unknown_release_dates.md
-```
-
-### ドキュメント
-
-開発に関する詳細なドキュメントは [`docs/`](docs/) ディレクトリを参照してください：
-
-- [ドキュメント目次](docs/README.md)
-- [GitHub Releases設定手順](docs/github_releases_setup.md)
-- [モデルリリース日調査ルール](docs/development/model_release_date_research_rules.md)
-- [リリース日不明のモデル一覧](docs/development/unknown_release_dates.md)
-
-### 開発ツール
-
-- [Auto Updater](tools/README.md) - Google Apps Script を使用したモデル情報の自動更新システム
-
 ## ライセンス
 
 このプロジェクトの詳細については、リポジトリのライセンスファイルを参照してください。
 
-## 貢献
+## 貢献・フィードバック
 
-バグ報告や機能リクエストは、GitHubのIssuesページでお願いします。
+バグ報告や機能リクエストは、[GitHubのIssuesページ](https://github.com/Yumeno/kamuicode-config-manager/issues)でお願いします。
