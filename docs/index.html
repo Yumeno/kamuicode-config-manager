@@ -11,15 +11,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         [x-cloak] { display: none !important; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
     <script>
         function dictionaryApp() {
-            // ★ あなたのリポジトリ情報に合わせて変更してください
+            // ★ リポジトリ情報 (あなたの環境に合わせています)
             const REPO_USER = 'Yumeno';
             const REPO_NAME = 'kamuicode-config-manager';
             const BRANCH = 'main';
 
+            // GitHubのRawデータURLを構築
             const URL_MODEL_MEMO = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/kamuicode_model_memo.yaml`;
             const URL_TOOL_CATALOG = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/mcp_tool_catalog.yaml`;
 
@@ -27,11 +30,9 @@
                 isLoading: true,
                 errorMessage: '',
                 
-                // データ
-                models: [],       // 結合されたモデルデータ
-                categories: [],   // カテゴリ一覧
+                models: [],
+                categories: [],
                 
-                // 検索・フィルタ
                 searchQuery: '',
                 selectedCategory: '',
 
@@ -46,10 +47,11 @@
                 },
 
                 async fetchAllData() {
-                    // 2つのYAMLを並列取得
+                    // キャッシュ回避のためにタイムスタンプを付与
+                    const ts = new Date().getTime();
                     const [memoRes, catalogRes] = await Promise.all([
-                        fetch(URL_MODEL_MEMO),
-                        fetch(URL_TOOL_CATALOG)
+                        fetch(`${URL_MODEL_MEMO}?t=${ts}`),
+                        fetch(`${URL_TOOL_CATALOG}?t=${ts}`)
                     ]);
 
                     if (!memoRes.ok) throw new Error(`Model Memo fetch failed: ${memoRes.status}`);
@@ -62,7 +64,7 @@
                 },
 
                 processData(memoData, catalogData) {
-                    // 1. カタログをMap化 (高速検索用)
+                    // カタログをMap化 (ID検索用)
                     const catalogMap = new Map();
                     if (catalogData && catalogData.servers) {
                         catalogData.servers.forEach(server => {
@@ -70,26 +72,34 @@
                         });
                     }
 
-                    // 2. モデルメモをベースにリスト構築
                     const combinedList = [];
                     const categorySet = new Set();
 
+                    // model_memoを主軸にリストを作成
                     if (memoData && memoData.ai_models) {
                         for (const [category, list] of Object.entries(memoData.ai_models)) {
                             categorySet.add(category);
                             if (Array.isArray(list)) {
                                 list.forEach(item => {
-                                    // カタログからツール情報を取得・結合
                                     const catalogInfo = catalogMap.get(item.server_name);
                                     
+                                    // ツール情報を整理
+                                    let tools = [];
+                                    if (catalogInfo && catalogInfo.tools) {
+                                        tools = catalogInfo.tools.map(t => ({
+                                            ...t,
+                                            // ツール名からタイプ(submit/status/result)を簡易判定してソート順を制御
+                                            sortKey: t.name.includes('submit') ? 1 : (t.name.includes('status') ? 2 : 3)
+                                        })).sort((a, b) => a.sortKey - b.sortKey);
+                                    }
+
                                     combinedList.push({
                                         ...item,
                                         category: category,
-                                        // カタログ情報があればツールリストを、なければ空配列
-                                        tools: catalogInfo ? catalogInfo.tools : [],
-                                        status: catalogInfo ? catalogInfo.status : 'unknown',
-                                        last_checked: catalogInfo ? catalogInfo.last_checked : null,
-                                        isExpanded: false // 詳細開閉用
+                                        hasCatalog: !!catalogInfo,
+                                        tools: tools,
+                                        mcpStatus: catalogInfo ? catalogInfo.status : 'unknown',
+                                        isExpanded: false
                                     });
                                 });
                             }
@@ -118,37 +128,55 @@
         }
     </script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen">
+<body class="bg-gray-50 text-slate-800 min-h-screen">
 
-    <div class="container mx-auto p-4 lg:p-8 max-w-6xl" x-data="dictionaryApp()">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-20">
+        <div class="container mx-auto px-4 lg:px-8 max-w-6xl h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📚</span>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">KamuiCode Dictionary</h1>
+            </div>
+            <a href="https://github.com/Yumeno/kamuicode-config-manager" target="_blank" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">
+                GitHub Repository &rarr;
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4 lg:p-8 max-w-6xl" x-data="dictionaryApp()" x-init="init()">
         
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">KamuiCode Model Dictionary</h1>
-            <p class="text-slate-600">AIモデルとMCPツールのリファレンスドキュメント</p>
+        <header class="mb-8 text-center pt-8">
+            <h2 class="text-3xl font-extrabold text-slate-900 mb-3">AI Model & Tool Reference</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">
+                kamuicode設定ファイルで使用可能なAIモデルと、それに対応するMCPツールの機能定義一覧です。<br>
+                <span class="text-xs text-slate-400">データはGitHub上のYAMLファイルから自動的に読み込まれます。</span>
+            </p>
         </header>
 
         <div x-show="isLoading" class="text-center py-20">
-            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-500 border-t-transparent"></div>
-            <p class="mt-4 text-slate-500">最新のモデル定義を読み込んでいます...</p>
+            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-indigo-500 border-t-transparent"></div>
+            <p class="mt-4 text-slate-500 font-medium">Loading definition files...</p>
         </div>
 
-        <div x-show="errorMessage" x-cloak class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-            <strong class="font-bold">Error:</strong>
-            <span x-text="errorMessage"></span>
+        <div x-show="errorMessage" x-cloak class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-r shadow-sm mb-8 mx-auto max-w-2xl">
+            <p class="font-bold">Error Loading Data</p>
+            <p x-text="errorMessage"></p>
         </div>
 
         <div x-show="!isLoading && !errorMessage" x-cloak>
             
-            <div class="bg-white p-4 rounded-xl shadow-sm mb-6 sticky top-4 z-10 border border-slate-200">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-8 sticky top-20 z-10">
                 <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-1">
+                    <div class="flex-1 relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </span>
                         <input type="text" x-model="searchQuery" 
-                               placeholder="モデル名、ID、機能で検索..." 
-                               class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                               placeholder="モデル名、ID、機能概要で検索..." 
+                               class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all">
                     </div>
                     <div class="md:w-64">
                         <select x-model="selectedCategory" 
-                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer">
                             <option value="">すべてのカテゴリ</option>
                             <template x-for="cat in categories" :key="cat">
                                 <option :value="cat" x-text="cat"></option>
@@ -156,67 +184,91 @@
                         </select>
                     </div>
                 </div>
-                <div class="mt-2 text-sm text-slate-500 text-right">
-                    <span x-text="filteredModels.length"></span> 件のモデルを表示中
+                <div class="mt-2 text-xs text-slate-400 text-right font-mono">
+                    Showing <span x-text="filteredModels.length" class="font-bold text-slate-600"></span> models
                 </div>
             </div>
 
-            <div class="space-y-4">
+            <div class="grid gap-6">
                 <template x-for="model in filteredModels" :key="model.server_name">
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200">
                         
                         <div @click="model.isExpanded = !model.isExpanded" 
-                             class="p-5 cursor-pointer flex items-start justify-between bg-white hover:bg-slate-50 transition-colors">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="px-2 py-0.5 text-xs font-semibold rounded bg-slate-100 text-slate-600 border border-slate-200" x-text="model.category"></span>
-                                    <template x-if="model.tools.length > 0">
-                                        <span class="px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-green-700 border border-green-200">MCP対応</span>
+                             class="p-6 cursor-pointer flex items-start gap-4 hover:bg-gray-50 transition-colors relative">
+                            
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                                     :class="model.hasCatalog ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'">
+                                    <template x-if="model.hasCatalog">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                    </template>
+                                    <template x-if="!model.hasCatalog">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                                     </template>
                                 </div>
-                                <h2 class="text-xl font-bold text-indigo-700 mb-1" x-text="model.name"></h2>
-                                <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-mono" x-text="model.server_name"></code>
                             </div>
-                            <div class="text-right pl-4">
-                                <div class="text-sm text-slate-500 mb-1" x-text="model.release_date || '日付不明'"></div>
-                                <button class="text-slate-400 hover:text-indigo-600 transition-colors">
-                                    <svg class="w-6 h-6 transform transition-transform" 
-                                         :class="model.isExpanded ? 'rotate-180' : ''" 
-                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </button>
+
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                    <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200" x-text="model.category"></span>
+                                    <template x-if="model.tools.length > 0">
+                                        <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100" x-text="`${model.tools.length} Tools`"></span>
+                                    </template>
+                                    <span class="text-xs text-slate-400" x-text="model.release_date || 'Release date unknown'"></span>
+                                </div>
+                                <h3 class="text-lg font-bold text-indigo-700 truncate" x-text="model.name"></h3>
+                                <div class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded inline-block mt-1 select-all" x-text="model.server_name"></div>
+                            </div>
+
+                            <div class="text-slate-400 group-hover:text-indigo-500 transition-colors pt-2">
+                                <svg class="w-5 h-5 transform transition-transform duration-200" 
+                                     :class="model.isExpanded ? 'rotate-180' : ''" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
                             </div>
                         </div>
 
-                        <div x-show="model.isExpanded" x-collapse class="border-t border-slate-100 bg-slate-50/50">
-                            <div class="p-5">
+                        <div x-show="model.isExpanded" x-collapse>
+                            <div class="px-6 pb-6 pt-0">
+                                <div class="border-t border-dashed border-gray-200 my-4"></div>
+                                
                                 <div class="mb-6">
-                                    <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-2">概要</h3>
-                                    <p class="text-slate-700 leading-relaxed" x-text="model.features"></p>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Features</h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed" x-text="model.features"></p>
                                 </div>
 
                                 <template x-if="model.tools && model.tools.length > 0">
                                     <div>
-                                        <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                            利用可能なツール
-                                            <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full" x-text="model.tools.length"></span>
-                                        </h3>
-                                        
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Tools (MCP)</h4>
                                         <div class="grid gap-4 lg:grid-cols-2">
                                             <template x-for="tool in model.tools" :key="tool.name">
-                                                <div class="bg-white p-4 rounded-lg border border-slate-200">
-                                                    <div class="font-mono text-sm font-bold text-purple-600 mb-2 select-all" x-text="tool.name"></div>
-                                                    <p class="text-xs text-slate-600 mb-3" x-text="tool.description"></p>
+                                                <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 hover:border-indigo-200 transition-colors">
+                                                    <div class="flex items-center gap-2 mb-2">
+                                                        <span class="font-mono text-sm font-bold text-purple-700 select-all" x-text="tool.name"></span>
+                                                        <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded text-white"
+                                                              :class="{
+                                                                  'bg-blue-500': tool.name.includes('submit'),
+                                                                  'bg-yellow-500': tool.name.includes('status'),
+                                                                  'bg-green-500': tool.name.includes('result')
+                                                              }"
+                                                              x-text="tool.name.includes('submit') ? 'SUBMIT' : (tool.name.includes('status') ? 'STATUS' : 'RESULT')">
+                                                        </span>
+                                                    </div>
+                                                    <p class="text-xs text-slate-600 mb-3 line-clamp-2 hover:line-clamp-none" x-text="tool.description"></p>
                                                     
                                                     <template x-if="tool.inputSchema && tool.inputSchema.properties">
-                                                        <div class="text-xs">
-                                                            <div class="font-semibold text-slate-500 mb-1">パラメータ:</div>
-                                                            <div class="flex flex-wrap gap-1">
+                                                        <div class="space-y-1">
+                                                            <div class="text-[10px] font-semibold text-slate-400">PARAMETERS:</div>
+                                                            <div class="flex flex-wrap gap-1.5">
                                                                 <template x-for="(prop, key) in tool.inputSchema.properties">
-                                                                    <span class="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded border border-slate-200" 
-                                                                          :class="{'border-red-200 bg-red-50 text-red-600': tool.inputSchema.required?.includes(key)}"
-                                                                          x-text="key"></span>
+                                                                    <span class="inline-flex items-center px-2 py-1 rounded text-[10px] font-mono border"
+                                                                          :class="tool.inputSchema.required?.includes(key) 
+                                                                            ? 'bg-red-50 text-red-700 border-red-200 font-bold' 
+                                                                            : 'bg-white text-slate-600 border-slate-200'">
+                                                                        <span x-text="key"></span>
+                                                                        <span x-show="tool.inputSchema.required?.includes(key)" class="ml-1 text-red-500">*</span>
+                                                                    </span>
                                                                 </template>
                                                             </div>
                                                         </div>
@@ -228,8 +280,8 @@
                                 </template>
 
                                 <template x-if="!model.tools || model.tools.length === 0">
-                                    <div class="text-sm text-slate-400 italic">
-                                        このモデルに関連付けられたMCPツール定義は見つかりませんでした。
+                                    <div class="text-sm text-slate-400 italic bg-gray-50 p-4 rounded-lg text-center">
+                                        No MCP tool definitions found in the catalog for this model.
                                     </div>
                                 </template>
                             </div>
@@ -238,14 +290,14 @@
                     </div>
                 </template>
                 
-                <div x-show="filteredModels.length === 0" class="text-center py-12 text-slate-500">
-                    条件に一致するモデルが見つかりません。
+                <div x-show="filteredModels.length === 0" class="text-center py-12">
+                    <p class="text-slate-400">条件に一致するモデルが見つかりません。</p>
                 </div>
             </div>
             
-            <footer class="mt-12 text-center text-slate-400 text-sm pb-8">
-                <p>&copy; KamuiCode Config Manager - Dictionary View</p>
-                <p class="mt-1 text-xs">Data sourced from GitHub repository.</p>
+            <footer class="mt-16 text-center text-slate-400 text-sm pb-8 border-t border-gray-200 pt-8">
+                <p>&copy; KamuiCode Config Manager</p>
+                <p class="mt-1 text-xs">Generated from repository YAML files.</p>
             </footer>
 
         </div>
