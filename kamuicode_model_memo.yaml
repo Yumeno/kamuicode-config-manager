@@ -584,6 +584,10 @@ ai_models:
       server_name: r2v-kamui-ltx-2
       release_date: 2025年10月23日
       features: "(Lightricks) プロンプトを用いて動画の特定部分を修正（リテイク）できる動画生成・編集モデル。音声や映像の置換、開始時間・長さの指定が可能で、4K解像度や音声同期生成にも対応する。"
+    - name: Decart Lucy Edit Fast
+      server_name: v2v-kamui-decart-lucy-edit-fast
+      release_date: 2025年11月13日頃
+      features: "(Decart AI/Fal.ai) テキストプロンプトで動画内の特定要素を編集できるVideo-to-Videoモデル。蒸留モデルを使用し、約10秒での高速生成と低コストを実現。同期モードやプロンプト強化に対応。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
@@ -763,3 +767,9 @@ ai_models:
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
+
+  3d_to_3d:
+    - name: Meshy V5 Remesh
+      server_name: 3d23d-kamui-meshy-v5-remesh
+      release_date: 2024年12月頃
+      features: "(Meshy) Meshy-5モデルを使用した3Dリメッシュ機能。3Dモデルのトポロジー最適化（四角形/三角形）、ポリゴン数削減、フォーマット変換を行い、ジオメトリを簡素化または洗練させるツール。"
