@@ -89,13 +89,10 @@
 
                 // --- MCPツールカタログ関連 ---
                 catalogData: null,           // カタログ全体のデータ
-                catalogServers: [],          // サーバー一覧
-                filteredCatalogServers: [],  // フィルタ済みサーバー一覧
-                catalogFilterText: '',       // 検索テキスト
-                catalogFilterStatus: '',     // ステータスフィルタ
+                catalogLookup: new Map(),    // server_name -> サーバー情報のマップ
                 catalogLoaded: false,        // カタログ読み込み済みフラグ
                 isLoadingCatalog: false,     // カタログ読み込み中フラグ
-                selectedServer: null,        // 選択されたサーバー
+                selectedServer: null,        // 選択されたサーバー（ツール詳細用）
                 showServerDialog: false,     // ダイアログ表示フラグ
 
                 // --- 初期化 ---
@@ -561,10 +558,9 @@
                         this.catalogData = jsyaml.load(yamlText, { schema: jsyaml.FAILSAFE_SCHEMA });
 
                         if (this.catalogData && this.catalogData.servers) {
-                            this.catalogServers = this.catalogData.servers;
+                            this.buildCatalogLookup();
                             this.catalogLoaded = true;
-                            this.applyCatalogFilters();
-                            this.successMessage = `MCPツールカタログを読み込みました（${this.catalogServers.length}サーバー）`;
+                            this.successMessage = `MCPツールカタログを読み込みました（${this.catalogData.servers.length}サーバー）`;
                         } else {
                             throw new Error('カタログデータの形式が不正です');
                         }
@@ -587,10 +583,9 @@
                                 this.catalogData = jsyaml.load(content, { schema: jsyaml.FAILSAFE_SCHEMA });
 
                                 if (this.catalogData && this.catalogData.servers) {
-                                    this.catalogServers = this.catalogData.servers;
+                                    this.buildCatalogLookup();
                                     this.catalogLoaded = true;
-                                    this.applyCatalogFilters();
-                                    this.successMessage = `MCPツールカタログを読み込みました（${this.catalogServers.length}サーバー）`;
+                                    this.successMessage = `MCPツールカタログを読み込みました（${this.catalogData.servers.length}サーバー）`;
                                 } else {
                                     throw new Error('カタログデータの形式が不正です');
                                 }
@@ -604,74 +599,75 @@
                     event.target.value = '';
                 },
 
-                // カタログのフィルタを適用
-                applyCatalogFilters() {
-                    const text = this.catalogFilterText.toLowerCase();
-                    const status = this.catalogFilterStatus;
+                // カタログのLookupを構築（server_name -> サーバー情報）
+                buildCatalogLookup() {
+                    this.catalogLookup.clear();
+                    if (!this.catalogData || !this.catalogData.servers) return;
 
-                    this.filteredCatalogServers = this.catalogServers.filter(server => {
-                        // ステータスフィルタ
-                        const statusMatch = !status || server.status === status;
-
-                        // テキストフィルタ（ID、URL、ツール名、説明で検索）
-                        let textMatch = true;
-                        if (text) {
-                            const idMatch = server.id && server.id.toLowerCase().includes(text);
-                            const urlMatch = server.url && server.url.toLowerCase().includes(text);
-                            const toolMatch = server.tools && server.tools.some(tool =>
-                                (tool.name && tool.name.toLowerCase().includes(text)) ||
-                                (tool.description && tool.description.toLowerCase().includes(text))
-                            );
-                            textMatch = idMatch || urlMatch || toolMatch;
+                    this.catalogData.servers.forEach(server => {
+                        if (server && server.id) {
+                            this.catalogLookup.set(server.id, server);
                         }
-
-                        return statusMatch && textMatch;
                     });
                 },
 
-                // サーバー詳細ダイアログを開く
-                openServerDialog(server) {
-                    this.selectedServer = server;
-                    this.showServerDialog = true;
-                    // スクロールを無効化
-                    document.body.style.overflow = 'hidden';
+                // server_nameに対応するカタログ情報を取得
+                getCatalogServer(serverName) {
+                    return this.catalogLookup.get(serverName);
+                },
+
+                // server_nameに対応するツール数を取得
+                getToolCount(serverName) {
+                    const server = this.catalogLookup.get(serverName);
+                    return server && server.tools ? server.tools.length : 0;
+                },
+
+                // サーバー詳細ダイアログを開く（server_nameから）
+                openToolDialog(serverName) {
+                    const server = this.catalogLookup.get(serverName);
+                    if (server) {
+                        this.selectedServer = server;
+                        this.showServerDialog = true;
+                        document.body.style.overflow = 'hidden';
+                    }
                 },
 
                 // サーバー詳細ダイアログを閉じる
                 closeServerDialog() {
                     this.showServerDialog = false;
                     this.selectedServer = null;
-                    // スクロールを有効化
                     document.body.style.overflow = '';
                 },
 
-                // ステータスの表示用ラベルとカラー
-                getStatusLabel(status) {
-                    const labels = {
-                        'online': 'オンライン',
-                        'offline': 'オフライン',
-                        'error': 'エラー'
-                    };
-                    return labels[status] || status;
-                },
+                // ツールをsubmit -> status -> resultの順にソートして取得
+                getSortedTools(server) {
+                    if (!server || !server.tools) return [];
 
-                getStatusColor(status) {
-                    const colors = {
-                        'online': 'bg-green-100 text-green-800',
-                        'offline': 'bg-gray-100 text-gray-800',
-                        'error': 'bg-red-100 text-red-800'
-                    };
-                    return colors[status] || 'bg-gray-100 text-gray-800';
+                    const order = { 'submit': 0, 'status': 1, 'result': 2 };
+
+                    return [...server.tools].sort((a, b) => {
+                        // ツール名の末尾からタイプを判定
+                        const getType = (name) => {
+                            if (name.endsWith('_submit') || name.includes('submit')) return 'submit';
+                            if (name.endsWith('_status') || name.includes('status')) return 'status';
+                            if (name.endsWith('_result') || name.includes('result')) return 'result';
+                            return 'other';
+                        };
+
+                        const typeA = getType(a.name);
+                        const typeB = getType(b.name);
+                        const orderA = order[typeA] !== undefined ? order[typeA] : 3;
+                        const orderB = order[typeB] !== undefined ? order[typeB] : 3;
+
+                        return orderA - orderB;
+                    });
                 },
 
                 // カタログをクリア
                 clearCatalog() {
                     this.catalogData = null;
-                    this.catalogServers = [];
-                    this.filteredCatalogServers = [];
+                    this.catalogLookup.clear();
                     this.catalogLoaded = false;
-                    this.catalogFilterText = '';
-                    this.catalogFilterStatus = '';
                     this.selectedServer = null;
                     this.showServerDialog = false;
                 }
@@ -801,15 +797,31 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <!-- ★★★ ヘッダー: タイトル と 状態I/Oボタン ★★★ -->
                 <div class="p-4 md:p-6 border-b border-gray-200">
-                    <div class="flex flex-col md:flex-row justify-between md:items-center">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center gap-3">
                         <!-- タイトル -->
-                        <h2 class="text-xl font-semibold mb-3 md:mb-0">
+                        <h2 class="text-xl font-semibold">
                             3. モデル一覧
                             <span class="text-base font-normal text-gray-600" x-text="`(${filteredList.length} / ${masterList.length} 件)`"></span>
                         </h2>
 
-                        <!-- 状態管理ボタン (小さく) -->
-                        <div class="flex items-center space-x-2">
+                        <!-- ボタングループ -->
+                        <div class="flex flex-wrap items-center gap-2">
+                            <!-- ツールカタログ読み込み -->
+                            <button @click="loadCatalog"
+                                    :disabled="isLoadingCatalog"
+                                    class="px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors disabled:opacity-50">
+                                <span x-show="!isLoadingCatalog && !catalogLoaded">ツールカタログ読込</span>
+                                <span x-show="isLoadingCatalog">読込中...</span>
+                                <span x-show="catalogLoaded && !isLoadingCatalog">カタログ読込済</span>
+                            </button>
+                            <template x-if="catalogLoaded">
+                                <button @click="clearCatalog" class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">
+                                    カタログクリア
+                                </button>
+                            </template>
+
+                            <span class="text-gray-300">|</span>
+
                             <!-- 状態読み込みボタン (inputを隠す) -->
                             <input type="file" @change="loadCheckState" accept=".yaml, .yml" id="checkStateInput" x-ref="checkStateInput" class="hidden">
                             <button type="button" @click="$refs.checkStateInput.click()" class="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
@@ -887,12 +899,13 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解説</th>
+                                <th scope="col" class="w-28 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ツール詳細</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <template x-if="filteredList.length === 0">
                                 <tr>
-                                    <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                    <td colspan="6" class="px-6 py-10 text-center text-gray-500">
                                         ファイルが読み込まれていないか、フィルタに一致するモデルがありません。
                                     </td>
                                 </tr>
@@ -910,6 +923,20 @@
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.release_date"></td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.features"></td>
+                                    <td class="px-4 py-4 text-center">
+                                        <template x-if="catalogLoaded && getCatalogServer(model.server_name)">
+                                            <button @click.stop="openToolDialog(model.server_name)"
+                                                    class="px-2 py-1 text-xs font-medium text-purple-700 bg-purple-100 rounded hover:bg-purple-200 transition-colors">
+                                                詳細 (<span x-text="getToolCount(model.server_name)"></span>)
+                                            </button>
+                                        </template>
+                                        <template x-if="!catalogLoaded">
+                                            <span class="text-xs text-gray-400">-</span>
+                                        </template>
+                                        <template x-if="catalogLoaded && !getCatalogServer(model.server_name)">
+                                            <span class="text-xs text-gray-400">N/A</span>
+                                        </template>
+                                    </td>
                                 </tr>
                             </template>
                         </tbody>
@@ -937,114 +964,7 @@
             </div>
         </template>
 
-        <!-- ==================== MCPツールカタログセクション ==================== -->
-        <div class="mt-8 pt-8 border-t-2 border-gray-300">
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">MCPツールカタログ</h2>
-            <p class="text-gray-600 mb-6">MCPサーバーのツール情報を閲覧できます。</p>
-
-            <!-- カタログ読み込みボタン -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h3 class="text-lg font-semibold mb-3">カタログの読み込み</h3>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <!-- GitHubから読み込み -->
-                    <button @click="loadCatalog"
-                            :disabled="isLoadingCatalog"
-                            class="px-6 py-2.5 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span x-show="!isLoadingCatalog">カタログを読み込む</span>
-                        <span x-show="isLoadingCatalog">読み込み中...</span>
-                    </button>
-
-                    <!-- ローカルファイルから読み込み -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-gray-500 text-sm">または</span>
-                        <input type="file" @change="loadCatalogFromFile" accept=".yaml, .yml"
-                               class="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 transition-colors">
-                    </div>
-
-                    <!-- クリアボタン -->
-                    <template x-if="catalogLoaded">
-                        <button @click="clearCatalog"
-                                class="px-4 py-2 text-sm font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">
-                            カタログをクリア
-                        </button>
-                    </template>
-                </div>
-
-                <!-- メタデータ表示 -->
-                <template x-if="catalogData && catalogData.metadata">
-                    <div class="mt-4 p-3 bg-gray-50 rounded-lg text-sm text-gray-600">
-                        <div class="flex flex-wrap gap-4">
-                            <span>生成日時: <span class="font-medium" x-text="catalogData.metadata.generated_at"></span></span>
-                            <span>総サーバー数: <span class="font-medium" x-text="catalogData.metadata.total_servers"></span></span>
-                            <span class="text-green-600">オンライン: <span class="font-medium" x-text="catalogData.metadata.online_servers"></span></span>
-                            <span class="text-gray-500">オフライン: <span class="font-medium" x-text="catalogData.metadata.offline_servers"></span></span>
-                            <span class="text-red-600">エラー: <span class="font-medium" x-text="catalogData.metadata.error_servers"></span></span>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <!-- サーバー一覧 (カタログが読み込まれたら表示) -->
-            <template x-if="catalogLoaded">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <!-- フィルタ -->
-                    <div class="p-4 md:p-6 border-b border-gray-200 bg-gray-50/50">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="catalogFilterText" class="block text-sm font-medium text-gray-700">テキストで検索</label>
-                                <input type="search" id="catalogFilterText" x-model="catalogFilterText" @input.debounce.300ms="applyCatalogFilters"
-                                       placeholder="サーバーID, URL, ツール名..."
-                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm">
-                            </div>
-                            <div>
-                                <label for="catalogFilterStatus" class="block text-sm font-medium text-gray-700">ステータス</label>
-                                <select id="catalogFilterStatus" x-model="catalogFilterStatus" @change="applyCatalogFilters"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm">
-                                    <option value="">すべて</option>
-                                    <option value="online">オンライン</option>
-                                    <option value="offline">オフライン</option>
-                                    <option value="error">エラー</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-3 text-sm text-gray-600">
-                            表示中: <span class="font-medium" x-text="filteredCatalogServers.length"></span> / <span x-text="catalogServers.length"></span> サーバー
-                        </div>
-                    </div>
-
-                    <!-- サーバーグリッド -->
-                    <div class="p-4 md:p-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                            <template x-for="server in filteredCatalogServers" :key="server.id">
-                                <div @click="openServerDialog(server)"
-                                     class="p-4 border border-gray-200 rounded-lg hover:border-purple-400 hover:shadow-md transition-all cursor-pointer bg-white">
-                                    <!-- ステータスバッジ -->
-                                    <div class="flex justify-between items-start mb-2">
-                                        <span class="px-2 py-0.5 text-xs font-medium rounded-full"
-                                              :class="getStatusColor(server.status)"
-                                              x-text="getStatusLabel(server.status)"></span>
-                                        <span class="text-xs text-gray-400" x-text="server.tools ? server.tools.length + ' tools' : '0 tools'"></span>
-                                    </div>
-                                    <!-- サーバーID -->
-                                    <h4 class="font-semibold text-gray-900 text-sm mb-1 truncate" x-text="server.id" :title="server.id"></h4>
-                                    <!-- URL (省略表示) -->
-                                    <p class="text-xs text-gray-500 truncate" x-text="server.url" :title="server.url"></p>
-                                </div>
-                            </template>
-                        </div>
-
-                        <!-- 検索結果が0件の場合 -->
-                        <template x-if="filteredCatalogServers.length === 0">
-                            <div class="text-center py-10 text-gray-500">
-                                フィルタに一致するサーバーがありません。
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </template>
-        </div>
-
-        <!-- ==================== サーバー詳細ダイアログ ==================== -->
+        <!-- ==================== ツール詳細ダイアログ ==================== -->
         <template x-if="showServerDialog && selectedServer">
             <div class="fixed inset-0 z-50 overflow-y-auto" @keydown.escape.window="closeServerDialog()">
                 <!-- オーバーレイ -->
@@ -1056,12 +976,7 @@
                         <!-- ヘッダー -->
                         <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-start z-10">
                             <div class="flex-1 pr-4">
-                                <div class="flex items-center gap-3 mb-1">
-                                    <h3 class="text-xl font-bold text-gray-900" x-text="selectedServer.id"></h3>
-                                    <span class="px-2 py-0.5 text-xs font-medium rounded-full"
-                                          :class="getStatusColor(selectedServer.status)"
-                                          x-text="getStatusLabel(selectedServer.status)"></span>
-                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-1" x-text="selectedServer.id"></h3>
                                 <p class="text-sm text-gray-500 break-all" x-text="selectedServer.url"></p>
                             </div>
                             <button @click="closeServerDialog()"
@@ -1074,17 +989,12 @@
 
                         <!-- コンテンツ -->
                         <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 100px);">
-                            <!-- 最終チェック日時 -->
-                            <div class="mb-4 text-sm text-gray-600">
-                                最終チェック: <span class="font-medium" x-text="selectedServer.last_checked"></span>
-                            </div>
-
                             <!-- ツール一覧 -->
                             <h4 class="text-lg font-semibold text-gray-800 mb-4">ツール一覧 (<span x-text="selectedServer.tools ? selectedServer.tools.length : 0"></span>)</h4>
 
                             <template x-if="selectedServer.tools && selectedServer.tools.length > 0">
                                 <div class="space-y-4">
-                                    <template x-for="(tool, index) in selectedServer.tools" :key="index">
+                                    <template x-for="(tool, index) in getSortedTools(selectedServer)" :key="index">
                                         <div class="border border-gray-200 rounded-lg overflow-hidden">
                                             <!-- ツールヘッダー -->
                                             <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
