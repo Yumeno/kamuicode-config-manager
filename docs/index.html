@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KamuiCode Model Dictionary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+
+    <script>
+        function dictionaryApp() {
+            // ★ あなたのリポジトリ情報に合わせて変更してください
+            const REPO_USER = 'Yumeno';
+            const REPO_NAME = 'kamuicode-config-manager';
+            const BRANCH = 'main';
+
+            const URL_MODEL_MEMO = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/kamuicode_model_memo.yaml`;
+            const URL_TOOL_CATALOG = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/mcp_tool_catalog.yaml`;
+
+            return {
+                isLoading: true,
+                errorMessage: '',
+                
+                // データ
+                models: [],       // 結合されたモデルデータ
+                categories: [],   // カテゴリ一覧
+                
+                // 検索・フィルタ
+                searchQuery: '',
+                selectedCategory: '',
+
+                async init() {
+                    try {
+                        await this.fetchAllData();
+                    } catch (e) {
+                        this.errorMessage = `データの読み込みに失敗しました: ${e.message}`;
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+
+                async fetchAllData() {
+                    // 2つのYAMLを並列取得
+                    const [memoRes, catalogRes] = await Promise.all([
+                        fetch(URL_MODEL_MEMO),
+                        fetch(URL_TOOL_CATALOG)
+                    ]);
+
+                    if (!memoRes.ok) throw new Error(`Model Memo fetch failed: ${memoRes.status}`);
+                    if (!catalogRes.ok) throw new Error(`Tool Catalog fetch failed: ${catalogRes.status}`);
+
+                    const memoYaml = jsyaml.load(await memoRes.text());
+                    const catalogYaml = jsyaml.load(await catalogRes.text());
+
+                    this.processData(memoYaml, catalogYaml);
+                },
+
+                processData(memoData, catalogData) {
+                    // 1. カタログをMap化 (高速検索用)
+                    const catalogMap = new Map();
+                    if (catalogData && catalogData.servers) {
+                        catalogData.servers.forEach(server => {
+                            catalogMap.set(server.id, server);
+                        });
+                    }
+
+                    // 2. モデルメモをベースにリスト構築
+                    const combinedList = [];
+                    const categorySet = new Set();
+
+                    if (memoData && memoData.ai_models) {
+                        for (const [category, list] of Object.entries(memoData.ai_models)) {
+                            categorySet.add(category);
+                            if (Array.isArray(list)) {
+                                list.forEach(item => {
+                                    // カタログからツール情報を取得・結合
+                                    const catalogInfo = catalogMap.get(item.server_name);
+                                    
+                                    combinedList.push({
+                                        ...item,
+                                        category: category,
+                                        // カタログ情報があればツールリストを、なければ空配列
+                                        tools: catalogInfo ? catalogInfo.tools : [],
+                                        status: catalogInfo ? catalogInfo.status : 'unknown',
+                                        last_checked: catalogInfo ? catalogInfo.last_checked : null,
+                                        isExpanded: false // 詳細開閉用
+                                    });
+                                });
+                            }
+                        }
+                    }
+
+                    this.models = combinedList;
+                    this.categories = Array.from(categorySet).sort();
+                },
+
+                get filteredModels() {
+                    const query = this.searchQuery.toLowerCase();
+                    const category = this.selectedCategory;
+
+                    return this.models.filter(model => {
+                        const matchesCategory = category === '' || model.category === category;
+                        const matchesSearch = 
+                            model.name.toLowerCase().includes(query) ||
+                            model.server_name.toLowerCase().includes(query) ||
+                            (model.features && model.features.toLowerCase().includes(query));
+                        
+                        return matchesCategory && matchesSearch;
+                    });
+                }
+            };
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+
+    <div class="container mx-auto p-4 lg:p-8 max-w-6xl" x-data="dictionaryApp()">
+        
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">KamuiCode Model Dictionary</h1>
+            <p class="text-slate-600">AIモデルとMCPツールのリファレンスドキュメント</p>
+        </header>
+
+        <div x-show="isLoading" class="text-center py-20">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-500 border-t-transparent"></div>
+            <p class="mt-4 text-slate-500">最新のモデル定義を読み込んでいます...</p>
+        </div>
+
+        <div x-show="errorMessage" x-cloak class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+            <strong class="font-bold">Error:</strong>
+            <span x-text="errorMessage"></span>
+        </div>
+
+        <div x-show="!isLoading && !errorMessage" x-cloak>
+            
+            <div class="bg-white p-4 rounded-xl shadow-sm mb-6 sticky top-4 z-10 border border-slate-200">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input type="text" x-model="searchQuery" 
+                               placeholder="モデル名、ID、機能で検索..." 
+                               class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                    </div>
+                    <div class="md:w-64">
+                        <select x-model="selectedCategory" 
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+                            <option value="">すべてのカテゴリ</option>
+                            <template x-for="cat in categories" :key="cat">
+                                <option :value="cat" x-text="cat"></option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-2 text-sm text-slate-500 text-right">
+                    <span x-text="filteredModels.length"></span> 件のモデルを表示中
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <template x-for="model in filteredModels" :key="model.server_name">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+                        
+                        <div @click="model.isExpanded = !model.isExpanded" 
+                             class="p-5 cursor-pointer flex items-start justify-between bg-white hover:bg-slate-50 transition-colors">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="px-2 py-0.5 text-xs font-semibold rounded bg-slate-100 text-slate-600 border border-slate-200" x-text="model.category"></span>
+                                    <template x-if="model.tools.length > 0">
+                                        <span class="px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-green-700 border border-green-200">MCP対応</span>
+                                    </template>
+                                </div>
+                                <h2 class="text-xl font-bold text-indigo-700 mb-1" x-text="model.name"></h2>
+                                <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-mono" x-text="model.server_name"></code>
+                            </div>
+                            <div class="text-right pl-4">
+                                <div class="text-sm text-slate-500 mb-1" x-text="model.release_date || '日付不明'"></div>
+                                <button class="text-slate-400 hover:text-indigo-600 transition-colors">
+                                    <svg class="w-6 h-6 transform transition-transform" 
+                                         :class="model.isExpanded ? 'rotate-180' : ''" 
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div x-show="model.isExpanded" x-collapse class="border-t border-slate-100 bg-slate-50/50">
+                            <div class="p-5">
+                                <div class="mb-6">
+                                    <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-2">概要</h3>
+                                    <p class="text-slate-700 leading-relaxed" x-text="model.features"></p>
+                                </div>
+
+                                <template x-if="model.tools && model.tools.length > 0">
+                                    <div>
+                                        <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            利用可能なツール
+                                            <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full" x-text="model.tools.length"></span>
+                                        </h3>
+                                        
+                                        <div class="grid gap-4 lg:grid-cols-2">
+                                            <template x-for="tool in model.tools" :key="tool.name">
+                                                <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                                    <div class="font-mono text-sm font-bold text-purple-600 mb-2 select-all" x-text="tool.name"></div>
+                                                    <p class="text-xs text-slate-600 mb-3" x-text="tool.description"></p>
+                                                    
+                                                    <template x-if="tool.inputSchema && tool.inputSchema.properties">
+                                                        <div class="text-xs">
+                                                            <div class="font-semibold text-slate-500 mb-1">パラメータ:</div>
+                                                            <div class="flex flex-wrap gap-1">
+                                                                <template x-for="(prop, key) in tool.inputSchema.properties">
+                                                                    <span class="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded border border-slate-200" 
+                                                                          :class="{'border-red-200 bg-red-50 text-red-600': tool.inputSchema.required?.includes(key)}"
+                                                                          x-text="key"></span>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <template x-if="!model.tools || model.tools.length === 0">
+                                    <div class="text-sm text-slate-400 italic">
+                                        このモデルに関連付けられたMCPツール定義は見つかりませんでした。
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+                
+                <div x-show="filteredModels.length === 0" class="text-center py-12 text-slate-500">
+                    条件に一致するモデルが見つかりません。
+                </div>
+            </div>
+            
+            <footer class="mt-12 text-center text-slate-400 text-sm pb-8">
+                <p>&copy; KamuiCode Config Manager - Dictionary View</p>
+                <p class="mt-1 text-xs">Data sourced from GitHub repository.</p>
+            </footer>
+
+        </div>
+    </div>
+</body>
+</html>
