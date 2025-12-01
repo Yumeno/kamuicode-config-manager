@@ -22,13 +22,26 @@ kamuicode-config-manager-vX.X.X.zip
 └── README.md                      # 使い方ガイド
 ```
 
-> **注意**: `tools/`, `docs/`, `.claude/` などの開発用ファイルは含めません。
+> **注意**: `tools/`, `docs/`, `.claude/`, `.github/` などの開発用ファイルは含めません。
 
 > **Note**: YAMLファイルはアプリ内からWeb取得も可能ですが、オフライン利用のため同梱しています。
 
-## リリース作成手順
+## 自動リリース（GitHub Actions）
 
-### 1. リリース準備
+タグをプッシュすると、GitHub Actions が自動でリリースを作成します。
+
+### ワークフローの仕組み
+
+`.github/workflows/release.yml` により、以下が自動実行されます：
+
+1. `v*` パターンのタグプッシュを検知
+2. 配布用ファイルをZIPにパッケージング
+3. GitHub Releaseを作成し、ZIPをアップロード
+4. コミット履歴からリリースノートを自動生成
+
+### リリース手順
+
+#### 1. リリース準備
 
 ```bash
 # 最新の main ブランチに切り替え
@@ -39,7 +52,7 @@ git pull origin main
 git log --oneline -10
 ```
 
-### 2. バージョンタグの作成
+#### 2. バージョンタグの作成
 
 セマンティックバージョニング（SemVer）に従います：
 - **メジャー** (X.0.0): 破壊的変更
@@ -50,11 +63,65 @@ git log --oneline -10
 # タグを作成（例: v1.0.0）
 git tag -a v1.0.0 -m "Release v1.0.0: YAML Web更新機能を追加"
 
-# リモートにプッシュ
+# リモートにプッシュ（これにより自動リリースがトリガーされる）
 git push origin v1.0.0
 ```
 
-### 3. GitHub上でリリースを作成
+#### 3. リリースの確認
+
+1. リポジトリの **[Actions](../../actions)** タブでワークフローの実行状況を確認
+2. 成功すると **[Releases](../../releases)** ページに新しいリリースが作成される
+3. 必要に応じてリリースノートを編集
+
+### ワークフロー設定
+
+```yaml
+# .github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release ZIP
+        run: |
+          mkdir release
+          cp kamuicode-config-manager.html release/
+          cp kamuicode_model_memo.yaml release/
+          cp mcp_tool_catalog.yaml release/
+          cp README.md release/
+          cd release
+          zip -r ../kamuicode-config-manager-${{ steps.version.outputs.VERSION }}.zip .
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: kamuicode-config-manager-${{ steps.version.outputs.VERSION }}.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+```
+
+## 手動リリース（オプション）
+
+自動リリースを使わず、手動でリリースを作成することも可能です。
+
+### 1. GitHub上でリリースを作成
 
 1. リポジトリの **[Releases](../../releases)** ページにアクセス
 2. **「Draft a new release」** をクリック
@@ -63,7 +130,7 @@ git push origin v1.0.0
    - **Release title**: `v1.0.0: YAML Web更新機能を追加`
    - **Description**: 変更内容をMarkdownで記述（テンプレート参照）
 
-### 4. 配布用ZIPファイルの作成
+### 2. 配布用ZIPファイルの作成
 
 ```bash
 # 一時ディレクトリで作業
@@ -80,7 +147,7 @@ cp /path/to/repo/README.md .
 zip -r kamuicode-config-manager-v1.0.0.zip .
 ```
 
-### 5. ZIPファイルのアップロード
+### 3. ZIPファイルのアップロード
 
 1. リリース編集画面の **「Attach binaries」** エリアにZIPをドラッグ＆ドロップ
 2. **「Publish release」** をクリック
@@ -94,6 +161,7 @@ zip -r kamuicode-config-manager-v1.0.0.zip .
 - YAML Web更新機能: GitHubから最新のモデル定義を取得可能に
 - カスタムYAMLモード: ローカルファイルの読み込みに対応
 - 設定の永続化: 次回起動時に設定を自動復元
+- MCPツールカタログ: 各サーバーのツール詳細を閲覧可能
 
 ### 改善
 - UIの改善: モード選択がラジオボタン式に変更
@@ -114,42 +182,32 @@ zip -r kamuicode-config-manager-v1.0.0.zip .
 - インターネット接続（Web更新機能使用時）
 ```
 
-## GitHub Actions による自動化（オプション）
+## フォルダ構成
 
-将来的に、タグプッシュ時に自動でリリースを作成するワークフローを設定できます：
-
-```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
-  push:
-    tags:
-      - 'v*'
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Create Release ZIP
-        run: |
-          mkdir release
-          cp kamuicode-config-manager.html release/
-          cp kamuicode_model_memo.yaml release/
-          cp mcp_tool_catalog.yaml release/
-          cp README.md release/
-          cd release && zip -r ../release.zip .
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: release.zip
-          generate_release_notes: true
+```
+/ (ルート)
+├── kamuicode-config-manager.html  # メインアプリケーション
+├── kamuicode_model_memo.yaml      # モデル定義ファイル
+├── mcp_tool_catalog.yaml          # MCPツールカタログ（自動更新）
+├── README.md                      # ユーザー向けドキュメント
+├── .github/
+│   └── workflows/
+│       ├── release.yml            # 自動リリースワークフロー
+│       └── update_catalog.yml     # カタログ自動更新ワークフロー
+├── tools/                         # 開発ツール
+│   ├── code.js                    # Auto Updater (GAS)
+│   ├── crawler/                   # MCPカタログクローラー
+│   └── README.md
+└── docs/                          # 開発者向けドキュメント
+    ├── README.md                  # ドキュメント目次
+    ├── github_releases_setup.md   # このファイル
+    └── development/               # 開発者向け詳細ドキュメント
+        ├── model_release_date_research_rules.md
+        └── unknown_release_dates.md
 ```
 
 ## 参考リンク
 
 - [GitHub Docs: リリースの管理](https://docs.github.com/ja/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 - [Semantic Versioning](https://semver.org/lang/ja/)
+- [softprops/action-gh-release](https://github.com/softprops/action-gh-release)
