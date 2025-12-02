@@ -81,11 +81,11 @@ server_nameの接頭辞（例: t2i, i2v 等）に基づいた厳格なルール�
 
 ## 完了条件
 
-- [ ] `tools/category_master.json` が作成されていること
-- [ ] `kamuicode_model_memo.yaml` の全エントリが接頭辞ルールに従って再配置されていること
-- [ ] `tools/code.js` にマスタ参照ロジックと未知接頭辞の自動学習機能が実装されていること
-- [ ] `docs/index.html` でモデル一覧が正しくカテゴリ分けされて表示・検索できること
-- [ ] `tools/README.md` が最新の仕様に合わせて更新されていること
+- [x] `tools/category_master.json` が作成されていること
+- [ ] `kamuicode_model_memo.yaml` の全エントリが接頭辞ルールに従って再配置されていること（※GAS環境で `recategorizeExistingModels()` を実行）
+- [x] `tools/code.js` にマスタ参照ロジックと未知接頭辞の自動学習機能が実装されていること
+- [x] `docs/index.html` でモデル一覧が正しくカテゴリ分けされて表示・検索できること
+- [x] `tools/README.md` が最新の仕様に合わせて更新されていること
 
 ## 作成日
 
