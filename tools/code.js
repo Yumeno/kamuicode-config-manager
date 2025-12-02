@@ -111,7 +111,7 @@ function recategorizeExistingModels() {
   console.log('Fetching kamuicode_model_memo.yaml...');
   let yamlFile;
   try {
-    yamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken);
+    yamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken, CONFIG.BRANCH);
   } catch (e) {
     console.error(`YAML取得エラー: ${e.message}`);
     return;
@@ -365,7 +365,7 @@ function main() {
     // 現在のYAMLを取得して比較
     let currentYamlFile;
     try {
-      currentYamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken);
+      currentYamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken, CONFIG.BRANCH);
     } catch (e) {
       console.error(`GitHub YAML取得エラー: ${e.message}`);
       return;
@@ -390,7 +390,7 @@ function main() {
   // ルールファイル取得
   let rulesContent = "";
   try {
-    const rulesFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.RULES_PATH, githubToken);
+    const rulesFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.RULES_PATH, githubToken, CONFIG.BRANCH);
     rulesContent = rulesFile.content;
   } catch (e) { console.warn(`ルールファイル取得失敗: ${e.message}`); }
 
@@ -499,7 +499,7 @@ function main() {
   if (resultsToCommit.yamlUpdates.length > 0) {
     try {
       console.log(`Updating YAML (${resultsToCommit.yamlUpdates.length} entries)...`);
-      const yamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken);
+      const yamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken, CONFIG.BRANCH);
       let newYamlContent = yamlFile.content;
 
       // 変更を適用 (テキスト操作)
@@ -519,7 +519,7 @@ function main() {
   if (resultsToCommit.mdUpdates.length > 0) {
     try {
       console.log(`Updating Markdown (${resultsToCommit.mdUpdates.length} entries)...`);
-      const mdFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.UNKNOWN_MD_PATH, githubToken);
+      const mdFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.UNKNOWN_MD_PATH, githubToken, CONFIG.BRANCH);
       let newMdContent = mdFile.content;
 
       // 追記ブロックの作成
@@ -590,7 +590,7 @@ function extractPrefixFromServerName(serverName) {
  */
 function fetchCategoryMaster(CONFIG, githubToken) {
   try {
-    const file = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.CATEGORY_MASTER_PATH, githubToken);
+    const file = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.CATEGORY_MASTER_PATH, githubToken, CONFIG.BRANCH);
     return {
       data: JSON.parse(file.content),
       sha: file.sha
@@ -917,8 +917,10 @@ function extractServerNamesFromYaml(yamlContent) {
   return names;
 }
 
-function fetchGithubFile(owner, repo, path, token) {
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+function fetchGithubFile(owner, repo, path, token, branch) {
+  // branch が未指定の場合はデフォルト値を使用
+  branch = branch || DEFAULT_CONFIG.BRANCH;
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
   const options = {
     method: 'get',
     headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' },
