@@ -1,5 +1,6 @@
 """YAML generator for MCP tool catalog."""
 
+import json
 import logging
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,15 +26,6 @@ class YAMLGenerator:
     ) -> dict[str, Any]:
         """
         Generate catalog data from server results.
-
-        Note: This method does NOT include authentication information.
-        Headers and other sensitive data are explicitly excluded.
-
-        Args:
-            server_results: List of ServerResult objects from MCP crawling.
-
-        Returns:
-            Dictionary representing the catalog structure.
         """
         # Sort servers by ID for consistent output
         sorted_results = sorted(server_results, key=lambda r: r.id)
@@ -52,15 +44,7 @@ class YAMLGenerator:
         return catalog
 
     def to_yaml_string(self, catalog: dict[str, Any]) -> str:
-        """
-        Convert catalog dictionary to YAML string.
-
-        Args:
-            catalog: Catalog dictionary.
-
-        Returns:
-            YAML formatted string.
-        """
+        """Convert catalog dictionary to YAML string."""
         # Custom representer for cleaner output
         def str_representer(dumper: yaml.Dumper, data: str) -> yaml.ScalarNode:
             if "\n" in data:
@@ -82,13 +66,7 @@ class YAMLGenerator:
         catalog: dict[str, Any],
         output_path: str | Path,
     ) -> None:
-        """
-        Save catalog to YAML file.
-
-        Args:
-            catalog: Catalog dictionary.
-            output_path: Path to output YAML file.
-        """
+        """Save catalog to YAML file."""
         output_path = Path(output_path)
         yaml_content = self.to_yaml_string(catalog)
 
@@ -96,15 +74,7 @@ class YAMLGenerator:
         logger.info(f"Catalog saved to {output_path}")
 
     def load_existing_catalog(self, path: str | Path) -> dict[str, Any] | None:
-        """
-        Load existing catalog from YAML file.
-
-        Args:
-            path: Path to existing YAML file.
-
-        Returns:
-            Catalog dictionary or None if file doesn't exist.
-        """
+        """Load existing catalog from YAML file."""
         path = Path(path)
 
         if not path.exists():
@@ -120,6 +90,23 @@ class YAMLGenerator:
             logger.error(f"Failed to load existing catalog: {e}")
             return None
 
+    def _is_content_changed(self, old_server: dict[str, Any], new_server: dict[str, Any]) -> bool:
+        """
+        Check if the meaningful content (URL or tools) has changed.
+        Ignores status, last_checked, and error_message.
+        """
+        # 1. URL Check
+        if old_server.get("url") != new_server.get("url"):
+            return True
+
+        # 2. Tools Check (Deep comparison using JSON serialization for stability)
+        # Normalize tools list by sorting to ensure order doesn't affect comparison
+        old_tools = sorted(old_server.get("tools", []), key=lambda x: x.get("name", ""))
+        new_tools = sorted(new_server.get("tools", []), key=lambda x: x.get("name", ""))
+
+        # Use JSON dump to compare deep structures (inputSchema etc.) ignoring specific formatting
+        return json.dumps(old_tools, sort_keys=True) != json.dumps(new_tools, sort_keys=True)
+
     def merge_catalogs(
         self,
         new_results: list[ServerResult],
@@ -127,18 +114,12 @@ class YAMLGenerator:
     ) -> dict[str, Any]:
         """
         Merge new results with existing catalog.
-
-        Strategy:
-        - New servers are added
-        - Existing servers are updated with new data
-        - Servers not in new results are preserved (may be temporarily offline)
-
-        Args:
-            new_results: New server results from crawling.
-            existing_catalog: Existing catalog data or None.
-
-        Returns:
-            Merged catalog dictionary.
+        
+        Logic:
+        - Only updates entry if 'tools' or 'url' actually changed.
+        - Preserves 'last_checked' timestamp if no content change occurred.
+        - If the new result is offline/error, keeps the old entry (prevents wiping tool definitions).
+        - If absolutely no changes across all servers, preserves the original 'generated_at'.
         """
         if existing_catalog is None:
             return self.generate_catalog(new_results)
@@ -153,26 +134,61 @@ class YAMLGenerator:
                 if server_id:
                     existing_servers_map[server_id] = server
 
-        # Merge: prioritize new results, but keep servers that weren't crawled
         merged_servers: list[dict[str, Any]] = []
+        has_any_change = False
 
-        # Add/update servers from new results
-        for server_id, result in new_results_map.items():
-            merged_servers.append(result.to_dict())
+        # 1. Process all new results (updates or new entries)
+        for server_id, new_result_obj in new_results_map.items():
+            new_server_data = new_result_obj.to_dict()
+            existing_server_data = existing_servers_map.get(server_id)
 
-        # Add servers from existing catalog that weren't in new results
-        # (these may be temporarily unreachable servers we want to keep)
-        for server_id, server_data in existing_servers_map.items():
-            if server_id not in new_results_map:
-                # Mark as potentially stale
-                server_data["status"] = "unknown"
-                server_data["error_message"] = "Server not found in latest crawl"
-                merged_servers.append(server_data)
+            if existing_server_data:
+                # Case A: Server exists in previous catalog
+                
+                # Check 1: If new result is Offline/Error, don't overwrite valid existing data
+                if new_result_obj.status != "online":
+                    logger.info(f"Server {server_id} is {new_result_obj.status}. Keeping existing entry.")
+                    merged_servers.append(existing_server_data)
+                    continue
+
+                # Check 2: If Online, check if content actually changed
+                if self._is_content_changed(existing_server_data, new_server_data):
+                    logger.info(f"Server {server_id} content changed. Updating.")
+                    merged_servers.append(new_server_data)
+                    has_any_change = True
+                else:
+                    # No content change -> Keep OLD entry (preserves old last_checked)
+                    # logger.debug(f"Server {server_id} unchanged. Keeping existing entry.")
+                    merged_servers.append(existing_server_data)
+            else:
+                # Case B: New server found
+                logger.info(f"New server found: {server_id}")
+                merged_servers.append(new_server_data)
+                has_any_change = True
+
+        # 2. Add servers from existing catalog that weren't in new results
+        # (e.g. removed from Drive config, or temporary network partition?)
+        # Current logic: If not in Drive config (new_results), we assume it should be removed?
+        # Or should we keep them? 
+        # Usually, if it's removed from Drive config, it should be removed from Catalog.
+        # But `drive_client` fetches only what's in Drive.
+        # Let's assume: If it's not in new_results (Drive), it is REMOVED.
+        
+        # Check for removed servers to set has_any_change flag correctly
+        for existing_id in existing_servers_map:
+            if existing_id not in new_results_map:
+                logger.info(f"Server removed (not in Drive config): {existing_id}")
+                has_any_change = True
 
         # Sort by ID
         merged_servers.sort(key=lambda s: s.get("id", ""))
 
-        # Build final catalog
+        # 3. Final Decision: Did anything change?
+        if not has_any_change:
+            logger.info("No content changes detected. Preserving existing catalog metadata.")
+            return existing_catalog
+
+        # If changed, generate new metadata
         online_count = sum(1 for s in merged_servers if s.get("status") == "online")
         offline_count = sum(1 for s in merged_servers if s.get("status") == "offline")
         error_count = sum(1 for s in merged_servers if s.get("status") in ("error", "unknown"))
