@@ -487,6 +487,14 @@ ai_models:
       server_name: i2v-kamui-ltx-2-fast
       release_date: 2025年10月24日
       features: "(Lightricks) 次世代の動画生成モデルLTX-2の高速推論版。4K解像度、音声同期生成、最大20秒の長尺動画生成に対応し、従来のモデルよりも高速かつ低コストでシネマティックな動画を生成可能。"
+    - name: Kling Video O1
+      server_name: i2v-kamui-kling-video-o1
+      release_date: 2025年12月1日
+      features: "(Kuaishou) 開始フレームと終了フレームを指定して、その間をスムーズに補完する動画を生成できるImage-to-Videoモデル。テキストプロンプトによる制御も可能で、映画のような高品質なトランジションを実現する。fal.ai等を通じてAPI利用可能。"
+    - name: Kling Video O1
+      server_name: r2v-kamui-kling-video-o1
+      release_date: 2025年12月1日
+      features: "(Kuaishou) テキスト、画像、動画を入力として統合的に処理できるマルチモーダル動画生成モデル。特に参照画像を用いたキャラクターやスタイルの一貫性維持（Reference-to-Video）に優れ、動画編集や拡張も可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -588,6 +596,14 @@ ai_models:
       server_name: v2v-kamui-decart-lucy-edit-fast
       release_date: 2025年11月13日頃
       features: "(Decart AI/Fal.ai) テキストプロンプトで動画内の特定要素を編集できるVideo-to-Videoモデル。蒸留モデルを使用し、約10秒での高速生成と低コストを実現。同期モードやプロンプト強化に対応。"
+    - name: Kling Video O1
+      server_name: v2v-kamui-kling-video-o1
+      release_date: 2025年12月1日
+      features: "(Kuaishou) 動画、画像、テキストを統合的に理解する最新のマルチモーダル動画生成・編集モデル。既存の動画に対して、キャラクターやオブジェクトの置換、背景の変更、スタイル変換などをテキストや参照画像を用いて高精度に行うことができる。"
+    - name: Kling Video O1 (Reference)
+      server_name: v2v-kamui-kling-video-o1-reference
+      release_date: 2025年12月1日
+      features: "(Kuaishou) 動画から動画を生成・変換するVideo-to-Videoモデル。参照動画の動きや構図を維持しながら、テキストや参照画像を用いてスタイルや要素を変更可能。テキスト・画像・動画を統合的に理解する新しい『Kling O1』アーキテクチャを採用しており、高い一貫性と編集能力を持つ。"
   reference_to_video:
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
