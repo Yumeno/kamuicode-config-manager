@@ -45,6 +45,7 @@ Thumbs.db
 *.json
 !package.json
 !package-lock.json
+!tools/category_master.json
 service-account*.json
 *-credentials.json
 *_credentials.json

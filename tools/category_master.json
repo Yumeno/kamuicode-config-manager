@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "server_name接頭辞からカテゴリキーへのマッピング定義",
+  "version": "1.0.0",
+  "prefix_to_category": {
+    "3d23d": {
+      "category_key": "3d_to_3d",
+      "description": "3Dモデルのリメッシュ、最適化"
+    },
+    "a2t": {
+      "category_key": "audio_to_text",
+      "description": "音声認識、音声内容の解析・理解"
+    },
+    "a2v": {
+      "category_key": "audio_to_video",
+      "description": "音声からのアバター動画生成（トーキングヘッド等）"
+    },
+    "file-upload": {
+      "category_key": "utility_and_analysis",
+      "description": "ファイルアップロード用ユーティリティ"
+    },
+    "flf2v": {
+      "category_key": "frame_to_video",
+      "description": "始点・終点フレームを指定した動画生成（補間）"
+    },
+    "i2i": {
+      "category_key": "image_to_image",
+      "description": "画像編集、スタイル変換、アップスケーリング"
+    },
+    "i2i3d": {
+      "category_key": "image_to_3d",
+      "description": "画像からの3Dモデル生成"
+    },
+    "i2v": {
+      "category_key": "image_to_video",
+      "description": "画像からの動画生成"
+    },
+    "misc": {
+      "category_key": "miscellaneous",
+      "description": "その他、複合機能"
+    },
+    "r2v": {
+      "category_key": "reference_to_video",
+      "description": "参照画像/動画を用いた動画生成"
+    },
+    "s2v": {
+      "category_key": "speech_to_video",
+      "description": "音声（スピーチ）からの動画生成"
+    },
+    "t2a": {
+      "category_key": "text_to_audio",
+      "description": "テキストからの効果音（SFX）生成"
+    },
+    "t2i": {
+      "category_key": "text_to_image",
+      "description": "テキストからの画像生成"
+    },
+    "t2i3d": {
+      "category_key": "text_to_3d",
+      "description": "テキストからの3Dモデル生成"
+    },
+    "t2m": {
+      "category_key": "text_to_music",
+      "description": "テキストからの音楽（BGM）生成"
+    },
+    "t2s": {
+      "category_key": "text_to_speech",
+      "description": "音声合成（読み上げ）"
+    },
+    "t2v": {
+      "category_key": "text_to_video",
+      "description": "テキストからの動画生成"
+    },
+    "t2visual": {
+      "category_key": "text_to_visual",
+      "description": "テキストからの図解・グラフィック生成"
+    },
+    "train": {
+      "category_key": "training",
+      "description": "LoRA学習、ファインチューニング"
+    },
+    "tts": {
+      "category_key": "text_to_speech",
+      "description": "音声合成（Klingモデル等での別表記）"
+    },
+    "v2a": {
+      "category_key": "video_to_audio",
+      "description": "動画からの音声・効果音生成"
+    },
+    "v2sfx": {
+      "category_key": "video_to_sfx",
+      "description": "動画に合わせた効果音生成"
+    },
+    "v2v": {
+      "category_key": "video_to_video",
+      "description": "動画編集、変換、リップシンク、背景除去"
+    },
+    "video-analysis": {
+      "category_key": "utility_and_analysis",
+      "description": "動画解析"
+    },
+    "voice-clone": {
+      "category_key": "voice_clone",
+      "description": "音声クローン（ボイスデザイン）"
+    }
+  }
+}
