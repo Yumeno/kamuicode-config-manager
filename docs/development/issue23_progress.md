@@ -5,6 +5,16 @@
 
 ## 作業記録
 
+### 2025-12-02: BRANCHプロパティ対応修正
+
+#### 修正内容
+
+- `fetchGithubFile()` 関数に `branch` パラメータを追加
+- すべての呼び出し箇所で `CONFIG.BRANCH` を渡すように修正
+- これにより、GASのスクリプトプロパティで `BRANCH` を設定することで、PRマージ前にフィーチャーブランチでテスト可能に
+
+---
+
 ### 2025-12-02: 作業完了
 
 #### 完了タスク
@@ -53,6 +63,8 @@
 | `869c4ec` | feat(tools): implement prefix-based category system in code.js |
 | `d7cc8bb` | feat(docs): improve category display in web viewer |
 | `6e8caa3` | docs(tools): update README with prefix-based category system |
+| `10af467` | docs: finalize Issue #23 documentation |
+| `2e76351` | fix(tools): pass BRANCH parameter to all fetchGithubFile calls |
 
 ---
 
