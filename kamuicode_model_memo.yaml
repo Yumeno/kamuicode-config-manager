@@ -355,10 +355,6 @@ ai_models:
       release_date: 2025年10月27日
       features: "(Meituan / fal.ai) LongCatモデルの720p/30fps高解像度版。詳細なテキストプロンプトから高品質動画を生成。フレーム制御（デフォルト: 162）、推論ステップ（デフォルト: 40）、refinementステップ（デフォルト: 40）、ガイダンススケール（デフォルト: 4）、アスペクト比（16:9, 9:16, 1:1）、FPS（デフォルト: 30）、ビデオ品質（低/中/高/最大）、出力形式（MP4, WebM, ProRes, GIF）、加速レベル、シード制御をサポート。"
     - name: Sana Video
-      server_name: t2v-kamui-sana-video
-      release_date: 2024年10月27日
-      features: "(NVIDIA / fal.ai) Sana Videoモデルによるテキストから動画を生成。カスタマイズ可能なパラメータ：ネガティブプロンプト、解像度（480p）、フレーム数（デフォルト: 81）、FPS（デフォルト: 16）、モーションスコア（デフォルト: 30）、ガイダンススケール（デフォルト: 6）、推論ステップ（デフォルト: 28）、シード値による再現可能な生成をサポート。"
-    - name: Sana Video (New)
       server_name: t2v-kamui-fal-sana-video
       release_date: 2025年10月13日
       features: "(NVIDIA / fal.ai) 最新のSana Videoモデル。線形拡散Transformer (DiT) を採用し、高解像度かつ効率的な動画生成を実現。"
@@ -771,10 +767,6 @@ ai_models:
       server_name: misc-kamui-hunyuan-part
       release_date: 2025年10月7日
       features: "(Tencent) 既存の3Dモデル（.glb, .obj）を、意味のあるパーツ（例: 椅子の脚、背もたれ）ごとに自動的に分割（セグメンテーション）するユーティリティ。"
-    - name: Meshy AI Meshy-5 (Remesh)
-      server_name: i2i3d-kamui-meshy-v5-remesh
-      release_date: 2025年8月8日
-      features: "(Meshy AI) 既存の3Dモデルのメッシュ（ポリゴン）を再構築（リメッシュ）し、トポロジを最適化したり、ポリゴン数を調整したりするユーティリティ。"
     - name: MiniMax Voice Clone
       server_name: voice-clone-kamui-minimax
       release_date: 2025年8月7日
