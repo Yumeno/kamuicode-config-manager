@@ -1,14 +1,14 @@
 metadata:
-  generated_at: '2025-12-01T13:32:43.390157+00:00'
-  total_servers: 187
-  online_servers: 187
+  generated_at: '2025-12-02T13:34:07.500033+00:00'
+  total_servers: 191
+  online_servers: 191
   offline_servers: 0
   error_servers: 0
 servers:
 - id: 3d23d-kamui-meshy-v5-remesh
   url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
   status: online
-  last_checked: '2025-12-01T13:32:38.246751+00:00'
+  last_checked: '2025-12-02T13:34:02.585619+00:00'
   tools:
   - name: meshy_v5_remesh_result
     description: Get result of completed Meshy V5 Remesh as raw JSON. Returns remeshed 3D model in requested formats.
@@ -64,7 +64,7 @@ servers:
 - id: a2t-kamui-audio-understanding
   url: https://kamui-code.ai/a2t/fal/audio-understanding
   status: online
-  last_checked: '2025-12-01T13:32:40.229170+00:00'
+  last_checked: '2025-12-02T13:34:04.319191+00:00'
   tools:
   - name: audio_understanding_result
     description: Get result of completed Audio Understanding analysis. Returns JSON response with the analysis output text.
@@ -107,7 +107,7 @@ servers:
 - id: a2v-kamui-kling-video-v1-pro-ai-avatar
   url: https://kamui-code.ai/a2v/fal/kling-video/v1/pro/ai-avatar
   status: online
-  last_checked: '2025-12-01T13:32:35.553073+00:00'
+  last_checked: '2025-12-02T13:33:59.953383+00:00'
   tools:
   - name: kling_video_v1_pro_ai_avatar_result
     description: Kling Video V1 Pro AI Avatarリクエストの結果を取得します。
@@ -149,7 +149,7 @@ servers:
 - id: a2v-kamui-veed-fabric-1-0
   url: https://kamui-code.ai/a2v/fal/veed/fabric-1.0
   status: online
-  last_checked: '2025-12-01T13:32:36.974400+00:00'
+  last_checked: '2025-12-02T13:34:01.735854+00:00'
   tools:
   - name: veed_fabric_10_result
     description: Get result of completed Veed Fabric 1.0 video generation.
@@ -191,7 +191,7 @@ servers:
 - id: file-upload-kamui-fal
   url: https://kamui-code.ai/uploader/fal
   status: online
-  last_checked: '2025-12-01T13:32:28.704838+00:00'
+  last_checked: '2025-12-02T13:33:53.733634+00:00'
   tools:
   - name: kamui_file_upload_fal
     description: Upload a local file to FAL storage using local uploader scripts. Automatically handles setup if scripts are
@@ -207,7 +207,7 @@ servers:
 - id: flf2v-kamui-veo31
   url: https://kamui-code.ai/flf2v/fal/veo31
   status: online
-  last_checked: '2025-12-01T13:32:32.564528+00:00'
+  last_checked: '2025-12-02T13:33:57.029439+00:00'
   tools:
   - name: veo31_flf2v_result
     description: Get result of completed Veo3.1 first-last-frame-to-video generation.
@@ -268,7 +268,7 @@ servers:
 - id: i2i-kamui-aura-sr
   url: https://kamui-code.ai/i2i/fal/aura-sr
   status: online
-  last_checked: '2025-12-01T13:32:30.349271+00:00'
+  last_checked: '2025-12-02T13:33:55.145412+00:00'
   tools:
   - name: aura_sr_i2i_result
     description: Get result and download completed Aura SR upscaled image to local directory.
@@ -322,7 +322,7 @@ servers:
 - id: i2i-kamui-chrono-edit
   url: https://kamui-code.ai/i2i/fal/chrono-edit
   status: online
-  last_checked: '2025-12-01T13:32:37.640012+00:00'
+  last_checked: '2025-12-02T13:34:02.382645+00:00'
   tools:
   - name: chrono_edit_result
     description: Get the result of a completed ChronoEdit request. Returns raw JSON response from Fal.ai API containing the
@@ -396,7 +396,7 @@ servers:
 - id: i2i-kamui-crystal-upscaler
   url: https://kamui-code.ai/i2i/fal/crystal-upscaler
   status: online
-  last_checked: '2025-12-01T13:32:30.352561+00:00'
+  last_checked: '2025-12-02T13:33:55.154501+00:00'
   tools:
   - name: crystal_upscaler_result
     description: Get the result of a completed Crystal Upscaler request.
@@ -435,7 +435,7 @@ servers:
 - id: i2i-kamui-dreamomni2-edit
   url: https://kamui-code.ai/i2i/fal/dreamomni2/edit
   status: online
-  last_checked: '2025-12-01T13:32:31.147379+00:00'
+  last_checked: '2025-12-02T13:33:55.802837+00:00'
   tools:
   - name: dreamomni2_edit_i2i_result
     description: Get the result of a completed DreamOmni2 Edit request. Returns raw JSON response from Fal.ai API.
@@ -477,7 +477,7 @@ servers:
 - id: i2i-kamui-easel-ai-fashion-size-estimator
   url: https://kamui-code.ai/i2i/fal/easel-ai-fashion-size-estimator
   status: online
-  last_checked: '2025-12-01T13:32:30.448184+00:00'
+  last_checked: '2025-12-02T13:33:55.165327+00:00'
   tools:
   - name: easel_ai_fashion_size_estimator_i2i_result
     description: Get result of completed Easel AI Fashion Size Estimator including size (S/M/L/XL), height, bust, waist, and
@@ -514,7 +514,7 @@ servers:
 - id: i2i-kamui-emu-3-5-image-edit
   url: https://kamui-code.ai/i2i/fal/emu-3.5-image/edit
   status: online
-  last_checked: '2025-12-01T13:32:39.575876+00:00'
+  last_checked: '2025-12-02T13:34:03.698394+00:00'
   tools:
   - name: emu_3_5_image_edit_image_result
     description: Get result of completed Emu 3.5 Image Edit Image generation.
@@ -578,7 +578,7 @@ servers:
 - id: i2i-kamui-fal-chrono-edit-lora
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora
   status: online
-  last_checked: '2025-12-01T13:32:37.647042+00:00'
+  last_checked: '2025-12-02T13:34:02.390465+00:00'
   tools:
   - name: chrono_edit_lora_result
     description: Get the result of a completed ChronoEdit LoRA request. Returns raw JSON response from Fal.ai API containing
@@ -664,7 +664,7 @@ servers:
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/paintbrush
   status: online
-  last_checked: '2025-12-01T13:32:41.631489+00:00'
+  last_checked: '2025-12-02T13:34:05.613330+00:00'
   tools:
   - name: chrono_edit_lora_gallery_paintbrush_result
     description: Get the result of a completed ChronoEdit LoRA Gallery Paintbrush request. Returns raw JSON response from
@@ -746,7 +746,7 @@ servers:
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/upscaler
   status: online
-  last_checked: '2025-12-01T13:32:41.636312+00:00'
+  last_checked: '2025-12-02T13:34:05.621954+00:00'
   tools:
   - name: chrono_edit_lora_gallery_upscaler_result
     description: Get the result of a completed ChronoEdit LoRA Gallery Upscaler request. Returns raw JSON response from Fal.ai
@@ -817,7 +817,7 @@ servers:
 - id: i2i-kamui-fal-flux-2-lora-gallery-apartment-staging
   url: https://kamui-code.ai/i2i/fal/flux-2-lora-gallery/apartment-staging
   status: online
-  last_checked: '2025-12-01T13:32:41.691069+00:00'
+  last_checked: '2025-12-02T13:34:05.664205+00:00'
   tools:
   - name: flux_2_lora_gallery_apartment_staging_result
     description: Get result and download completed Flux-2 LoRA Gallery Apartment Staging image-to-image to local directory.
@@ -909,7 +909,7 @@ servers:
 - id: i2i-kamui-fal-gemini-3-pro-image-preview-edit
   url: https://kamui-code.ai/i2i/fal/gemini-3-pro-image-preview/edit
   status: online
-  last_checked: '2025-12-01T13:32:41.431821+00:00'
+  last_checked: '2025-12-02T13:34:05.540489+00:00'
   tools:
   - name: gemini_3_pro_image_preview_edit_result
     description: Get the result and download completed Gemini 3 Pro Image Preview edited images with AI-generated descriptions.
@@ -990,7 +990,7 @@ servers:
 - id: i2i-kamui-fal-nano-banana-pro-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: online
-  last_checked: '2025-12-01T13:32:41.276521+00:00'
+  last_checked: '2025-12-02T13:34:05.471216+00:00'
   tools:
   - name: nano_banana_pro_edit_result
     description: Get the result and download completed Nano Banana Pro edited images with AI-generated descriptions.
@@ -1068,7 +1068,7 @@ servers:
 - id: i2i-kamui-fal-sam-3-image
   url: https://kamui-code.ai/i2i/fal/sam-3/image
   status: online
-  last_checked: '2025-12-01T13:32:41.539832+00:00'
+  last_checked: '2025-12-02T13:34:05.569904+00:00'
   tools:
   - name: sam_3_image_result
     description: Get result of completed SAM-3 Image segmentation. Returns JSON response with segmented image URL, masks,
@@ -1141,7 +1141,7 @@ servers:
 - id: i2i-kamui-flux-2-flex-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-flex/edit
   status: online
-  last_checked: '2025-12-01T13:32:29.575022+00:00'
+  last_checked: '2025-12-02T13:33:54.489216+00:00'
   tools:
   - name: flux_2_flex_edit_result
     description: Get result and download completed Flux-2 Flex Edit image editing to local directory.
@@ -1229,7 +1229,7 @@ servers:
 - id: i2i-kamui-flux-2-lora-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-lora/edit
   status: online
-  last_checked: '2025-12-01T13:32:29.561369+00:00'
+  last_checked: '2025-12-02T13:33:54.484631+00:00'
   tools:
   - name: flux_2_lora_edit_result
     description: Get result of Flux-2 LoRA Edit image editing. Returns URLs to the edited images.
@@ -1319,7 +1319,7 @@ servers:
 - id: i2i-kamui-flux-kontext-lora
   url: https://kamui-code.ai/i2i/fal/flux/kontext
   status: online
-  last_checked: '2025-12-01T13:32:30.452772+00:00'
+  last_checked: '2025-12-02T13:33:55.177701+00:00'
   tools:
   - name: flux_kontext_lora_result
     description: Get result and download completed Flux Kontext Lora image-to-image editing to local directory.
@@ -1406,7 +1406,7 @@ servers:
 - id: i2i-kamui-flux-kontext-max
   url: https://kamui-code.ai/i2i/fal/flux/kontext/max
   status: online
-  last_checked: '2025-12-01T13:32:31.101799+00:00'
+  last_checked: '2025-12-02T13:33:55.733385+00:00'
   tools:
   - name: flux_kontext_max_result
     description: Get result and download completed Flux Kontext Max images to local directory.
@@ -1488,7 +1488,7 @@ servers:
 - id: i2i-kamui-flux-krea-lora
   url: https://kamui-code.ai/i2i/fal/flux-krea-lora/image-to-image
   status: online
-  last_checked: '2025-12-01T13:32:31.106711+00:00'
+  last_checked: '2025-12-02T13:33:55.745027+00:00'
   tools:
   - name: flux_krea_lora_i2i_result
     description: Get result and download completed FLUX Krea LoRA Image-to-Image to local directory.
@@ -1574,7 +1574,7 @@ servers:
 - id: i2i-kamui-gemini-25-flash-image-edit
   url: https://kamui-code.ai/i2i/fal/gemini-25-flash-image/edit
   status: online
-  last_checked: '2025-12-01T13:32:34.746730+00:00'
+  last_checked: '2025-12-02T13:33:59.283336+00:00'
   tools:
   - name: gemini_25_flash_image_edit_result
     description: Get the result of a completed Gemini 2.5 Flash Image Edit request.
@@ -1625,7 +1625,7 @@ servers:
 - id: i2i-kamui-gpt-image-1-mini-edit
   url: https://kamui-code.ai/i2i/fal/gpt-image-1-mini/edit
   status: online
-  last_checked: '2025-12-01T13:32:39.488317+00:00'
+  last_checked: '2025-12-02T13:34:03.687795+00:00'
   tools:
   - name: gpt_image_1_mini_edit_result
     description: Get the result of a completed GPT Image 1 Mini Edit request.
@@ -1676,7 +1676,7 @@ servers:
 - id: i2i-kamui-ideogram-character-remix
   url: https://kamui-code.ai/i2i/fal/ideogram/character-remix
   status: online
-  last_checked: '2025-12-01T13:32:31.120782+00:00'
+  last_checked: '2025-12-02T13:33:55.751717+00:00'
   tools:
   - name: ideogram_character_remix_result
     description: Get result and download completed Ideogram Character Remix images to local directory.
@@ -1775,7 +1775,7 @@ servers:
 - id: i2i-kamui-image-apps-v2-outpaint
   url: https://kamui-code.ai/i2i/fal/image-apps-v2/outpaint
   status: online
-  last_checked: '2025-12-01T13:32:31.134437+00:00'
+  last_checked: '2025-12-02T13:33:55.776108+00:00'
   tools:
   - name: image_apps_v2_outpaint_result
     description: Get the result of a completed Image Apps V2 Outpaint request.
@@ -1851,7 +1851,7 @@ servers:
 - id: i2i-kamui-image2pixel
   url: https://kamui-code.ai/i2i/fal/image2pixel
   status: online
-  last_checked: '2025-12-01T13:32:38.193291+00:00'
+  last_checked: '2025-12-02T13:34:02.480490+00:00'
   tools:
   - name: image2pixel_i2i_result
     description: Get result of completed Image2Pixel pixel art conversion.
@@ -1942,7 +1942,7 @@ servers:
 - id: i2i-kamui-lucidflux
   url: https://kamui-code.ai/i2i/fal/lucidflux
   status: online
-  last_checked: '2025-12-01T13:32:38.191877+00:00'
+  last_checked: '2025-12-02T13:34:02.475843+00:00'
   tools:
   - name: lucidflux_i2i_result
     description: Get result and download completed Lucidflux upscaled and edited image to local directory.
@@ -2014,7 +2014,7 @@ servers:
 - id: i2i-kamui-nano-banana-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana/edit
   status: online
-  last_checked: '2025-12-01T13:32:34.738146+00:00'
+  last_checked: '2025-12-02T13:33:59.267707+00:00'
   tools:
   - name: nano_banana_edit_result
     description: Get the result and download completed Nano Banana edited images with AI-generated descriptions.
@@ -2058,7 +2058,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit
   url: https://kamui-code.ai/i2i/fal/qwen/image-edit
   status: online
-  last_checked: '2025-12-01T13:32:31.128089+00:00'
+  last_checked: '2025-12-02T13:33:55.755037+00:00'
   tools:
   - name: qwen_image_edit_result
     description: Get the result and download completed Qwen Image Edit images.
@@ -2151,7 +2151,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus
   status: online
-  last_checked: '2025-12-01T13:32:36.936775+00:00'
+  last_checked: '2025-12-02T13:34:01.213000+00:00'
   tools:
   - name: qwen_image_edit_plus_result
     description: Get the result of a completed Qwen Image Edit Plus request.
@@ -2231,7 +2231,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora
   status: online
-  last_checked: '2025-12-01T13:32:37.599868+00:00'
+  last_checked: '2025-12-02T13:34:02.366213+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA request.
@@ -2311,7 +2311,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-add-background
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/add-background
   status: online
-  last_checked: '2025-12-01T13:32:40.847400+00:00'
+  last_checked: '2025-12-02T13:34:04.927856+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_gallery_add_background_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Add Background request.
@@ -2401,7 +2401,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-face-to-full-portrait
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/face-to-full-portrait
   status: online
-  last_checked: '2025-12-01T13:32:40.877315+00:00'
+  last_checked: '2025-12-02T13:34:04.932773+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_gallery_f2p_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Face to Full Portrait request.
@@ -2490,7 +2490,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-group-photo
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/group-photo
   status: online
-  last_checked: '2025-12-01T13:32:40.989662+00:00'
+  last_checked: '2025-12-02T13:34:04.997263+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_gallery_group_photo_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Group Photo request.
@@ -2581,7 +2581,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-integrate-product
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/integrate-product
   status: online
-  last_checked: '2025-12-01T13:32:41.028021+00:00'
+  last_checked: '2025-12-02T13:34:05.021919+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_gallery_integrate_product_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Integrate Product request.
@@ -2671,7 +2671,7 @@ servers:
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-next-scene
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/next-scene
   status: online
-  last_checked: '2025-12-01T13:32:41.031560+00:00'
+  last_checked: '2025-12-02T13:34:05.063790+00:00'
   tools:
   - name: qwen_image_edit_plus_lora_gallery_next_scene_result
     description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Next Scene request.
@@ -2765,7 +2765,7 @@ servers:
 - id: i2i-kamui-reve-edit
   url: https://kamui-code.ai/i2i/fal/reve/edit
   status: online
-  last_checked: '2025-12-01T13:32:38.835141+00:00'
+  last_checked: '2025-12-02T13:34:03.089381+00:00'
   tools:
   - name: reve_edit_result
     description: Get result of completed Reve Edit generation. Returns raw JSON response from Fal.ai API.
@@ -2817,7 +2817,7 @@ servers:
 - id: i2i-kamui-reve-remix
   url: https://kamui-code.ai/i2i/fal/reve/remix
   status: online
-  last_checked: '2025-12-01T13:32:38.869959+00:00'
+  last_checked: '2025-12-02T13:34:03.101881+00:00'
   tools:
   - name: reve_remix_result
     description: Get result of completed Reve Remix generation. Returns raw JSON response from Fal.ai API.
@@ -2875,7 +2875,7 @@ servers:
 - id: i2i-kamui-seedream-v4-edit
   url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4
   status: online
-  last_checked: '2025-12-01T13:32:34.783257+00:00'
+  last_checked: '2025-12-02T13:33:59.314195+00:00'
   tools:
   - name: bytedance_seedream_v4_edit_result
     description: Get result of completed ByteDance Seedream V4 Edit generation.
@@ -2933,7 +2933,7 @@ servers:
 - id: i2i-kamui-wan-25-preview
   url: https://kamui-code.ai/i2i/fal/wan/25-preview
   status: online
-  last_checked: '2025-12-01T13:32:37.027693+00:00'
+  last_checked: '2025-12-02T13:34:01.777707+00:00'
   tools:
   - name: wan_25_preview_image_to_image_result
     description: Get result of completed WAN 2.5 Preview Image-to-Image editing. Returns raw JSON response from Fal.ai API.
@@ -2990,7 +2990,7 @@ servers:
 - id: i2i3d-kamui-hunyuan3d-v21
   url: https://kamui-code.ai/i2i3d/fal/hunyuan/3d-v21
   status: online
-  last_checked: '2025-12-01T13:32:36.338970+00:00'
+  last_checked: '2025-12-02T13:34:01.145129+00:00'
   tools:
   - name: hunyuan3d_result
     description: Get completed Hunyuan3D 3D model results as JSON response.
@@ -3047,7 +3047,7 @@ servers:
 - id: i2i3d-kamui-hyper3d-rodin-v2
   url: https://kamui-code.ai/i2i3d/fal/hyper3d/rodin/v2
   status: online
-  last_checked: '2025-12-01T13:32:37.550971+00:00'
+  last_checked: '2025-12-02T13:34:01.850998+00:00'
   tools:
   - name: hyper3d_rodin_v2_result
     description: Get completed Hyper3D Rodin V2 3D model results including model mesh and textures.
@@ -3113,7 +3113,7 @@ servers:
 - id: i2i3d-kamui-meshy-v5-multi-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/meshy/v5/multi-image-to-3d
   status: online
-  last_checked: '2025-12-01T13:32:38.226168+00:00'
+  last_checked: '2025-12-02T13:34:02.553859+00:00'
   tools:
   - name: meshy_v5_multi_image_to_3d_result
     description: Get result of completed Meshy-5 Multi-Image-to-3D generation as raw JSON.
@@ -3185,7 +3185,7 @@ servers:
 - id: i2i3d-kamui-meshy-v6-preview-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/meshy/v6-preview/image-to-3d
   status: online
-  last_checked: '2025-12-01T13:32:37.584407+00:00'
+  last_checked: '2025-12-02T13:34:01.934168+00:00'
   tools:
   - name: meshy_v6_preview_image_to_3d_result
     description: Get the result and download completed Meshy V6 Preview 3D model files including GLB, FBX, OBJ, USDZ formats
@@ -3259,7 +3259,7 @@ servers:
 - id: i2i3d-kamui-trellis
   url: https://kamui-code.ai/i2i3d/fal/trellis
   status: online
-  last_checked: '2025-12-01T13:32:36.922700+00:00'
+  last_checked: '2025-12-02T13:34:01.212980+00:00'
   tools:
   - name: trellis_result
     description: Get completed Trellis 3D model results as JSON response.
@@ -3331,7 +3331,7 @@ servers:
 - id: i2i3d-kamui-tripo3d-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/tripo3d/tripo/v25/image-to-3d
   status: online
-  last_checked: '2025-12-01T13:32:36.804467+00:00'
+  last_checked: '2025-12-02T13:34:01.212946+00:00'
   tools:
   - name: tripo3d_image_to_3d_result
     description: Get the result and download completed Tripo3D 3D model files including GLB, FBX, and preview images.
@@ -3403,7 +3403,7 @@ servers:
 - id: i2v-kamui-bytedance-lynx
   url: https://kamui-code.ai/i2v/fal/bytedance/lynx
   status: online
-  last_checked: '2025-12-01T13:32:31.939807+00:00'
+  last_checked: '2025-12-02T13:33:56.454548+00:00'
   tools:
   - name: lynx_image_to_video_result
     description: Get result of completed Lynx image-to-video generation.
@@ -3488,7 +3488,7 @@ servers:
 - id: i2v-kamui-bytedance-seedance-v1-pro-fast
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
   status: online
-  last_checked: '2025-12-01T13:32:34.142567+00:00'
+  last_checked: '2025-12-02T13:33:58.457109+00:00'
   tools:
   - name: bytedance_seedance_v1_pro_fast_i2v_result
     description: Get result of completed ByteDance Seedance V1 Pro Fast I2V video generation.
@@ -3551,7 +3551,7 @@ servers:
 - id: i2v-kamui-decart-lucy-14b
   url: https://kamui-code.ai/i2v/fal/decart/lucy-14b
   status: online
-  last_checked: '2025-12-01T13:32:34.808134+00:00'
+  last_checked: '2025-12-02T13:33:59.315815+00:00'
   tools:
   - name: decart_lucy_14b_image_to_video_result
     description: Get result for completed Decart Lucy-14B Image-to-Video generation.
@@ -3602,7 +3602,7 @@ servers:
 - id: i2v-kamui-decart-lucy-5b
   url: https://kamui-code.ai/i2v/fal/decart/lucy-5b
   status: online
-  last_checked: '2025-12-01T13:32:34.839776+00:00'
+  last_checked: '2025-12-02T13:33:59.324614+00:00'
   tools:
   - name: decart_lucy_5b_image_to_video_result
     description: Get result for completed Decart Lucy-5B Image-to-Video generation.
@@ -3649,7 +3649,7 @@ servers:
 - id: i2v-kamui-hailuo-02-fast
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/fast
   status: online
-  last_checked: '2025-12-01T13:32:31.876316+00:00'
+  last_checked: '2025-12-02T13:33:56.394610+00:00'
   tools:
   - name: hailuo_02_fast_result
     description: Get result and download completed Hailuo-02 Fast video to local directory.
@@ -3711,7 +3711,7 @@ servers:
 - id: i2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/pro
   status: online
-  last_checked: '2025-12-01T13:32:31.891255+00:00'
+  last_checked: '2025-12-02T13:33:56.413200+00:00'
   tools:
   - name: hailuo_02_result
     description: Get result of completed Hailuo-02 video generation. Returns JSON response with video URL.
@@ -3757,7 +3757,7 @@ servers:
 - id: i2v-kamui-hailuo-23-fast-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3-fast/pro/image-to-video
   status: online
-  last_checked: '2025-12-01T13:32:40.343484+00:00'
+  last_checked: '2025-12-02T13:34:04.347582+00:00'
   tools:
   - name: minimax_hailuo_23_fast_pro_i2v_result
     description: Get result of completed Hailuo 2.3 Fast Pro Image-to-Video generation. Returns JSON response with video URL.
@@ -3800,7 +3800,7 @@ servers:
 - id: i2v-kamui-hailuo-23-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3/pro/image-to-video
   status: online
-  last_checked: '2025-12-01T13:32:40.254481+00:00'
+  last_checked: '2025-12-02T13:34:04.321340+00:00'
   tools:
   - name: hailuo_23_pro_image_to_video_result
     description: Get result of completed Hailuo 2.3 Pro Image-to-Video generation. Returns JSON response with video URL.
@@ -3840,10 +3840,56 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-kling-video-o1
+  url: https://kamui-code.ai/i2v/fal/kling-video/o1
+  status: online
+  last_checked: '2025-12-02T13:34:00.538298+00:00'
+  tools:
+  - name: kling_video_o1_image_to_video_result
+    description: Kling Video O1 Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_image_to_video_status
+    description: Kling Video O1 Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_image_to_video_submit
+    description: Kling Video O1 Image-to-Videoを使用して開始フレームから終了フレームへスムーズに遷移する動画を生成します。
+    inputSchema:
+      properties:
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
+          type: string
+        end_image_url:
+          description: 動画の最後のフレームとして使用する画像のURL（必須）
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）。@Image1で開始フレーム、@Image2で終了フレームを参照できます。
+          type: string
+        start_image_url:
+          description: 動画の最初のフレームとして使用する画像のURL（必須）
+          type: string
+      required:
+      - prompt
+      - start_image_url
+      - end_image_url
+      type: object
 - id: i2v-kamui-kling-video-v25-turbo-pro
   url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-pro
   status: online
-  last_checked: '2025-12-01T13:32:36.147990+00:00'
+  last_checked: '2025-12-02T13:34:00.485346+00:00'
   tools:
   - name: kling_video_v25_turbo_pro_image_to_video_result
     description: Kling Video v2.5 Turbo Pro Image-to-Videoリクエストの結果を取得します。
@@ -3894,7 +3940,7 @@ servers:
 - id: i2v-kamui-kling-video-v25-turbo-standard
   url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-standard
   status: online
-  last_checked: '2025-12-01T13:32:36.161661+00:00'
+  last_checked: '2025-12-02T13:34:00.527799+00:00'
   tools:
   - name: kling_video_v25_turbo_standard_image_to_video_result
     description: Kling Video v2.5 Turbo Standard Image-to-Videoリクエストの結果を取得します。
@@ -3942,7 +3988,7 @@ servers:
 - id: i2v-kamui-longcat-video-480p
   url: https://kamui-code.ai/i2v/fal/longcat-video-480p
   status: online
-  last_checked: '2025-12-01T13:32:39.104961+00:00'
+  last_checked: '2025-12-02T13:34:03.611289+00:00'
   tools:
   - name: longcat_video_480p_i2v_result
     description: Get result of completed LongCat Video Image-to-Video 480p generation. Returns JSON response with video URL.
@@ -4026,7 +4072,7 @@ servers:
 - id: i2v-kamui-longcat-video-720p
   url: https://kamui-code.ai/i2v/fal/longcat-video-720p
   status: online
-  last_checked: '2025-12-01T13:32:39.302383+00:00'
+  last_checked: '2025-12-02T13:34:03.617646+00:00'
   tools:
   - name: longcat_video_720p_i2v_result
     description: Get result of completed LongCat Video Image-to-Video 720p generation. Returns JSON response with video URL.
@@ -4114,7 +4160,7 @@ servers:
 - id: i2v-kamui-ltx-2
   url: https://kamui-code.ai/i2v/fal/ltx-2
   status: online
-  last_checked: '2025-12-01T13:32:39.761586+00:00'
+  last_checked: '2025-12-02T13:34:03.832111+00:00'
   tools:
   - name: ltx_2_image_to_video_result
     description: Get result of completed LTX-2 Image-to-Video generation. Returns JSON response with video URL.
@@ -4170,7 +4216,7 @@ servers:
 - id: i2v-kamui-ltx-2-fast
   url: https://kamui-code.ai/i2v/fal/ltx-2/image-to-video/fast
   status: online
-  last_checked: '2025-12-01T13:32:39.774280+00:00'
+  last_checked: '2025-12-02T13:34:04.243365+00:00'
   tools:
   - name: ltx_2_image_to_video_result
     description: Get result of completed LTX-2 Image-to-Video generation. Returns JSON response with video URL.
@@ -4226,7 +4272,7 @@ servers:
 - id: i2v-kamui-ltxv-2
   url: https://kamui-code.ai/i2v/fal/ltxv-2
   status: online
-  last_checked: '2025-12-01T13:32:39.703511+00:00'
+  last_checked: '2025-12-02T13:34:03.772184+00:00'
   tools:
   - name: ltxv2_image_to_video_result
     description: Get result of completed LTXV-2 Image-to-Video generation. Returns JSON response with video URL.
@@ -4281,7 +4327,7 @@ servers:
 - id: i2v-kamui-lynx
   url: https://kamui-code.ai/i2v/fal/lynx
   status: online
-  last_checked: '2025-12-01T13:32:38.256971+00:00'
+  last_checked: '2025-12-02T13:34:02.991948+00:00'
   tools:
   - name: lynx_image_to_video_result
     description: Get result of completed Lynx image-to-video generation.
@@ -4366,7 +4412,7 @@ servers:
 - id: i2v-kamui-omnihuman
   url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman
   status: online
-  last_checked: '2025-12-01T13:32:31.892621+00:00'
+  last_checked: '2025-12-02T13:33:56.421859+00:00'
   tools:
   - name: omnihuman_i2v_result
     description: Get result and download completed OmniHuman I2V video to local directory.
@@ -4415,7 +4461,7 @@ servers:
 - id: i2v-kamui-omnihuman-v15
   url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman-v1.5
   status: online
-  last_checked: '2025-12-01T13:32:31.906921+00:00'
+  last_checked: '2025-12-02T13:33:56.450901+00:00'
   tools:
   - name: omnihuman_v15_result
     description: ByteDance OmniHuman v1.5の生成完了した動画の結果を取得します。
@@ -4454,7 +4500,7 @@ servers:
 - id: i2v-kamui-ovi
   url: https://kamui-code.ai/i2v/fal/ovi
   status: online
-  last_checked: '2025-12-01T13:32:37.455655+00:00'
+  last_checked: '2025-12-02T13:34:01.828386+00:00'
   tools:
   - name: ovi_image_to_video_result
     description: Get result of completed OVI Image-to-Video generation. Returns JSON with video URL and seed used.
@@ -4509,7 +4555,7 @@ servers:
 - id: i2v-kamui-pixverse-v5
   url: https://kamui-code.ai/i2v/fal/pixverse/v5
   status: online
-  last_checked: '2025-12-01T13:32:38.278916+00:00'
+  last_checked: '2025-12-02T13:34:03.000487+00:00'
   tools:
   - name: pixverse_v5_image_to_video_result
     description: Get result of completed Pixverse V5 image-to-video generation.
@@ -4569,7 +4615,7 @@ servers:
 - id: i2v-kamui-pixverse-v5-transition
   url: https://kamui-code.ai/i2v/fal/pixverse/v5/transition
   status: online
-  last_checked: '2025-12-01T13:32:38.290539+00:00'
+  last_checked: '2025-12-02T13:34:03.005626+00:00'
   tools:
   - name: pixverse_v5_image_to_video_result
     description: Get result of completed Pixverse V5 image-to-video generation.
@@ -4629,7 +4675,7 @@ servers:
 - id: i2v-kamui-seedance-v1-lite
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-lite
   status: online
-  last_checked: '2025-12-01T13:32:31.942241+00:00'
+  last_checked: '2025-12-02T13:33:56.456362+00:00'
   tools:
   - name: bytedance_seedance_v1_lite_i2v_result
     description: Get result and download completed ByteDance Seedance V1 Lite I2V video to local directory.
@@ -4700,7 +4746,7 @@ servers:
 - id: i2v-kamui-veo3-fast
   url: https://kamui-code.ai/i2v/fal/veo3/fast
   status: online
-  last_checked: '2025-12-01T13:32:32.109708+00:00'
+  last_checked: '2025-12-02T13:33:56.467216+00:00'
   tools:
   - name: veo3_fast_i2v_result
     description: Get result and download completed Veo3 Fast image-to-video to local directory.
@@ -4764,7 +4810,7 @@ servers:
 - id: i2v-kamui-veo31
   url: https://kamui-code.ai/i2v/fal/veo31
   status: online
-  last_checked: '2025-12-01T13:32:32.525750+00:00'
+  last_checked: '2025-12-02T13:33:57.008657+00:00'
   tools:
   - name: veo31_i2v_result
     description: Get result of completed Veo3.1 image-to-video generation.
@@ -4822,7 +4868,7 @@ servers:
 - id: i2v-kamui-veo31-fast
   url: https://kamui-code.ai/i2v/fal/veo31/fast
   status: online
-  last_checked: '2025-12-01T13:32:32.503121+00:00'
+  last_checked: '2025-12-02T13:33:56.997060+00:00'
   tools:
   - name: veo31_fast_i2v_result
     description: Get result of completed Veo3.1 Fast image-to-video generation.
@@ -4880,7 +4926,7 @@ servers:
 - id: i2v-kamui-vidu-q2-i2v-pro
   url: https://kamui-code.ai/i2v/fal/vidu/q2-i2v-pro
   status: online
-  last_checked: '2025-12-01T13:32:33.338116+00:00'
+  last_checked: '2025-12-02T13:33:57.832817+00:00'
   tools:
   - name: vidu_q2_i2v_pro_result
     description: Get result of completed Vidu Q2 I2V Pro image-to-video generation.
@@ -4940,7 +4986,7 @@ servers:
 - id: i2v-kamui-wan-25-preview
   url: https://kamui-code.ai/i2v/fal/wan/25-preview
   status: online
-  last_checked: '2025-12-01T13:32:37.442579+00:00'
+  last_checked: '2025-12-02T13:34:01.823155+00:00'
   tools:
   - name: wan_25_preview_image_to_video_result
     description: Get result of completed WAN 2.5 Preview Image-to-Video generation. Returns JSON response with video URL,
@@ -5007,7 +5053,7 @@ servers:
 - id: i2v-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/i2v/fal/wan/v2.2-a14b
   status: online
-  last_checked: '2025-12-01T13:32:32.592005+00:00'
+  last_checked: '2025-12-02T13:33:57.043901+00:00'
   tools:
   - name: wan_v2_2_a14b_i2v_result
     description: Get result and download completed WAN v2.2-a14b image-to-video to local directory.
@@ -5140,7 +5186,7 @@ servers:
 - id: misc-kamui-bria-fibo-generate-structured-prompt
   url: https://kamui-code.ai/misc/fal/bria/fibo/generate/structured_prompt
   status: online
-  last_checked: '2025-12-01T13:32:40.386569+00:00'
+  last_checked: '2025-12-02T13:34:04.446278+00:00'
   tools:
   - name: bria_fibo_generate_structured_prompt_result
     description: Get result of completed Bria Fibo Generate Structured Prompt generation. Returns raw JSON response from Fal.ai
@@ -5205,7 +5251,7 @@ servers:
 - id: misc-kamui-bria-fibo-mashup
   url: https://kamui-code.ai/misc/fal/bria/fibo-mashup
   status: online
-  last_checked: '2025-12-01T13:32:30.347994+00:00'
+  last_checked: '2025-12-02T13:33:55.141615+00:00'
   tools:
   - name: bria_fibo_mashup_result
     description: Get result of completed Bria Fibo Mashup generation. Returns raw JSON response from Fal.ai API.
@@ -5255,7 +5301,7 @@ servers:
 - id: misc-kamui-hunyuan-part
   url: https://kamui-code.ai/misc/fal/hunyuan-part
   status: online
-  last_checked: '2025-12-01T13:32:38.175303+00:00'
+  last_checked: '2025-12-02T13:34:02.445308+00:00'
   tools:
   - name: hunyuan_part_result
     description: Get completed Hunyuan Part segmentation results as JSON response.
@@ -5319,7 +5365,7 @@ servers:
 - id: r2v-kamui-bytedance-seedance-v1-lite
   url: https://kamui-code.ai/r2v/fal/bytedance/seedance-v1-lite
   status: online
-  last_checked: '2025-12-01T13:32:34.139191+00:00'
+  last_checked: '2025-12-02T13:33:58.455823+00:00'
   tools:
   - name: bytedance_seedance_v1_lite_r2v_result
     description: Get result and download completed ByteDance Seedance V1 Lite R2V video to local directory.
@@ -5389,10 +5435,58 @@ servers:
       - prompt
       - reference_image_urls
       type: object
+- id: r2v-kamui-kling-video-o1
+  url: https://kamui-code.ai/r2v/fal/kling-video/o1
+  status: online
+  last_checked: '2025-12-02T13:34:00.547291+00:00'
+  tools:
+  - name: kling_video_o1_reference_to_video_result
+    description: Kling Video O1 Reference-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_reference_to_video_status
+    description: Kling Video O1 Reference-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_reference_to_video_submit
+    description: Kling Video O1 Reference-to-Videoを使用して開始フレーム画像から、オプションの参照画像と要素を含む動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'アスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
+          type: string
+        elements:
+          description: '動画に含める要素（キャラクター/オブジェクト）のJSON配列文字列。例: [{"reference_image_urls": ["url1", "url2"], "frontal_image_url":
+            "url"}]. プロンプトで@Element1, @Element2などで参照。最大7つ（elements + reference images + start image）'
+          type: string
+        image_urls:
+          description: スタイル/外観のための追加参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大7つ（elements + reference images + start image）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）。@Element1, @Element2で要素、@Image1, @Image2で画像を参照できます。
+          type: string
+      required:
+      - prompt
+      type: object
 - id: r2v-kamui-ltx-2
   url: https://kamui-code.ai/r2v/fal/ltx-2
   status: online
-  last_checked: '2025-12-01T13:32:39.968712+00:00'
+  last_checked: '2025-12-02T13:34:04.255619+00:00'
   tools:
   - name: ltx_2_retake_video_result
     description: Get result of completed LTX-2 Retake Video generation. Returns JSON response with video URL.
@@ -5442,7 +5536,7 @@ servers:
 - id: r2v-kamui-veo31
   url: https://kamui-code.ai/r2v/fal/veo31
   status: online
-  last_checked: '2025-12-01T13:32:32.536130+00:00'
+  last_checked: '2025-12-02T13:33:57.015084+00:00'
   tools:
   - name: veo31_r2v_result
     description: Get result of completed Veo3.1 reference-to-video generation.
@@ -5497,7 +5591,7 @@ servers:
 - id: r2v-kamui-vidu-q1
   url: https://kamui-code.ai/r2v/fal/vidu/q1
   status: online
-  last_checked: '2025-12-01T13:32:33.327819+00:00'
+  last_checked: '2025-12-02T13:33:57.832792+00:00'
   tools:
   - name: vidu_q1_result
     description: Get result and download completed Vidu Q1 reference-to-video to local directory.
@@ -5557,7 +5651,7 @@ servers:
 - id: s2v-kamui-wan-v2-2-14b
   url: https://kamui-code.ai/s2v/fal/wan/v2.2-14b
   status: online
-  last_checked: '2025-12-01T13:32:34.157244+00:00'
+  last_checked: '2025-12-02T13:33:58.474017+00:00'
   tools:
   - name: wan_v2_2_14b_s2v_result
     description: Get result of completed WAN v2.2-14b speech-to-video generation.
@@ -5643,7 +5737,7 @@ servers:
 - id: t2a-kamui-beatoven-sound-effect-generation
   url: https://kamui-code.ai/t2a/fal/beatoven/sound-effect-generation
   status: online
-  last_checked: '2025-12-01T13:32:39.472458+00:00'
+  last_checked: '2025-12-02T13:34:03.643496+00:00'
   tools:
   - name: beatoven_sound_effect_generation_result
     description: Get result of completed Beatoven Sound Effect Generation. Returns JSON response with generated audio file
@@ -5699,7 +5793,7 @@ servers:
 - id: t2a-kamui-stable-audio-v25
   url: https://kamui-code.ai/t2a/fal/stable-audio/v2.5
   status: online
-  last_checked: '2025-12-01T13:32:36.310057+00:00'
+  last_checked: '2025-12-02T13:34:00.573881+00:00'
   tools:
   - name: stable_audio_v25_result
     description: Get the result and download completed Stable Audio 2.5 generated audio with metadata.
@@ -5751,7 +5845,7 @@ servers:
 - id: t2i-kamui-bria-fibo-generate
   url: https://kamui-code.ai/t2i/fal/bria/fibo/generate
   status: online
-  last_checked: '2025-12-01T13:32:30.341730+00:00'
+  last_checked: '2025-12-02T13:33:55.139382+00:00'
   tools:
   - name: bria_fibo_generate_t2i_result
     description: Get result of completed Bria Fibo Generate image generation. Returns raw JSON response from Fal.ai API.
@@ -5815,7 +5909,7 @@ servers:
 - id: t2i-kamui-dreamina-v31
   url: https://kamui-code.ai/t2i/fal/bytedance/dreamina/v3.1/text-to-image
   status: online
-  last_checked: '2025-12-01T13:32:28.704960+00:00'
+  last_checked: '2025-12-02T13:33:53.733767+00:00'
   tools:
   - name: bytedance_dreamina_v31_t2i_result
     description: Get result and download completed ByteDance Dreamina v3.1 Text-to-Image to local directory.
@@ -5903,7 +5997,7 @@ servers:
 - id: t2i-kamui-emu-3-5-image
   url: https://kamui-code.ai/t2i/fal/emu-3.5-image
   status: online
-  last_checked: '2025-12-01T13:32:34.772428+00:00'
+  last_checked: '2025-12-02T13:33:59.302160+00:00'
   tools:
   - name: emu_3_5_image_t2i_result
     description: Get result of completed Emu 3.5 Image Text-to-Image generation.
@@ -5956,7 +6050,7 @@ servers:
 - id: t2i-kamui-fal-gemini-3-pro-image-preview
   url: https://kamui-code.ai/t2i/fal/gemini-3-pro-image-preview
   status: online
-  last_checked: '2025-12-01T13:32:41.405690+00:00'
+  last_checked: '2025-12-02T13:34:05.487419+00:00'
   tools:
   - name: gemini_3_pro_image_preview_result
     description: Get the result and download completed Gemini 3 Pro Image Preview generated images with AI-generated descriptions.
@@ -6032,7 +6126,7 @@ servers:
 - id: t2i-kamui-fal-nano-banana-pro
   url: https://kamui-code.ai/t2i/fal/nano-banana-pro
   status: online
-  last_checked: '2025-12-01T13:32:41.356353+00:00'
+  last_checked: '2025-12-02T13:34:05.487384+00:00'
   tools:
   - name: nano_banana_pro_t2i_result
     description: Get the result and download completed Nano Banana Pro generated images with AI-generated descriptions.
@@ -6105,7 +6199,7 @@ servers:
 - id: t2i-kamui-fal-z-image-turbo
   url: https://kamui-code.ai/t2i/fal/z-image-turbo
   status: online
-  last_checked: '2025-12-01T13:32:41.922598+00:00'
+  last_checked: '2025-12-02T13:34:06.071488+00:00'
   tools:
   - name: z_image_turbo_result
     description: Get result of completed Z-Image Turbo text-to-image generation.
@@ -6198,7 +6292,7 @@ servers:
 - id: t2i-kamui-flux-2-flex
   url: https://kamui-code.ai/t2i/fal/flux-2-flex
   status: online
-  last_checked: '2025-12-01T13:32:29.551381+00:00'
+  last_checked: '2025-12-02T13:33:54.482903+00:00'
   tools:
   - name: flux_2_flex_result
     description: Get result and download completed Flux-2 Flex text-to-image to local directory.
@@ -6281,7 +6375,7 @@ servers:
 - id: t2i-kamui-flux-2-lora
   url: https://kamui-code.ai/t2i/fal/flux-2-lora
   status: online
-  last_checked: '2025-12-01T13:32:29.558911+00:00'
+  last_checked: '2025-12-02T13:33:54.484601+00:00'
   tools:
   - name: flux_2_lora_result
     description: Get result of Flux-2 LoRA text-to-image generation. Returns URLs to the generated images.
@@ -6366,7 +6460,7 @@ servers:
 - id: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
   url: https://kamui-code.ai/t2i/fal/flux-2-lora-gallery/ballpoint-pen-sketch
   status: online
-  last_checked: '2025-12-01T13:32:29.572703+00:00'
+  last_checked: '2025-12-02T13:33:54.484956+00:00'
   tools:
   - name: flux_2_lora_gallery_ballpoint_pen_sketch_result
     description: Get result and download completed Flux-2 LoRA Gallery Ballpoint Pen Sketch text-to-image to local directory.
@@ -6454,7 +6548,7 @@ servers:
 - id: t2i-kamui-flux-krea-lora
   url: https://kamui-code.ai/t2i/fal/flux-krea-lora
   status: online
-  last_checked: '2025-12-01T13:32:28.704983+00:00'
+  last_checked: '2025-12-02T13:33:53.733787+00:00'
   tools:
   - name: flux_krea_lora_t2i_result
     description: Get result and download completed FLUX Krea LoRA Text-to-Image to local directory.
@@ -6532,7 +6626,7 @@ servers:
 - id: t2i-kamui-flux-schnell
   url: https://kamui-code.ai/t2i/fal/flux/schnell
   status: online
-  last_checked: '2025-12-01T13:32:28.704995+00:00'
+  last_checked: '2025-12-02T13:33:53.733799+00:00'
   tools:
   - name: flux_schnell_result
     description: Get result and download completed Flux-1 Schnell text-to-image to local directory.
@@ -6613,7 +6707,7 @@ servers:
 - id: t2i-kamui-flux-srpo
   url: https://kamui-code.ai/t2i/fal/flux/srpo
   status: online
-  last_checked: '2025-12-01T13:32:29.542800+00:00'
+  last_checked: '2025-12-02T13:33:54.482839+00:00'
   tools:
   - name: flux_srpo_result
     description: Get result and download completed FLUX SRPO text-to-image to local directory.
@@ -6696,7 +6790,7 @@ servers:
 - id: t2i-kamui-gemini-25-flash-image
   url: https://kamui-code.ai/t2i/fal/gemini-25-flash-image
   status: online
-  last_checked: '2025-12-01T13:32:34.753104+00:00'
+  last_checked: '2025-12-02T13:33:59.302112+00:00'
   tools:
   - name: gemini_25_flash_image_t2i_result
     description: Get the result of a completed Gemini 2.5 Flash Image T2I request.
@@ -6743,7 +6837,7 @@ servers:
 - id: t2i-kamui-gpt-image-1-mini
   url: https://kamui-code.ai/t2i/fal/gpt-image-1-mini
   status: online
-  last_checked: '2025-12-01T13:32:39.579627+00:00'
+  last_checked: '2025-12-02T13:34:03.723961+00:00'
   tools:
   - name: gpt_image_1_mini_t2i_result
     description: Get the result of a completed GPT Image 1 Mini T2I request.
@@ -6790,7 +6884,7 @@ servers:
 - id: t2i-kamui-hunyuan-image-v3
   url: https://kamui-code.ai/t2i/fal/hunyuan-image/v3
   status: online
-  last_checked: '2025-12-01T13:32:36.340245+00:00'
+  last_checked: '2025-12-02T13:34:01.159852+00:00'
   tools:
   - name: hunyuan_image_v3_text_to_image_result
     description: Get the result and download completed Hunyuan Image V3 Text-to-Image generated images with high-quality output.
@@ -6886,7 +6980,7 @@ servers:
 - id: t2i-kamui-ideogram-character-base
   url: https://kamui-code.ai/t2i/fal/ideogram/character-base
   status: online
-  last_checked: '2025-12-01T13:32:29.575048+00:00'
+  last_checked: '2025-12-02T13:33:54.498768+00:00'
   tools:
   - name: ideogram_character_base_result
     description: Get result and download completed Ideogram Character Base images to local directory.
@@ -6978,7 +7072,7 @@ servers:
 - id: t2i-kamui-imagen3
   url: https://kamui-code.ai/t2i/google/imagen
   status: online
-  last_checked: '2025-12-01T13:32:29.578646+00:00'
+  last_checked: '2025-12-02T13:33:54.506906+00:00'
   tools:
   - name: imagen_t2i
     description: Generate an image with Imagen 3. Automatically downloads via secure signed URL when saved to GCS.
@@ -7021,7 +7115,7 @@ servers:
 - id: t2i-kamui-imagen4-fast
   url: https://kamui-code.ai/t2i/fal/imagen4/fast
   status: online
-  last_checked: '2025-12-01T13:32:29.769630+00:00'
+  last_checked: '2025-12-02T13:33:54.508423+00:00'
   tools:
   - name: imagen4_fast_result
     description: Get result and download completed Imagen4 Fast images to local directory.
@@ -7098,7 +7192,7 @@ servers:
 - id: t2i-kamui-imagen4-ultra
   url: https://kamui-code.ai/t2i/fal/imagen4/ultra
   status: online
-  last_checked: '2025-12-01T13:32:29.785680+00:00'
+  last_checked: '2025-12-02T13:33:54.520762+00:00'
   tools:
   - name: imagen4_ultra_result
     description: Get result and download completed Imagen4 Ultra images to local directory.
@@ -7175,7 +7269,7 @@ servers:
 - id: t2i-kamui-nano-banana
   url: https://kamui-code.ai/t2i/fal/nano-banana
   status: online
-  last_checked: '2025-12-01T13:32:34.168346+00:00'
+  last_checked: '2025-12-02T13:33:58.507436+00:00'
   tools:
   - name: nano_banana_t2i_result
     description: Get the result and download completed Nano Banana generated images with AI-generated descriptions.
@@ -7246,7 +7340,7 @@ servers:
 - id: t2i-kamui-ovis-image
   url: https://kamui-code.ai/t2i/fal/ovis-image
   status: online
-  last_checked: '2025-12-01T13:32:30.334091+00:00'
+  last_checked: '2025-12-02T13:33:55.118057+00:00'
   tools:
   - name: ovis_image_result
     description: Get result of completed Ovis Image text-to-image generation.
@@ -7341,7 +7435,7 @@ servers:
 - id: t2i-kamui-piflow
   url: https://kamui-code.ai/t2i/fal/piflow
   status: online
-  last_checked: '2025-12-01T13:32:30.330629+00:00'
+  last_checked: '2025-12-02T13:33:55.118035+00:00'
   tools:
   - name: piflow_result
     description: Get result of completed Piflow Text-to-Image generation.
@@ -7420,7 +7514,7 @@ servers:
 - id: t2i-kamui-qwen-image
   url: https://kamui-code.ai/t2i/fal/qwen-image
   status: online
-  last_checked: '2025-12-01T13:32:30.321928+00:00'
+  last_checked: '2025-12-02T13:33:55.117955+00:00'
   tools:
   - name: qwen_image_t2i_result
     description: Get result of completed Qwen Image Text-to-Image generation.
@@ -7515,7 +7609,7 @@ servers:
 - id: t2i-kamui-reve
   url: https://kamui-code.ai/t2i/fal/reve/text-to-image
   status: online
-  last_checked: '2025-12-01T13:32:38.825389+00:00'
+  last_checked: '2025-12-02T13:34:03.079602+00:00'
   tools:
   - name: reve_text_to_image_result
     description: Get result of completed Reve text-to-image generation. Returns raw JSON response from Fal.ai API.
@@ -7566,7 +7660,7 @@ servers:
 - id: t2i-kamui-seedream-v4
   url: https://kamui-code.ai/t2i/fal/bytedance/seedream/v4
   status: online
-  last_checked: '2025-12-01T13:32:34.777984+00:00'
+  last_checked: '2025-12-02T13:33:59.308354+00:00'
   tools:
   - name: bytedance_seedream_v4_text_to_image_result
     description: Get result of completed ByteDance Seedream V4 Text-to-Image generation.
@@ -7660,7 +7754,7 @@ servers:
 - id: t2i-kamui-wan-25-preview
   url: https://kamui-code.ai/t2i/fal/wan/25-preview
   status: online
-  last_checked: '2025-12-01T13:32:37.005705+00:00'
+  last_checked: '2025-12-02T13:34:01.742978+00:00'
   tools:
   - name: wan_25_preview_text_to_image_result
     description: Get result of completed WAN 2.5 Preview Text-to-Image generation. Returns raw JSON response from Fal.ai API.
@@ -7717,7 +7811,7 @@ servers:
 - id: t2i-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/t2i/fal/wan/v2.2-a14b/text-to-image
   status: online
-  last_checked: '2025-12-01T13:32:30.341465+00:00'
+  last_checked: '2025-12-02T13:33:55.123491+00:00'
   tools:
   - name: wan_v2_2_a14b_text_to_image_result
     description: Fetch WAN v2.2-a14b Text-to-Image result and return the raw Fal.ai JSON response.
@@ -7817,7 +7911,7 @@ servers:
 - id: t2i3d-kamui-meshy-v6-preview-text-to-3d
   url: https://kamui-code.ai/t2i3d/fal/meshy/v6-preview/text-to-3d
   status: online
-  last_checked: '2025-12-01T13:32:37.566284+00:00'
+  last_checked: '2025-12-02T13:34:01.872839+00:00'
   tools:
   - name: meshy_v6_preview_text_to_3d_result
     description: Get the result and download completed Meshy V6 Preview 3D model files including GLB, FBX, OBJ, USDZ formats
@@ -7903,7 +7997,7 @@ servers:
 - id: t2m-kamui-beatoven-music-generation
   url: https://kamui-code.ai/t2m/fal/beatoven/music-generation
   status: online
-  last_checked: '2025-12-01T13:32:39.459585+00:00'
+  last_checked: '2025-12-02T13:34:03.639048+00:00'
   tools:
   - name: beatoven_music_generation_result
     description: Get result of completed Beatoven Music Generation. Returns JSON response with generated audio file URL (44.1kHz
@@ -7958,7 +8052,7 @@ servers:
 - id: t2m-kamui-lyria
   url: https://kamui-code.ai/t2m/google/lyria
   status: online
-  last_checked: '2025-12-01T13:32:34.121820+00:00'
+  last_checked: '2025-12-02T13:33:58.443929+00:00'
   tools:
   - name: lyria_generate
     description: Generate music using Google Lyria AI. Automatically downloads audio when generated.
@@ -7995,7 +8089,7 @@ servers:
 - id: t2m-kamui-minimax-music-v15
   url: https://kamui-code.ai/t2m/fal/minimax/music/v1.5
   status: online
-  last_checked: '2025-12-01T13:32:35.540343+00:00'
+  last_checked: '2025-12-02T13:33:59.923630+00:00'
   tools:
   - name: minimax_music_v15_result
     description: Get result and download completed Minimax Music V1.5 audio to local directory.
@@ -8037,7 +8131,7 @@ servers:
 - id: t2m-kamui-minimax-music-v2
   url: https://kamui-code.ai/t2m/fal/minimax/music/v2
   status: online
-  last_checked: '2025-12-01T13:32:35.548738+00:00'
+  last_checked: '2025-12-02T13:33:59.953354+00:00'
   tools:
   - name: minimax_music_v2_result
     description: Get result and download completed Minimax Music V2 audio. Returns JSON response with generated audio file
@@ -8084,7 +8178,7 @@ servers:
 - id: t2s-kamui-index-tts-2-text-to-speech
   url: https://kamui-code.ai/t2s/fal/index-tts-2/text-to-speech
   status: online
-  last_checked: '2025-12-01T13:32:35.571450+00:00'
+  last_checked: '2025-12-02T13:33:59.964621+00:00'
   tools:
   - name: index_tts_2_text_to_speech_result
     description: Get the result of completed Index TTS 2 text-to-speech request. Returns the generated audio file.
@@ -8144,7 +8238,7 @@ servers:
 - id: t2s-kamui-maya
   url: https://kamui-code.ai/t2s/fal/maya
   status: online
-  last_checked: '2025-12-01T13:32:35.682838+00:00'
+  last_checked: '2025-12-02T13:33:59.972133+00:00'
   tools:
   - name: maya_result
     description: Get the result of completed Maya text-to-speech request. Returns JSON response with generated audio file
@@ -8212,7 +8306,7 @@ servers:
 - id: t2s-kamui-minimax-speech-02-hd
   url: https://kamui-code.ai/t2s/fal/minimax/speech-02-hd
   status: online
-  last_checked: '2025-12-01T13:32:33.477660+00:00'
+  last_checked: '2025-12-02T13:33:57.856560+00:00'
   tools:
   - name: minimax_speech_02_hd_result
     description: Get result of completed MiniMax Speech-02-HD high-quality text-to-speech generation. Returns audio file with
@@ -8304,7 +8398,7 @@ servers:
 - id: t2s-kamui-minimax-speech-02-turbo
   url: https://kamui-code.ai/t2s/fal/minimax/speech-02-turbo
   status: online
-  last_checked: '2025-12-01T13:32:33.460063+00:00'
+  last_checked: '2025-12-02T13:33:57.848980+00:00'
   tools:
   - name: minimax_speech_02_turbo_result
     description: Get result and download completed MiniMax Speech-02-Turbo text-to-speech to local directory.
@@ -8391,7 +8485,7 @@ servers:
 - id: t2s-kamui-minimax-speech-26-hd
   url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-hd
   status: online
-  last_checked: '2025-12-01T13:32:34.089826+00:00'
+  last_checked: '2025-12-02T13:33:58.434941+00:00'
   tools:
   - name: minimax_speech_26_hd_result
     description: Get result of completed MiniMax Speech-2.6-HD high-quality text-to-speech generation. Returns audio file
@@ -8506,7 +8600,7 @@ servers:
 - id: t2s-kamui-minimax-speech-26-turbo
   url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-turbo
   status: online
-  last_checked: '2025-12-01T13:32:34.117389+00:00'
+  last_checked: '2025-12-02T13:33:58.442497+00:00'
   tools:
   - name: minimax_speech_26_turbo_result
     description: Get result of completed MiniMax Speech-2.6-Turbo text-to-speech generation. Returns audio file with metadata.
@@ -8620,7 +8714,7 @@ servers:
 - id: t2v-kamui-bytedance-seedance-v1-pro-fast
   url: https://kamui-code.ai/t2v/fal/bytedance/seedance-v1-pro-fast
   status: online
-  last_checked: '2025-12-01T13:32:34.142762+00:00'
+  last_checked: '2025-12-02T13:33:58.471393+00:00'
   tools:
   - name: bytedance_seedance_v1_pro_fast_t2v_result
     description: Get result of completed ByteDance Seedance V1 Pro Fast T2V video generation.
@@ -8679,7 +8773,7 @@ servers:
 - id: t2v-kamui-fal-infinity-star
   url: https://kamui-code.ai/t2v/fal/infinity-star
   status: online
-  last_checked: '2025-12-01T13:32:40.730330+00:00'
+  last_checked: '2025-12-02T13:34:04.871158+00:00'
   tools:
   - name: infinity_star_text_to_video_result
     description: Get result of completed Infinity Star Text-to-Video generation. Returns JSON response with video URL.
@@ -8748,7 +8842,7 @@ servers:
 - id: t2v-kamui-fal-sana-video
   url: https://kamui-code.ai/t2v/fal/sana-video
   status: online
-  last_checked: '2025-12-01T13:32:40.784331+00:00'
+  last_checked: '2025-12-02T13:34:04.874126+00:00'
   tools:
   - name: sana_video_result
     description: Get result of completed Sana Video generation. Returns JSON response with video URL.
@@ -8818,7 +8912,7 @@ servers:
 - id: t2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/pro
   status: online
-  last_checked: '2025-12-01T13:32:31.149679+00:00'
+  last_checked: '2025-12-02T13:33:55.803069+00:00'
   tools:
   - name: hailuo_02_t2v_result
     description: Get result of completed Hailuo-02 Pro T2V video generation. Returns JSON response with video URL.
@@ -8857,7 +8951,7 @@ servers:
 - id: t2v-kamui-hailuo-02-standard
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/standard
   status: online
-  last_checked: '2025-12-01T13:32:31.301816+00:00'
+  last_checked: '2025-12-02T13:33:55.824979+00:00'
   tools:
   - name: hailuo_02_standard_result
     description: Get result of completed Hailuo-02 Standard video generation. Returns JSON response with video URL.
@@ -8900,7 +8994,7 @@ servers:
 - id: t2v-kamui-hailuo-23-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-2.3/pro/text-to-video
   status: online
-  last_checked: '2025-12-01T13:32:31.227362+00:00'
+  last_checked: '2025-12-02T13:33:55.820039+00:00'
   tools:
   - name: minimax_hailuo_23_pro_t2v_result
     description: Get result of completed Hailuo 2.3 Pro T2V video generation. Returns JSON response with video URL.
@@ -8940,7 +9034,7 @@ servers:
 - id: t2v-kamui-kandinsky5
   url: https://kamui-code.ai/t2v/fal/kandinsky5
   status: online
-  last_checked: '2025-12-01T13:32:31.325385+00:00'
+  last_checked: '2025-12-02T13:33:55.827326+00:00'
   tools:
   - name: kandinsky5_t2v_result
     description: Get result of completed Kandinsky5 Text-to-Video generation. Returns JSON response with video URL and metadata.
@@ -8987,7 +9081,7 @@ servers:
 - id: t2v-kamui-kling-video-v25-turbo-pro
   url: https://kamui-code.ai/t2v/fal/kling-video/v25-turbo-pro
   status: online
-  last_checked: '2025-12-01T13:32:35.691265+00:00'
+  last_checked: '2025-12-02T13:34:00.002504+00:00'
   tools:
   - name: kling_video_v25_turbo_pro_text_to_video_result
     description: Kling Video v2.5 Turbo Pro Text-to-Videoリクエストの結果を取得します。
@@ -9034,7 +9128,7 @@ servers:
 - id: t2v-kamui-krea-wan-14b
   url: https://kamui-code.ai/t2v/fal/krea/wan-14b
   status: online
-  last_checked: '2025-12-01T13:32:38.873253+00:00'
+  last_checked: '2025-12-02T13:34:03.152466+00:00'
   tools:
   - name: krea_wan_14b_text_to_video_result
     description: KREA Wan 14B Text-to-Videoリクエストの結果を取得します。
@@ -9078,7 +9172,7 @@ servers:
 - id: t2v-kamui-longcat-video-480p
   url: https://kamui-code.ai/t2v/fal/longcat-video
   status: online
-  last_checked: '2025-12-01T13:32:39.051905+00:00'
+  last_checked: '2025-12-02T13:34:03.200810+00:00'
   tools:
   - name: longcat_video_480p_result
     description: Get result of completed LongCat Video Text-to-Video 480p generation. Returns JSON response with video URL.
@@ -9161,7 +9255,7 @@ servers:
 - id: t2v-kamui-longcat-video-720p
   url: https://kamui-code.ai/t2v/fal/longcat-video-720p
   status: online
-  last_checked: '2025-12-01T13:32:39.054772+00:00'
+  last_checked: '2025-12-02T13:34:03.600907+00:00'
   tools:
   - name: longcat_video_720p_t2v_result
     description: Get result of completed LongCat Video Text-to-Video 720p generation. Returns JSON response with video URL.
@@ -9249,7 +9343,7 @@ servers:
 - id: t2v-kamui-ltx-2
   url: https://kamui-code.ai/t2v/fal/ltx-2
   status: online
-  last_checked: '2025-12-01T13:32:40.108234+00:00'
+  last_checked: '2025-12-02T13:34:04.255646+00:00'
   tools:
   - name: ltx_2_text_to_video_result
     description: Get result of completed LTX-2 Text-to-Video generation. Returns JSON response with video URL.
@@ -9300,7 +9394,7 @@ servers:
 - id: t2v-kamui-ltx-2-fast
   url: https://kamui-code.ai/t2v/fal/ltx-2/text-to-video/fast
   status: online
-  last_checked: '2025-12-01T13:32:40.146123+00:00'
+  last_checked: '2025-12-02T13:34:04.267684+00:00'
   tools:
   - name: ltx_2_text_to_video_result
     description: Get result of completed LTX-2 Text-to-Video generation. Returns JSON response with video URL.
@@ -9351,7 +9445,7 @@ servers:
 - id: t2v-kamui-ltxv-2
   url: https://kamui-code.ai/t2v/fal/ltxv-2
   status: online
-  last_checked: '2025-12-01T13:32:39.945674+00:00'
+  last_checked: '2025-12-02T13:34:04.245913+00:00'
   tools:
   - name: ltxv2_text_to_video_result
     description: Get result of completed LTXV-2 Text-to-Video generation. Returns JSON response with video URL.
@@ -9402,7 +9496,7 @@ servers:
 - id: t2v-kamui-openai-sora
   url: https://kamui-code.ai/t2v/openai/sora
   status: online
-  last_checked: '2025-12-01T13:32:38.100837+00:00'
+  last_checked: '2025-12-02T13:34:02.445265+00:00'
   tools:
   - name: openai_sora_remix
     description: Remix an existing OpenAI Sora video with targeted modifications. Takes a completed video_id and applies changes
@@ -9490,7 +9584,7 @@ servers:
 - id: t2v-kamui-ovi
   url: https://kamui-code.ai/t2v/fal/ovi
   status: online
-  last_checked: '2025-12-01T13:32:37.550926+00:00'
+  last_checked: '2025-12-02T13:34:01.840299+00:00'
   tools:
   - name: ovi_text_to_video_result
     description: Get result of completed OVI Text-to-Video generation. Returns JSON with video URL and seed used.
@@ -9547,7 +9641,7 @@ servers:
 - id: t2v-kamui-pixverse-v5
   url: https://kamui-code.ai/t2v/fal/pixverse/v5
   status: online
-  last_checked: '2025-12-01T13:32:38.717678+00:00'
+  last_checked: '2025-12-02T13:34:03.008346+00:00'
   tools:
   - name: pixverse_v5_text_to_video_result
     description: Get result of completed Pixverse V5 text-to-video generation.
@@ -9603,7 +9697,7 @@ servers:
 - id: t2v-kamui-veo3
   url: https://kamui-code.ai/t2v/fal/veo3
   status: online
-  last_checked: '2025-12-01T13:32:35.524753+00:00'
+  last_checked: '2025-12-02T13:33:59.867739+00:00'
   tools:
   - name: veo3_result
     description: Get result of completed Veo3 video generation.
@@ -9668,7 +9762,7 @@ servers:
 - id: t2v-kamui-veo3-fast
   url: https://kamui-code.ai/t2v/fal/veo3/fast
   status: online
-  last_checked: '2025-12-01T13:32:31.725872+00:00'
+  last_checked: '2025-12-02T13:33:56.374164+00:00'
   tools:
   - name: veo3_fast_result
     description: Get result and download completed Veo3 Fast video to local directory.
@@ -9741,7 +9835,7 @@ servers:
 - id: t2v-kamui-veo31
   url: https://kamui-code.ai/t2v/fal/veo31
   status: online
-  last_checked: '2025-12-01T13:32:35.529790+00:00'
+  last_checked: '2025-12-02T13:33:59.900335+00:00'
   tools:
   - name: veo31_result
     description: Get result of completed Veo3.1 video generation.
@@ -9806,7 +9900,7 @@ servers:
 - id: t2v-kamui-veo31-fast
   url: https://kamui-code.ai/t2v/fal/veo31/fast
   status: online
-  last_checked: '2025-12-01T13:32:35.534067+00:00'
+  last_checked: '2025-12-02T13:33:59.923593+00:00'
   tools:
   - name: veo31_fast_result
     description: Get result of completed Veo3.1 Fast video generation.
@@ -9872,7 +9966,7 @@ servers:
 - id: t2v-kamui-wan-25-preview
   url: https://kamui-code.ai/t2v/fal/wan/25-preview
   status: online
-  last_checked: '2025-12-01T13:32:37.030070+00:00'
+  last_checked: '2025-12-02T13:34:01.789461+00:00'
   tools:
   - name: wan_25_preview_text_to_video_result
     description: Get result of completed WAN 2.5 Preview Text-to-Video generation. Returns JSON response with video URL, seed
@@ -9938,7 +10032,7 @@ servers:
 - id: t2v-kamui-wan-alpha
   url: https://kamui-code.ai/t2v/fal/wan/alpha
   status: online
-  last_checked: '2025-12-01T13:32:38.823927+00:00'
+  last_checked: '2025-12-02T13:34:03.044379+00:00'
   tools:
   - name: wan_alpha_result
     description: Get result of completed WAN Alpha video generation. Returns JSON response with video URL, image URL, and
@@ -10032,7 +10126,7 @@ servers:
 - id: t2v-kamui-wan-v2-2-5b-fast
   url: https://kamui-code.ai/t2v/fal/wan/v2.2-5b/text-to-video/fast-wan
   status: online
-  last_checked: '2025-12-01T13:32:31.870617+00:00'
+  last_checked: '2025-12-02T13:33:56.378758+00:00'
   tools:
   - name: wan_v2_2_5b_text_to_video_fast_wan_result
     description: Get result and download completed WAN v2.2-5b Text-to-Video Fast video to local directory.
@@ -10119,7 +10213,7 @@ servers:
 - id: t2v-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/t2v/fal/wan/v2-2-a14b
   status: online
-  last_checked: '2025-12-01T13:32:31.870684+00:00'
+  last_checked: '2025-12-02T13:33:56.390127+00:00'
   tools:
   - name: wan_v2_2_a14b_t2v_result
     description: Get result and download completed WAN v2.2-a14b T2V video to local directory.
@@ -10209,7 +10303,7 @@ servers:
 - id: t2visual-kamui-napkin
   url: https://kamui-code.ai/t2visual/napkin/visual
   status: online
-  last_checked: '2025-12-01T13:32:34.784599+00:00'
+  last_checked: '2025-12-02T13:33:59.315788+00:00'
   tools:
   - name: napkin_visual_download
     description: '生成されたNapkin Visualファイルをダウンロードします。API仕様: GET /v1/visual/{request-id}/file/{file-id}'
@@ -10301,7 +10395,7 @@ servers:
 - id: train-kamui-flux-2-trainer
   url: https://kamui-code.ai/train/fal/flux-2-trainer
   status: online
-  last_checked: '2025-12-01T13:32:28.704925+00:00'
+  last_checked: '2025-12-02T13:33:53.733724+00:00'
   tools:
   - name: flux_2_trainer_result
     description: Get result of Flux-2 Trainer training. Returns URLs to the trained diffusers LoRA weights and configuration
@@ -10352,7 +10446,7 @@ servers:
 - id: train-kamui-flux-2-trainer-edit
   url: https://kamui-code.ai/train/fal/flux-2-trainer/edit
   status: online
-  last_checked: '2025-12-01T13:32:28.704935+00:00'
+  last_checked: '2025-12-02T13:33:53.733736+00:00'
   tools:
   - name: flux_2_trainer_result
     description: Get result of Flux-2 Trainer training. Returns URLs to the trained diffusers LoRA weights and configuration
@@ -10403,7 +10497,7 @@ servers:
 - id: train-kamui-flux-kontext
   url: https://kamui-code.ai/train/fal/flux/kontext
   status: online
-  last_checked: '2025-12-01T13:32:28.704879+00:00'
+  last_checked: '2025-12-02T13:33:53.733677+00:00'
   tools:
   - name: flux_kontext_trainer_result
     description: Get result and download completed Flux Kontext trained LoRA model to local directory.
@@ -10463,7 +10557,7 @@ servers:
 - id: train-kamui-qwen-image-edit
   url: https://kamui-code.ai/train/fal/qwen-image-edit
   status: online
-  last_checked: '2025-12-01T13:32:28.704896+00:00'
+  last_checked: '2025-12-02T13:33:53.733694+00:00'
   tools:
   - name: qwen_image_edit_trainer_result
     description: Get result of Qwen Image Edit Trainer training. Returns URLs to the trained diffusers LoRA weights and configuration
@@ -10517,7 +10611,7 @@ servers:
 - id: train-kamui-qwen-image-edit-plus
   url: https://kamui-code.ai/train/fal/qwen-image-edit-plus
   status: online
-  last_checked: '2025-12-01T13:32:28.704907+00:00'
+  last_checked: '2025-12-02T13:33:53.733706+00:00'
   tools:
   - name: qwen_image_edit_plus_trainer_result
     description: Get result of Qwen Image Edit Plus Trainer training. Returns URLs to the trained diffusers LoRA weights and
@@ -10577,7 +10671,7 @@ servers:
 - id: tts-kamui-kling-video-v1
   url: https://kamui-code.ai/tts/fal/kling-video/v1
   status: online
-  last_checked: '2025-12-01T13:32:35.561362+00:00'
+  last_checked: '2025-12-02T13:33:59.954813+00:00'
   tools:
   - name: kling_tts_v1_result
     description: Kling TTS V1リクエストの結果を取得します。
@@ -10625,7 +10719,7 @@ servers:
 - id: v2a-kamui-kling-video-to-audio
   url: https://kamui-code.ai/v2a/fal/kling-video
   status: online
-  last_checked: '2025-12-01T13:32:34.127449+00:00'
+  last_checked: '2025-12-02T13:33:58.448507+00:00'
   tools:
   - name: kling_video_to_audio_result
     description: Get the result of completed Kling Video to Audio request. Returns both the original video with dubbed audio
@@ -10674,7 +10768,7 @@ servers:
 - id: v2a-kamui-mirelo-ai-sfx-v15
   url: https://kamui-code.ai/v2a/fal/mirelo-ai/sfx-v1.5
   status: online
-  last_checked: '2025-12-01T13:32:36.333266+00:00'
+  last_checked: '2025-12-02T13:34:01.107314+00:00'
   tools:
   - name: mirelo_ai_sfx_v15_video_to_audio_result
     description: Get result of completed Mirelo.ai SFX V1.5 Video-to-Audio generation. Returns JSON response with generated
@@ -10726,7 +10820,7 @@ servers:
 - id: v2a-kamui-thinksound
   url: https://kamui-code.ai/v2a/fal/thinksound/audio/standard
   status: online
-  last_checked: '2025-12-01T13:32:34.122108+00:00'
+  last_checked: '2025-12-02T13:33:58.447220+00:00'
   tools:
   - name: thinksound_result
     description: Download completed ThinkSound Audio to local directory.
@@ -10785,7 +10879,7 @@ servers:
 - id: v2sfx-kamui-mirelo-video-to-sfx
   url: https://kamui-code.ai/v2sfx/replicate/mirelo/video-to-sfx
   status: online
-  last_checked: '2025-12-01T13:32:36.326832+00:00'
+  last_checked: '2025-12-02T13:34:00.596491+00:00'
   tools:
   - name: mirelo_video_to_sfx_result
     description: Get the result of a completed Mirelo Video to SFX request via Replicate API.
@@ -10832,7 +10926,7 @@ servers:
 - id: v2v-kamui-birefnet-v2-video
   url: https://kamui-code.ai/v2v/fal/birefnet/v2/video
   status: online
-  last_checked: '2025-12-01T13:32:32.600676+00:00'
+  last_checked: '2025-12-02T13:33:57.071829+00:00'
   tools:
   - name: birefnet_v2_video_result
     description: Get result of completed BiRefNet V2 Video background removal. Returns JSON response with video URL and optional
@@ -10901,7 +10995,7 @@ servers:
 - id: v2v-kamui-bria-bg-removal
   url: https://kamui-code.ai/video/fal/bria/background-removal
   status: online
-  last_checked: '2025-12-01T13:32:32.600620+00:00'
+  last_checked: '2025-12-02T13:33:57.063379+00:00'
   tools:
   - name: bria_bg_remove_result
     description: Get result and download completed Bria Video Background Removal video background removal to local directory.
@@ -10954,7 +11048,7 @@ servers:
 - id: v2v-kamui-bytedance-upscale-video
   url: https://kamui-code.ai/v2v/fal/bytedance/upscale-video
   status: online
-  last_checked: '2025-12-01T13:32:40.585059+00:00'
+  last_checked: '2025-12-02T13:34:04.845745+00:00'
   tools:
   - name: bytedance_upscale_video_result
     description: Get result of completed ByteDance Video Upscaler generation. Returns JSON response with upscaled video URL
@@ -11006,7 +11100,7 @@ servers:
 - id: v2v-kamui-creatify-lipsync
   url: https://kamui-code.ai/v2v/fal/creatify/lipsync
   status: online
-  last_checked: '2025-12-01T13:32:32.606241+00:00'
+  last_checked: '2025-12-02T13:33:57.095171+00:00'
   tools:
   - name: lipsync_result
     description: Get result of completed Creatify Lipsync generation. Returns JSON response with video URL.
@@ -11050,7 +11144,7 @@ servers:
 - id: v2v-kamui-decart-lucy-edit-fast
   url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/fast
   status: online
-  last_checked: '2025-12-01T13:32:36.795961+00:00'
+  last_checked: '2025-12-02T13:34:01.189421+00:00'
   tools:
   - name: decart_lucy_edit_fast_result
     description: Get result for completed Decart Lucy Edit Fast video editing.
@@ -11098,7 +11192,7 @@ servers:
 - id: v2v-kamui-decart-lucy-edit-pro
   url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/pro
   status: online
-  last_checked: '2025-12-01T13:32:36.347042+00:00'
+  last_checked: '2025-12-02T13:34:01.172103+00:00'
   tools:
   - name: decart_lucy_edit_pro_result
     description: Get result for completed Decart Lucy Edit Pro video editing.
@@ -11149,7 +11243,7 @@ servers:
 - id: v2v-kamui-fal-editto
   url: https://kamui-code.ai/v2v/fal/editto
   status: online
-  last_checked: '2025-12-01T13:32:41.243452+00:00'
+  last_checked: '2025-12-02T13:34:05.462214+00:00'
   tools:
   - name: editto_result
     description: Get result of completed Editto video inpainting generation. Returns JSON response with video URL.
@@ -11302,7 +11396,7 @@ servers:
 - id: v2v-kamui-fal-sam-3-video
   url: https://kamui-code.ai/v2v/fal/sam-3/video
   status: online
-  last_checked: '2025-12-01T13:32:41.501791+00:00'
+  last_checked: '2025-12-02T13:34:05.548395+00:00'
   tools:
   - name: sam_3_video_result
     description: Get result of completed SAM-3 Video segmentation. Returns JSON response with segmented video URL and bounding
@@ -11359,7 +11453,7 @@ servers:
 - id: v2v-kamui-fal-workflow-utilities-auto-subtitle
   url: https://kamui-code.ai/v2v/fal/workflow-utilities/auto-subtitle
   status: online
-  last_checked: '2025-12-01T13:32:40.613889+00:00'
+  last_checked: '2025-12-02T13:34:04.865619+00:00'
   tools:
   - name: fal_ai_workflow_utilities_auto_subtitle_result
     description: Get result of completed FAL Workflow Utilities Auto-Subtitle generation. Returns JSON response with video
@@ -11522,7 +11616,7 @@ servers:
 - id: v2v-kamui-heygen-video-translate
   url: https://kamui-code.ai/v2v/replicate/heygen/video-translate
   status: online
-  last_checked: '2025-12-01T13:32:36.319729+00:00'
+  last_checked: '2025-12-02T13:34:00.580275+00:00'
   tools:
   - name: heygen_video_translate_result
     description: Get result of completed HeyGen Video Translate request from Replicate API.
@@ -11562,7 +11656,7 @@ servers:
 - id: v2v-kamui-hunyuan-video-foley
   url: https://kamui-code.ai/v2v/fal/hunyuan/video-foley
   status: online
-  last_checked: '2025-12-01T13:32:34.775722+00:00'
+  last_checked: '2025-12-02T13:33:59.304779+00:00'
   tools:
   - name: hunyuan_video_foley_result
     description: Get completed Hunyuan Video Foley result with audio-enhanced video.
@@ -11612,10 +11706,114 @@ servers:
       required:
       - video_url
       type: object
+- id: v2v-kamui-kling-video-o1
+  url: https://kamui-code.ai/v2v/fal/kling-video/o1
+  status: online
+  last_checked: '2025-12-02T13:34:00.561394+00:00'
+  tools:
+  - name: kling_video_o1_video_to_video_edit_result
+    description: Kling Video O1 Video-to-Video Editリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_video_to_video_edit_status
+    description: Kling Video O1 Video-to-Video Editリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_video_to_video_edit_submit
+    description: Kling Video O1 Video-to-Video Editを使用してプロンプトに基づいて動画を編集します。
+    inputSchema:
+      properties:
+        elements:
+          description: '動画に含める要素（キャラクター/オブジェクト）のJSON配列文字列。例: [{"reference_image_urls": ["url1", "url2"], "frontal_image_url":
+            "url"}]. プロンプトで@Element1, @Element2などで参照。最大4つ（elements + reference images）'
+          type: string
+        image_urls:
+          description: スタイル/外観のための参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大4つ（elements + reference images）
+          type: array
+        keep_audio:
+          description: '動画の元の音声を保持するかどうか（デフォルト: false）'
+          type: boolean
+        prompt:
+          description: 動画編集のためのテキストプロンプト（必須）。@Element1, @Element2で要素、@Image1, @Image2で画像を参照できます。
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）。.mp4/.mov形式のみ対応、3-10秒、720-2160px解像度、最大200MB
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-kling-video-o1-reference
+  url: https://kamui-code.ai/v2v/fal/kling-video/o1-reference
+  status: online
+  last_checked: '2025-12-02T13:34:00.573854+00:00'
+  tools:
+  - name: kling_video_o1_video_to_video_reference_result
+    description: Kling Video O1 Video-to-Video Referenceリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_video_to_video_reference_status
+    description: Kling Video O1 Video-to-Video Referenceリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o1_video_to_video_reference_submit
+    description: Kling Video O1 Video-to-Video Referenceを使用して参照動画から動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'アスペクト比。指定可能な値: auto, 16:9, 9:16, 1:1 (デフォルト: auto)。''auto''の場合、入力動画に基づいて自動的に決定されます'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
+          type: string
+        elements:
+          description: '動画に含める要素（キャラクター/オブジェクト）のJSON配列文字列。例: [{"reference_image_urls": ["url1", "url2"], "frontal_image_url":
+            "url"}]. プロンプトで@Element1, @Element2などで参照。最大4つ（elements + reference images）'
+          type: string
+        image_urls:
+          description: スタイル/外観のための参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大4つ（elements + reference images）
+          type: array
+        keep_audio:
+          description: '動画の元の音声を保持するかどうか（デフォルト: false）'
+          type: boolean
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）。@Element1, @Element2で要素、@Image1, @Image2で画像を参照できます。
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）。.mp4/.mov形式のみ対応、3-10秒、720-2160px解像度、最大200MB
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
 - id: v2v-kamui-luma-ray2
   url: https://kamui-code.ai/v2v/fal/luma/dream-machine/ray-2/modify
   status: online
-  last_checked: '2025-12-01T13:32:32.623877+00:00'
+  last_checked: '2025-12-02T13:33:57.095734+00:00'
   tools:
   - name: luma_ray2_result
     description: Get result and download completed Luma Ray-2 modified video to local directory.
@@ -11671,7 +11869,7 @@ servers:
 - id: v2v-kamui-minimax-voice
   url: https://kamui-code.ai/v2v/fal/minimax/voice-design
   status: online
-  last_checked: '2025-12-01T13:32:32.760567+00:00'
+  last_checked: '2025-12-02T13:33:57.110128+00:00'
   tools:
   - name: result
     description: Get result and download completed Minimax Voice Design (custom_voice_id + preview audio) to local directory.
@@ -11724,7 +11922,7 @@ servers:
 - id: v2v-kamui-mirelo-ai-sfx-v15
   url: https://kamui-code.ai/v2v/fal/mirelo-ai/sfx-v1.5/video-to-video
   status: online
-  last_checked: '2025-12-01T13:32:36.333242+00:00'
+  last_checked: '2025-12-02T13:34:00.662897+00:00'
   tools:
   - name: mirelo_ai_sfx_v15_video_to_video_result
     description: Get result of completed Mirelo.ai SFX V1.5 Video-to-Video generation. Returns JSON response with processed
@@ -11776,7 +11974,7 @@ servers:
 - id: v2v-kamui-pixverse-extend
   url: https://kamui-code.ai/v2v/fal/pixverse/extend
   status: online
-  last_checked: '2025-12-01T13:32:33.293359+00:00'
+  last_checked: '2025-12-02T13:33:57.822957+00:00'
   tools:
   - name: pixverse_extend_result
     description: Get result and download completed Pixverse Extend video extension to local directory.
@@ -11850,7 +12048,7 @@ servers:
 - id: v2v-kamui-pixverse-lipsync
   url: https://kamui-code.ai/v2v/fal/pixverse/lipsync
   status: online
-  last_checked: '2025-12-01T13:32:33.304043+00:00'
+  last_checked: '2025-12-02T13:33:57.823379+00:00'
   tools:
   - name: pixverse_lipsync_result
     description: Get result and download completed Pixverse Lipsync video lipsync to local directory.
@@ -11910,7 +12108,7 @@ servers:
 - id: v2v-kamui-pixverse-swap
   url: https://kamui-code.ai/v2v/fal/pixverse/swap
   status: online
-  last_checked: '2025-12-01T13:32:40.789726+00:00'
+  last_checked: '2025-12-02T13:34:04.906639+00:00'
   tools:
   - name: pixverse_swap_result
     description: Get result of completed Pixverse Swap video processing. Returns JSON response with video file information.
@@ -11966,7 +12164,7 @@ servers:
 - id: v2v-kamui-runway-aleph
   url: https://kamui-code.ai/v2v/runway/aleph
   status: online
-  last_checked: '2025-12-01T13:32:33.323130+00:00'
+  last_checked: '2025-12-02T13:33:57.825845+00:00'
   tools:
   - name: runway_aleph_v2v_result
     description: Download completed video results from Runway Gen4 Aleph V2V task
@@ -12024,7 +12222,7 @@ servers:
 - id: v2v-kamui-sync-lipsync-v2
   url: https://kamui-code.ai/v2v/fal/sync-lipsync/v2
   status: online
-  last_checked: '2025-12-01T13:32:33.314653+00:00'
+  last_checked: '2025-12-02T13:33:57.823402+00:00'
   tools:
   - name: sync_lipsync_v2_result
     description: Get result of completed Sync Lipsync V2 generation. Returns JSON response with video URL.
@@ -12073,7 +12271,7 @@ servers:
 - id: v2v-kamui-topaz-upscale
   url: https://kamui-code.ai/v2v/fal/topaz/upscale-video
   status: online
-  last_checked: '2025-12-01T13:32:33.324491+00:00'
+  last_checked: '2025-12-02T13:33:57.827144+00:00'
   tools:
   - name: topaz_upscale_video_result
     description: Get result and download completed Topaz upscaled video/image to local directory.
@@ -12163,7 +12361,7 @@ servers:
 - id: v2v-kamui-vidu-q2-video-extension-pro
   url: https://kamui-code.ai/v2v/fal/vidu/q2/video-extension/pro
   status: online
-  last_checked: '2025-12-01T13:32:33.339427+00:00'
+  last_checked: '2025-12-02T13:33:57.835298+00:00'
   tools:
   - name: vidu_q2_video_extension_pro_result
     description: Get result of completed Vidu Q2 Video Extension Pro video extension.
@@ -12214,7 +12412,7 @@ servers:
 - id: v2v-kamui-wan-v2-2-14b-animate-move
   url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/move
   status: online
-  last_checked: '2025-12-01T13:32:36.943787+00:00'
+  last_checked: '2025-12-02T13:34:01.325041+00:00'
   tools:
   - name: wan_v2_2_14b_animate_move_result
     description: Get result of completed WAN v2.2-14b Animate Move video generation.
@@ -12291,7 +12489,7 @@ servers:
 - id: v2v-kamui-wan-v2-2-14b-animate-replace
   url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/replace
   status: online
-  last_checked: '2025-12-01T13:32:36.940455+00:00'
+  last_checked: '2025-12-02T13:34:01.229634+00:00'
   tools:
   - name: wan_v2_2_14b_animate_replace_result
     description: Get result of completed WAN v2.2-14b Animate Replace video generation.
@@ -12354,7 +12552,7 @@ servers:
 - id: v2v-kamui-wan-vace-apps-long-reframe
   url: https://kamui-code.ai/v2v/fal/wan/vace-apps/long-reframe
   status: online
-  last_checked: '2025-12-01T13:32:37.653322+00:00'
+  last_checked: '2025-12-02T13:34:02.411067+00:00'
   tools:
   - name: wan_vace_apps_long_reframe_result
     description: Get result of completed WAN VACE Apps Long Reframe generation. Returns JSON response with video URL and metadata.
@@ -12483,7 +12681,7 @@ servers:
 - id: video-analysis-kamui
   url: https://kamui-code.ai/video-analysis/google/gemini
   status: online
-  last_checked: '2025-12-01T13:32:28.704945+00:00'
+  last_checked: '2025-12-02T13:33:53.733746+00:00'
   tools:
   - name: google_gemini_video_analysis_result
     description: Execute real-time video analysis on processed file using Google Gemini
@@ -12541,7 +12739,7 @@ servers:
 - id: voice-clone-kamui-minimax
   url: https://kamui-code.ai/voice-clone/minimax
   status: online
-  last_checked: '2025-12-01T13:32:40.379836+00:00'
+  last_checked: '2025-12-02T13:34:04.420105+00:00'
   tools:
   - name: result
     description: Get result of completed Minimax Voice Clone. Returns JSON response with custom_voice_id and preview audio
