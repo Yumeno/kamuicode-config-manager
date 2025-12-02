@@ -23,6 +23,60 @@
             const URL_MODEL_MEMO = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/kamuicode_model_memo.yaml`;
             const URL_TOOL_CATALOG = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/mcp_tool_catalog.yaml`;
 
+            // カテゴリキーから表示名へのマッピング
+            const CATEGORY_DISPLAY_NAMES = {
+                'text_to_image': 'Text to Image',
+                'image_to_image': 'Image to Image',
+                'text_to_video': 'Text to Video',
+                'image_to_video': 'Image to Video',
+                'video_to_video': 'Video to Video',
+                'reference_to_video': 'Reference to Video',
+                'frame_to_video': 'Frame to Video',
+                'speech_to_video': 'Speech to Video',
+                'audio_to_video': 'Audio to Video',
+                'text_to_speech': 'Text to Speech',
+                'text_to_audio': 'Text to Audio',
+                'text_to_music': 'Text to Music',
+                'video_to_audio': 'Video to Audio',
+                'video_to_sfx': 'Video to SFX',
+                'audio_to_text': 'Audio to Text',
+                'text_to_visual': 'Text to Visual',
+                'image_to_3d': 'Image to 3D',
+                'text_to_3d': 'Text to 3D',
+                '3d_to_3d': '3D to 3D',
+                'training': 'Training',
+                'utility_and_analysis': 'Utility & Analysis',
+                'voice_clone': 'Voice Clone',
+                'miscellaneous': 'Miscellaneous'
+            };
+
+            // カテゴリ表示順序
+            const CATEGORY_ORDER = [
+                'text_to_image',
+                'image_to_image',
+                'text_to_video',
+                'image_to_video',
+                'video_to_video',
+                'reference_to_video',
+                'frame_to_video',
+                'speech_to_video',
+                'audio_to_video',
+                'text_to_speech',
+                'text_to_audio',
+                'text_to_music',
+                'video_to_audio',
+                'video_to_sfx',
+                'audio_to_text',
+                'text_to_visual',
+                'image_to_3d',
+                'text_to_3d',
+                '3d_to_3d',
+                'training',
+                'utility_and_analysis',
+                'voice_clone',
+                'miscellaneous'
+            ];
+
             return {
                 isLoading: true,
                 errorMessage: '',
@@ -59,6 +113,11 @@
                     const catalogYaml = jsyaml.load(await catalogRes.text());
 
                     this.processData(memoYaml, catalogYaml);
+                },
+
+                // カテゴリキーから表示名を取得
+                getCategoryDisplayName(categoryKey) {
+                    return CATEGORY_DISPLAY_NAMES[categoryKey] || categoryKey;
                 },
 
                 processData(memoData, catalogData) {
@@ -117,7 +176,16 @@
                     }
 
                     this.models = combinedList;
-                    this.categories = Array.from(categorySet).sort();
+                    // カテゴリを定義順でソート
+                    this.categories = Array.from(categorySet).sort((a, b) => {
+                        const indexA = CATEGORY_ORDER.indexOf(a);
+                        const indexB = CATEGORY_ORDER.indexOf(b);
+                        // 定義にないカテゴリは末尾に
+                        if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+                        if (indexA === -1) return 1;
+                        if (indexB === -1) return -1;
+                        return indexA - indexB;
+                    });
                     // 日付順にソート (新しい順)
                     this.periods = Array.from(periodSet).sort((a, b) => {
                         return b.localeCompare(a, undefined, { numeric: true });
@@ -192,11 +260,11 @@
                     </div>
                     
                     <div class="md:col-span-3">
-                        <select x-model="selectedCategory" 
+                        <select x-model="selectedCategory"
                                 class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
                             <option value="">すべてのカテゴリ</option>
                             <template x-for="cat in categories" :key="cat">
-                                <option :value="cat" x-text="cat"></option>
+                                <option :value="cat" x-text="getCategoryDisplayName(cat)"></option>
                             </template>
                         </select>
                     </div>
@@ -233,7 +301,7 @@
 
                             <div class="flex-1 min-w-0">
                                 <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                                    <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200" x-text="model.category"></span>
+                                    <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200" x-text="getCategoryDisplayName(model.category)"></span>
                                     <template x-if="model.tools.length > 0">
                                         <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100" x-text="`${model.tools.length} Tools`"></span>
                                     </template>
