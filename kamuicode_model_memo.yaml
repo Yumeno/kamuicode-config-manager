@@ -3,7 +3,7 @@ ai_models:
     - name: ByteDance Dreamina v3.1
       server_name: t2i-kamui-dreamina-v31
       release_date: 2025年8月1日 #[修正] (ソース2, 39, 55)
-      features: "(ByteDance) 高品質なテキストからの画像生成。Seedream 3.0ベース。" #[追加] (ソース3)
+      features: "\"(ByteDance) 高品質なテキストからの画像生成。Seedream 3.0ベース。\" #[追加] (ソース3)"
     - name: FLUX Krea LoRA
       server_name: t2i-kamui-flux-krea-lora
       release_date: 2025年8月頃
@@ -11,7 +11,7 @@ ai_models:
     - name: Black Forest Labs FLUX.1 Schnell
       server_name: t2i-kamui-flux-schnell
       release_date: 2024年8月1日 #[修正] (ソース193)
-      features: "(Black Forest Labs) 高速（Schnellはドイツ語で「速い」）な画像生成に最適化されたFLUX.1モデル。(Apache 2.0ライセンス)" #[追加] (ソース192)
+      features: "\"(Black Forest Labs) 高速（Schnellはドイツ語で「速い」）な画像生成に最適化されたFLUX.1モデル。(Apache 2.0ライセンス)\" #[追加] (ソース192)"
     - name: Black Forest Labs FLUX.1 (srpo)
       server_name: t2i-kamui-flux-srpo
       release_date: 2024年11月頃
@@ -27,11 +27,11 @@ ai_models:
     - name: Imagen 4 Fast (fal.ai)
       server_name: t2i-kamui-imagen4-fast
       release_date: 2025年8月15日 #[修正] GA（一般提供）開始日 (ソース150, 243)
-      features: "(Google / fal.ai) Googleの次世代モデルImagen 4の速度最適化版。(Proprietary)" #[追加] (ソース124)
+      features: "\"(Google / fal.ai) Googleの次世代モデルImagen 4の速度最適化版。(Proprietary)\" #[追加] (ソース124)"
     - name: Imagen 4 Ultra (fal.ai)
       server_name: t2i-kamui-imagen4-ultra
       release_date: 2025年8月15日 #[修正] GA（一般提供）開始日 (ソース150, 243)
-      features: "(Google / fal.ai) Googleの次世代モデルImagen 4の最高品質版。(Proprietary)" #[追加] (ソース124)
+      features: "\"(Google / fal.ai) Googleの次世代モデルImagen 4の最高品質版。(Proprietary)\" #[追加] (ソース124)"
     - name: Alibaba Qwen-Image
       server_name: t2i-kamui-qwen-image
       release_date: 2025年8月4日
@@ -43,7 +43,7 @@ ai_models:
     - name: Nano Banana (Google Gemini 2.5 Flash Image)
       server_name: t2i-kamui-nano-banana
       release_date: 2025年8月26日 #[修正] fal.aiローンチ日 (ソース124, 147, 204)
-      features: "(Google) Gemini 2.5 Flashの画像生成機能。非常に高速な画像生成と編集が可能。(Proprietary)" #[追加] (ソース124, 146)
+      features: "\"(Google) Gemini 2.5 Flashの画像生成機能。非常に高速な画像生成と編集が可能。(Proprietary)\" #[追加] (ソース124, 146)"
     - name: Nano Banana Pro (Google Gemini 2.5 Flash Image Pro)
       server_name: t2i-kamui-fal-nano-banana-pro
       release_date: 2025年11月20日
@@ -51,7 +51,7 @@ ai_models:
     - name: Google Gemini 2.5 Flash (Text-to-Image)
       server_name: t2i-kamui-gemini-25-flash-image
       release_date: 2025年6月17日 #[修正] GA（一般提供）開始日 (ソース145, 234)
-      features: "(Google) Googleの最新マルチモーダルモデルGemini 2.5 Flashによる、テキストからの画像生成。(Proprietary)" #[追加] (ソース124, 144)
+      features: "\"(Google) Googleの最新マルチモーダルモデルGemini 2.5 Flashによる、テキストからの画像生成。(Proprietary)\" #[追加] (ソース124, 144)"
     - name: Google Gemini 3 Pro Image Preview
       server_name: t2i-kamui-fal-gemini-3-pro-image-preview
       release_date: 2025年11月20日
@@ -88,10 +88,6 @@ ai_models:
       server_name: t2i-kamui-emu-3-5-image
       release_date: 2025年10月28日頃
       features: "(Meta / fal.ai) Emu3.5 Imageを使用したテキストベースの画像生成。JPEG、PNG、WebP出力形式、安全チェッカー、シード制御、同期モードをサポート。"
-    - name: FLUX.2 Trainer (Kamui Code)
-      server_name: train-kamui-flux-2-trainer
-      release_date: 2025年11月25日
-      features: "(Black Forest Labs / Kamui Code) 2025年11月に登場した最新モデルFLUX.2 [dev]のLoRA学習機能。FLUX.2は32Bパラメータを持ち、前世代と比較してプロンプト追従性、テキスト描写能力、画質（最大4MP）が大幅に向上。独自のスタイルやキャラクターの一貫性を保ったモデルを作成可能。"
     - name: FLUX.2 [flex]
       server_name: t2i-kamui-flux-2-flex
       release_date: 2025年11月25日
@@ -121,10 +117,6 @@ ai_models:
       server_name: i2i-kamui-crystal-upscaler
       release_date: 2025年10月22日
       features: "(fal.ai / Clarity AI) 肖像画や顔のディテール強化に特化した高度な画像アップスケーラー。"
-    - name: Bria Fibo Mashup
-      server_name: misc-kamui-bria-fibo-mashup
-      release_date: 2025年11月3日
-      features: "(Bria AI / fal.ai) 主題、シーン、スタイルの画像を組み合わせて新しい画像を生成するマッシュアップ機能。"
     - name: FLUX Kontext LoRA (fal.ai)
       server_name: i2i-kamui-flux-kontext-lora
       release_date: 2025年5月29日 #[修正] Kontextスイートのリリース日 (ソース193, 280)
@@ -152,7 +144,7 @@ ai_models:
     - name: Nano Banana (Edit) (fal.ai)
       server_name: i2i-kamui-nano-banana-edit
       release_date: 2025年8月26日 #[修正] fal.aiローンチ日 (ソース124, 147, 204)
-      features: "(Google) Gemini 2.5 Flash Imageによる、非常に高速なAI画像編集および変換。(Proprietary)" #[追加] (ソース124, 146)
+      features: "\"(Google) Gemini 2.5 Flash Imageによる、非常に高速なAI画像編集および変換。(Proprietary)\" #[追加] (ソース124, 146)"
     - name: Nano Banana Pro Edit (fal.ai)
       server_name: i2i-kamui-fal-nano-banana-pro-edit
       release_date: 2025年11月20日
@@ -160,7 +152,7 @@ ai_models:
     - name: Google Gemini 2.5 Flash (Image Edit)
       server_name: i2i-kamui-gemini-25-flash-image-edit
       release_date: 2025年6月17日 #[修正] GA（一般提供）開始日 (ソース145, 234)
-      features: "(Google) Gemini 2.5 Flashの高度なマルチモーダル能力を使用した、テキスト指示による画像編集。(Proprietary)" #[追加] (ソース124, 144)
+      features: "\"(Google) Gemini 2.5 Flashの高度なマルチモーダル能力を使用した、テキスト指示による画像編集。(Proprietary)\" #[追加] (ソース124, 144)"
     - name: Google Gemini 3 Pro Image Preview Edit
       server_name: i2i-kamui-fal-gemini-3-pro-image-preview-edit
       release_date: 2025年11月20日
@@ -204,11 +196,11 @@ ai_models:
     - name: Lucidflux (Upscaling/Restoration) (fal.ai)
       server_name: i2i-kamui-lucidflux
       release_date: 2025年10月 #[修正] (ソース4, 39, 57)
-      features: "(fal.ai) AIによる画像のアップスケーリング（高解像度化）と復元（ノイズ除去など）に特化。キャプション不要。" #[追加] (ソース4, 58)
+      features: "\"(fal.ai) AIによる画像のアップスケーリング（高解像度化）と復元（ノイズ除去など）に特化。キャプション不要。\" #[追加] (ソース4, 58)"
     - name: Image2Pixel (fal.ai)
       server_name: i2i-kamui-image2pixel
       release_date: 2025年中頃 #[修正] (ソース5, 39, 60)
-      features: "(fal.ai) 通常の画像をレトロなピクセルアートスタイルに変換するモデル。" #[検証済] (ソース5, 61)
+      features: "\"(fal.ai) 通常の画像をレトロなピクセルアートスタイルに変換するモデル。\" #[検証済] (ソース5, 61)"
     - name: Reve (Edit) (fal.ai)
       server_name: i2i-kamui-reve-edit
       release_date: 2024年10月3日
@@ -241,10 +233,6 @@ ai_models:
       server_name: i2i-kamui-fal-sam-3-image
       release_date: 2025年11月19日
       features: "(Meta / fal.ai) Segment Anything Model 3。テキスト、ポイント、ボックスプロンプトによる高精度な画像セグメンテーション。"
-    - name: Flux-2 Trainer Edit
-      server_name: train-kamui-flux-2-trainer-edit
-      release_date: 2025年11月25日
-      features: "(Black Forest Labs) 最新の画像生成モデルFlux.2 EditをベースとしたLoRA学習用トレーナー。変更前と変更後の画像ペアを用いて、特定の編集タスク（スタイル変換、オブジェクト操作など）をモデルに学習させることが可能。ベースとなるFlux.2はマルチリファレンス対応やプロンプト追従性が大幅に向上している。"
     - name: FLUX.2 [dev]
       server_name: i2i-kamui-flux-2-lora-edit
       release_date: 2025年11月25日
@@ -273,7 +261,7 @@ ai_models:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
       release_date: 2025年10月28日 #[修正] fal.aiローンチ日 (ソース160, 204)
-      features: "(Minimax) Hailuo 2.3モデルの高品質（Pro）版。テキストから動画を生成。" #[修正] (ソース158)
+      features: "\"(Minimax) Hailuo 2.3モデルの高品質（Pro）版。テキストから動画を生成。\" #[修正] (ソース158)"
     - name: Minimax Hailuo-02 Standard
       server_name: t2v-kamui-hailuo-02-standard
       release_date: 2025年6月18日
@@ -285,7 +273,7 @@ ai_models:
     - name: Google Veo 3 Fast (fal.ai)
       server_name: t2v-kamui-veo3-fast
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
-      features: "(Google / fal.ai) GoogleのVeo 3モデルの速度最適化版。(Proprietary)" #[追加] (ソース124)
+      features: "\"(Google / fal.ai) GoogleのVeo 3モデルの速度最適化版。(Proprietary)\" #[追加] (ソース124)"
     - name: WAN v2.2-5b FastVideo (fal.ai)
       server_name: t2v-kamui-wan-v2-2-5b-fast
       release_date: 2025年9月22日
@@ -305,15 +293,15 @@ ai_models:
     - name: Google Veo 3.1
       server_name: t2v-kamui-veo31
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
-      features: "(Google) Googleの最新フラッグシップモデル。高品質でモーション安定性が高い動画をテキストから生成。(Proprietary)" #[追加] (ソース124, 152)
+      features: "\"(Google) Googleの最新フラッグシップモデル。高品質でモーション安定性が高い動画をテキストから生成。(Proprietary)\" #[追加] (ソース124, 152)"
     - name: Google Veo 3.1 Fast
       server_name: t2v-kamui-veo31-fast
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
-      features: "(Google) Veo 3.1の速度最適化版。720p/1080p、4-8秒、オプションで音声生成も可能。(Proprietary)" #[追加] (ソース124, 152)
+      features: "\"(Google) Veo 3.1の速度最適化版。720p/1080p、4-8秒、オプションで音声生成も可能。(Proprietary)\" #[追加] (ソース124, 152)"
     - name: Kuaishou Kling v2.5 Turbo Pro
       server_name: t2v-kamui-kling-video-v25-turbo-pro
       release_date: 2025年9月23日 #[修正] fal.aiローンチ日 (ソース124, 165, 204)
-      features: "(Kuaishou) Kling 2.5の最高品質・高性能版。テキストから高品質動画を生成。(Proprietary)" #[追加] (ソース124, 163)
+      features: "\"(Kuaishou) Kling 2.5の最高品質・高性能版。テキストから高品質動画を生成。(Proprietary)\" #[追加] (ソース124, 163)"
     - name: WAN 2.5 Preview (fal.ai)
       server_name: t2v-kamui-wan-25-preview
       release_date: 2025年9月24日 #[修正] fal.aiローンチ日 (ソース204)
@@ -325,7 +313,7 @@ ai_models:
     - name: OpenAI Sora 2 / Sora 2 Pro
       server_name: t2v-kamui-openai-sora
       release_date: 2025年10月28日以降 #[修正] fal.ai提供開始時期 (ソース124, 138)
-      features: "(OpenAI) 業界最高水準の動画生成モデル。`sora-2`（高速版）と`sora-2-pro`（プロダクショングレード）がある。高解像度、長時間対応。(Proprietary)" #[追加] (ソース124, 137)
+      features: "\"(OpenAI) 業界最高水準の動画生成モデル。`sora-2`（高速版）と`sora-2-pro`（プロダクショングレード）がある。高解像度、長時間対応。(Proprietary)\" #[追加] (ソース124, 137)"
     - name: Pixverse V5
       server_name: t2v-kamui-pixverse-v5
       release_date: 2025年8月28日
@@ -333,7 +321,7 @@ ai_models:
     - name: WAN Alpha (Transparency support) (fal.ai)
       server_name: t2v-kamui-wan-alpha
       release_date: 2025年9月30日 #[修正] (ソース6, 39, 67, 99)
-      features: "(fal.ai / Wan-AI) テキストから「透過」（アルファチャンネル付き）動画を生成する能力に特化。" #[検証済] (ソース7, 67)
+      features: "\"(fal.ai / Wan-AI) テキストから「透過」（アルファチャンネル付き）動画を生成する能力に特化。\" #[検証済] (ソース7, 67)"
     - name: KREA Wan 14B (Krea Realtime 14B)
       server_name: t2v-kamui-krea-wan-14b
       release_date: 2025年10月15日
@@ -374,19 +362,19 @@ ai_models:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
       release_date: 2025年10月28日 #[修正] fal.aiローンチ日 (ソース160, 204)
-      features: "(Minimax) Hailuo 2.3モデルの速度最適化版。画像から動画を生成。" #[修正] (ソース158)
+      features: "\"(Minimax) Hailuo 2.3モデルの速度最適化版。画像から動画を生成。\" #[修正] (ソース158)"
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-pro # server_nameは元のまま
       release_date: 2025年10月28日 #[修正] fal.aiローンチ日 (ソース160, 204)
-      features: "(Minimax) Hailuo 2.3モデルの高品質版。画像から動画を生成。" #[修正] (ソース158)
+      features: "\"(Minimax) Hailuo 2.3モデルの高品質版。画像から動画を生成。\" #[修正] (ソース158)"
     - name: ByteDance OmniHuman
       server_name: i2v-kamui-omnihuman
       release_date: 2025年2月5日 #[修正] (ソース8, 39, 69, 100)
-      features: "(ByteDance) 画像と（多くの場合）音声から、人間（特に顔）のアニメーション動画を生成。v1.5の旧バージョン。" #[検証済] (ソース8)
+      features: "\"(ByteDance) 画像と（多くの場合）音声から、人間（特に顔）のアニメーション動画を生成。v1.5の旧バージョン。\" #[検証済] (ソース8)"
     - name: ByteDance OmniHuman v1.5
       server_name: i2v-kamui-omnihuman-v15
       release_date: 2025年8月26日 #[修正] (ソース9, 39, 70, 101)
-      features: "(ByteDance / fal.ai) OmniHumanの最新版。リップシンクや表情生成が強化されている。" #[検証済] (ソース9)
+      features: "\"(ByteDance / fal.ai) OmniHumanの最新版。リップシンクや表情生成が強化されている。\" #[検証済] (ソース9)"
     - name: ByteDance Seedance V1 Lite
       server_name: i2v-kamui-seedance-v1-lite
       release_date: 2025年10月24日頃
@@ -418,11 +406,11 @@ ai_models:
     - name: Decart AI Lucy 14B
       server_name: i2v-kamui-decart-lucy-14b
       release_date: 2025年9月10日 #[修正] (ソース10, 39, 72, 102)
-      features: "(Decart AI / fal.ai) 14B（140億）パラメータを持つモデル。画像とテキストプロンプトから高速に動画を生成。" #[検証済] (ソース11)
+      features: "\"(Decart AI / fal.ai) 14B（140億）パラメータを持つモデル。画像とテキストプロンプトから高速に動画を生成。\" #[検証済] (ソース11)"
     - name: Decart AI Lucy 5B
       server_name: i2v-kamui-decart-lucy-5b
       release_date: 2025年8月28日 #[修正] (ソース12, 39, 71, 103)
-      features: "(Decart AI / fal.ai) 5B（50億）パラメータを持つモデル。Lucy 14Bより軽量なバージョン。" #[検証済] (ソース13)
+      features: "\"(Decart AI / fal.ai) 5B（50億）パラメータを持つモデル。Lucy 14Bより軽量なバージョン。\" #[検証済] (ソース13)"
     - name: Kuaishou Kling v2.5 Turbo Pro
       server_name: i2v-kamui-kling-video-v25-turbo-pro
       release_date: 2025年9月23日 #[修正] fal.aiローンチ日 (ソース124, 165, 204)
@@ -442,7 +430,7 @@ ai_models:
     - name: Lynx (Image-to-Video) (fal.ai)
       server_name: i2v-kamui-lynx
       release_date: 2025年9月22日 #[修正] (ソース14, 39, 73, 104)
-      features: "(fal.ai) プロンプト指導に基づき、被写体画像（主題）の一貫性を保ちながらアニメーション化。" #[検証済] (ソース14, 73)
+      features: "\"(fal.ai) プロンプト指導に基づき、被写体画像（主題）の一貫性を保ちながらアニメーション化。\" #[検証済] (ソース14, 73)"
     - name: ByteDance Lynx (Image-to-Video)
       server_name: i2v-kamui-bytedance-lynx
       release_date: 2025年9月22日
@@ -487,15 +475,11 @@ ai_models:
       server_name: i2v-kamui-kling-video-o1
       release_date: 2025年12月1日
       features: "(Kuaishou) 開始フレームと終了フレームを指定して、その間をスムーズに補完する動画を生成できるImage-to-Videoモデル。テキストプロンプトによる制御も可能で、映画のような高品質なトランジションを実現する。fal.ai等を通じてAPI利用可能。"
-    - name: Kling Video O1
-      server_name: r2v-kamui-kling-video-o1
-      release_date: 2025年12月1日
-      features: "(Kuaishou) テキスト、画像、動画を入力として統合的に処理できるマルチモーダル動画生成モデル。特に参照画像を用いたキャラクターやスタイルの一貫性維持（Reference-to-Video）に優れ、動画編集や拡張も可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
       release_date: 2025年1月6日 #[修正] (ソース15, 39, 76, 105)
-      features: "(Bria AI / fal.ai) 入力された動画から背景を自動的に除去（切り抜き）する。fal.ai上では Bria RMBG 2.0 がホストされている。" #[検証済] (ソース16)
+      features: "\"(Bria AI / fal.ai) 入力された動画から背景を自動的に除去（切り抜き）する。fal.ai上では Bria RMBG 2.0 がホストされている。\" #[検証済] (ソース16)"
     - name: BiRefNet V2 Video
       server_name: v2v-kamui-birefnet-v2-video
       release_date: 2025年1月30日頃
@@ -503,7 +487,7 @@ ai_models:
     - name: Creatify AI Lipsync
       server_name: v2v-kamui-creatify-lipsync
       release_date: 2025年10月2日 #[修正] (ソース17, 39, 78, 106)
-      features: "(Creatify AI / fal.ai) 動画内の人物の口の動きを、別の音声ファイルに合わせて自動的に修正（リップシンク）。" #[検証済] (ソース17, 78)
+      features: "\"(Creatify AI / fal.ai) 動画内の人物の口の動きを、別の音声ファイルに合わせて自動的に修正（リップシンク）。\" #[検証済] (ソース17, 78)"
     - name: Luma AI Ray 2.0 (Modification)
       server_name: v2v-kamui-luma-ray2
       release_date: 2025年1月16日
@@ -547,11 +531,11 @@ ai_models:
     - name: Mirelo AI SFX v1.5
       server_name: v2v-kamui-mirelo-ai-sfx-v15
       release_date: 2025年10月22日 #[修正] (ソース18, 39, 79, 107)
-      features: "(Mirelo AI / fal.ai) 動画を解析し、AIが生成した効果音（SFX）を同期させて、新しい動画として出力する。" #[検証済] (ソース18)
+      features: "\"(Mirelo AI / fal.ai) 動画を解析し、AIが生成した効果音（SFX）を同期させて、新しい動画として出力する。\" #[検証済] (ソース18)"
     - name: Decart AI Lucy Edit Pro
       server_name: v2v-kamui-decart-lucy-edit-pro
       release_date: 2025年9月18日 #[修正] (ソース20, 39, 80, 108)
-      features: "(Decart AI) テキストプロンプトに基づき、既存の動画のシーン全体や被写体の外見をAIが編集・変換する。" #[検証済] (ソース20, 80)
+      features: "\"(Decart AI) テキストプロンプトに基づき、既存の動画のシーン全体や被写体の外見をAIが編集・変換する。\" #[検証済] (ソース20, 80)"
     - name: WAN v2.2-14b (Animate Replace) (fal.ai)
       server_name: v2v-kamui-wan-v2-2-14b-animate-replace
       release_date: 2025年9月22日
@@ -559,7 +543,7 @@ ai_models:
     - name: WAN VACE Apps (Long Reframe) (fal.ai)
       server_name: v2v-kamui-wan-vace-apps-long-reframe
       release_date: 2025年5月16日 #[修正] (ソース21, 40, 75, 109)
-      features: "(fal.ai / Wan-AI) Wan VACE 2.1を使用。長い動画をシーンごとに自動検出し、指定したアスペクト比に再構成（リフレーム）する。" #[検証済] (ソース21, 75)
+      features: "\"(fal.ai / Wan-AI) Wan VACE 2.1を使用。長い動画をシーンごとに自動検出し、指定したアスペクト比に再構成（リフレーム）する。\" #[検証済] (ソース21, 75)"
     - name: WAN v2.2-14b (Animate Move) (fal.ai)
       server_name: v2v-kamui-wan-v2-2-14b-animate-move
       release_date: 2025年9月19日
@@ -584,10 +568,6 @@ ai_models:
       server_name: v2v-kamui-fal-editto
       release_date: 2025年11月頃
       features: "(fal.ai) テキストプロンプトに基づいて動画の特定領域を修正するビデオインペインティングモデル。"
-    - name: LTX-2
-      server_name: r2v-kamui-ltx-2
-      release_date: 2025年10月23日
-      features: "(Lightricks) プロンプトを用いて動画の特定部分を修正（リテイク）できる動画生成・編集モデル。音声や映像の置換、開始時間・長さの指定が可能で、4K解像度や音声同期生成にも対応する。"
     - name: Decart Lucy Edit Fast
       server_name: v2v-kamui-decart-lucy-edit-fast
       release_date: 2025年11月13日頃
@@ -601,6 +581,14 @@ ai_models:
       release_date: 2025年12月1日
       features: "(Kuaishou) 動画から動画を生成・変換するVideo-to-Videoモデル。参照動画の動きや構図を維持しながら、テキストや参照画像を用いてスタイルや要素を変更可能。テキスト・画像・動画を統合的に理解する新しい『Kling O1』アーキテクチャを採用しており、高い一貫性と編集能力を持つ。"
   reference_to_video:
+    - name: Kling Video O1
+      server_name: r2v-kamui-kling-video-o1
+      release_date: 2025年12月1日
+      features: "(Kuaishou) テキスト、画像、動画を入力として統合的に処理できるマルチモーダル動画生成モデル。特に参照画像を用いたキャラクターやスタイルの一貫性維持（Reference-to-Video）に優れ、動画編集や拡張も可能。"
+    - name: LTX-2
+      server_name: r2v-kamui-ltx-2
+      release_date: 2025年10月23日
+      features: "(Lightricks) プロンプトを用いて動画の特定部分を修正（リテイク）できる動画生成・編集モデル。音声や映像の置換、開始時間・長さの指定が可能で、4K解像度や音声同期生成にも対応する。"
     - name: Google Veo 3.1
       server_name: r2v-kamui-veo31
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
@@ -618,11 +606,12 @@ ai_models:
       server_name: flf2v-kamui-veo31
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
       features: "(Google) 動画の「最初のフレーム」と「最後のフレーム」を指定し、その間をAIが滑らかに補間・アニメーション生成する。"
-  audio_video_conversion:
+  speech_to_video:
     - name: WAN v2.2-14b (Speech-to-Video) (fal.ai)
       server_name: s2v-kamui-wan-v2-2-14b
       release_date: 2025年9月22日
       features: "(fal.ai / Wan-AI) 音声（スピーチ）データから、それに合わせた（おそらく口パクの）動画を生成する。"
+  audio_to_video:
     - name: Kuaishou Kling V1 Pro (AI Avatar)
       server_name: a2v-kamui-kling-video-v1-pro-ai-avatar
       release_date: 2024年6月頃
@@ -631,35 +620,6 @@ ai_models:
       server_name: a2v-kamui-veed-fabric-1-0
       release_date: 2025年9月25日
       features: "(Veed.io) 画像と音声から、高度なリップシンクと顔のアニメーションを持つトーキングヘッド動画を生成。"
-  image_text_to_3d:
-    - name: Tencent Hunyuan3D v2.1
-      server_name: i2i3d-kamui-hunyuan3d-v21
-      release_date: 2025年8月2日
-      features: "(Tencent) 単一の画像から、高品質なPBR（物理ベースレンダリング）テクスチャを持つ3Dモデルを生成。"
-    - name: Tripo AI TripoSR v2.5
-      server_name: i2i3d-kamui-tripo3d-image-to-3d
-      release_date: 2025年1月27日
-      features: "(Tripo AI) 単一の画像から高速に高品質な3Dモデル（メッシュとテクスチャ）を生成。"
-    - name: Trellis (Image-to-3D) (fal.ai)
-      server_name: i2i3d-kamui-trellis
-      release_date: 2024年12月26日頃
-      features: "(Microsoft / fal.ai) 単一画像から高品質な3Dモデルを生成。テクスチャ解像度のカスタマイズが可能。"
-    - name: Hyper3D Rodin V2 (Image/Text-to-3D) (fal.ai)
-      server_name: i2i3d-kamui-hyper3d-rodin-v2
-      release_date: 2025年8月29日
-      features: "(fal.ai) テキストプロンプト、または最大5枚の画像から、PBRマテリアルを含む高品質な3Dモデル（複数フォーマット対応）を生成。"
-    - name: Meshy AI Meshy-6 Preview (Text-to-3D)
-      server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
-      release_date: 2025年9月13日
-      features: "(Meshy AI) テキスト記述から最高品質の3Dモデルを生成。プレビュー（ジオメトリのみ）とフル（テクスチャ付き）モードを選択可能。"
-    - name: Meshy AI Meshy-6 Preview (Image-to-3D)
-      server_name: i2i3d-kamui-meshy-v6-preview-image-to-3d
-      release_date: 2025年9月13日
-      features: "(Meshy AI) 単一画像から最も正確なジオメトリと高品質なテクスチャを持つ3Dモデルを生成。"
-    - name: Meshy AI Meshy-5 (Multi-Image-to-3D)
-      server_name: i2i3d-kamui-meshy-v5-multi-image-to-3d
-      release_date: 2025年8月8日
-      features: "(Meshy AI) 1〜4枚の異なる視点からの画像を入力し、単一の高品質な3Dモデルを生成。"
   text_to_speech:
     - name: Minimax Speech-02 Turbo
       server_name: t2s-kamui-minimax-speech-02-turbo
@@ -689,7 +649,16 @@ ai_models:
       server_name: t2s-kamui-maya
       release_date: 2025年11月6日
       features: "(Maya Research / fal.ai) テキストから感情豊かな音声を生成するAI音声合成モデル。年齢、アクセント、ピッチなどを制御可能。"
-  text_to_audio_music:
+  text_to_audio:
+    - name: Stability AI Stable Audio 2.5
+      server_name: t2a-kamui-stable-audio-v25
+      release_date: 2025年9月14日
+      features: "(Stability AI) テキストから高品質な音楽トラックや効果音（SFX）を生成する最先端のオーディオ生成モデル。"
+    - name: Beatoven AI (SFX Generation)
+      server_name: t2a-kamui-beatoven-sound-effect-generation
+      release_date: 2025年10月21日 #[修正] (ソース24, 40, 86, 112)
+      features: "(Beatoven AI / fal.ai) テキスト記述から高解像度（44.1kHzステレオ）の効果音（SFX）を生成。"
+  text_to_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
       release_date: 2023年11月16日
@@ -697,19 +666,11 @@ ai_models:
     - name: Minimax Music v1.5
       server_name: t2m-kamui-minimax-music-v15
       release_date: 2025年9月12日 #[修正] (ソース22, 40, 82, 110)
-      features: "(Minimax / fal.ai) テキスト（歌詞）とスタイルの制御に基づき、音楽（BGMや歌）を生成。最大4分間の曲に対応。" #[追加] (ソース22, 84)
-    - name: Stability AI Stable Audio 2.5
-      server_name: t2a-kamui-stable-audio-v25
-      release_date: 2025年9月14日
-      features: "(Stability AI) テキストから高品質な音楽トラックや効果音（SFX）を生成する最先端のオーディオ生成モデル。"
+      features: "\"(Minimax / fal.ai) テキスト（歌詞）とスタイルの制御に基づき、音楽（BGMや歌）を生成。最大4分間の曲に対応。\" #[追加] (ソース22, 84)"
     - name: Beatoven AI (Music Generation)
       server_name: t2m-kamui-beatoven-music-generation
       release_date: 2025年8月27日 #[修正] (ソース23, 40, 85, 111)
-      features: "(Beatoven AI / fal.ai) テキスト記述（ジャンル、雰囲気など）に基づき、プロ品質のBGMトラックを生成。アーティスト印税対応。" #[追加] (ソース23, 85)
-    - name: Beatoven AI (SFX Generation)
-      server_name: t2a-kamui-beatoven-sound-effect-generation
-      release_date: 2025年10月21日 #[修正] (ソース24, 40, 86, 112)
-      features: "(Beatoven AI / fal.ai) テキスト記述から高解像度（44.1kHzステレオ）の効果音（SFX）を生成。"
+      features: "\"(Beatoven AI / fal.ai) テキスト記述（ジャンル、雰囲気など）に基づき、プロ品質のBGMトラックを生成。アーティスト印税対応。\" #[追加] (ソース23, 85)"
     - name: Minimax Music V2
       server_name: t2m-kamui-minimax-music-v2
       release_date: 2025年10月31日
@@ -718,30 +679,74 @@ ai_models:
     - name: ThinkSound (fal.ai)
       server_name: v2a-kamui-thinksound
       release_date: 2025年7月16日 #[修正] (ソース25, 40, 87, 113)
-      features: "(fal.ai) 動画の内容を解析し、それに合ったオーディオ（音楽や効果音）を生成する。" #[検証済] (ソース25, 87)
+      features: "\"(fal.ai) 動画の内容を解析し、それに合ったオーディオ（音楽や効果音）を生成する。\" #[検証済] (ソース25, 87)"
     - name: Kuaishou Kling (Video-to-Audio)
       server_name: v2a-kamui-kling-video-to-audio
       release_date: 2024年6月頃
       features: "(Kuaishou) 動画ファイルからオーディオを抽出、または動画内容に基づきオーディオを生成する。"
-    - name: Mirelo AI Video-to-SFX (Replicate)
-      server_name: v2sfx-kamui-mirelo-video-to-sfx
-      release_date: 2025年9月18日 #[修正] (ソース26, 40, 88, 114)
-      features: "(Mirelo AI) 動画コンテンツを解析し、適切な効果音（SFX）のサンプルを複数生成する。（Replicate経由）" #[検証済] (ソース26, 88)
     - name: Mirelo AI SFX v1.5
       server_name: v2a-kamui-mirelo-ai-sfx-v15
       release_date: 2025年10月22日 #[修正] (ソース18, 39, 79, 107)
       features: "(Mirelo AI / fal.ai) 動画から効果音オーディオを生成。テキストプロンプトでの誘導や、持続時間、開始オフセットの調整が可能。"
+  video_to_sfx:
+    - name: Mirelo AI Video-to-SFX (Replicate)
+      server_name: v2sfx-kamui-mirelo-video-to-sfx
+      release_date: 2025年9月18日 #[修正] (ソース26, 40, 88, 114)
+      features: "\"(Mirelo AI) 動画コンテンツを解析し、適切な効果音（SFX）のサンプルを複数生成する。（Replicate経由）\" #[検証済] (ソース26, 88)"
   audio_to_text:
     - name: Audio Understanding (fal.ai)
       server_name: a2t-kamui-audio-understanding
       release_date: 2025年中頃 #[修正] (ソース27, 40, 90)
-      features: "(fal.ai) 音声ファイル（URLまたはBase64）をアップロードし、その内容について「何が話されていますか？」などの質問に回答する（音声認識＋AIによる内容理解）。" #[検証済] (ソース27, 90)
+      features: "\"(fal.ai) 音声ファイル（URLまたはBase64）をアップロードし、その内容について「何が話されていますか？」などの質問に回答する（音声認識＋AIによる内容理解）。\" #[検証済] (ソース27, 90)"
   text_to_visual:
     - name: Napkin AI
       server_name: t2visual-kamui-napkin
       release_date: 2025年10月頃
       features: "(Napkin AI) テキストプロンプトから、単なる画像ではなく、プロフェッショナルな「ビジュアル」（図表、ダイアグラム、グラフィックス）を生成。"
+  image_to_3d:
+    - name: Tencent Hunyuan3D v2.1
+      server_name: i2i3d-kamui-hunyuan3d-v21
+      release_date: 2025年8月2日
+      features: "(Tencent) 単一の画像から、高品質なPBR（物理ベースレンダリング）テクスチャを持つ3Dモデルを生成。"
+    - name: Tripo AI TripoSR v2.5
+      server_name: i2i3d-kamui-tripo3d-image-to-3d
+      release_date: 2025年1月27日
+      features: "(Tripo AI) 単一の画像から高速に高品質な3Dモデル（メッシュとテクスチャ）を生成。"
+    - name: Trellis (Image-to-3D) (fal.ai)
+      server_name: i2i3d-kamui-trellis
+      release_date: 2024年12月26日頃
+      features: "(Microsoft / fal.ai) 単一画像から高品質な3Dモデルを生成。テクスチャ解像度のカスタマイズが可能。"
+    - name: Hyper3D Rodin V2 (Image/Text-to-3D) (fal.ai)
+      server_name: i2i3d-kamui-hyper3d-rodin-v2
+      release_date: 2025年8月29日
+      features: "(fal.ai) テキストプロンプト、または最大5枚の画像から、PBRマテリアルを含む高品質な3Dモデル（複数フォーマット対応）を生成。"
+    - name: Meshy AI Meshy-6 Preview (Image-to-3D)
+      server_name: i2i3d-kamui-meshy-v6-preview-image-to-3d
+      release_date: 2025年9月13日
+      features: "(Meshy AI) 単一画像から最も正確なジオメトリと高品質なテクスチャを持つ3Dモデルを生成。"
+    - name: Meshy AI Meshy-5 (Multi-Image-to-3D)
+      server_name: i2i3d-kamui-meshy-v5-multi-image-to-3d
+      release_date: 2025年8月8日
+      features: "(Meshy AI) 1〜4枚の異なる視点からの画像を入力し、単一の高品質な3Dモデルを生成。"
+  text_to_3d:
+    - name: Meshy AI Meshy-6 Preview (Text-to-3D)
+      server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
+      release_date: 2025年9月13日
+      features: "(Meshy AI) テキスト記述から最高品質の3Dモデルを生成。プレビュー（ジオメトリのみ）とフル（テクスチャ付き）モードを選択可能。"
+  3d_to_3d:
+    - name: Meshy V5 Remesh
+      server_name: 3d23d-kamui-meshy-v5-remesh
+      release_date: 2024年12月頃
+      features: "(Meshy) Meshy-5モデルを使用した3Dリメッシュ機能。3Dモデルのトポロジー最適化（四角形/三角形）、ポリゴン数削減、フォーマット変換を行い、ジオメトリを簡素化または洗練させるツール。"
   training:
+    - name: FLUX.2 Trainer (Kamui Code)
+      server_name: train-kamui-flux-2-trainer
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs / Kamui Code) 2025年11月に登場した最新モデルFLUX.2 [dev]のLoRA学習機能。FLUX.2は32Bパラメータを持ち、前世代と比較してプロンプト追従性、テキスト描写能力、画質（最大4MP）が大幅に向上。独自のスタイルやキャラクターの一貫性を保ったモデルを作成可能。"
+    - name: Flux-2 Trainer Edit
+      server_name: train-kamui-flux-2-trainer-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 最新の画像生成モデルFlux.2 EditをベースとしたLoRA学習用トレーナー。変更前と変更後の画像ペアを用いて、特定の編集タスク（スタイル変換、オブジェクト操作など）をモデルに学習させることが可能。ベースとなるFlux.2はマルチリファレンス対応やプロンプト追従性が大幅に向上している。"
     - name: FLUX Kontext (Trainer) (fal.ai)
       server_name: train-kamui-flux-kontext
       release_date: 2025年10月14日
@@ -763,21 +768,21 @@ ai_models:
       server_name: video-analysis-kamui
       release_date: N/A (Utility)
       features: "(Google) Geminiモデルを使用して、アップロードされた動画の内容を分析・理解する機能。"
-    - name: Tencent Hunyuan-Part (3D Segmentation)
-      server_name: misc-kamui-hunyuan-part
-      release_date: 2025年10月7日
-      features: "(Tencent) 既存の3Dモデル（.glb, .obj）を、意味のあるパーツ（例: 椅子の脚、背もたれ）ごとに自動的に分割（セグメンテーション）するユーティリティ。"
+  voice_clone:
     - name: MiniMax Voice Clone
       server_name: voice-clone-kamui-minimax
       release_date: 2025年8月7日
       features: "(Minimax / fal.ai) 音声サンプル（10秒以上）から音声をクローンし、Speech 2.6 HD/Turboで使用するためのカスタムvoice_idを生成。プレビュー音声生成を含む。クローンされた音声はTTS使用がない場合7日後に失効する。"
+  miscellaneous:
+    - name: Bria Fibo Mashup
+      server_name: misc-kamui-bria-fibo-mashup
+      release_date: 2025年11月3日
+      features: "(Bria AI / fal.ai) 主題、シーン、スタイルの画像を組み合わせて新しい画像を生成するマッシュアップ機能。"
+    - name: Tencent Hunyuan-Part (3D Segmentation)
+      server_name: misc-kamui-hunyuan-part
+      release_date: 2025年10月7日
+      features: "(Tencent) 既存の3Dモデル（.glb, .obj）を、意味のあるパーツ（例: 椅子の脚、背もたれ）ごとに自動的に分割（セグメンテーション）するユーティリティ。"
     - name: Bria Fibo Structured Prompt Generator
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
-
-  3d_to_3d:
-    - name: Meshy V5 Remesh
-      server_name: 3d23d-kamui-meshy-v5-remesh
-      release_date: 2024年12月頃
-      features: "(Meshy) Meshy-5モデルを使用した3Dリメッシュ機能。3Dモデルのトポロジー最適化（四角形/三角形）、ポリゴン数削減、フォーマット変換を行い、ジオメトリを簡素化または洗練させるツール。"
