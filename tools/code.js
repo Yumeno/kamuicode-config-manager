@@ -3,12 +3,13 @@
  * * 概要:
  * 1. mcp-kamui-code.json を Google Drive から取得
  * 2. 未処理のモデルキューをチェック (なければ新規作成)
- * 3. Gemini + Google Search で詳細調査
- * 4. 結果判定と更新データの作成:
+ * 3. カテゴリマスタ (category_master.json) に基づいてカテゴリを判定
+ * 4. 未知の接頭辞の場合は Gemini で推論してマスタを自動更新
+ * 5. 結果判定と更新データの作成:
  * - 判明時: YAMLのカテゴリブロック末尾へ挿入
  * - 不明時: Markdownの先頭(履歴の上)へ追記
- * 5. GitHubへコミット＆プッシュ
- * 6. タイムアウト回避 (Resume機能)
+ * 6. GitHubへコミット＆プッシュ
+ * 7. タイムアウト回避 (Resume機能)
  */
 
 // ==========================================
@@ -26,6 +27,7 @@ const DEFAULT_CONFIG = {
   YAML_PATH: 'kamuicode_model_memo.yaml',
   RULES_PATH: 'docs/development/model_release_date_research_rules.md',
   UNKNOWN_MD_PATH: 'docs/development/unknown_release_dates.md',
+  CATEGORY_MASTER_PATH: 'tools/category_master.json',
 
   // 実行制限設定 (ミリ秒) - 4分半で切り上げ
   MAX_EXECUTION_TIME_MS: 4.5 * 60 * 1000,
@@ -34,6 +36,7 @@ const DEFAULT_CONFIG = {
   // Issue #2 に関連付けるため (Refs #2) を追加
   COMMIT_MSG_YAML: 'chore(yaml): update model memo via Gemini Auto-Research (Refs #2)',
   COMMIT_MSG_MD: 'docs: update unknown release dates via Gemini Auto-Research (Refs #2)',
+  COMMIT_MSG_CATEGORY_MASTER: 'feat(tools): auto-update category_master.json with new prefix (Refs #23)',
 
   // YAMLインデント設定 (スペース数)
   // 既存ファイルのフォーマットに合わせて調整可能
@@ -53,10 +56,11 @@ function getConfig() {
     REPO_NAME: props.getProperty('REPO_NAME') || DEFAULT_CONFIG.REPO_NAME,
     BRANCH: props.getProperty('BRANCH') || DEFAULT_CONFIG.BRANCH,
 
-    // ファイルパス (スクリプトプロパティキー: PATH_YAML, PATH_RULES, PATH_UNKNOWN_MD)
+    // ファイルパス (スクリプトプロパティキー: PATH_YAML, PATH_RULES, PATH_UNKNOWN_MD, PATH_CATEGORY_MASTER)
     YAML_PATH: props.getProperty('PATH_YAML') || DEFAULT_CONFIG.YAML_PATH,
     RULES_PATH: props.getProperty('PATH_RULES') || DEFAULT_CONFIG.RULES_PATH,
     UNKNOWN_MD_PATH: props.getProperty('PATH_UNKNOWN_MD') || DEFAULT_CONFIG.UNKNOWN_MD_PATH,
+    CATEGORY_MASTER_PATH: props.getProperty('PATH_CATEGORY_MASTER') || DEFAULT_CONFIG.CATEGORY_MASTER_PATH,
 
     // 実行制限設定
     MAX_EXECUTION_TIME_MS: DEFAULT_CONFIG.MAX_EXECUTION_TIME_MS,
@@ -64,10 +68,257 @@ function getConfig() {
     // コミットメッセージ
     COMMIT_MSG_YAML: DEFAULT_CONFIG.COMMIT_MSG_YAML,
     COMMIT_MSG_MD: DEFAULT_CONFIG.COMMIT_MSG_MD,
+    COMMIT_MSG_CATEGORY_MASTER: DEFAULT_CONFIG.COMMIT_MSG_CATEGORY_MASTER,
 
     // YAMLインデント設定
     INDENT_SIZE: parseInt(props.getProperty('INDENT_SIZE') || DEFAULT_CONFIG.INDENT_SIZE, 10)
   };
+}
+
+// ==========================================
+// 既存YAML再カテゴライズ (ワンショット実行用)
+// ==========================================
+
+/**
+ * 既存のkamuicode_model_memo.yamlを読み込み、
+ * 全エントリをserver_nameの接頭辞に基づいてカテゴリマスタの定義通りに再配置する。
+ * ★注意: この関数は一度だけ実行することを想定したワンショット機能です。
+ */
+function recategorizeExistingModels() {
+  console.log('=== Recategorizing Existing Models ===');
+
+  const props = PropertiesService.getScriptProperties();
+  const CONFIG = getConfig();
+
+  // 必須プロパティの取得
+  const githubToken = props.getProperty('GITHUB_TOKEN');
+  if (!githubToken) {
+    console.error('GITHUB_TOKEN が設定されていません。');
+    return;
+  }
+
+  // カテゴリマスタ取得
+  console.log('Fetching category_master.json...');
+  const categoryMasterInfo = fetchCategoryMaster(CONFIG, githubToken);
+  const categoryMaster = categoryMasterInfo.data;
+
+  if (!categoryMaster.prefix_to_category || Object.keys(categoryMaster.prefix_to_category).length === 0) {
+    console.error('カテゴリマスタが空です。');
+    return;
+  }
+
+  // 既存YAML取得
+  console.log('Fetching kamuicode_model_memo.yaml...');
+  let yamlFile;
+  try {
+    yamlFile = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.YAML_PATH, githubToken);
+  } catch (e) {
+    console.error(`YAML取得エラー: ${e.message}`);
+    return;
+  }
+
+  // YAMLをパースして全モデルを抽出
+  const yamlContent = yamlFile.content;
+  const allModels = parseYamlModels(yamlContent);
+
+  console.log(`Found ${allModels.length} models to recategorize.`);
+
+  // 新しいカテゴリ構造を構築
+  const newCategories = {};
+  let unknownPrefixes = [];
+
+  for (const model of allModels) {
+    const prefix = extractPrefixFromServerName(model.server_name);
+    const categoryInfo = getCategoryFromPrefix(prefix, categoryMaster);
+
+    let targetCategory;
+    if (categoryInfo) {
+      targetCategory = categoryInfo.category_key;
+    } else {
+      // 未知の接頭辞の場合、元のカテゴリを維持するか、miscellaneousに分類
+      console.warn(`Unknown prefix: ${prefix} (server_name: ${model.server_name})`);
+      unknownPrefixes.push({ prefix, server_name: model.server_name, original_category: model.original_category });
+      targetCategory = model.original_category || 'miscellaneous';
+    }
+
+    if (!newCategories[targetCategory]) {
+      newCategories[targetCategory] = [];
+    }
+    newCategories[targetCategory].push(model);
+  }
+
+  // カテゴリ順序を定義（マスタのキー順序に基づく）
+  const categoryOrder = [
+    'text_to_image',
+    'image_to_image',
+    'text_to_video',
+    'image_to_video',
+    'video_to_video',
+    'reference_to_video',
+    'frame_to_video',
+    'speech_to_video',
+    'audio_to_video',
+    'text_to_speech',
+    'text_to_audio',
+    'text_to_music',
+    'video_to_audio',
+    'video_to_sfx',
+    'audio_to_text',
+    'text_to_visual',
+    'image_to_3d',
+    'text_to_3d',
+    '3d_to_3d',
+    'training',
+    'utility_and_analysis',
+    'voice_clone',
+    'miscellaneous'
+  ];
+
+  // 新しいYAMLを生成
+  let newYamlContent = 'ai_models:\n';
+  const indent = ' '.repeat(CONFIG.INDENT_SIZE);
+  const listIndent = ' '.repeat(CONFIG.INDENT_SIZE * 2);
+
+  // 定義順でカテゴリを出力
+  for (const category of categoryOrder) {
+    if (newCategories[category] && newCategories[category].length > 0) {
+      newYamlContent += `${indent}${category}:\n`;
+      for (const model of newCategories[category]) {
+        newYamlContent += `${listIndent}- name: ${model.name}\n`;
+        newYamlContent += `${listIndent}  server_name: ${model.server_name}\n`;
+        newYamlContent += `${listIndent}  release_date: ${model.release_date}\n`;
+        newYamlContent += `${listIndent}  features: ${escapeYamlString(model.features)}\n`;
+      }
+    }
+  }
+
+  // 定義順にないカテゴリも出力
+  for (const category of Object.keys(newCategories)) {
+    if (!categoryOrder.includes(category) && newCategories[category].length > 0) {
+      newYamlContent += `${indent}${category}:\n`;
+      for (const model of newCategories[category]) {
+        newYamlContent += `${listIndent}- name: ${model.name}\n`;
+        newYamlContent += `${listIndent}  server_name: ${model.server_name}\n`;
+        newYamlContent += `${listIndent}  release_date: ${model.release_date}\n`;
+        newYamlContent += `${listIndent}  features: ${escapeYamlString(model.features)}\n`;
+      }
+    }
+  }
+
+  // GitHubに保存
+  console.log('Committing recategorized YAML...');
+  try {
+    updateGithubFile(
+      CONFIG.REPO_OWNER,
+      CONFIG.REPO_NAME,
+      CONFIG.YAML_PATH,
+      newYamlContent,
+      yamlFile.sha,
+      'refactor(yaml): recategorize models based on server_name prefix (Refs #23)',
+      githubToken,
+      CONFIG.BRANCH
+    );
+    console.log('YAML updated successfully.');
+  } catch (e) {
+    console.error(`YAML更新エラー: ${e.message}`);
+  }
+
+  // 未知の接頭辞を報告
+  if (unknownPrefixes.length > 0) {
+    console.warn('=== Unknown Prefixes ===');
+    for (const item of unknownPrefixes) {
+      console.warn(`  ${item.prefix}: ${item.server_name} (was: ${item.original_category})`);
+    }
+  }
+
+  console.log('=== Recategorization Complete ===');
+}
+
+/**
+ * YAMLコンテンツから全モデルをパースして配列として返す
+ * @param {string} yamlContent - YAMLコンテンツ
+ * @returns {Array} モデルオブジェクトの配列
+ */
+function parseYamlModels(yamlContent) {
+  const models = [];
+  const lines = yamlContent.split('\n');
+
+  let currentCategory = null;
+  let currentModel = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // カテゴリ行を検出 (インデント2スペース + 文字 + コロン)
+    const categoryMatch = line.match(/^  ([a-z0-9_]+):$/);
+    if (categoryMatch) {
+      currentCategory = categoryMatch[1];
+      continue;
+    }
+
+    // モデルエントリ開始を検出 (インデント4スペース + ハイフン + name:)
+    const nameMatch = line.match(/^    - name: (.+)$/);
+    if (nameMatch) {
+      // 前のモデルがあれば保存
+      if (currentModel) {
+        models.push(currentModel);
+      }
+      currentModel = {
+        name: nameMatch[1],
+        server_name: '',
+        release_date: '',
+        features: '',
+        original_category: currentCategory
+      };
+      continue;
+    }
+
+    // server_name を検出
+    const serverNameMatch = line.match(/^      server_name: (.+)$/);
+    if (serverNameMatch && currentModel) {
+      currentModel.server_name = serverNameMatch[1];
+      continue;
+    }
+
+    // release_date を検出
+    const releaseDateMatch = line.match(/^      release_date: (.+)$/);
+    if (releaseDateMatch && currentModel) {
+      currentModel.release_date = releaseDateMatch[1];
+      continue;
+    }
+
+    // features を検出
+    const featuresMatch = line.match(/^      features: (.+)$/);
+    if (featuresMatch && currentModel) {
+      currentModel.features = featuresMatch[1];
+      continue;
+    }
+  }
+
+  // 最後のモデルを保存
+  if (currentModel) {
+    models.push(currentModel);
+  }
+
+  return models;
+}
+
+/**
+ * YAML文字列として安全にエスケープする
+ * @param {string} str - 元の文字列
+ * @returns {string} エスケープされた文字列
+ */
+function escapeYamlString(str) {
+  if (!str) return '""';
+  // 既にクォートで囲まれている場合はそのまま返す
+  if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+    return str;
+  }
+  // 特殊文字が含まれる場合はダブルクォートで囲む
+  if (str.includes(':') || str.includes('#') || str.includes('\n') || str.includes('"')) {
+    return `"${str.replace(/"/g, '\\"')}"`;
+  }
+  return str;
 }
 
 // ==========================================
@@ -143,6 +394,12 @@ function main() {
     rulesContent = rulesFile.content;
   } catch (e) { console.warn(`ルールファイル取得失敗: ${e.message}`); }
 
+  // カテゴリマスタ取得
+  console.log('Fetching category_master.json...');
+  let categoryMasterInfo = fetchCategoryMaster(CONFIG, githubToken);
+  let categoryMaster = categoryMasterInfo.data;
+  let categoryMasterSha = categoryMasterInfo.sha;
+
   // --- 2. Deep Research ループ ---
   // 成果物を一時保存する配列
   let resultsToCommit = {
@@ -171,14 +428,46 @@ function main() {
     const modelKey = processingQueue[0];
     const modelInfo = mcpData.mcpServers[modelKey];
     console.log(`\n[${processedCount + 1}/${initialQueueLength}] 🔍 Researching: ${modelKey}...`);
-    
-    // Gemini調査
-    const result = researchModelWithGemini(modelKey, modelInfo, rulesContent, geminiKey, geminiModel);
-    
+
+    // 接頭辞を抽出してカテゴリマスタを照合
+    const prefix = extractPrefixFromServerName(modelKey);
+    let categoryInfo = getCategoryFromPrefix(prefix, categoryMaster);
+    let isNewPrefix = false;
+
+    if (categoryInfo) {
+      console.log(`✅ Prefix "${prefix}" found in master -> ${categoryInfo.category_key}`);
+    } else {
+      console.log(`⚠️ Unknown prefix "${prefix}" - will use Gemini to determine category`);
+      isNewPrefix = true;
+    }
+
+    // Gemini調査 (カテゴリ情報を渡す)
+    const result = researchModelWithGemini(modelKey, modelInfo, rulesContent, geminiKey, geminiModel, categoryInfo);
+
     if (result) {
       console.log(`Thought: ${result.thought_process.substring(0, 100)}...`);
 
       if (result.is_found) {
+        // 未知の接頭辞の場合、Geminiの推論結果でマスタを更新
+        if (isNewPrefix && result.category) {
+          const categoryDescription = result.category_description || `${prefix}から始まるモデルのカテゴリ`;
+          const updated = addPrefixToCategoryMaster(
+            prefix,
+            result.category,
+            categoryDescription,
+            categoryMaster,
+            categoryMasterSha,
+            CONFIG,
+            githubToken
+          );
+          if (updated) {
+            // SHAを更新するために再取得
+            categoryMasterInfo = fetchCategoryMaster(CONFIG, githubToken);
+            categoryMaster = categoryMasterInfo.data;
+            categoryMasterSha = categoryMasterInfo.sha;
+          }
+        }
+
         console.log(`✅ FOUND: ${result.category}`);
         resultsToCommit.yamlUpdates.push({
           category: result.category,
@@ -266,6 +555,112 @@ function main() {
 }
 
 // ==========================================
+// カテゴリマスタ関連
+// ==========================================
+
+/**
+ * server_nameから接頭辞を抽出する
+ * 形式: {prefix}-kamui-{model_name} または {prefix}-kamui-{provider}-{model_name}
+ * @param {string} serverName - server_name (例: t2i-kamui-flux-schnell)
+ * @returns {string} 接頭辞 (例: t2i)
+ */
+function extractPrefixFromServerName(serverName) {
+  if (!serverName) return '';
+
+  // "kamui" の直前までを接頭辞として抽出
+  const kamuiIndex = serverName.indexOf('-kamui');
+  if (kamuiIndex > 0) {
+    return serverName.substring(0, kamuiIndex);
+  }
+
+  // "kamui" がない場合は最初のハイフンまでを接頭辞とする
+  const firstHyphen = serverName.indexOf('-');
+  if (firstHyphen > 0) {
+    return serverName.substring(0, firstHyphen);
+  }
+
+  return serverName;
+}
+
+/**
+ * カテゴリマスタをGitHubから取得する
+ * @param {Object} CONFIG - 設定オブジェクト
+ * @param {string} githubToken - GitHubトークン
+ * @returns {Object} カテゴリマスタデータ
+ */
+function fetchCategoryMaster(CONFIG, githubToken) {
+  try {
+    const file = fetchGithubFile(CONFIG.REPO_OWNER, CONFIG.REPO_NAME, CONFIG.CATEGORY_MASTER_PATH, githubToken);
+    return {
+      data: JSON.parse(file.content),
+      sha: file.sha
+    };
+  } catch (e) {
+    console.error(`カテゴリマスタ取得エラー: ${e.message}`);
+    // デフォルトの空マスタを返す
+    return {
+      data: { prefix_to_category: {} },
+      sha: null
+    };
+  }
+}
+
+/**
+ * 接頭辞からカテゴリキーを取得する
+ * @param {string} prefix - 接頭辞
+ * @param {Object} categoryMaster - カテゴリマスタデータ
+ * @returns {Object|null} カテゴリ情報 { category_key, description } または null (未知の場合)
+ */
+function getCategoryFromPrefix(prefix, categoryMaster) {
+  if (categoryMaster.prefix_to_category && categoryMaster.prefix_to_category[prefix]) {
+    return categoryMaster.prefix_to_category[prefix];
+  }
+  return null;
+}
+
+/**
+ * カテゴリマスタに新しい接頭辞を追加してGitHubにコミットする
+ * @param {string} prefix - 新しい接頭辞
+ * @param {string} categoryKey - カテゴリキー
+ * @param {string} description - カテゴリの説明
+ * @param {Object} categoryMaster - 現在のカテゴリマスタデータ
+ * @param {string} sha - 現在のファイルのSHA
+ * @param {Object} CONFIG - 設定オブジェクト
+ * @param {string} githubToken - GitHubトークン
+ * @returns {boolean} 成功/失敗
+ */
+function addPrefixToCategoryMaster(prefix, categoryKey, description, categoryMaster, sha, CONFIG, githubToken) {
+  try {
+    // マスタデータを更新
+    categoryMaster.prefix_to_category[prefix] = {
+      category_key: categoryKey,
+      description: description
+    };
+
+    // JSONとして整形
+    const newContent = JSON.stringify(categoryMaster, null, 2) + '\n';
+
+    // GitHubにコミット
+    updateGithubFile(
+      CONFIG.REPO_OWNER,
+      CONFIG.REPO_NAME,
+      CONFIG.CATEGORY_MASTER_PATH,
+      newContent,
+      sha,
+      CONFIG.COMMIT_MSG_CATEGORY_MASTER,
+      githubToken,
+      CONFIG.BRANCH
+    );
+
+    console.log(`カテゴリマスタに新規接頭辞を追加: ${prefix} -> ${categoryKey}`);
+    return true;
+  } catch (e) {
+    console.error(`カテゴリマスタ更新エラー: ${e.message}`);
+    return false;
+  }
+}
+
+// ==========================================
 // 文字列操作ロジック
 // ==========================================
 
@@ -323,8 +718,42 @@ function insertIntoYaml(yamlContent, category, entry, indentSize) {
 // ==========================================
 // Gemini API 連携
 // ==========================================
-function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, modelName) {
+/**
+ * Gemini APIを使用してモデル情報を調査する
+ * @param {string} serverName - server_name
+ * @param {Object} modelInfo - モデル情報 (description, url等)
+ * @param {string} rulesText - 調査ルールのテキスト
+ * @param {string} apiKey - Gemini APIキー
+ * @param {string} modelName - 使用するGeminiモデル名
+ * @param {Object|null} categoryInfo - カテゴリマスタからの情報 (null の場合はGeminiに推論させる)
+ * @returns {Object|null} 調査結果
+ */
+function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, modelName, categoryInfo) {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+  // カテゴリが事前に決まっているかどうかでプロンプトを変える
+  let categoryInstruction;
+  if (categoryInfo && categoryInfo.category_key) {
+    categoryInstruction = `
+  【★重要: カテゴリ分類】
+  このモデルのカテゴリは server_name の接頭辞から既に判明しています。
+  以下のカテゴリキーを使用してください:
+  - category: ${categoryInfo.category_key}
+  - description: ${categoryInfo.description}
+
+  カテゴリの推論は不要です。上記のカテゴリキーをそのまま使用してください。`;
+  } else {
+    categoryInstruction = `
+  【★重要: カテゴリ分類 (未知の接頭辞)】
+  このモデルの接頭辞はカテゴリマスタに登録されていません。
+  descriptionの内容から、このモデルが属するカテゴリ(key)を推論してください。
+  既存カテゴリ: text_to_image, image_to_image, text_to_video, image_to_video, video_to_video,
+               text_to_speech, audio_to_text, text_to_audio, text_to_music, video_to_audio,
+               image_to_3d, text_to_3d, 3d_to_3d, training, utility_and_analysis, miscellaneous, etc.
+
+  新しいカテゴリが必要な場合は適切な英語のキー(snake_case)を作成し、
+  category_description に日本語で説明を記載してください。`;
+  }
 
   const prompt = `
   あなたは厳格かつ柔軟なAIリサーチャーです。
@@ -337,18 +766,14 @@ function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, model
 
   【調査ルール】
   ${rulesText}
-
-  【★重要: カテゴリ分類】
-  descriptionの内容から、このモデルが属するカテゴリ(key)を正確に特定してください。
-  既存カテゴリ: text_to_image, image_to_image, text_to_video, image_to_video, video_to_video, text_to_speech, audio_to_text, etc.
-  新しいカテゴリが必要な場合は適切な英語のキー(snake_case)を作成してください。
+  ${categoryInstruction}
 
   【★重要: YAMLの記述ルール (日本語)】
   既存のYAMLファイルと同様に、**日本語で分かりやすく**記述してください。
   **インデントは付けず、行頭から記述してください（プログラム側で調整します）。**
   - name: モデルの正式名称
   - features: "(開発元) モデルの概要、主な機能、特徴を日本語で簡潔に記述。"
-  
+
   例:
 - name: FLUX.1 [dev]
   server_name: t2i-kamui-flux-1-dev
@@ -364,6 +789,7 @@ function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, model
   {
     "thought_process": "簡潔な思考プロセス(200文字以内)",
     "category": "string (例: text_to_image)",
+    "category_description": "string (カテゴリの日本語説明。未知の接頭辞の場合のみ必要)",
     "yaml_entry": "string (YAML形式のエントリ。インデントなし)",
     "is_found": boolean (リリース日が特定できたか),
     "unknown_reason_markdown": "string (不明な場合のみ: unknown_release_dates.md に追記するためのMarkdownテキスト)"
@@ -386,6 +812,7 @@ function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, model
         properties: {
           thought_process: { type: "STRING" },
           category: { type: "STRING" },
+          category_description: { type: "STRING" },
           yaml_entry: { type: "STRING" },
           is_found: { type: "BOOLEAN" },
           unknown_reason_markdown: { type: "STRING" }
