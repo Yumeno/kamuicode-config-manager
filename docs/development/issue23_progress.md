@@ -5,6 +5,17 @@
 
 ## 作業記録
 
+### 2025-12-02: GASテスト＆YAML再カテゴライズ実行
+
+#### 実行結果
+
+- GAS環境で `recategorizeExistingModels()` を実行
+- `kamuicode_model_memo.yaml` の全エントリが接頭辞ルールに基づいて再配置された
+- コミット: `b921135` - `refactor(yaml): recategorize models based on server_name prefix (Refs #23)`
+- 全完了条件をクリア ✅
+
+---
+
 ### 2025-12-02: BRANCHプロパティ対応修正
 
 #### 修正内容
@@ -65,6 +76,8 @@
 | `6e8caa3` | docs(tools): update README with prefix-based category system |
 | `10af467` | docs: finalize Issue #23 documentation |
 | `2e76351` | fix(tools): pass BRANCH parameter to all fetchGithubFile calls |
+| `f1809dd` | docs: update progress with BRANCH parameter fix |
+| `b921135` | refactor(yaml): recategorize models based on server_name prefix (Refs #23) |
 
 ---
 
