@@ -108,23 +108,79 @@ GASエディタの「プロジェクトの設定 (歯車アイコン)」 \> 「�
 
 ## **5\. 仕様詳細**
 
+### **カテゴリ判定ロジック (v2.0 - 接頭辞ベース)**
+
+* **マスタファイル参照**: カテゴリ判定は `tools/category_master.json` に定義された接頭辞マッピングに基づいて行われます。
+* **接頭辞抽出**: `server_name` の形式 `{prefix}-kamui-{model_name}` から、`kamui` の直前までを接頭辞として抽出します。
+  * 例: `t2i-kamui-flux-schnell` → 接頭辞 `t2i` → カテゴリ `text_to_image`
+* **マスタ照合**:
+  * 接頭辞がマスタに存在する場合: マスタに定義されたカテゴリキーを使用
+  * 接頭辞がマスタに存在しない場合: Gemini APIで推論し、結果をマスタに自動追加
+
+### **新規接頭辞の自動学習**
+
+未知の接頭辞が出現した場合、以下のフローで処理されます:
+
+1. `server_name` から接頭辞を抽出
+2. `category_master.json` に該当する接頭辞がないことを確認
+3. Gemini APIを使用して、モデルの説明文から適切なカテゴリキーと説明を推論
+4. 推論結果を `category_master.json` に自動追加・コミット
+5. 新しいカテゴリキーを使用してYAMLに追記
+
 ### **YAML追記ルール**
 
-* **カテゴリ自動判定**: Geminiがモデルの説明文から適切なカテゴリ（例: text\_to\_image）を推論します。  
-* **挿入位置**: 既存の YAML 内に該当カテゴリのブロックがあれば、そのブロックの末尾に追記します。なければファイル末尾に新設します。  
-* **フォーマット**:  
-      \- name: モデル正式名称  
-        server\_name: server-name-id  
-        release\_date: YYYY年MM月DD日  
+* **挿入位置**: 既存の YAML 内に該当カテゴリのブロックがあれば、そのブロックの末尾に追記します。なければファイル末尾に新設します。
+* **フォーマット**:
+      \- name: モデル正式名称
+        server\_name: server-name-id
+        release\_date: YYYY年MM月DD日
         features: "(開発元) 説明文..."
+
+### **既存YAMLの再カテゴライズ**
+
+`recategorizeExistingModels()` 関数を実行することで、既存の `kamuicode_model_memo.yaml` の全エントリを接頭辞ルールに従って再配置できます。これはワンショット実行用の機能です。
 
 ### **不明モデルの扱い**
 
-* 調査の結果、リリース日が特定できなかったモデルは YAML には追記されません。  
+* 調査の結果、リリース日が特定できなかったモデルは YAML には追記されません。
 * 代わりに docs/development/unknown\_release\_dates.md に調査ログ（不明理由、参照ソース）が追記されます。
 
 ### **コミットメッセージ**
 
 * 自動更新によるコミットには (Refs \#2) が付与され、GitHub Issues \#2 に関連付けられます。
+* カテゴリマスタの自動更新には (Refs \#23) が付与されます。
+
+## **6\. 接頭辞とカテゴリのマッピング**
+
+現在定義されている接頭辞とカテゴリの対応は以下の通りです:
+
+| 接頭辞 | カテゴリキー | 説明 |
+|--------|-------------|------|
+| t2i | text\_to\_image | テキストからの画像生成 |
+| i2i | image\_to\_image | 画像編集、スタイル変換、アップスケーリング |
+| t2v | text\_to\_video | テキストからの動画生成 |
+| i2v | image\_to\_video | 画像からの動画生成 |
+| v2v | video\_to\_video | 動画編集、変換、リップシンク、背景除去 |
+| r2v | reference\_to\_video | 参照画像/動画を用いた動画生成 |
+| flf2v | frame\_to\_video | 始点・終点フレーム指定の動画生成 |
+| s2v | speech\_to\_video | 音声からの動画生成 |
+| a2v | audio\_to\_video | 音声からのアバター動画生成 |
+| t2s | text\_to\_speech | 音声合成（読み上げ） |
+| tts | text\_to\_speech | 音声合成（別表記） |
+| t2a | text\_to\_audio | テキストからの効果音生成 |
+| t2m | text\_to\_music | テキストからの音楽生成 |
+| v2a | video\_to\_audio | 動画からの音声・効果音生成 |
+| v2sfx | video\_to\_sfx | 動画に合わせた効果音生成 |
+| a2t | audio\_to\_text | 音声認識、音声内容の解析・理解 |
+| t2visual | text\_to\_visual | テキストからの図解・グラフィック生成 |
+| i2i3d | image\_to\_3d | 画像からの3Dモデル生成 |
+| t2i3d | text\_to\_3d | テキストからの3Dモデル生成 |
+| 3d23d | 3d\_to\_3d | 3Dモデルのリメッシュ、最適化 |
+| train | training | LoRA学習、ファインチューニング |
+| file-upload | utility\_and\_analysis | ファイルアップロード用ユーティリティ |
+| video-analysis | utility\_and\_analysis | 動画解析 |
+| voice-clone | voice\_clone | 音声クローン |
+| misc | miscellaneous | その他、複合機能 |
 
 *Document created: 2025-11-28*
+*Updated: 2025-12-02 (Issue #23 対応)*
