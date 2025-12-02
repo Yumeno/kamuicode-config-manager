@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KamuiCode Model Dictionary</title>
+    <title>KamuiCode MCP Tool List</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
@@ -150,20 +150,26 @@
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-30">
         <div class="container mx-auto px-4 lg:px-8 max-w-6xl h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <span class="text-2xl">📚</span>
-                <h1 class="text-xl font-bold text-slate-900 tracking-tight">KamuiCode Dictionary</h1>
+                <span class="text-2xl">⚡</span>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">KamuiCode List</h1>
             </div>
-            <a href="https://github.com/Yumeno/kamuicode-config-manager" target="_blank" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors font-medium">
-                GitHub Repo &rarr;
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="https://x.com/kamui_code_ja" target="_blank" class="text-sm text-slate-500 hover:text-blue-400 transition-colors font-medium flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                    Official X
+                </a>
+                <a href="https://github.com/Yumeno/kamuicode-config-manager" target="_blank" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors font-medium">
+                    GitHub Repo &rarr;
+                </a>
+            </div>
         </div>
     </nav>
 
     <div class="container mx-auto p-4 lg:p-8 max-w-6xl" x-data="dictionaryApp()" x-init="init()">
         
         <header class="mb-8 text-center pt-6">
-            <h2 class="text-3xl font-extrabold text-slate-900 mb-3">AI Model & Tool Reference</h2>
-            <p class="text-slate-600">MCPサーバー設定のリファレンスドキュメント</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 mb-3">リモートMCPサーバー集 "KamuiCode" ツールリスト</h2>
+            <p class="text-slate-600">KamuiCodeが提供するMCPサーバーとツールのリファレンスドキュメントです。</p>
         </header>
 
         <div x-show="isLoading" class="text-center py-20">
