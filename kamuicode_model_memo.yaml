@@ -108,6 +108,10 @@ ai_models:
       server_name: t2i-kamui-fal-z-image-turbo
       release_date: 2025年11月27日
       features: "(Tongyi-MAI) Alibabaの研究部門が開発した6Bパラメータの高速画像生成モデル。わずか8ステップで高品質な画像を生成でき、日本語と英語のテキストレンダリングに優れる。16GB VRAMのGPUでも動作する効率性が特徴。"
+    - name: Seedream V4.5
+      server_name: t2i-kamui-fal-bytedance-seedream-v4-5
+      release_date: 2025年12月3日
+      features: "(ByteDance) 生成と編集を統合したSeedreamアーキテクチャの最新版（中国語名: 即梦）。V4.0から美的品質、一貫性、プロンプト理解が大幅に向上し、4K解像度の生成にも対応。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -257,6 +261,10 @@ ai_models:
       server_name: i2i-kamui-fal-flux-2-lora-gallery-apartment-staging
       release_date: 2025年11月25日
       features: "(fal.ai) FLUX.2をベースにした不動産ステージング用LoRAモデル。空の部屋の写真をアップロードするだけで、モダンな家具や装飾を配置した内装イメージを生成する。"
+    - name: Bytedance Seedream V4.5 Edit
+      server_name: i2i-kamui-seedream-v4-5-edit
+      release_date: 2025年12月3日
+      features: "(ByteDance) 画像生成と編集を統合した最新アーキテクチャ「Seedream 4.5」の編集特化モデル。最大10枚の参照画像を用いた一貫性のあるマルチイメージ編集が可能で、被写体や照明、色調を高精度に維持しながら自然言語による指示で編集を行う。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -358,6 +366,10 @@ ai_models:
       server_name: t2v-kamui-ltx-2-fast
       release_date: 2025年10月23日
       features: "(Lightricks) 高品質な動画生成モデルLTX-2の高速推論版。ネイティブ4K解像度、50fps、音声同期生成をサポートし、最大20秒の動画生成が可能。オープンソースの基盤モデルとして開発された。"
+    - name: PixVerse V5.5
+      server_name: t2v-kamui-pixverse-v55
+      release_date: 2025年12月2日
+      features: "(AiShi Technology) 動画生成モデルの最新版。マルチショット（分鏡）生成、音声（台詞・BGM・効果音）の同時生成と同期、詳細なカメラコントロール、キャラクターの一貫性維持などの機能が強化されている。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -475,6 +487,10 @@ ai_models:
       server_name: i2v-kamui-kling-video-o1
       release_date: 2025年12月1日
       features: "(Kuaishou) 開始フレームと終了フレームを指定して、その間をスムーズに補完する動画を生成できるImage-to-Videoモデル。テキストプロンプトによる制御も可能で、映画のような高品質なトランジションを実現する。fal.ai等を通じてAPI利用可能。"
+    - name: PixVerse V5.5
+      server_name: i2v-kamui-pixverse-v55
+      release_date: 2025年12月2日
+      features: "(AiShi Technology) 画像から動画を生成するPixVerseの最新モデル。マルチショット生成や音声（BGM・効果音・台詞）の同時生成に対応し、カメラワーク制御やプロンプト理解力が大幅に向上。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
