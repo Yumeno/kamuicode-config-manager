@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-03T13:41:09.166230+00:00'
-  total_servers: 191
-  online_servers: 191
+  generated_at: '2025-12-03T14:45:01.035834+00:00'
+  total_servers: 195
+  online_servers: 195
   offline_servers: 0
   error_servers: 0
 servers:
@@ -2872,6 +2872,71 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-seedream-v4-5-edit
+  url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4.5
+  status: online
+  last_checked: '2025-12-03T14:44:52.675556+00:00'
+  tools:
+  - name: bytedance_seedream_v4_5_edit_result
+    description: Get result of completed ByteDance Seedream V4.5 Edit generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v4_5_edit_status
+    description: Check status of ByteDance Seedream V4.5 Edit processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v4_5_edit_submit
+    description: Submit ByteDance Seedream V4.5 Edit request using the advanced Seedream 4.5 model for multi-image editing
+      with enhanced capabilities.
+    inputSchema:
+      properties:
+        image_size:
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            auto_2K, auto_4K) or custom object {width: number, height: number}. Width and height must be between 1920 and
+            4096, or total number of pixels must be between 2560*1440 and 4096*4096 (default: auto_2K)'
+          properties: {}
+          type: object
+        image_urls:
+          description: Array of URLs of input images for editing. Up to 10 images are allowed. If over 10 images are sent,
+            only the last 10 will be used.
+          type: array
+        max_images:
+          default: 1
+          description: 'If set to a number greater than one, enables multi-image generation. The model will potentially return
+            up to max_images images every generation. Total images generated will be between num_images and max_images*num_images.
+            Total number of images (input + output) must not exceed 15 (default: 1)'
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of separate model generations to be run with the prompt (default: 1)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image edits
+          type: string
+        seed:
+          description: Random seed to control the stochasticity of image generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-seedream-v4-edit
   url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4
   status: online
@@ -4672,6 +4737,75 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-pixverse-v55
+  url: https://kamui-code.ai/i2v/fal/pixverse/v5.5
+  status: online
+  last_checked: '2025-12-03T14:44:56.456762+00:00'
+  tools:
+  - name: pixverse_v55_image_to_video_result
+    description: Get result of completed Pixverse V5.5 image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_image_to_video_status
+    description: Check status of Pixverse V5.5 image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_image_to_video_submit
+    description: Submit Fal.ai Pixverse V5.5 image-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (longer durations cost more, 1080p limited to 5 or 8)'
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-seedance-v1-lite
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-lite
   status: online
@@ -6043,6 +6177,66 @@ servers:
           type: number
         sync_mode:
           description: Whether to return the image in sync mode
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-bytedance-seedream-v4-5
+  url: https://kamui-code.ai/t2i/fal/bytedance/seedream/v4.5
+  status: online
+  last_checked: '2025-12-03T14:44:59.573238+00:00'
+  tools:
+  - name: bytedance_seedream_v4_5_text_to_image_result
+    description: Get result of completed ByteDance Seedream V4.5 Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v4_5_text_to_image_status
+    description: Check status of ByteDance Seedream V4.5 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v4_5_text_to_image_submit
+    description: Submit ByteDance Seedream V4.5 Text-to-Image request using the advanced Seedream 4.5 model for high-quality
+      image generation.
+    inputSchema:
+      properties:
+        image_size:
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            auto_2K, auto_4K) or custom object {width: number, height: number}. Width and height must be between 1920 and
+            4096, or total number of pixels must be between 2560*1440 and 4096*4096'
+          properties: {}
+          type: object
+        max_images:
+          default: 1
+          description: 'If set to a number greater than one, enables multi-image generation. The model will potentially return
+            up to max_images images every generation, and in total, num_images generations will be carried out. In total,
+            the number of images generated will be between num_images and max_images*num_images (default: 1)'
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of separate model generations to be run with the prompt (default: 1)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image
+          type: string
+        seed:
+          description: Random seed to control the stochasticity of image generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
           type: boolean
       required:
       - prompt
@@ -9690,6 +9884,71 @@ servers:
           type: number
         style:
           description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-pixverse-v55
+  url: https://kamui-code.ai/t2v/fal/pixverse/v5.5
+  status: online
+  last_checked: '2025-12-03T14:44:56.485257+00:00'
+  tools:
+  - name: pixverse_v55_text_to_video_result
+    description: Get result of completed Pixverse V5.5 text-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_text_to_video_status
+    description: Check status of Pixverse V5.5 text-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_text_to_video_submit
+    description: Submit Fal.ai Pixverse V5.5 text-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (longer durations cost more, 1080p limited to 5 or 8)'
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
           type: string
       required:
       - prompt
