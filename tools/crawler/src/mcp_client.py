@@ -41,10 +41,9 @@ class ServerResult:
     error_message: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert to dictionary for YAML output (excluding sensitive data)."""
+        """Convert to dictionary for YAML output (excluding sensitive data like URLs)."""
         result: dict[str, Any] = {
             "id": self.id,
-            "url": self.url,
             "status": self.status,
             "last_checked": self.last_checked,
         }

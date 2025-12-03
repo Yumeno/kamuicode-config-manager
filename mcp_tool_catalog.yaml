@@ -6,7 +6,6 @@ metadata:
   error_servers: 0
 servers:
 - id: 3d23d-kamui-meshy-v5-remesh
-  url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
   status: online
   last_checked: '2025-12-02T13:34:02.585619+00:00'
   tools:
@@ -62,7 +61,6 @@ servers:
       - model_url
       type: object
 - id: a2t-kamui-audio-understanding
-  url: https://kamui-code.ai/a2t/fal/audio-understanding
   status: online
   last_checked: '2025-12-02T13:34:04.319191+00:00'
   tools:
@@ -105,7 +103,6 @@ servers:
       - prompt
       type: object
 - id: a2v-kamui-kling-video-v1-pro-ai-avatar
-  url: https://kamui-code.ai/a2v/fal/kling-video/v1/pro/ai-avatar
   status: online
   last_checked: '2025-12-02T13:33:59.953383+00:00'
   tools:
@@ -147,7 +144,6 @@ servers:
       - audio_url
       type: object
 - id: a2v-kamui-veed-fabric-1-0
-  url: https://kamui-code.ai/a2v/fal/veed/fabric-1.0
   status: online
   last_checked: '2025-12-02T13:34:01.735854+00:00'
   tools:
@@ -189,7 +185,6 @@ servers:
       - audio_url
       type: object
 - id: file-upload-kamui-fal
-  url: https://kamui-code.ai/uploader/fal
   status: online
   last_checked: '2025-12-02T13:33:53.733634+00:00'
   tools:
@@ -205,7 +200,6 @@ servers:
       - file_path
       type: object
 - id: flf2v-kamui-veo31
-  url: https://kamui-code.ai/flf2v/fal/veo31
   status: online
   last_checked: '2025-12-02T13:33:57.029439+00:00'
   tools:
@@ -266,7 +260,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-aura-sr
-  url: https://kamui-code.ai/i2i/fal/aura-sr
   status: online
   last_checked: '2025-12-02T13:33:55.145412+00:00'
   tools:
@@ -320,7 +313,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-chrono-edit
-  url: https://kamui-code.ai/i2i/fal/chrono-edit
   status: online
   last_checked: '2025-12-02T13:34:02.382645+00:00'
   tools:
@@ -394,7 +386,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-crystal-upscaler
-  url: https://kamui-code.ai/i2i/fal/crystal-upscaler
   status: online
   last_checked: '2025-12-02T13:33:55.154501+00:00'
   tools:
@@ -433,7 +424,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-dreamomni2-edit
-  url: https://kamui-code.ai/i2i/fal/dreamomni2/edit
   status: online
   last_checked: '2025-12-02T13:33:55.802837+00:00'
   tools:
@@ -475,7 +465,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-easel-ai-fashion-size-estimator
-  url: https://kamui-code.ai/i2i/fal/easel-ai-fashion-size-estimator
   status: online
   last_checked: '2025-12-02T13:33:55.165327+00:00'
   tools:
@@ -512,7 +501,6 @@ servers:
       - image
       type: object
 - id: i2i-kamui-emu-3-5-image-edit
-  url: https://kamui-code.ai/i2i/fal/emu-3.5-image/edit
   status: online
   last_checked: '2025-12-02T13:34:03.698394+00:00'
   tools:
@@ -576,7 +564,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-fal-chrono-edit-lora
-  url: https://kamui-code.ai/i2i/fal/chrono-edit-lora
   status: online
   last_checked: '2025-12-02T13:34:02.390465+00:00'
   tools:
@@ -662,7 +649,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
-  url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/paintbrush
   status: online
   last_checked: '2025-12-02T13:34:05.613330+00:00'
   tools:
@@ -744,7 +730,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
-  url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/upscaler
   status: online
   last_checked: '2025-12-02T13:34:05.621954+00:00'
   tools:
@@ -815,7 +800,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-fal-flux-2-lora-gallery-apartment-staging
-  url: https://kamui-code.ai/i2i/fal/flux-2-lora-gallery/apartment-staging
   status: online
   last_checked: '2025-12-02T13:34:05.664205+00:00'
   tools:
@@ -907,7 +891,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-fal-gemini-3-pro-image-preview-edit
-  url: https://kamui-code.ai/i2i/fal/gemini-3-pro-image-preview/edit
   status: online
   last_checked: '2025-12-02T13:34:05.540489+00:00'
   tools:
@@ -988,7 +971,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-fal-nano-banana-pro-edit
-  url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: online
   last_checked: '2025-12-02T13:34:05.471216+00:00'
   tools:
@@ -1066,7 +1048,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-fal-sam-3-image
-  url: https://kamui-code.ai/i2i/fal/sam-3/image
   status: online
   last_checked: '2025-12-02T13:34:05.569904+00:00'
   tools:
@@ -1139,7 +1120,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-flux-2-flex-edit
-  url: https://kamui-code.ai/i2i/fal/flux-2-flex/edit
   status: online
   last_checked: '2025-12-02T13:33:54.489216+00:00'
   tools:
@@ -1227,7 +1207,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-flux-2-lora-edit
-  url: https://kamui-code.ai/i2i/fal/flux-2-lora/edit
   status: online
   last_checked: '2025-12-02T13:33:54.484631+00:00'
   tools:
@@ -1317,7 +1296,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-flux-kontext-lora
-  url: https://kamui-code.ai/i2i/fal/flux/kontext
   status: online
   last_checked: '2025-12-02T13:33:55.177701+00:00'
   tools:
@@ -1404,7 +1382,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-flux-kontext-max
-  url: https://kamui-code.ai/i2i/fal/flux/kontext/max
   status: online
   last_checked: '2025-12-02T13:33:55.733385+00:00'
   tools:
@@ -1486,7 +1463,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-flux-krea-lora
-  url: https://kamui-code.ai/i2i/fal/flux-krea-lora/image-to-image
   status: online
   last_checked: '2025-12-02T13:33:55.745027+00:00'
   tools:
@@ -1572,7 +1548,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-gemini-25-flash-image-edit
-  url: https://kamui-code.ai/i2i/fal/gemini-25-flash-image/edit
   status: online
   last_checked: '2025-12-02T13:33:59.283336+00:00'
   tools:
@@ -1623,7 +1598,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-gpt-image-1-mini-edit
-  url: https://kamui-code.ai/i2i/fal/gpt-image-1-mini/edit
   status: online
   last_checked: '2025-12-02T13:34:03.687795+00:00'
   tools:
@@ -1674,7 +1648,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-ideogram-character-remix
-  url: https://kamui-code.ai/i2i/fal/ideogram/character-remix
   status: online
   last_checked: '2025-12-02T13:33:55.751717+00:00'
   tools:
@@ -1773,7 +1746,6 @@ servers:
       - reference_image_urls
       type: object
 - id: i2i-kamui-image-apps-v2-outpaint
-  url: https://kamui-code.ai/i2i/fal/image-apps-v2/outpaint
   status: online
   last_checked: '2025-12-02T13:33:55.776108+00:00'
   tools:
@@ -1849,7 +1821,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-image2pixel
-  url: https://kamui-code.ai/i2i/fal/image2pixel
   status: online
   last_checked: '2025-12-02T13:34:02.480490+00:00'
   tools:
@@ -1940,7 +1911,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-lucidflux
-  url: https://kamui-code.ai/i2i/fal/lucidflux
   status: online
   last_checked: '2025-12-02T13:34:02.475843+00:00'
   tools:
@@ -2012,7 +1982,6 @@ servers:
       - prompt
       type: object
 - id: i2i-kamui-nano-banana-edit
-  url: https://kamui-code.ai/i2i/fal/nano-banana/edit
   status: online
   last_checked: '2025-12-02T13:33:59.267707+00:00'
   tools:
@@ -2056,7 +2025,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit
-  url: https://kamui-code.ai/i2i/fal/qwen/image-edit
   status: online
   last_checked: '2025-12-02T13:33:55.755037+00:00'
   tools:
@@ -2149,7 +2117,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-qwen-image-edit-plus
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus
   status: online
   last_checked: '2025-12-02T13:34:01.213000+00:00'
   tools:
@@ -2229,7 +2196,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora
   status: online
   last_checked: '2025-12-02T13:34:02.366213+00:00'
   tools:
@@ -2309,7 +2275,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-add-background
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/add-background
   status: online
   last_checked: '2025-12-02T13:34:04.927856+00:00'
   tools:
@@ -2399,7 +2364,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-face-to-full-portrait
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/face-to-full-portrait
   status: online
   last_checked: '2025-12-02T13:34:04.932773+00:00'
   tools:
@@ -2488,7 +2452,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-group-photo
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/group-photo
   status: online
   last_checked: '2025-12-02T13:34:04.997263+00:00'
   tools:
@@ -2579,7 +2542,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-integrate-product
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/integrate-product
   status: online
   last_checked: '2025-12-02T13:34:05.021919+00:00'
   tools:
@@ -2669,7 +2631,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-next-scene
-  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/next-scene
   status: online
   last_checked: '2025-12-02T13:34:05.063790+00:00'
   tools:
@@ -2763,7 +2724,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-reve-edit
-  url: https://kamui-code.ai/i2i/fal/reve/edit
   status: online
   last_checked: '2025-12-02T13:34:03.089381+00:00'
   tools:
@@ -2815,7 +2775,6 @@ servers:
       - image_url
       type: object
 - id: i2i-kamui-reve-remix
-  url: https://kamui-code.ai/i2i/fal/reve/remix
   status: online
   last_checked: '2025-12-02T13:34:03.101881+00:00'
   tools:
@@ -2873,7 +2832,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-seedream-v4-edit
-  url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4
   status: online
   last_checked: '2025-12-02T13:33:59.314195+00:00'
   tools:
@@ -2931,7 +2889,6 @@ servers:
       - image_urls
       type: object
 - id: i2i-kamui-wan-25-preview
-  url: https://kamui-code.ai/i2i/fal/wan/25-preview
   status: online
   last_checked: '2025-12-02T13:34:01.777707+00:00'
   tools:
@@ -2988,7 +2945,6 @@ servers:
       - image_urls
       type: object
 - id: i2i3d-kamui-hunyuan3d-v21
-  url: https://kamui-code.ai/i2i3d/fal/hunyuan/3d-v21
   status: online
   last_checked: '2025-12-02T13:34:01.145129+00:00'
   tools:
@@ -3045,7 +3001,6 @@ servers:
       - input_image_url
       type: object
 - id: i2i3d-kamui-hyper3d-rodin-v2
-  url: https://kamui-code.ai/i2i3d/fal/hyper3d/rodin/v2
   status: online
   last_checked: '2025-12-02T13:34:01.850998+00:00'
   tools:
@@ -3111,7 +3066,6 @@ servers:
           type: boolean
       type: object
 - id: i2i3d-kamui-meshy-v5-multi-image-to-3d
-  url: https://kamui-code.ai/i2i3d/fal/meshy/v5/multi-image-to-3d
   status: online
   last_checked: '2025-12-02T13:34:02.553859+00:00'
   tools:
@@ -3183,7 +3137,6 @@ servers:
       - image_urls
       type: object
 - id: i2i3d-kamui-meshy-v6-preview-image-to-3d
-  url: https://kamui-code.ai/i2i3d/fal/meshy/v6-preview/image-to-3d
   status: online
   last_checked: '2025-12-02T13:34:01.934168+00:00'
   tools:
@@ -3257,7 +3210,6 @@ servers:
       - image_url
       type: object
 - id: i2i3d-kamui-trellis
-  url: https://kamui-code.ai/i2i3d/fal/trellis
   status: online
   last_checked: '2025-12-02T13:34:01.212980+00:00'
   tools:
@@ -3329,7 +3281,6 @@ servers:
       - image_url
       type: object
 - id: i2i3d-kamui-tripo3d-image-to-3d
-  url: https://kamui-code.ai/i2i3d/fal/tripo3d/tripo/v25/image-to-3d
   status: online
   last_checked: '2025-12-02T13:34:01.212946+00:00'
   tools:
@@ -3401,7 +3352,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-bytedance-lynx
-  url: https://kamui-code.ai/i2v/fal/bytedance/lynx
   status: online
   last_checked: '2025-12-02T13:33:56.454548+00:00'
   tools:
@@ -3486,7 +3436,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-bytedance-seedance-v1-pro-fast
-  url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
   status: online
   last_checked: '2025-12-02T13:33:58.457109+00:00'
   tools:
@@ -3549,7 +3498,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-decart-lucy-14b
-  url: https://kamui-code.ai/i2v/fal/decart/lucy-14b
   status: online
   last_checked: '2025-12-02T13:33:59.315815+00:00'
   tools:
@@ -3600,7 +3548,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-decart-lucy-5b
-  url: https://kamui-code.ai/i2v/fal/decart/lucy-5b
   status: online
   last_checked: '2025-12-02T13:33:59.324614+00:00'
   tools:
@@ -3647,7 +3594,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-hailuo-02-fast
-  url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/fast
   status: online
   last_checked: '2025-12-02T13:33:56.394610+00:00'
   tools:
@@ -3709,7 +3655,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-hailuo-02-pro
-  url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/pro
   status: online
   last_checked: '2025-12-02T13:33:56.413200+00:00'
   tools:
@@ -3755,7 +3700,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-hailuo-23-fast-pro
-  url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3-fast/pro/image-to-video
   status: online
   last_checked: '2025-12-02T13:34:04.347582+00:00'
   tools:
@@ -3798,7 +3742,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-hailuo-23-pro
-  url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3/pro/image-to-video
   status: online
   last_checked: '2025-12-02T13:34:04.321340+00:00'
   tools:
@@ -3841,7 +3784,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-kling-video-o1
-  url: https://kamui-code.ai/i2v/fal/kling-video/o1
   status: online
   last_checked: '2025-12-02T13:34:00.538298+00:00'
   tools:
@@ -3887,7 +3829,6 @@ servers:
       - end_image_url
       type: object
 - id: i2v-kamui-kling-video-v25-turbo-pro
-  url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-pro
   status: online
   last_checked: '2025-12-02T13:34:00.485346+00:00'
   tools:
@@ -3938,7 +3879,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-kling-video-v25-turbo-standard
-  url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-standard
   status: online
   last_checked: '2025-12-02T13:34:00.527799+00:00'
   tools:
@@ -3986,7 +3926,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-longcat-video-480p
-  url: https://kamui-code.ai/i2v/fal/longcat-video-480p
   status: online
   last_checked: '2025-12-02T13:34:03.611289+00:00'
   tools:
@@ -4070,7 +4009,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-longcat-video-720p
-  url: https://kamui-code.ai/i2v/fal/longcat-video-720p
   status: online
   last_checked: '2025-12-02T13:34:03.617646+00:00'
   tools:
@@ -4158,7 +4096,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-ltx-2
-  url: https://kamui-code.ai/i2v/fal/ltx-2
   status: online
   last_checked: '2025-12-02T13:34:03.832111+00:00'
   tools:
@@ -4214,7 +4151,6 @@ servers:
       - prompt
       type: object
 - id: i2v-kamui-ltx-2-fast
-  url: https://kamui-code.ai/i2v/fal/ltx-2/image-to-video/fast
   status: online
   last_checked: '2025-12-02T13:34:04.243365+00:00'
   tools:
@@ -4270,7 +4206,6 @@ servers:
       - prompt
       type: object
 - id: i2v-kamui-ltxv-2
-  url: https://kamui-code.ai/i2v/fal/ltxv-2
   status: online
   last_checked: '2025-12-02T13:34:03.772184+00:00'
   tools:
@@ -4325,7 +4260,6 @@ servers:
       - prompt
       type: object
 - id: i2v-kamui-lynx
-  url: https://kamui-code.ai/i2v/fal/lynx
   status: online
   last_checked: '2025-12-02T13:34:02.991948+00:00'
   tools:
@@ -4410,7 +4344,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-omnihuman
-  url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman
   status: online
   last_checked: '2025-12-02T13:33:56.421859+00:00'
   tools:
@@ -4459,7 +4392,6 @@ servers:
       - audio_url
       type: object
 - id: i2v-kamui-omnihuman-v15
-  url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman-v1.5
   status: online
   last_checked: '2025-12-02T13:33:56.450901+00:00'
   tools:
@@ -4498,7 +4430,6 @@ servers:
       - audio_url
       type: object
 - id: i2v-kamui-ovi
-  url: https://kamui-code.ai/i2v/fal/ovi
   status: online
   last_checked: '2025-12-02T13:34:01.828386+00:00'
   tools:
@@ -4553,7 +4484,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-pixverse-v5
-  url: https://kamui-code.ai/i2v/fal/pixverse/v5
   status: online
   last_checked: '2025-12-02T13:34:03.000487+00:00'
   tools:
@@ -4613,7 +4543,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-pixverse-v5-transition
-  url: https://kamui-code.ai/i2v/fal/pixverse/v5/transition
   status: online
   last_checked: '2025-12-02T13:34:03.005626+00:00'
   tools:
@@ -4673,7 +4602,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-seedance-v1-lite
-  url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-lite
   status: online
   last_checked: '2025-12-02T13:33:56.456362+00:00'
   tools:
@@ -4744,7 +4672,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-veo3-fast
-  url: https://kamui-code.ai/i2v/fal/veo3/fast
   status: online
   last_checked: '2025-12-02T13:33:56.467216+00:00'
   tools:
@@ -4808,7 +4735,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-veo31
-  url: https://kamui-code.ai/i2v/fal/veo31
   status: online
   last_checked: '2025-12-02T13:33:57.008657+00:00'
   tools:
@@ -4866,7 +4792,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-veo31-fast
-  url: https://kamui-code.ai/i2v/fal/veo31/fast
   status: online
   last_checked: '2025-12-02T13:33:56.997060+00:00'
   tools:
@@ -4924,7 +4849,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-vidu-q2-i2v-pro
-  url: https://kamui-code.ai/i2v/fal/vidu/q2-i2v-pro
   status: online
   last_checked: '2025-12-02T13:33:57.832817+00:00'
   tools:
@@ -4984,7 +4908,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-wan-25-preview
-  url: https://kamui-code.ai/i2v/fal/wan/25-preview
   status: online
   last_checked: '2025-12-02T13:34:01.823155+00:00'
   tools:
@@ -5051,7 +4974,6 @@ servers:
       - image_url
       type: object
 - id: i2v-kamui-wan-v2-2-a14b
-  url: https://kamui-code.ai/i2v/fal/wan/v2.2-a14b
   status: online
   last_checked: '2025-12-02T13:33:57.043901+00:00'
   tools:
@@ -5184,7 +5106,6 @@ servers:
       - prompt
       type: object
 - id: misc-kamui-bria-fibo-generate-structured-prompt
-  url: https://kamui-code.ai/misc/fal/bria/fibo/generate/structured_prompt
   status: online
   last_checked: '2025-12-02T13:34:04.446278+00:00'
   tools:
@@ -5249,7 +5170,6 @@ servers:
           type: boolean
       type: object
 - id: misc-kamui-bria-fibo-mashup
-  url: https://kamui-code.ai/misc/fal/bria/fibo-mashup
   status: online
   last_checked: '2025-12-02T13:33:55.141615+00:00'
   tools:
@@ -5299,7 +5219,6 @@ servers:
       - style_image_url
       type: object
 - id: misc-kamui-hunyuan-part
-  url: https://kamui-code.ai/misc/fal/hunyuan-part
   status: online
   last_checked: '2025-12-02T13:34:02.445308+00:00'
   tools:
@@ -5363,7 +5282,6 @@ servers:
       - model_file_url
       type: object
 - id: r2v-kamui-bytedance-seedance-v1-lite
-  url: https://kamui-code.ai/r2v/fal/bytedance/seedance-v1-lite
   status: online
   last_checked: '2025-12-02T13:33:58.455823+00:00'
   tools:
@@ -5436,7 +5354,6 @@ servers:
       - reference_image_urls
       type: object
 - id: r2v-kamui-kling-video-o1
-  url: https://kamui-code.ai/r2v/fal/kling-video/o1
   status: online
   last_checked: '2025-12-02T13:34:00.547291+00:00'
   tools:
@@ -5484,7 +5401,6 @@ servers:
       - prompt
       type: object
 - id: r2v-kamui-ltx-2
-  url: https://kamui-code.ai/r2v/fal/ltx-2
   status: online
   last_checked: '2025-12-02T13:34:04.255619+00:00'
   tools:
@@ -5534,7 +5450,6 @@ servers:
       - prompt
       type: object
 - id: r2v-kamui-veo31
-  url: https://kamui-code.ai/r2v/fal/veo31
   status: online
   last_checked: '2025-12-02T13:33:57.015084+00:00'
   tools:
@@ -5589,7 +5504,6 @@ servers:
       - prompt
       type: object
 - id: r2v-kamui-vidu-q1
-  url: https://kamui-code.ai/r2v/fal/vidu/q1
   status: online
   last_checked: '2025-12-02T13:33:57.832792+00:00'
   tools:
@@ -5649,7 +5563,6 @@ servers:
       - prompt
       type: object
 - id: s2v-kamui-wan-v2-2-14b
-  url: https://kamui-code.ai/s2v/fal/wan/v2.2-14b
   status: online
   last_checked: '2025-12-02T13:33:58.474017+00:00'
   tools:
@@ -5735,7 +5648,6 @@ servers:
       - audio_url
       type: object
 - id: t2a-kamui-beatoven-sound-effect-generation
-  url: https://kamui-code.ai/t2a/fal/beatoven/sound-effect-generation
   status: online
   last_checked: '2025-12-02T13:34:03.643496+00:00'
   tools:
@@ -5791,7 +5703,6 @@ servers:
       - prompt
       type: object
 - id: t2a-kamui-stable-audio-v25
-  url: https://kamui-code.ai/t2a/fal/stable-audio/v2.5
   status: online
   last_checked: '2025-12-02T13:34:00.573881+00:00'
   tools:
@@ -5843,7 +5754,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-bria-fibo-generate
-  url: https://kamui-code.ai/t2i/fal/bria/fibo/generate
   status: online
   last_checked: '2025-12-02T13:33:55.139382+00:00'
   tools:
@@ -5907,7 +5817,6 @@ servers:
           type: boolean
       type: object
 - id: t2i-kamui-dreamina-v31
-  url: https://kamui-code.ai/t2i/fal/bytedance/dreamina/v3.1/text-to-image
   status: online
   last_checked: '2025-12-02T13:33:53.733767+00:00'
   tools:
@@ -5995,7 +5904,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-emu-3-5-image
-  url: https://kamui-code.ai/t2i/fal/emu-3.5-image
   status: online
   last_checked: '2025-12-02T13:33:59.302160+00:00'
   tools:
@@ -6048,7 +5956,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-fal-gemini-3-pro-image-preview
-  url: https://kamui-code.ai/t2i/fal/gemini-3-pro-image-preview
   status: online
   last_checked: '2025-12-02T13:34:05.487419+00:00'
   tools:
@@ -6124,7 +6031,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-fal-nano-banana-pro
-  url: https://kamui-code.ai/t2i/fal/nano-banana-pro
   status: online
   last_checked: '2025-12-02T13:34:05.487384+00:00'
   tools:
@@ -6197,7 +6103,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-fal-z-image-turbo
-  url: https://kamui-code.ai/t2i/fal/z-image-turbo
   status: online
   last_checked: '2025-12-02T13:34:06.071488+00:00'
   tools:
@@ -6290,7 +6195,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-2-flex
-  url: https://kamui-code.ai/t2i/fal/flux-2-flex
   status: online
   last_checked: '2025-12-02T13:33:54.482903+00:00'
   tools:
@@ -6373,7 +6277,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-2-lora
-  url: https://kamui-code.ai/t2i/fal/flux-2-lora
   status: online
   last_checked: '2025-12-02T13:33:54.484601+00:00'
   tools:
@@ -6458,7 +6361,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
-  url: https://kamui-code.ai/t2i/fal/flux-2-lora-gallery/ballpoint-pen-sketch
   status: online
   last_checked: '2025-12-02T13:33:54.484956+00:00'
   tools:
@@ -6546,7 +6448,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-krea-lora
-  url: https://kamui-code.ai/t2i/fal/flux-krea-lora
   status: online
   last_checked: '2025-12-02T13:33:53.733787+00:00'
   tools:
@@ -6624,7 +6525,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-schnell
-  url: https://kamui-code.ai/t2i/fal/flux/schnell
   status: online
   last_checked: '2025-12-02T13:33:53.733799+00:00'
   tools:
@@ -6705,7 +6605,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-flux-srpo
-  url: https://kamui-code.ai/t2i/fal/flux/srpo
   status: online
   last_checked: '2025-12-02T13:33:54.482839+00:00'
   tools:
@@ -6788,7 +6687,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-gemini-25-flash-image
-  url: https://kamui-code.ai/t2i/fal/gemini-25-flash-image
   status: online
   last_checked: '2025-12-02T13:33:59.302112+00:00'
   tools:
@@ -6835,7 +6733,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-gpt-image-1-mini
-  url: https://kamui-code.ai/t2i/fal/gpt-image-1-mini
   status: online
   last_checked: '2025-12-02T13:34:03.723961+00:00'
   tools:
@@ -6882,7 +6779,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-hunyuan-image-v3
-  url: https://kamui-code.ai/t2i/fal/hunyuan-image/v3
   status: online
   last_checked: '2025-12-02T13:34:01.159852+00:00'
   tools:
@@ -6978,7 +6874,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-ideogram-character-base
-  url: https://kamui-code.ai/t2i/fal/ideogram/character-base
   status: online
   last_checked: '2025-12-02T13:33:54.498768+00:00'
   tools:
@@ -7070,7 +6965,6 @@ servers:
       - reference_image_urls
       type: object
 - id: t2i-kamui-imagen3
-  url: https://kamui-code.ai/t2i/google/imagen
   status: online
   last_checked: '2025-12-02T13:33:54.506906+00:00'
   tools:
@@ -7113,7 +7007,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-imagen4-fast
-  url: https://kamui-code.ai/t2i/fal/imagen4/fast
   status: online
   last_checked: '2025-12-02T13:33:54.508423+00:00'
   tools:
@@ -7190,7 +7083,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-imagen4-ultra
-  url: https://kamui-code.ai/t2i/fal/imagen4/ultra
   status: online
   last_checked: '2025-12-02T13:33:54.520762+00:00'
   tools:
@@ -7267,7 +7159,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-nano-banana
-  url: https://kamui-code.ai/t2i/fal/nano-banana
   status: online
   last_checked: '2025-12-02T13:33:58.507436+00:00'
   tools:
@@ -7338,7 +7229,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-ovis-image
-  url: https://kamui-code.ai/t2i/fal/ovis-image
   status: online
   last_checked: '2025-12-02T13:33:55.118057+00:00'
   tools:
@@ -7433,7 +7323,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-piflow
-  url: https://kamui-code.ai/t2i/fal/piflow
   status: online
   last_checked: '2025-12-02T13:33:55.118035+00:00'
   tools:
@@ -7512,7 +7401,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-qwen-image
-  url: https://kamui-code.ai/t2i/fal/qwen-image
   status: online
   last_checked: '2025-12-02T13:33:55.117955+00:00'
   tools:
@@ -7607,7 +7495,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-reve
-  url: https://kamui-code.ai/t2i/fal/reve/text-to-image
   status: online
   last_checked: '2025-12-02T13:34:03.079602+00:00'
   tools:
@@ -7658,7 +7545,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-seedream-v4
-  url: https://kamui-code.ai/t2i/fal/bytedance/seedream/v4
   status: online
   last_checked: '2025-12-02T13:33:59.308354+00:00'
   tools:
@@ -7752,7 +7638,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-wan-25-preview
-  url: https://kamui-code.ai/t2i/fal/wan/25-preview
   status: online
   last_checked: '2025-12-02T13:34:01.742978+00:00'
   tools:
@@ -7809,7 +7694,6 @@ servers:
       - prompt
       type: object
 - id: t2i-kamui-wan-v2-2-a14b
-  url: https://kamui-code.ai/t2i/fal/wan/v2.2-a14b/text-to-image
   status: online
   last_checked: '2025-12-02T13:33:55.123491+00:00'
   tools:
@@ -7909,7 +7793,6 @@ servers:
       - prompt
       type: object
 - id: t2i3d-kamui-meshy-v6-preview-text-to-3d
-  url: https://kamui-code.ai/t2i3d/fal/meshy/v6-preview/text-to-3d
   status: online
   last_checked: '2025-12-02T13:34:01.872839+00:00'
   tools:
@@ -7995,7 +7878,6 @@ servers:
       - prompt
       type: object
 - id: t2m-kamui-beatoven-music-generation
-  url: https://kamui-code.ai/t2m/fal/beatoven/music-generation
   status: online
   last_checked: '2025-12-02T13:34:03.639048+00:00'
   tools:
@@ -8050,7 +7932,6 @@ servers:
       - prompt
       type: object
 - id: t2m-kamui-lyria
-  url: https://kamui-code.ai/t2m/google/lyria
   status: online
   last_checked: '2025-12-02T13:33:58.443929+00:00'
   tools:
@@ -8087,7 +7968,6 @@ servers:
       - prompt
       type: object
 - id: t2m-kamui-minimax-music-v15
-  url: https://kamui-code.ai/t2m/fal/minimax/music/v1.5
   status: online
   last_checked: '2025-12-02T13:33:59.923630+00:00'
   tools:
@@ -8129,7 +8009,6 @@ servers:
       - lyrics_prompt
       type: object
 - id: t2m-kamui-minimax-music-v2
-  url: https://kamui-code.ai/t2m/fal/minimax/music/v2
   status: online
   last_checked: '2025-12-02T13:33:59.953354+00:00'
   tools:
@@ -8176,7 +8055,6 @@ servers:
       - lyrics_prompt
       type: object
 - id: t2s-kamui-index-tts-2-text-to-speech
-  url: https://kamui-code.ai/t2s/fal/index-tts-2/text-to-speech
   status: online
   last_checked: '2025-12-02T13:33:59.964621+00:00'
   tools:
@@ -8236,7 +8114,6 @@ servers:
       - prompt
       type: object
 - id: t2s-kamui-maya
-  url: https://kamui-code.ai/t2s/fal/maya
   status: online
   last_checked: '2025-12-02T13:33:59.972133+00:00'
   tools:
@@ -8304,7 +8181,6 @@ servers:
       - prompt
       type: object
 - id: t2s-kamui-minimax-speech-02-hd
-  url: https://kamui-code.ai/t2s/fal/minimax/speech-02-hd
   status: online
   last_checked: '2025-12-02T13:33:57.856560+00:00'
   tools:
@@ -8396,7 +8272,6 @@ servers:
       - text
       type: object
 - id: t2s-kamui-minimax-speech-02-turbo
-  url: https://kamui-code.ai/t2s/fal/minimax/speech-02-turbo
   status: online
   last_checked: '2025-12-02T13:33:57.848980+00:00'
   tools:
@@ -8483,7 +8358,6 @@ servers:
       - text
       type: object
 - id: t2s-kamui-minimax-speech-26-hd
-  url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-hd
   status: online
   last_checked: '2025-12-02T13:33:58.434941+00:00'
   tools:
@@ -8598,7 +8472,6 @@ servers:
       - prompt
       type: object
 - id: t2s-kamui-minimax-speech-26-turbo
-  url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-turbo
   status: online
   last_checked: '2025-12-02T13:33:58.442497+00:00'
   tools:
@@ -8712,7 +8585,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-bytedance-seedance-v1-pro-fast
-  url: https://kamui-code.ai/t2v/fal/bytedance/seedance-v1-pro-fast
   status: online
   last_checked: '2025-12-02T13:33:58.471393+00:00'
   tools:
@@ -8771,7 +8643,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-fal-infinity-star
-  url: https://kamui-code.ai/t2v/fal/infinity-star
   status: online
   last_checked: '2025-12-02T13:34:04.871158+00:00'
   tools:
@@ -8840,7 +8711,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-fal-sana-video
-  url: https://kamui-code.ai/t2v/fal/sana-video
   status: online
   last_checked: '2025-12-02T13:34:04.874126+00:00'
   tools:
@@ -8910,7 +8780,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-hailuo-02-pro
-  url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/pro
   status: online
   last_checked: '2025-12-02T13:33:55.803069+00:00'
   tools:
@@ -8949,7 +8818,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-hailuo-02-standard
-  url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/standard
   status: online
   last_checked: '2025-12-02T13:33:55.824979+00:00'
   tools:
@@ -8992,7 +8860,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-hailuo-23-pro
-  url: https://kamui-code.ai/t2v/fal/minimax/hailuo-2.3/pro/text-to-video
   status: online
   last_checked: '2025-12-02T13:33:55.820039+00:00'
   tools:
@@ -9032,7 +8899,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-kandinsky5
-  url: https://kamui-code.ai/t2v/fal/kandinsky5
   status: online
   last_checked: '2025-12-02T13:33:55.827326+00:00'
   tools:
@@ -9079,7 +8945,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-kling-video-v25-turbo-pro
-  url: https://kamui-code.ai/t2v/fal/kling-video/v25-turbo-pro
   status: online
   last_checked: '2025-12-02T13:34:00.002504+00:00'
   tools:
@@ -9126,7 +8991,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-krea-wan-14b
-  url: https://kamui-code.ai/t2v/fal/krea/wan-14b
   status: online
   last_checked: '2025-12-02T13:34:03.152466+00:00'
   tools:
@@ -9170,7 +9034,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-longcat-video-480p
-  url: https://kamui-code.ai/t2v/fal/longcat-video
   status: online
   last_checked: '2025-12-02T13:34:03.200810+00:00'
   tools:
@@ -9253,7 +9116,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-longcat-video-720p
-  url: https://kamui-code.ai/t2v/fal/longcat-video-720p
   status: online
   last_checked: '2025-12-02T13:34:03.600907+00:00'
   tools:
@@ -9341,7 +9203,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-ltx-2
-  url: https://kamui-code.ai/t2v/fal/ltx-2
   status: online
   last_checked: '2025-12-02T13:34:04.255646+00:00'
   tools:
@@ -9392,7 +9253,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-ltx-2-fast
-  url: https://kamui-code.ai/t2v/fal/ltx-2/text-to-video/fast
   status: online
   last_checked: '2025-12-02T13:34:04.267684+00:00'
   tools:
@@ -9443,7 +9303,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-ltxv-2
-  url: https://kamui-code.ai/t2v/fal/ltxv-2
   status: online
   last_checked: '2025-12-02T13:34:04.245913+00:00'
   tools:
@@ -9494,7 +9353,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-openai-sora
-  url: https://kamui-code.ai/t2v/openai/sora
   status: online
   last_checked: '2025-12-02T13:34:02.445265+00:00'
   tools:
@@ -9582,7 +9440,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-ovi
-  url: https://kamui-code.ai/t2v/fal/ovi
   status: online
   last_checked: '2025-12-02T13:34:01.840299+00:00'
   tools:
@@ -9639,7 +9496,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-pixverse-v5
-  url: https://kamui-code.ai/t2v/fal/pixverse/v5
   status: online
   last_checked: '2025-12-02T13:34:03.008346+00:00'
   tools:
@@ -9695,7 +9551,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-veo3
-  url: https://kamui-code.ai/t2v/fal/veo3
   status: online
   last_checked: '2025-12-02T13:33:59.867739+00:00'
   tools:
@@ -9760,7 +9615,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-veo3-fast
-  url: https://kamui-code.ai/t2v/fal/veo3/fast
   status: online
   last_checked: '2025-12-02T13:33:56.374164+00:00'
   tools:
@@ -9833,7 +9687,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-veo31
-  url: https://kamui-code.ai/t2v/fal/veo31
   status: online
   last_checked: '2025-12-02T13:33:59.900335+00:00'
   tools:
@@ -9898,7 +9751,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-veo31-fast
-  url: https://kamui-code.ai/t2v/fal/veo31/fast
   status: online
   last_checked: '2025-12-02T13:33:59.923593+00:00'
   tools:
@@ -9964,7 +9816,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-wan-25-preview
-  url: https://kamui-code.ai/t2v/fal/wan/25-preview
   status: online
   last_checked: '2025-12-02T13:34:01.789461+00:00'
   tools:
@@ -10030,7 +9881,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-wan-alpha
-  url: https://kamui-code.ai/t2v/fal/wan/alpha
   status: online
   last_checked: '2025-12-02T13:34:03.044379+00:00'
   tools:
@@ -10124,7 +9974,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-wan-v2-2-5b-fast
-  url: https://kamui-code.ai/t2v/fal/wan/v2.2-5b/text-to-video/fast-wan
   status: online
   last_checked: '2025-12-02T13:33:56.378758+00:00'
   tools:
@@ -10211,7 +10060,6 @@ servers:
       - prompt
       type: object
 - id: t2v-kamui-wan-v2-2-a14b
-  url: https://kamui-code.ai/t2v/fal/wan/v2-2-a14b
   status: online
   last_checked: '2025-12-02T13:33:56.390127+00:00'
   tools:
@@ -10301,7 +10149,6 @@ servers:
       - prompt
       type: object
 - id: t2visual-kamui-napkin
-  url: https://kamui-code.ai/t2visual/napkin/visual
   status: online
   last_checked: '2025-12-02T13:33:59.315788+00:00'
   tools:
@@ -10393,7 +10240,6 @@ servers:
       - format
       type: object
 - id: train-kamui-flux-2-trainer
-  url: https://kamui-code.ai/train/fal/flux-2-trainer
   status: online
   last_checked: '2025-12-02T13:33:53.733724+00:00'
   tools:
@@ -10444,7 +10290,6 @@ servers:
       - image_data_url
       type: object
 - id: train-kamui-flux-2-trainer-edit
-  url: https://kamui-code.ai/train/fal/flux-2-trainer/edit
   status: online
   last_checked: '2025-12-02T13:33:53.733736+00:00'
   tools:
@@ -10495,7 +10340,6 @@ servers:
       - image_data_url
       type: object
 - id: train-kamui-flux-kontext
-  url: https://kamui-code.ai/train/fal/flux/kontext
   status: online
   last_checked: '2025-12-02T13:33:53.733677+00:00'
   tools:
@@ -10555,7 +10399,6 @@ servers:
       - default_caption
       type: object
 - id: train-kamui-qwen-image-edit
-  url: https://kamui-code.ai/train/fal/qwen-image-edit
   status: online
   last_checked: '2025-12-02T13:33:53.733694+00:00'
   tools:
@@ -10609,7 +10452,6 @@ servers:
       - image_data_url
       type: object
 - id: train-kamui-qwen-image-edit-plus
-  url: https://kamui-code.ai/train/fal/qwen-image-edit-plus
   status: online
   last_checked: '2025-12-02T13:33:53.733706+00:00'
   tools:
@@ -10669,7 +10511,6 @@ servers:
       - image_data_url
       type: object
 - id: tts-kamui-kling-video-v1
-  url: https://kamui-code.ai/tts/fal/kling-video/v1
   status: online
   last_checked: '2025-12-02T13:33:59.954813+00:00'
   tools:
@@ -10717,7 +10558,6 @@ servers:
       - text
       type: object
 - id: v2a-kamui-kling-video-to-audio
-  url: https://kamui-code.ai/v2a/fal/kling-video
   status: online
   last_checked: '2025-12-02T13:33:58.448507+00:00'
   tools:
@@ -10766,7 +10606,6 @@ servers:
       - video_url
       type: object
 - id: v2a-kamui-mirelo-ai-sfx-v15
-  url: https://kamui-code.ai/v2a/fal/mirelo-ai/sfx-v1.5
   status: online
   last_checked: '2025-12-02T13:34:01.107314+00:00'
   tools:
@@ -10818,7 +10657,6 @@ servers:
       - video_url
       type: object
 - id: v2a-kamui-thinksound
-  url: https://kamui-code.ai/v2a/fal/thinksound/audio/standard
   status: online
   last_checked: '2025-12-02T13:33:58.447220+00:00'
   tools:
@@ -10877,7 +10715,6 @@ servers:
       - video_url
       type: object
 - id: v2sfx-kamui-mirelo-video-to-sfx
-  url: https://kamui-code.ai/v2sfx/replicate/mirelo/video-to-sfx
   status: online
   last_checked: '2025-12-02T13:34:00.596491+00:00'
   tools:
@@ -10924,7 +10761,6 @@ servers:
       - video_path
       type: object
 - id: v2v-kamui-birefnet-v2-video
-  url: https://kamui-code.ai/v2v/fal/birefnet/v2/video
   status: online
   last_checked: '2025-12-02T13:33:57.071829+00:00'
   tools:
@@ -10993,7 +10829,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-bria-bg-removal
-  url: https://kamui-code.ai/video/fal/bria/background-removal
   status: online
   last_checked: '2025-12-02T13:33:57.063379+00:00'
   tools:
@@ -11046,7 +10881,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-bytedance-upscale-video
-  url: https://kamui-code.ai/v2v/fal/bytedance/upscale-video
   status: online
   last_checked: '2025-12-02T13:34:04.845745+00:00'
   tools:
@@ -11098,7 +10932,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-creatify-lipsync
-  url: https://kamui-code.ai/v2v/fal/creatify/lipsync
   status: online
   last_checked: '2025-12-02T13:33:57.095171+00:00'
   tools:
@@ -11142,7 +10975,6 @@ servers:
       - audio_url
       type: object
 - id: v2v-kamui-decart-lucy-edit-fast
-  url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/fast
   status: online
   last_checked: '2025-12-02T13:34:01.189421+00:00'
   tools:
@@ -11190,7 +11022,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-decart-lucy-edit-pro
-  url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/pro
   status: online
   last_checked: '2025-12-02T13:34:01.172103+00:00'
   tools:
@@ -11241,7 +11072,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-fal-editto
-  url: https://kamui-code.ai/v2v/fal/editto
   status: online
   last_checked: '2025-12-02T13:34:05.462214+00:00'
   tools:
@@ -11394,7 +11224,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-fal-sam-3-video
-  url: https://kamui-code.ai/v2v/fal/sam-3/video
   status: online
   last_checked: '2025-12-02T13:34:05.548395+00:00'
   tools:
@@ -11451,7 +11280,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-fal-workflow-utilities-auto-subtitle
-  url: https://kamui-code.ai/v2v/fal/workflow-utilities/auto-subtitle
   status: online
   last_checked: '2025-12-02T13:34:04.865619+00:00'
   tools:
@@ -11614,7 +11442,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-heygen-video-translate
-  url: https://kamui-code.ai/v2v/replicate/heygen/video-translate
   status: online
   last_checked: '2025-12-02T13:34:00.580275+00:00'
   tools:
@@ -11654,7 +11481,6 @@ servers:
       - output_language
       type: object
 - id: v2v-kamui-hunyuan-video-foley
-  url: https://kamui-code.ai/v2v/fal/hunyuan/video-foley
   status: online
   last_checked: '2025-12-02T13:33:59.304779+00:00'
   tools:
@@ -11707,7 +11533,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-kling-video-o1
-  url: https://kamui-code.ai/v2v/fal/kling-video/o1
   status: online
   last_checked: '2025-12-02T13:34:00.561394+00:00'
   tools:
@@ -11756,7 +11581,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-kling-video-o1-reference
-  url: https://kamui-code.ai/v2v/fal/kling-video/o1-reference
   status: online
   last_checked: '2025-12-02T13:34:00.573854+00:00'
   tools:
@@ -11811,7 +11635,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-luma-ray2
-  url: https://kamui-code.ai/v2v/fal/luma/dream-machine/ray-2/modify
   status: online
   last_checked: '2025-12-02T13:33:57.095734+00:00'
   tools:
@@ -11867,7 +11690,6 @@ servers:
       - image_url
       type: object
 - id: v2v-kamui-minimax-voice
-  url: https://kamui-code.ai/v2v/fal/minimax/voice-design
   status: online
   last_checked: '2025-12-02T13:33:57.110128+00:00'
   tools:
@@ -11920,7 +11742,6 @@ servers:
       - preview_text
       type: object
 - id: v2v-kamui-mirelo-ai-sfx-v15
-  url: https://kamui-code.ai/v2v/fal/mirelo-ai/sfx-v1.5/video-to-video
   status: online
   last_checked: '2025-12-02T13:34:00.662897+00:00'
   tools:
@@ -11972,7 +11793,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-pixverse-extend
-  url: https://kamui-code.ai/v2v/fal/pixverse/extend
   status: online
   last_checked: '2025-12-02T13:33:57.822957+00:00'
   tools:
@@ -12046,7 +11866,6 @@ servers:
       - prompt
       type: object
 - id: v2v-kamui-pixverse-lipsync
-  url: https://kamui-code.ai/v2v/fal/pixverse/lipsync
   status: online
   last_checked: '2025-12-02T13:33:57.823379+00:00'
   tools:
@@ -12106,7 +11925,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-pixverse-swap
-  url: https://kamui-code.ai/v2v/fal/pixverse/swap
   status: online
   last_checked: '2025-12-02T13:34:04.906639+00:00'
   tools:
@@ -12162,7 +11980,6 @@ servers:
       - image_url
       type: object
 - id: v2v-kamui-runway-aleph
-  url: https://kamui-code.ai/v2v/runway/aleph
   status: online
   last_checked: '2025-12-02T13:33:57.825845+00:00'
   tools:
@@ -12220,7 +12037,6 @@ servers:
       - video_uri
       type: object
 - id: v2v-kamui-sync-lipsync-v2
-  url: https://kamui-code.ai/v2v/fal/sync-lipsync/v2
   status: online
   last_checked: '2025-12-02T13:33:57.823402+00:00'
   tools:
@@ -12269,7 +12085,6 @@ servers:
       - audio_url
       type: object
 - id: v2v-kamui-topaz-upscale
-  url: https://kamui-code.ai/v2v/fal/topaz/upscale-video
   status: online
   last_checked: '2025-12-02T13:33:57.827144+00:00'
   tools:
@@ -12359,7 +12174,6 @@ servers:
           type: string
       type: object
 - id: v2v-kamui-vidu-q2-video-extension-pro
-  url: https://kamui-code.ai/v2v/fal/vidu/q2/video-extension/pro
   status: online
   last_checked: '2025-12-02T13:33:57.835298+00:00'
   tools:
@@ -12410,7 +12224,6 @@ servers:
       - video_url
       type: object
 - id: v2v-kamui-wan-v2-2-14b-animate-move
-  url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/move
   status: online
   last_checked: '2025-12-02T13:34:01.325041+00:00'
   tools:
@@ -12487,7 +12300,6 @@ servers:
       - image_url
       type: object
 - id: v2v-kamui-wan-v2-2-14b-animate-replace
-  url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/replace
   status: online
   last_checked: '2025-12-02T13:34:01.229634+00:00'
   tools:
@@ -12550,7 +12362,6 @@ servers:
       - image_url
       type: object
 - id: v2v-kamui-wan-vace-apps-long-reframe
-  url: https://kamui-code.ai/v2v/fal/wan/vace-apps/long-reframe
   status: online
   last_checked: '2025-12-02T13:34:02.411067+00:00'
   tools:
@@ -12679,7 +12490,6 @@ servers:
       - video_url
       type: object
 - id: video-analysis-kamui
-  url: https://kamui-code.ai/video-analysis/google/gemini
   status: online
   last_checked: '2025-12-02T13:33:53.733746+00:00'
   tools:
@@ -12737,7 +12547,6 @@ servers:
       - video_url
       type: object
 - id: voice-clone-kamui-minimax
-  url: https://kamui-code.ai/voice-clone/minimax
   status: online
   last_checked: '2025-12-02T13:34:04.420105+00:00'
   tools:
