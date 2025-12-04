@@ -370,6 +370,10 @@ ai_models:
       server_name: t2v-kamui-pixverse-v55
       release_date: 2025年12月2日
       features: "(AiShi Technology) 動画生成モデルの最新版。マルチショット（分鏡）生成、音声（台詞・BGM・効果音）の同時生成と同期、詳細なカメラコントロール、キャラクターの一貫性維持などの機能が強化されている。"
+    - name: Kling Video v2.6 Pro
+      server_name: t2v-kamui-kling-video-v26-pro
+      release_date: 2025年12月1日
+      features: "(Kuaishou) 画質と動きの一貫性が向上したKling Videoの最新モデル。最大の特徴はネイティブオーディオ生成機能で、動画の内容に同期した効果音や、中国語・英語の音声対話を生成可能。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -491,6 +495,10 @@ ai_models:
       server_name: i2v-kamui-pixverse-v55
       release_date: 2025年12月2日
       features: "(AiShi Technology) 画像から動画を生成するPixVerseの最新モデル。マルチショット生成や音声（BGM・効果音・台詞）の同時生成に対応し、カメラワーク制御やプロンプト理解力が大幅に向上。"
+    - name: Kling Video v2.6 Pro
+      server_name: i2v-kamui-kling-video-v26-pro
+      release_date: 2025年12月2日
+      features: "(Kuaishou Technology) 画像から高品質な動画を生成する最新モデル。ネイティブオーディオ生成機能（Kamui Code）を搭載し、視覚品質とモーションの一貫性が大幅に向上している。中国語と英語の音声出力に対応。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
