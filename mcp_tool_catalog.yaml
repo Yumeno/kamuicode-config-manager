@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-03T14:45:01.035834+00:00'
-  total_servers: 195
-  online_servers: 195
+  generated_at: '2025-12-04T13:33:51.089142+00:00'
+  total_servers: 197
+  online_servers: 197
   offline_servers: 0
   error_servers: 0
 servers:
@@ -4039,6 +4039,55 @@ servers:
           type: string
         image_url:
           description: 動画に使用する画像のURL（必須）
+          type: string
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-kling-video-v26-pro
+  url: https://kamui-code.ai/i2v/fal/kling-video/v26-pro
+  status: online
+  last_checked: '2025-12-04T13:33:49.639952+00:00'
+  tools:
+  - name: kling_video_v26_pro_image_to_video_result
+    description: Kling Video v2.6 Pro Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_image_to_video_status
+    description: Kling Video v2.6 Pro Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_image_to_video_submit
+    description: Kling Video v2.6 Pro Image-to-Videoを使用して画像から高品質な動画を生成します。ネイティブオーディオ生成にも対応しています。
+    inputSchema:
+      properties:
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: '動画のネイティブオーディオを生成するかどうか。中国語と英語の音声出力に対応。他の言語は英語に自動翻訳されます。英語の音声には小文字を使用し、頭字語や固有名詞には大文字を使用してください。（デフォルト:
+            true）'
+          type: boolean
+        image_url:
+          description: 動画生成に使用する画像のURL（必須）
           type: string
         negative_prompt:
           description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
@@ -9310,6 +9359,57 @@ servers:
         duration:
           description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
           type: string
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-kling-video-v26-pro
+  url: https://kamui-code.ai/t2v/fal/kling-video/v26-pro
+  status: online
+  last_checked: '2025-12-04T13:33:49.523398+00:00'
+  tools:
+  - name: kling_video_v26_pro_text_to_video_result
+    description: Kling Video v2.6 Pro Text-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_text_to_video_status
+    description: Kling Video v2.6 Pro Text-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_text_to_video_submit
+    description: Kling Video v2.6 Pro Text-to-Videoを使用してテキストから高品質な動画を生成します。ネイティブオーディオ生成にも対応しています。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'アスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        cfg_scale:
+          description: 'CFG（Classifier Free Guidance）スケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 5, 10 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: '動画のネイティブオーディオを生成するかどうか。中国語と英語の音声出力に対応。他の言語は英語に自動翻訳されます。英語の音声には小文字を使用し、頭字語や固有名詞には大文字を使用してください。（デフォルト:
+            true）'
+          type: boolean
         negative_prompt:
           description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
           type: string
