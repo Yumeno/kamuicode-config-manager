@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-04T13:33:51.089142+00:00'
-  total_servers: 197
-  online_servers: 197
+  generated_at: '2025-12-05T13:29:51.415042+00:00'
+  total_servers: 199
+  online_servers: 199
   offline_servers: 0
   error_servers: 0
 servers:
@@ -183,6 +183,90 @@ servers:
           type: string
         resolution:
           description: 'Resolution of the generated video (480p or 720p). Default: 480p'
+          type: string
+      required:
+      - image_url
+      - audio_url
+      type: object
+- id: avatar-kamui-kling-video-v2-pro
+  url: https://kamui-code.ai/avatar/fal/kling-video/v2-pro
+  status: online
+  last_checked: '2025-12-05T13:29:49.791531+00:00'
+  tools:
+  - name: kling_video_v2_pro_ai_avatar_result
+    description: Kling Video v2 Pro AI Avatarリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v2_pro_ai_avatar_status
+    description: Kling Video v2 Pro AI Avatarリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v2_pro_ai_avatar_submit
+    description: Kling Video v2 Pro AI Avatarを使用して、画像とオーディオから高品質なアバター動画を生成します。
+    inputSchema:
+      properties:
+        audio_url:
+          description: オーディオファイルのURL（必須）
+          type: string
+        image_url:
+          description: アバターとして使用する画像のURL（必須）
+          type: string
+        prompt:
+          description: '動画生成のためのプロンプト（デフォルト: .）'
+          type: string
+      required:
+      - image_url
+      - audio_url
+      type: object
+- id: avatar-kamui-kling-video-v2-standard
+  url: https://kamui-code.ai/avatar/fal/kling-video/v2-standard
+  status: online
+  last_checked: '2025-12-05T13:29:49.873615+00:00'
+  tools:
+  - name: kling_video_v2_standard_ai_avatar_result
+    description: Kling Video v2 Standard AI Avatarリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v2_standard_ai_avatar_status
+    description: Kling Video v2 Standard AI Avatarリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v2_standard_ai_avatar_submit
+    description: Kling Video v2 Standard AI Avatarを使用して、画像とオーディオからアバター動画を生成します。
+    inputSchema:
+      properties:
+        audio_url:
+          description: オーディオファイルのURL（必須）
+          type: string
+        image_url:
+          description: アバターとして使用する画像のURL（必須）
+          type: string
+        prompt:
+          description: '動画生成のためのプロンプト（デフォルト: .）'
           type: string
       required:
       - image_url
