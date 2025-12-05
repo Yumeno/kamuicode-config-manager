@@ -499,6 +499,14 @@ ai_models:
       server_name: i2v-kamui-kling-video-v26-pro
       release_date: 2025年12月2日
       features: "(Kuaishou Technology) 画像から高品質な動画を生成する最新モデル。ネイティブオーディオ生成機能（Kamui Code）を搭載し、視覚品質とモーションの一貫性が大幅に向上している。中国語と英語の音声出力に対応。"
+    - name: Kling Video v2 Pro AI Avatar
+      server_name: avatar-kamui-kling-video-v2-pro
+      release_date: 2025年9月11日
+      features: "(Kuaishou) 画像と音声から高品質なリップシンク動画を生成するAIアバターモデル。Kling 2.0をベースに、多言語対応の自然な表情や発話アニメーションを実現。"
+    - name: Kling Video v2 Standard AI Avatar
+      server_name: avatar-kamui-kling-video-v2-standard
+      release_date: 2025年12月4日
+      features: "(Kuaishou Technology) 1枚の顔画像と音声ファイルから、音声に同期して口や表情が自然に動くアバター動画を生成するモデル。v2では表現力が大幅に向上し、長時間のコンテンツ生成にも対応。Standard版はコストパフォーマンスに優れる。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
