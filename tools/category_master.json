@@ -102,6 +102,10 @@
     "voice-clone": {
       "category_key": "voice_clone",
       "description": "音声クローン（ボイスデザイン）"
+    },
+    "avatar": {
+      "category_key": "image_to_video",
+      "description": "avatarから始まるモデルのカテゴリ"
     }
   }
 }
