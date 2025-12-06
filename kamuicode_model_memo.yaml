@@ -112,6 +112,22 @@ ai_models:
       server_name: t2i-kamui-fal-bytedance-seedream-v4-5
       release_date: 2025年12月3日
       features: "(ByteDance) 生成と編集を統合したSeedreamアーキテクチャの最新版（中国語名: 即梦）。V4.0から美的品質、一貫性、プロンプト理解が大幅に向上し、4K解像度の生成にも対応。"
+    - name: Vidu Q2 Text to Image
+      server_name: t2i-kamui-vidu-q2-text-to-image
+      release_date: 2025年12月1日
+      features: "(ShengShu Technology) 動画生成AI『Vidu』の技術を応用したテキスト画像生成モデル。高い一貫性と表現力を持ち、1080pから4K解像度での出力や多様なアスペクト比に対応。"
+    - name: FLUX.2 [pro]
+      server_name: t2i-kamui-flux-2-pro
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 最新のFLUX.2アーキテクチャを採用した商用最上位モデル。前世代と比較してプロンプト忠実性と画質が向上し、最大4メガピクセルの高解像度生成、マルチリファレンス（最大10枚）、HEXコードによる色指定、JSONプロンプティングなどの高度な機能を備える。"
+    - name: FLUX.2 [dev]
+      server_name: t2i-kamui-flux-2-text-to-image
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 最新のオープンウェイト画像生成モデル。32Bパラメータを持ち、前世代と比較して写実性、テキストレンダリング、プロンプト追従性が大幅に向上。マルチリファレンス機能により、キャラクターやスタイルの一貫性を維持した生成が可能。"
+    - name: Flux-2 LoRA Gallery Digital Comic Art
+      server_name: t2i-kamui-flux-2-lora-gallery-digital-comic-art
+      release_date: 2025年11月25日
+      features: "(fal.ai) Black Forest LabsのFLUX.2をベースに、fal.aiが提供するLoRAギャラリーの一つ。デジタルコミック調のスタイル変換に特化しており、トリガーワード「d1g1t4l」を使用することで高品質なイラストを生成できる。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -265,6 +281,18 @@ ai_models:
       server_name: i2i-kamui-seedream-v4-5-edit
       release_date: 2025年12月3日
       features: "(ByteDance) 画像生成と編集を統合した最新アーキテクチャ「Seedream 4.5」の編集特化モデル。最大10枚の参照画像を用いた一貫性のあるマルチイメージ編集が可能で、被写体や照明、色調を高精度に維持しながら自然言語による指示で編集を行う。"
+    - name: Kling Image O1
+      server_name: i2i-kamui-kling-image-o1
+      release_date: 2025年12月2日
+      features: "(Kuaishou) 推論能力を持つ次世代の画像編集モデル。`@Image1`等の構文で最大10枚の参照画像を認識し、単純なピクセル操作ではなく文脈を理解した高度な編集や要素の移動が可能。"
+    - name: FLUX.2 [pro] Edit
+      server_name: i2i-kamui-flux-2-pro-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 最先端のクローズド画像生成モデルFLUX.2 [pro]を使用した画像編集機能。テキストプロンプトによる高精度な編集に加え、最大10枚の参照画像を用いたマルチリファレンス編集、4メガピクセルの高解像度出力に対応。スタイル変換や複雑な合成も自然に行える。"
+    - name: FLUX.2 [dev] Edit
+      server_name: i2i-kamui-flux-2-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 最新の32BパラメータモデルFLUX.2 [dev]を使用した画像編集機能。プロンプトによる指示に加え、複数の参照画像を組み合わせた高度な編集（マルチリファレンス）が可能。従来モデルより詳細再現性とプロンプト順守性が大幅に向上している。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -374,6 +402,10 @@ ai_models:
       server_name: t2v-kamui-kling-video-v26-pro
       release_date: 2025年12月1日
       features: "(Kuaishou) 画質と動きの一貫性が向上したKling Videoの最新モデル。最大の特徴はネイティブオーディオ生成機能で、動画の内容に同期した効果音や、中国語・英語の音声対話を生成可能。"
+    - name: HunyuanVideo v1.5
+      server_name: t2v-kamui-hunyuan-video-v15-text-to-video
+      release_date: 2024年11月20日
+      features: "(Tencent) 8.3Bパラメータの軽量かつ高性能な動画生成モデル。DiTアーキテクチャと独自のSSTA注意機構を採用し、コンシューマーGPUでも動作する効率性を実現。テキストおよび画像からの動画生成に対応。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -507,6 +539,14 @@ ai_models:
       server_name: avatar-kamui-kling-video-v2-standard
       release_date: 2025年12月4日
       features: "(Kuaishou Technology) 1枚の顔画像と音声ファイルから、音声に同期して口や表情が自然に動くアバター動画を生成するモデル。v2では表現力が大幅に向上し、長時間のコンテンツ生成にも対応。Standard版はコストパフォーマンスに優れる。"
+    - name: PixVerse V5.5 Effects
+      server_name: i2v-kamui-pixverse-v5.5-effects
+      release_date: 2025年12月3日
+      features: "(PixVerse) 画像から「Kiss Me AI」や「Zombie Mode」などの多彩なエフェクト動画を生成するモデル。PixVerse V5.5の新機能として提供され、テンプレートを選択するだけでキャラクターの変身やアクションを適用可能。音声生成や最大10秒の生成にも対応。"
+    - name: Seedance 1.0 Pro Fast
+      server_name: i2v-kamui-seedance-v1-pro-fast
+      release_date: 2025年10月24日
+      features: "(ByteDance) Seedance 1.0 Proの高速化モデル。推論速度が約3倍向上し、コスト効率に優れる。1080pの高解像度出力、マルチショットの物語一貫性、高いプロンプト忠実度を維持しつつ、クリエイティブな試行錯誤を高速化する動画生成モデル。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -818,3 +858,9 @@ ai_models:
       server_name: misc-kamui-bria-fibo-generate-structured-prompt
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
+
+  reference_to_image:
+    - name: Vidu Q2 Reference to Image
+      server_name: r2i-kamui-vidu-q2-reference-to-image
+      release_date: 2025年12月1日
+      features: "(ShengShu Technology) 複数の参照画像を使用して、被写体やスタイルの一貫性を保ちながら新しい画像を生成するモデル。動画生成モデルVidu Q2と共通のエンジンを使用しており、キャラクターや製品の同一性を維持した画像生成が可能。"
