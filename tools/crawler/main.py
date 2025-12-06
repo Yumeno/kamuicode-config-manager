@@ -9,21 +9,73 @@ Usage:
     python main.py [--output PATH] [--max-concurrent N] [--timeout SECONDS]
 
 Environment Variables:
-    DRIVE_FILE_ID: Google Drive file ID for MCP config JSON (file must be public)
+    DRIVE_FILE_IDS: JSON array of file configs [{"name": "...", "id": "..."}, ...]
+                    or comma-separated IDs for backward compatibility
+    DRIVE_FILE_ID: (Legacy) Single Google Drive file ID for MCP config JSON
 """
 
 import argparse
 import asyncio
+import json
 import logging
 import os
 import sys
 from pathlib import Path
+from typing import TypedDict
 
 from dotenv import load_dotenv
 
 from src.drive_client import DriveClient
 from src.mcp_client import MCPClient
 from src.yaml_generator import YAMLGenerator
+
+
+class FileConfig(TypedDict):
+    """Configuration for a single Drive file."""
+
+    name: str
+    id: str
+
+
+def parse_drive_file_ids(env_value: str) -> list[FileConfig]:
+    """
+    Parse environment variable to list of file configs.
+
+    Supports:
+    - JSON array format: [{"name": "Label", "id": "file_id"}, ...]
+    - Comma-separated IDs: "id1,id2,id3" (backward compatibility)
+
+    Args:
+        env_value: Environment variable value
+
+    Returns:
+        List of FileConfig dicts with name and id
+    """
+    if not env_value:
+        return []
+
+    env_value = env_value.strip()
+
+    # Try JSON array format first
+    if env_value.startswith("["):
+        try:
+            configs = json.loads(env_value)
+            result: list[FileConfig] = []
+            for i, item in enumerate(configs):
+                if isinstance(item, dict):
+                    result.append({
+                        "name": item.get("name", f"Source_{i + 1}"),
+                        "id": item.get("id", ""),
+                    })
+                elif isinstance(item, str):
+                    result.append({"name": f"Source_{i + 1}", "id": item})
+            return [c for c in result if c["id"]]
+        except json.JSONDecodeError:
+            pass
+
+    # Fallback: comma-separated IDs
+    ids = [id.strip() for id in env_value.split(",") if id.strip()]
+    return [{"name": f"Source_{i + 1}", "id": id} for i, id in enumerate(ids)]
 
 # Configure logging
 logging.basicConfig(
@@ -113,10 +165,18 @@ async def main() -> int:
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    # Validate environment variables
-    drive_file_id = os.environ.get("DRIVE_FILE_ID")
-    if not drive_file_id:
-        logger.error("DRIVE_FILE_ID environment variable is not set")
+    # Parse file configs from environment variables
+    # Priority: DRIVE_FILE_IDS (new) > DRIVE_FILE_ID (legacy)
+    file_configs = parse_drive_file_ids(os.environ.get("DRIVE_FILE_IDS", ""))
+
+    # Fallback to legacy single ID
+    if not file_configs:
+        legacy_id = os.environ.get("DRIVE_FILE_ID")
+        if legacy_id:
+            file_configs = [{"name": "Default", "id": legacy_id.strip()}]
+
+    if not file_configs:
+        logger.error("DRIVE_FILE_IDS (or DRIVE_FILE_ID) environment variable is not set")
         return 1
 
     # Determine output path
@@ -131,43 +191,71 @@ async def main() -> int:
     logger.info("MCP Tool Catalog Crawler")
     logger.info("=" * 60)
 
-    # Step 1: Fetch MCP config from Google Drive
-    logger.info("Step 1: Fetching MCP configuration from Google Drive...")
+    # Step 1: Fetch MCP config from Google Drive (multiple sources)
+    logger.info(f"Step 1: Fetching MCP configuration from {len(file_configs)} source(s)...")
     try:
         drive_client = DriveClient()
-        server_configs = await drive_client.fetch_mcp_config(drive_file_id)
-        logger.info(f"Found {len(server_configs)} MCP servers in configuration")
+        server_candidates = await drive_client.fetch_mcp_configs_multi(file_configs)
     except Exception as e:
         logger.error(f"Failed to fetch MCP config from Drive: {e}")
         return 1
 
-    if not server_configs:
+    if not server_candidates:
         logger.warning("No MCP servers found in configuration")
         return 0
 
     # Apply limit if specified
+    server_ids = list(server_candidates.keys())
     if args.limit is not None:
-        server_configs = server_configs[:args.limit]
-        logger.info(f"Limited to first {len(server_configs)} server(s) for testing")
+        server_ids = server_ids[:args.limit]
+        logger.info(f"Limited to first {len(server_ids)} server(s) for testing")
 
-    # Step 2: Crawl MCP servers
-    logger.info(f"Step 2: Crawling {len(server_configs)} MCP servers...")
+    # Step 2: Crawl MCP servers with fallback support
+    logger.info(f"Step 2: Crawling {len(server_ids)} MCP servers...")
     logger.info(f"  Max concurrent: {args.max_concurrent}")
     logger.info(f"  Timeout: {args.timeout}s")
     logger.info(f"  Delay: {args.delay}s")
 
     mcp_client = MCPClient(timeout=args.timeout, delay=args.delay)
+    semaphore = asyncio.Semaphore(args.max_concurrent)
 
-    # Prepare server list (id, url, headers)
-    servers = [
-        (config.id, config.url, config.headers)
-        for config in server_configs
+    async def process_server_with_limit(
+        server_id: str, candidates: list
+    ) -> "ServerResult":
+        async with semaphore:
+            result = await mcp_client.fetch_tools_with_fallback(server_id, candidates)
+            if mcp_client.delay > 0:
+                await asyncio.sleep(mcp_client.delay)
+            return result
+
+    # Create tasks for parallel execution
+    tasks = [
+        process_server_with_limit(server_id, server_candidates[server_id])
+        for server_id in server_ids
     ]
 
-    results = await mcp_client.fetch_multiple(
-        servers,
-        max_concurrent=args.max_concurrent,
-    )
+    # Execute with fallback
+    from datetime import datetime, timezone
+    from src.mcp_client import ServerResult
+
+    raw_results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    # Process results and handle exceptions
+    results: list[ServerResult] = []
+    for i, result in enumerate(raw_results):
+        if isinstance(result, Exception):
+            server_id = server_ids[i]
+            results.append(
+                ServerResult(
+                    id=server_id,
+                    url="(multiple sources)",
+                    status="error",
+                    last_checked=datetime.now(timezone.utc).isoformat(),
+                    error_message=str(result),
+                )
+            )
+        else:
+            results.append(result)
 
     # Log summary
     online = sum(1 for r in results if r.status == "online")
