@@ -23,8 +23,21 @@ pip install \-r requirements.txt
 
 ### **2\. 環境変数の設定**
 
-cp .env.example .env  
-\# .envを編集してDRIVE\_FILE\_IDを設定
+cp .env.example .env
+\# .envを編集してDRIVE\_FILE\_IDSを設定
+
+#### **マルチソース形式（推奨）**
+
+```json
+DRIVE_FILE_IDS=[{"name": "Legacy", "id": "1ABC..."}, {"name": "Latest", "id": "1XYZ..."}]
+```
+
+* **name**: ログ表示用のラベル
+* **id**: Google DriveのファイルID
+* **優先順位**: リストの後方に記述されたファイルを優先（後勝ち）
+  * クローラーは最も優先度の高いソースから接続を試行し、失敗時に次のソースにフォールバック
+
+**後方互換**: `DRIVE_FILE_IDS` が未設定の場合、`DRIVE_FILE_ID`（単一ID）を使用
 
 ### **3\. Google Driveファイルの準備**
 
@@ -91,7 +104,16 @@ python main.py \--merge
 
 | Secret名 | 説明 |
 | :---- | :---- |
-| DRIVE\_FILE\_ID | Google DriveファイルのID（URLの/d/と/の間の文字列） |
+| DRIVE\_FILE\_IDS | JSON配列形式のファイル設定（推奨） |
+| DRIVE\_FILE\_ID | Google DriveファイルのID（後方互換用） |
+
+#### **DRIVE\_FILE\_IDS の形式**
+
+```json
+[{"name": "Legacy", "id": "1ABC_legacy_id"}, {"name": "Latest", "id": "1XYZ_latest_id"}]
+```
+
+**注意**: GitHub SecretsにJSON値を設定する際は、改行なしの1行で記述してください。
 
 ### **ワークフロー**
 
@@ -115,9 +137,9 @@ python main.py \--merge
 
 ## **トラブルシューティング**
 
-### **DRIVE\_FILE\_ID environment variable is not set**
+### **DRIVE\_FILE\_IDS (or DRIVE\_FILE\_ID) environment variable is not set**
 
-.envファイルが存在し、DRIVE\_FILE\_IDが正しく設定されているか確認してください。
+.envファイルが存在し、`DRIVE_FILE_IDS`（推奨）または`DRIVE_FILE_ID`が正しく設定されているか確認してください。
 
 ### **Failed to fetch MCP config from Drive**
 
@@ -128,4 +150,8 @@ python main.py \--merge
 
 \--timeoutを増やすか、--max-concurrentを減らしてみてください：
 
-python main.py \--timeout 120 \--max-concurrent 5  
+python main.py \--timeout 120 \--max-concurrent 5
+
+---
+
+*Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
