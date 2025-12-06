@@ -106,6 +106,10 @@
     "avatar": {
       "category_key": "image_to_video",
       "description": "avatarから始まるモデルのカテゴリ"
+    },
+    "r2i": {
+      "category_key": "reference_to_image",
+      "description": "参照画像(Reference Image)の特徴や被写体を保持しながら、新しい画像を生成するモデル。"
     }
   }
 }
