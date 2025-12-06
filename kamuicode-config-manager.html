@@ -68,6 +68,7 @@
                 mergeMode: 'main',         // マージモード: 'main' | 'secondary' | 'both'
                 mergedJsonContent: null,   // マージ済みJSON
                 originalKeyMap: {},        // リネームされたキー -> 元のキー のマップ（両方を含めるモード用）
+                sourceFileMap: {},         // サーバーキー -> ソースファイル名 のマップ
                 // チェック状態ファイル用の変数
                 checkStateFile: null,
                 checkStateContent: null,
@@ -234,6 +235,7 @@
                     this.secondaryJsonContents = [];
                     this.mergedJsonContent = null;
                     this.originalKeyMap = {}; // リセット
+                    this.sourceFileMap = {};  // リセット
                     // ファイル入力をリセット
                     const input = document.getElementById('secondaryJsonInput');
                     if (input) {
@@ -261,12 +263,18 @@
                     }
 
                     const mainServers = this.jsonContent.mcpServers || {};
+                    const mainFileName = this.jsonFile ? this.jsonFile.name : '主';
                     let mergedServers = {};
                     this.originalKeyMap = {}; // リセット
+                    this.sourceFileMap = {};  // リセット
 
                     // 副JSONがない場合は主のみ
                     if (this.secondaryJsonContents.length === 0) {
                         mergedServers = { ...mainServers };
+                        // 全て主ファイルからのソース
+                        Object.keys(mainServers).forEach(key => {
+                            this.sourceFileMap[key] = mainFileName;
+                        });
                     } else {
                         // マージモードに応じた処理
                         switch (this.mergeMode) {
@@ -277,19 +285,29 @@
                                     Object.entries(secServers).forEach(([key, value]) => {
                                         if (!mergedServers.hasOwnProperty(key) && !mainServers.hasOwnProperty(key)) {
                                             mergedServers[key] = value;
+                                            this.sourceFileMap[key] = secondary.fileName;
                                         }
                                     });
                                 });
                                 // 主を追加（上書き）
-                                Object.assign(mergedServers, mainServers);
+                                Object.entries(mainServers).forEach(([key, value]) => {
+                                    mergedServers[key] = value;
+                                    this.sourceFileMap[key] = mainFileName;
+                                });
                                 break;
 
                             case 'secondary':
                                 // 副を優先: 主を先に追加し、副で上書き
-                                mergedServers = { ...mainServers };
+                                Object.entries(mainServers).forEach(([key, value]) => {
+                                    mergedServers[key] = value;
+                                    this.sourceFileMap[key] = mainFileName;
+                                });
                                 this.secondaryJsonContents.forEach(secondary => {
                                     const secServers = secondary.content.mcpServers || {};
-                                    Object.assign(mergedServers, secServers);
+                                    Object.entries(secServers).forEach(([key, value]) => {
+                                        mergedServers[key] = value;
+                                        this.sourceFileMap[key] = secondary.fileName;
+                                    });
                                 });
                                 break;
 
@@ -301,6 +319,7 @@
                                 Object.entries(mainServers).forEach(([key, value]) => {
                                     mergedServers[key] = value;
                                     usedKeys.add(key);
+                                    this.sourceFileMap[key] = mainFileName;
                                 });
 
                                 // 副を追加（重複時はリネーム）
@@ -316,9 +335,11 @@
                                             usedKeys.add(newKey);
                                             // 元のキーを記録（YAML照合用）
                                             this.originalKeyMap[newKey] = key;
+                                            this.sourceFileMap[newKey] = secondary.fileName;
                                         } else {
                                             mergedServers[key] = value;
                                             usedKeys.add(key);
+                                            this.sourceFileMap[key] = secondary.fileName;
                                         }
                                     });
                                 });
@@ -451,6 +472,7 @@
                         // リネームされたキーの場合は元のキーでYAML照合
                         const lookupKey = this.originalKeyMap[serverName] || serverName;
                         const yamlDetails = this.yamlLookup.get(lookupKey);
+                        const sourceFile = this.sourceFileMap[serverName] || '';
                         let sortableDate = null; // ソート用の日付データを準備
 
                         if (yamlDetails) {
@@ -464,7 +486,8 @@
                                 release_date: yamlDetails.release_date,
                                 features: yamlDetails.features,
                                 sortable_date: sortableDate, // ソート用日付を追加
-                                server_info: serverInfo
+                                server_info: serverInfo,
+                                source_file: sourceFile
                             });
                         } else {
                             // JSONにしか情報がない場合
@@ -476,7 +499,8 @@
                                 release_date: '',
                                 features: serverInfo.description || '(解説なし)', // JSONのdescriptionを流用
                                 sortable_date: null, // ソート用日付(null)を追加
-                                server_info: serverInfo
+                                server_info: serverInfo,
+                                source_file: sourceFile
                             });
                         }
                     }
@@ -1143,6 +1167,10 @@
                                               x-text="getSortIcon('release_date')"></span>
                                     </div>
                                 </th>
+                                <!-- 「ソース」のヘッダー (副JSONがある場合のみ表示) -->
+                                <template x-if="secondaryJsonContents.length > 0">
+                                    <th scope="col" class="w-36 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ソース</th>
+                                </template>
                                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解説</th>
                                 <th scope="col" class="w-28 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ツール詳細</th>
                             </tr>
@@ -1150,7 +1178,7 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             <template x-if="filteredList.length === 0">
                                 <tr>
-                                    <td colspan="6" class="px-6 py-10 text-center text-gray-500">
+                                    <td :colspan="secondaryJsonContents.length > 0 ? 7 : 6" class="px-6 py-10 text-center text-gray-500">
                                         ファイルが読み込まれていないか、フィルタに一致するモデルがありません。
                                     </td>
                                 </tr>
@@ -1167,6 +1195,14 @@
                                         <span class="block text-xs text-gray-400" x-text="model.server_name"></span>
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.release_date"></td>
+                                    <!-- ソース列 (副JSONがある場合のみ表示) -->
+                                    <template x-if="secondaryJsonContents.length > 0">
+                                        <td class="px-4 py-4 text-sm">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
+                                                  :class="model.source_file === (jsonFile ? jsonFile.name : '主') ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'"
+                                                  x-text="model.source_file"></span>
+                                        </td>
+                                    </template>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.features"></td>
                                     <td class="px-4 py-4 text-center">
                                         <template x-if="catalogLoaded && getCatalogServer(model.server_name)">
