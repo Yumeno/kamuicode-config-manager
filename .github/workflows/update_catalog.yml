@@ -49,6 +49,10 @@ jobs:
 
       - name: Run crawler
         env:
+          # Multi-source JSON support (Issue #26)
+          # Format: [{"name": "Label", "id": "file_id"}, ...]
+          DRIVE_FILE_IDS: ${{ secrets.DRIVE_FILE_IDS }}
+          # Legacy single ID (backward compatibility)
           DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
         run: |
           cd tools/crawler
