@@ -61,6 +61,12 @@
                 yamlFile: null,
                 jsonContent: null,
                 yamlContent: null,
+
+                // --- 複数JSON対応 ---
+                secondaryJsonFiles: [],    // 副JSONファイルの配列
+                secondaryJsonContents: [], // パース済み副JSONの配列
+                mergeMode: 'main',         // マージモード: 'main' | 'secondary' | 'both'
+                mergedJsonContent: null,   // マージ済みJSON
                 // チェック状態ファイル用の変数
                 checkStateFile: null,
                 checkStateContent: null,
@@ -174,12 +180,152 @@
                             try {
                                 this.jsonContent = JSON.parse(content);
                                 this.filesReady = true; // JSONが読み込めたらUI表示フラグを立てる
-                                this.checkReady();
+                                this.mergeAndBuildList(); // マージ処理を呼び出し
                             } catch (e) {
                                 this.errorMessage = `JSONの解析に失敗しました: ${e.message}`;
                             }
                         });
                     }
+                },
+
+                // 副JSONファイルを読み込む
+                loadSecondaryJson(event) {
+                    this.errorMessage = '';
+                    this.successMessage = '';
+                    const files = event.target.files;
+                    if (files.length > 0) {
+                        // 既存の副JSONをクリアして新しいものを追加
+                        this.secondaryJsonFiles = [];
+                        this.secondaryJsonContents = [];
+
+                        let loadCount = 0;
+                        const totalFiles = files.length;
+
+                        for (let i = 0; i < files.length; i++) {
+                            const file = files[i];
+                            this.secondaryJsonFiles.push(file);
+
+                            this.readFile(file, (content) => {
+                                try {
+                                    const parsed = JSON.parse(content);
+                                    this.secondaryJsonContents.push({
+                                        fileName: file.name,
+                                        content: parsed
+                                    });
+                                    loadCount++;
+
+                                    // すべてのファイルが読み込まれたらマージ実行
+                                    if (loadCount === totalFiles) {
+                                        this.successMessage = `副JSON ${totalFiles}ファイルを読み込みました`;
+                                        this.mergeAndBuildList();
+                                    }
+                                } catch (e) {
+                                    this.errorMessage = `副JSON "${file.name}" の解析に失敗しました: ${e.message}`;
+                                }
+                            });
+                        }
+                    }
+                },
+
+                // 副JSONをクリア
+                clearSecondaryJson() {
+                    this.secondaryJsonFiles = [];
+                    this.secondaryJsonContents = [];
+                    this.mergedJsonContent = null;
+                    // ファイル入力をリセット
+                    const input = document.getElementById('secondaryJsonInput');
+                    if (input) {
+                        input.value = '';
+                    }
+                    // リストを再構築
+                    if (this.jsonContent) {
+                        this.mergeAndBuildList();
+                    }
+                },
+
+                // マージモードを変更
+                setMergeMode(mode) {
+                    this.mergeMode = mode;
+                    // 主JSONがある場合はリストを再構築
+                    if (this.jsonContent) {
+                        this.mergeAndBuildList();
+                    }
+                },
+
+                // JSONをマージしてリストを構築
+                mergeAndBuildList() {
+                    if (!this.jsonContent) {
+                        return;
+                    }
+
+                    const mainServers = this.jsonContent.mcpServers || {};
+                    let mergedServers = {};
+
+                    // 副JSONがない場合は主のみ
+                    if (this.secondaryJsonContents.length === 0) {
+                        mergedServers = { ...mainServers };
+                    } else {
+                        // マージモードに応じた処理
+                        switch (this.mergeMode) {
+                            case 'main':
+                                // 主を優先: 副を先に追加し、主で上書き
+                                this.secondaryJsonContents.forEach(secondary => {
+                                    const secServers = secondary.content.mcpServers || {};
+                                    Object.entries(secServers).forEach(([key, value]) => {
+                                        if (!mergedServers.hasOwnProperty(key) && !mainServers.hasOwnProperty(key)) {
+                                            mergedServers[key] = value;
+                                        }
+                                    });
+                                });
+                                // 主を追加（上書き）
+                                Object.assign(mergedServers, mainServers);
+                                break;
+
+                            case 'secondary':
+                                // 副を優先: 主を先に追加し、副で上書き
+                                mergedServers = { ...mainServers };
+                                this.secondaryJsonContents.forEach(secondary => {
+                                    const secServers = secondary.content.mcpServers || {};
+                                    Object.assign(mergedServers, secServers);
+                                });
+                                break;
+
+                            case 'both':
+                                // 両方を含める: 重複キーにはサフィックスを追加
+                                const usedKeys = new Set();
+
+                                // 主を追加
+                                Object.entries(mainServers).forEach(([key, value]) => {
+                                    mergedServers[key] = value;
+                                    usedKeys.add(key);
+                                });
+
+                                // 副を追加（重複時はリネーム）
+                                this.secondaryJsonContents.forEach(secondary => {
+                                    const secServers = secondary.content.mcpServers || {};
+                                    const baseName = secondary.fileName.replace(/\.json$/i, '');
+
+                                    Object.entries(secServers).forEach(([key, value]) => {
+                                        if (usedKeys.has(key)) {
+                                            // 重複: サフィックスを追加
+                                            const newKey = `${key}_${baseName}`;
+                                            mergedServers[newKey] = value;
+                                            usedKeys.add(newKey);
+                                        } else {
+                                            mergedServers[key] = value;
+                                            usedKeys.add(key);
+                                        }
+                                    });
+                                });
+                                break;
+                        }
+                    }
+
+                    // マージ結果を保存
+                    this.mergedJsonContent = { mcpServers: mergedServers };
+
+                    // リストを構築
+                    this.buildMasterList();
                 },
 
                 // カスタムモード: ローカルYAMLファイルを読み込む
@@ -272,7 +418,7 @@
                 checkReady() {
                     // JSONコンテンツがあれば、YAMLがなくてもリスト構築を実行
                     if (this.jsonContent) {
-                        this.buildMasterList();
+                        this.mergeAndBuildList();
                     }
                 },
                 buildMasterList() {
@@ -287,7 +433,9 @@
                         return;
                     }
 
-                    const jsonServers = this.jsonContent.mcpServers;
+                    // マージ済みJSONを使用（なければ元のjsonContent）
+                    const sourceJson = this.mergedJsonContent || this.jsonContent;
+                    const jsonServers = sourceJson.mcpServers;
                     if (!jsonServers) {
                         this.errorMessage = "JSONファイルに 'mcpServers' キーが見つかりません。";
                         return;
@@ -701,10 +849,94 @@
 
         <!-- 1. ファイル入力エリア (JSONとYAML) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- 1. JSON読み込み -->
+            <!-- 1. JSON読み込み（複数JSON対応） -->
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-lg font-semibold mb-3">1. mcpServers (.json)</h2>
-                <input type="file" @change="loadJson" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+
+                <!-- 主JSON入力 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        主 (Main) JSON <span class="text-red-500">*</span>
+                    </label>
+                    <input type="file" @change="loadJson" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                    <p class="mt-1 text-xs text-gray-500">基本となる設定ファイルを選択してください</p>
+                </div>
+
+                <!-- 副JSON入力 -->
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-sm font-medium text-gray-700">
+                            副 (Secondary) JSON <span class="text-gray-400 text-xs">(任意・複数可)</span>
+                        </label>
+                        <template x-if="secondaryJsonContents.length > 0">
+                            <button @click="clearSecondaryJson" class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">
+                                クリア
+                            </button>
+                        </template>
+                    </div>
+                    <input type="file" id="secondaryJsonInput" @change="loadSecondaryJson" accept=".json" multiple class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 transition-colors">
+                    <p class="mt-1 text-xs text-gray-500">追加の設定ファイルを複数選択できます</p>
+
+                    <!-- 読み込み済み副JSONの表示 -->
+                    <template x-if="secondaryJsonContents.length > 0">
+                        <div class="mt-2 p-2 bg-green-50 rounded-lg">
+                            <p class="text-xs text-green-700 font-medium mb-1">読み込み済み:</p>
+                            <ul class="text-xs text-green-600 space-y-0.5">
+                                <template x-for="(sec, idx) in secondaryJsonContents" :key="idx">
+                                    <li class="flex items-center">
+                                        <span class="mr-1">•</span>
+                                        <span x-text="sec.fileName"></span>
+                                        <span class="ml-1 text-green-500" x-text="`(${Object.keys(sec.content.mcpServers || {}).length}サーバー)`"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- マージ設定（副JSONがある場合のみ表示） -->
+                <template x-if="secondaryJsonContents.length > 0">
+                    <div class="border-t border-gray-200 pt-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">マージ設定（競合解決ルール）</label>
+                        <div class="space-y-2">
+                            <!-- 主を優先 -->
+                            <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
+                                   :class="mergeMode === 'main' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                <input type="radio" name="mergeMode" value="main"
+                                       x-model="mergeMode" @change="setMergeMode('main')"
+                                       class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <div class="flex-1">
+                                    <span class="block text-sm font-medium text-gray-900">🔘 主を優先 (Default)</span>
+                                    <span class="block text-xs text-gray-500">重複キーは主の設定を使用し、副は無視</span>
+                                </div>
+                            </label>
+
+                            <!-- 副を優先 -->
+                            <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
+                                   :class="mergeMode === 'secondary' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                <input type="radio" name="mergeMode" value="secondary"
+                                       x-model="mergeMode" @change="setMergeMode('secondary')"
+                                       class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <div class="flex-1">
+                                    <span class="block text-sm font-medium text-gray-900">⚪ 副を優先 (Override)</span>
+                                    <span class="block text-xs text-gray-500">重複キーは副の設定で上書き</span>
+                                </div>
+                            </label>
+
+                            <!-- 両方を含める -->
+                            <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
+                                   :class="mergeMode === 'both' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                <input type="radio" name="mergeMode" value="both"
+                                       x-model="mergeMode" @change="setMergeMode('both')"
+                                       class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <div class="flex-1">
+                                    <span class="block text-sm font-medium text-gray-900">⚪ 両方を含める (Keep Both)</span>
+                                    <span class="block text-xs text-gray-500">重複キーは両方表示（副にサフィックス付与）</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </template>
             </div>
 
             <!-- 2. モデル情報 (YAML) 読み込み - 新UI -->
