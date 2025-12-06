@@ -1,9 +1,9 @@
 metadata:
-  generated_at: '2025-12-05T13:29:51.415042+00:00'
-  total_servers: 199
-  online_servers: 199
+  generated_at: '2025-12-06T16:21:35.155544+00:00'
+  total_servers: 210
+  online_servers: 209
   offline_servers: 0
-  error_servers: 0
+  error_servers: 1
 servers:
 - id: 3d23d-kamui-meshy-v5-remesh
   url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
@@ -1222,6 +1222,87 @@ servers:
       required:
       - image_url
       type: object
+- id: i2i-kamui-flux-2-edit
+  url: https://kamui-code.ai/i2i/fal/flux-2/edit
+  status: online
+  last_checked: '2025-12-06T16:21:33.617884+00:00'
+  tools:
+  - name: flux_2_edit_result
+    description: Get result of Flux-2 Edit image editing. Returns URLs to the edited images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_edit_status
+    description: Check status of Flux-2 Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_edit_submit
+    description: Submit Fal.ai Flux-2 Edit image-to-image editing request and receive request ID for polling. Precise modifications
+      using text prompts with optional hex color control.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level (none, regular, high, default: regular)'
+          type: string
+        enable_prompt_expansion:
+          default: false
+          description: 'If set to true, the prompt will be expanded for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable the safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'How strongly the generation should follow the prompt (default: 2.5)'
+          type: number
+        image_size:
+          default: square_hd
+          description: 'Image size preset (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9)
+            or custom object {width: number, height: number} (default: square_hd)'
+          type: string
+        image_urls:
+          description: The URLs of the images for editing. A maximum of 3 images are allowed, if more are provided, only the
+            first 3 will be used
+          type: array
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image with
+          type: string
+        seed:
+          description: The seed to use for the generation. If not provided, a random seed will be used
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media will be returned as a data URI and won''t be stored in request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-flux-2-flex-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-flex/edit
   status: online
@@ -1390,6 +1471,82 @@ servers:
           type: string
         seed:
           description: The seed to use for the generation. If not provided, a random seed will be used
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-flux-2-pro-edit
+  url: https://kamui-code.ai/i2i/fal/flux-2-pro/edit
+  status: online
+  last_checked: '2025-12-06T16:21:33.575508+00:00'
+  tools:
+  - name: flux_2_pro_edit_result
+    description: Get result and download completed Flux-2 Pro Edit image editing to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_edit_status
+    description: Check status of Flux-2 Pro Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_edit_submit
+    description: Submit Fal.ai Flux-2 Pro Edit image editing request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: auto
+          description: 'The size of the generated image. If auto, the size will be determined by the model. Possible values:
+            auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9. For custom sizes, pass an
+            object with width and height (default: auto)'
+          type: string
+        image_urls:
+          description: List of URLs of input images for editing
+          type: array
+        output_format:
+          default: jpeg
+          description: 'The format of the generated image (jpeg, png, default: jpeg)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        safety_tolerance:
+          default: '2'
+          description: 'The safety tolerance level for the generated image. 1 being the most strict and 5 being the most permissive
+            (default: 2)'
+          type: string
+        seed:
+          description: The seed to use for the generation
           type: number
         sync_mode:
           default: false
@@ -2022,6 +2179,65 @@ servers:
           type: boolean
       required:
       - image_url
+      type: object
+- id: i2i-kamui-kling-image-o1
+  url: https://kamui-code.ai/i2i/fal/kling-image/o1
+  status: online
+  last_checked: '2025-12-06T16:21:33.469220+00:00'
+  tools:
+  - name: kling_image_o1_result
+    description: Get result of completed Kling Image O1 generation. Returns Fal response JSON with generated images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o1_status
+    description: Check status of Kling Image O1 processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o1_submit
+    description: Submit Fal.ai Kling Image O1 request for precise edits using strong reference control. Use @Image1, @Image2,
+      etc. in the prompt to refer to images in image_urls.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of generated images (auto, 16:9, 9:16, 1:1, 4:3, 3:4, 3:2, 2:3, 21:9, default: auto)'
+          type: string
+        image_urls:
+          description: List of reference image URLs (1-10). Reference them in prompt with @Image1, @Image2, etc.
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (1-9, default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output image format (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: Text prompt for image generation (max 2500 characters). Reference images using @Image1, @Image2, etc.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Image generation resolution (1K for standard, 2K for high-res, default: 1K)'
+          type: string
+        sync_mode:
+          description: If true, media is returned as data URI and not stored in request history
+          type: boolean
+      required:
+      - prompt
+      - image_urls
       type: object
 - id: i2i-kamui-lucidflux
   url: https://kamui-code.ai/i2i/fal/lucidflux
@@ -4870,6 +5086,75 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-pixverse-v5.5-effects
+  url: https://kamui-code.ai/i2v/fal/pixverse/v5.5/effects
+  status: online
+  last_checked: '2025-12-06T16:21:33.132196+00:00'
+  tools:
+  - name: pixverse_v55_image_to_video_result
+    description: Get result of completed Pixverse V5.5 image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_image_to_video_status
+    description: Check status of Pixverse V5.5 image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v55_image_to_video_submit
+    description: Submit Fal.ai Pixverse V5.5 image-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (longer durations cost more, 1080p limited to 5 or 8)'
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-pixverse-v55
   url: https://kamui-code.ai/i2v/fal/pixverse/v5.5
   status: online
@@ -5010,6 +5295,12 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-seedance-v1-pro-fast
+  url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
+  status: error
+  last_checked: '2025-12-06T16:21:33.621261+00:00'
+  error_message: |
+    Initialize failed: 401 - {"error":"Missing passcode"}
 - id: i2v-kamui-veo3-fast
   url: https://kamui-code.ai/i2v/fal/veo3/fast
   status: online
@@ -5628,6 +5919,54 @@ servers:
           type: boolean
       required:
       - model_file_url
+      type: object
+- id: r2i-kamui-vidu-q2-reference-to-image
+  url: https://kamui-code.ai/r2i/fal/vidu/q2/reference-to-image
+  status: online
+  last_checked: '2025-12-06T16:21:33.074767+00:00'
+  tools:
+  - name: vidu_q2_reference_to_image_result
+    description: Get result of completed Vidu Q2 Reference to Image generation. Returns JSON response with generated image
+      URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_reference_to_image_status
+    description: Check status of Vidu Q2 Reference to Image generation using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_reference_to_image_submit
+    description: Submit Fal.ai Vidu Q2 Reference to Image generation request and receive request ID for polling. Generate
+      images using reference images for consistent subject appearance.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'The aspect ratio of the output image (16:9, 9:16, 1:1, default: ''16:9'')'
+          type: string
+        prompt:
+          description: Text prompt for image generation (max 1500 characters)
+          type: string
+        reference_image_urls:
+          description: URLs of the reference images to use for consistent subject appearance
+          type: array
+        seed:
+          description: Random seed for generation
+          type: number
+      required:
+      - prompt
+      - reference_image_urls
       type: object
 - id: r2v-kamui-bytedance-seedance-v1-lite
   url: https://kamui-code.ai/r2v/fal/bytedance/seedance-v1-lite
@@ -6872,6 +7211,251 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-flux-2-lora-gallery-digital-comic-art
+  url: https://kamui-code.ai/t2i/fal/flux-2-lora-gallery/digital-comic-art
+  status: online
+  last_checked: '2025-12-06T16:21:33.622199+00:00'
+  tools:
+  - name: flux_2_lora_gallery_digital_comic_art_result
+    description: Get result and download completed Flux-2 LoRA Gallery Digital Comic Art text-to-image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_lora_gallery_digital_comic_art_status
+    description: Check status of Flux-2 LoRA Gallery Digital Comic Art text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_lora_gallery_digital_comic_art_submit
+    description: Submit Fal.ai Flux-2 LoRA Gallery Digital Comic Art text-to-image generation request and receive request
+      ID for polling. Use 'd1g1t4l' trigger word in prompt for best results.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level for image generation. ''regular'' balances speed and quality (none, regular, default:
+            regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker for the generated image (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'The CFG (Classifier Free Guidance) scale. Controls how closely the model follows the prompt (default:
+            2.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        lora_scale:
+          default: 1
+          description: 'The strength of the digital comic art effect (default: 1)'
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 40
+          description: 'The number of inference steps to perform (default: 40)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the output image (png, jpeg, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate a digital comic art style image. Use 'd1g1t4l' trigger word for best results
+          type: string
+        seed:
+          description: Random seed for reproducibility. Same seed with same prompt will produce same result
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and won''t be saved in history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-flux-2-pro
+  url: https://kamui-code.ai/t2i/fal/flux-2-pro
+  status: online
+  last_checked: '2025-12-06T16:21:33.537378+00:00'
+  tools:
+  - name: flux_2_pro_result
+    description: Get result and download completed Flux-2 Pro generated image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_status
+    description: Check status of Flux-2 Pro image generation processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_submit
+    description: Submit Fal.ai Flux-2 Pro text-to-image generation request and receive request ID for polling. Generate high-quality
+      images from text prompts.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        output_format:
+          default: jpeg
+          description: 'The format of the generated image (jpeg, png, default: jpeg)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        safety_tolerance:
+          default: '2'
+          description: 'The safety tolerance level for the generated image. 1 being the most strict and 5 being the most permissive
+            (default: 2)'
+          type: string
+        seed:
+          description: The seed to use for the generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-flux-2-text-to-image
+  url: https://kamui-code.ai/t2i/fal/flux-2/text-to-image
+  status: online
+  last_checked: '2025-12-06T16:21:33.611346+00:00'
+  tools:
+  - name: flux_2_text_to_image_result
+    description: Get result and download completed Flux-2 generated image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_text_to_image_status
+    description: Check status of Flux-2 text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_text_to_image_submit
+    description: Submit Fal.ai Flux-2 text-to-image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level to use (none, regular, high, default: regular)'
+          type: string
+        enable_prompt_expansion:
+          default: false
+          description: 'Expand the prompt for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable the safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'Guidance scale to control adherence to the prompt (default: 2.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, returns media as data URI and omits request history output (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-flux-krea-lora
   url: https://kamui-code.ai/t2i/fal/flux-krea-lora
   status: online
@@ -8075,6 +8659,51 @@ servers:
           description: 'If true, wait for image generation and upload before returning response (increases latency but allows
             direct access without CDN, default: false)'
           type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-vidu-q2-text-to-image
+  url: https://kamui-code.ai/t2i/fal/vidu/q2/text-to-image
+  status: online
+  last_checked: '2025-12-06T16:21:32.975403+00:00'
+  tools:
+  - name: vidu_q2_text_to_image_result
+    description: Get result of completed Vidu Q2 Text to Image generation. Returns JSON response with generated image URL
+      and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_text_to_image_status
+    description: Check processing status of Vidu Q2 Text to Image generation request. Returns JSON response with current status
+      and progress.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_text_to_image_submit
+    description: Submit Fal.ai Vidu Q2 Text to Image generation request and receive request ID for polling. Generate images
+      from text prompts.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'The aspect ratio of the output image (16:9, 9:16, 1:1, default: ''16:9'')'
+          type: string
+        prompt:
+          description: Text prompt for image generation (max 1500 characters)
+          type: string
+        seed:
+          description: Random seed for generation
+          type: number
       required:
       - prompt
       type: object
@@ -9355,6 +9984,70 @@ servers:
           default: true
           description: 'Whether to use the model''s prompt optimizer (default: true)'
           type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-hunyuan-video-v15-text-to-video
+  url: https://kamui-code.ai/t2v/fal/hunyuan-video-v1.5/text-to-video
+  status: online
+  last_checked: '2025-12-06T16:21:33.151793+00:00'
+  tools:
+  - name: hunyuan_video_v15_text_to_video_result
+    description: Get result of completed Hunyuan Video v1.5 Text-to-Video generation. Returns JSON response with video URL
+      and seed.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_video_v15_text_to_video_status
+    description: Check status of Hunyuan Video v1.5 Text-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_video_v15_text_to_video_submit
+    description: Submit Fal.ai Hunyuan Video v1.5 Text-to-Video request and receive request ID for polling. Generate videos
+      from text prompts with customizable parameters.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'The aspect ratio of the video. Possible values: 16:9, 9:16 (default: 16:9)'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable prompt expansion to enhance the input prompt (default: true)'
+          type: boolean
+        negative_prompt:
+          default: ''
+          description: 'The negative prompt to guide what not to generate (default: empty string)'
+          type: string
+        num_frames:
+          default: 121
+          description: 'The number of frames to generate (default: 121)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps (default: 28)'
+          type: number
+        prompt:
+          description: The prompt to generate the video
+          type: string
+        resolution:
+          default: 480p
+          description: 'The resolution of the video. Possible values: 480p (default: 480p)'
+          type: string
+        seed:
+          description: Random seed for reproducibility (optional)
+          type: number
       required:
       - prompt
       type: object
