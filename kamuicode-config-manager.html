@@ -67,6 +67,7 @@
                 secondaryJsonContents: [], // パース済み副JSONの配列
                 mergeMode: 'main',         // マージモード: 'main' | 'secondary' | 'both'
                 mergedJsonContent: null,   // マージ済みJSON
+                originalKeyMap: {},        // リネームされたキー -> 元のキー のマップ（両方を含めるモード用）
                 // チェック状態ファイル用の変数
                 checkStateFile: null,
                 checkStateContent: null,
@@ -232,6 +233,7 @@
                     this.secondaryJsonFiles = [];
                     this.secondaryJsonContents = [];
                     this.mergedJsonContent = null;
+                    this.originalKeyMap = {}; // リセット
                     // ファイル入力をリセット
                     const input = document.getElementById('secondaryJsonInput');
                     if (input) {
@@ -260,6 +262,7 @@
 
                     const mainServers = this.jsonContent.mcpServers || {};
                     let mergedServers = {};
+                    this.originalKeyMap = {}; // リセット
 
                     // 副JSONがない場合は主のみ
                     if (this.secondaryJsonContents.length === 0) {
@@ -311,6 +314,8 @@
                                             const newKey = `${key}_${baseName}`;
                                             mergedServers[newKey] = value;
                                             usedKeys.add(newKey);
+                                            // 元のキーを記録（YAML照合用）
+                                            this.originalKeyMap[newKey] = key;
                                         } else {
                                             mergedServers[key] = value;
                                             usedKeys.add(key);
@@ -443,7 +448,9 @@
 
                     for (const serverName of Object.keys(jsonServers)) {
                         const serverInfo = jsonServers[serverName];
-                        const yamlDetails = this.yamlLookup.get(serverName);
+                        // リネームされたキーの場合は元のキーでYAML照合
+                        const lookupKey = this.originalKeyMap[serverName] || serverName;
+                        const yamlDetails = this.yamlLookup.get(lookupKey);
                         let sortableDate = null; // ソート用の日付データを準備
 
                         if (yamlDetails) {
@@ -761,18 +768,24 @@
 
                 // server_nameに対応するカタログ情報を取得
                 getCatalogServer(serverName) {
-                    return this.catalogLookup.get(serverName);
+                    // リネームされたキーの場合は元のキーで照合
+                    const lookupKey = this.originalKeyMap[serverName] || serverName;
+                    return this.catalogLookup.get(lookupKey);
                 },
 
                 // server_nameに対応するツール数を取得
                 getToolCount(serverName) {
-                    const server = this.catalogLookup.get(serverName);
+                    // リネームされたキーの場合は元のキーで照合
+                    const lookupKey = this.originalKeyMap[serverName] || serverName;
+                    const server = this.catalogLookup.get(lookupKey);
                     return server && server.tools ? server.tools.length : 0;
                 },
 
                 // サーバー詳細ダイアログを開く（server_nameから）
                 openToolDialog(serverName) {
-                    const server = this.catalogLookup.get(serverName);
+                    // リネームされたキーの場合は元のキーで照合
+                    const lookupKey = this.originalKeyMap[serverName] || serverName;
+                    const server = this.catalogLookup.get(lookupKey);
                     if (server) {
                         this.selectedServer = server;
                         this.showServerDialog = true;
