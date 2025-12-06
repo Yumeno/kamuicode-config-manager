@@ -270,3 +270,46 @@ class MCPClient:
                 processed_results.append(result)
 
         return processed_results
+
+    async def fetch_tools_with_fallback(
+        self,
+        server_id: str,
+        config_candidates: list,
+    ) -> ServerResult:
+        """
+        Try connecting with configs in reverse order (last-one-wins priority).
+
+        Attempts connection with the highest priority config first (last in list).
+        Falls back to lower priority configs if connection fails.
+
+        Args:
+            server_id: Server identifier
+            config_candidates: List of MCPServerConfig objects, ordered by priority
+                              (last = highest priority)
+
+        Returns:
+            ServerResult from first successful connection, or last failed result
+        """
+        last_result = None
+
+        # Process in reverse order (last = highest priority)
+        for config in reversed(config_candidates):
+            source_name = getattr(config, "source_name", "Unknown")
+            logger.debug(f"[{server_id}] Trying {source_name}: {config.url}")
+
+            result = await self.fetch_tools_schema(
+                server_id, config.url, config.headers
+            )
+            last_result = result
+
+            if result.status == "online":
+                logger.info(f"✅ [{server_id}] Connected via {source_name}")
+                return result
+            else:
+                logger.warning(
+                    f"⚠️ [{server_id}] Failed via {source_name}: {result.error_message}"
+                )
+
+        # All candidates failed
+        logger.error(f"❌ [{server_id}] All {len(config_candidates)} sources failed")
+        return last_result

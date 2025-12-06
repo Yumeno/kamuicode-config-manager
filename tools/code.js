@@ -50,6 +50,9 @@ const DEFAULT_CONFIG = {
 function getConfig() {
   const props = PropertiesService.getScriptProperties();
 
+  // Drive File IDsのパース処理 (JSON配列形式 or カンマ区切り)
+  const driveFileConfigs = parseDriveFileIds(props);
+
   return {
     // GitHub設定
     REPO_OWNER: props.getProperty('REPO_OWNER') || DEFAULT_CONFIG.REPO_OWNER,
@@ -71,8 +74,61 @@ function getConfig() {
     COMMIT_MSG_CATEGORY_MASTER: DEFAULT_CONFIG.COMMIT_MSG_CATEGORY_MASTER,
 
     // YAMLインデント設定
-    INDENT_SIZE: parseInt(props.getProperty('INDENT_SIZE') || DEFAULT_CONFIG.INDENT_SIZE, 10)
+    INDENT_SIZE: parseInt(props.getProperty('INDENT_SIZE') || DEFAULT_CONFIG.INDENT_SIZE, 10),
+
+    // Drive設定 (複数ファイル対応)
+    DRIVE_FILE_CONFIGS: driveFileConfigs
   };
+}
+
+/**
+ * Drive File IDsをパースして [{name, id}, ...] 形式の配列を返す
+ * @param {GoogleAppsScript.Properties.Properties} props - スクリプトプロパティ
+ * @returns {Array<{name: string, id: string}>} ファイル設定の配列
+ */
+function parseDriveFileIds(props) {
+  // 新形式: DRIVE_JSON_FILE_IDS (JSON配列)
+  const rawValue = props.getProperty('DRIVE_JSON_FILE_IDS');
+
+  if (rawValue) {
+    const trimmed = rawValue.trim();
+    // JSON配列形式を試行
+    if (trimmed.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        // 配列内の各要素を正規化
+        if (Array.isArray(parsed)) {
+          return parsed.map((item, i) => {
+            if (typeof item === 'object' && item !== null) {
+              return {
+                name: item.name || `Source_${i + 1}`,
+                id: item.id || ''
+              };
+            } else if (typeof item === 'string') {
+              return { name: `Source_${i + 1}`, id: item };
+            }
+            return { name: `Source_${i + 1}`, id: '' };
+          }).filter(c => c.id);
+        }
+      } catch (e) {
+        console.warn(`JSON parse failed for DRIVE_JSON_FILE_IDS: ${e.message}`);
+      }
+    }
+
+    // 後方互換性: カンマ区切り文字列
+    const ids = trimmed.split(',').map(id => id.trim()).filter(id => id);
+    if (ids.length > 0) {
+      return ids.map((id, i) => ({ name: `Source_${i + 1}`, id: id }));
+    }
+  }
+
+  // 旧形式: DRIVE_JSON_FILE_ID (単一ID) - 後方互換性
+  const legacyId = props.getProperty('DRIVE_JSON_FILE_ID');
+  if (legacyId) {
+    return [{ name: 'Default', id: legacyId.trim() }];
+  }
+
+  return [];
 }
 
 // ==========================================
@@ -322,6 +378,40 @@ function escapeYamlString(str) {
 }
 
 // ==========================================
+// 複数ソースJSON マージ機能
+// ==========================================
+
+/**
+ * 複数のMCP設定ファイルをマージする（後勝ち）
+ * リストの先頭から順に読み込み、後方のファイルで前方を上書きする
+ * @param {Array<{name: string, id: string}>} fileConfigs - ファイル設定の配列
+ * @returns {{mcpServers: object}} マージされた設定
+ */
+function mergeConfigsLastWins(fileConfigs) {
+  let mergedServers = {};
+
+  for (const config of fileConfigs) {
+    try {
+      const file = DriveApp.getFileById(config.id);
+      const content = JSON.parse(file.getBlob().getDataAsString());
+      const servers = content.mcpServers || {};
+      const serverCount = Object.keys(servers).length;
+
+      console.log(`📂 Loaded ${config.name}: ${serverCount} servers`);
+
+      // 後勝ち: スプレッド構文で上書き
+      mergedServers = { ...mergedServers, ...servers };
+    } catch (e) {
+      console.error(`❌ Failed to load ${config.name} (${config.id}): ${e.message}`);
+    }
+  }
+
+  const totalCount = Object.keys(mergedServers).length;
+  console.log(`✅ Merged total: ${totalCount} servers`);
+  return { mcpServers: mergedServers };
+}
+
+// ==========================================
 // メイン関数
 // ==========================================
 function main() {
@@ -334,11 +424,18 @@ function main() {
   // 必須プロパティの取得
   const geminiKey = props.getProperty('GEMINI_API_KEY');
   const githubToken = props.getProperty('GITHUB_TOKEN');
-  const driveFileId = props.getProperty('DRIVE_JSON_FILE_ID');
   const geminiModel = props.getProperty('GEMINI_MODEL_NAME'); // 例: gemini-1.5-pro
 
-  if (!geminiKey || !githubToken || !driveFileId || !geminiModel) {
-    console.error('設定不足: スクリプトプロパティ(GEMINI_API_KEY, GITHUB_TOKEN, DRIVE_JSON_FILE_ID, GEMINI_MODEL_NAME)を確認してください。');
+  // Drive設定の確認 (複数ファイル対応)
+  const fileConfigs = CONFIG.DRIVE_FILE_CONFIGS;
+
+  if (!geminiKey || !githubToken || !geminiModel) {
+    console.error('設定不足: スクリプトプロパティ(GEMINI_API_KEY, GITHUB_TOKEN, GEMINI_MODEL_NAME)を確認してください。');
+    return;
+  }
+
+  if (fileConfigs.length === 0) {
+    console.error('設定不足: DRIVE_JSON_FILE_IDS (または DRIVE_JSON_FILE_ID) を設定してください。');
     return;
   }
 
@@ -346,17 +443,20 @@ function main() {
   let processingQueue = JSON.parse(props.getProperty('PROCESSING_QUEUE') || '[]');
   let isResuming = processingQueue.length > 0;
 
-  // JSON取得 (Drive)
-  console.log('Fetching mcp-kamui-code.json from Google Drive...');
-  let jsonContent;
+  // JSON取得 (Drive) - 複数ファイルのマージ
+  console.log(`📋 Loading ${fileConfigs.length} config file(s) from Google Drive...`);
+  let mcpData;
   try {
-    const file = DriveApp.getFileById(driveFileId);
-    jsonContent = file.getBlob().getDataAsString();
+    mcpData = mergeConfigsLastWins(fileConfigs);
   } catch (e) {
     console.error(`Drive取得エラー: ${e.message}`);
     return;
   }
-  const mcpData = JSON.parse(jsonContent);
+
+  if (!mcpData.mcpServers || Object.keys(mcpData.mcpServers).length === 0) {
+    console.error('有効なMCPサーバー設定が見つかりませんでした。');
+    return;
+  }
 
   // 新規セッション開始時の差分チェック
   if (!isResuming) {
