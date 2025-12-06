@@ -14,16 +14,60 @@ Issue #26 の実装において、GitHub Actions ワークフローファイル 
 ### 変更箇所
 「Run crawler」ステップの `env` セクションに `DRIVE_FILE_IDS` 環境変数を追加します。
 
-### 変更前 (現在の状態)
-```yaml
-      - name: Run crawler
-        env:
-          DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
-        run: |
-```
+### 変更後の完全なファイル
 
-### 変更後
+以下の内容で `.github/workflows/update_catalog.yml` を置き換えてください：
+
 ```yaml
+name: Update MCP Tool Catalog
+
+on:
+  schedule:
+    # Run daily at UTC 13:00 (JST 22:00)
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+    inputs:
+      mode:
+        description: 'Update mode'
+        required: true
+        default: 'merge'
+        type: choice
+        options:
+          - merge
+          - full_rebuild
+      dry_run:
+        description: 'Dry run (do not commit changes)'
+        required: false
+        default: false
+        type: boolean
+      max_concurrent:
+        description: 'Maximum concurrent connections'
+        required: false
+        default: '10'
+        type: string
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: tools/crawler/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/crawler/requirements.txt
+
       - name: Run crawler
         env:
           # Multi-source JSON support (Issue #26)
@@ -31,6 +75,61 @@ Issue #26 の実装において、GitHub Actions ワークフローファイル 
           DRIVE_FILE_IDS: ${{ secrets.DRIVE_FILE_IDS }}
           # Legacy single ID (backward compatibility)
           DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
+        run: |
+          cd tools/crawler
+
+          # Build options
+          OPTIONS="--max-concurrent ${{ inputs.max_concurrent || '10' }}"
+
+          # Add merge option for scheduled runs or when mode is 'merge'
+          # full_rebuild mode does NOT use --merge (complete overwrite)
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.mode }}" = "merge" ]; then
+            OPTIONS="$OPTIONS --merge"
+          fi
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            OPTIONS="$OPTIONS --dry-run --verbose"
+          fi
+
+          echo "Running: python main.py $OPTIONS"
+          python main.py $OPTIONS
+
+      - name: Commit and push if changed
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          # Check if file was generated
+          if [ ! -f mcp_tool_catalog.yaml ]; then
+            echo "No catalog file generated, skipping commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage the file (handles both new and modified files)
+          git add mcp_tool_catalog.yaml
+
+          # Commit only if there are staged changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(catalog): update MCP tool catalog [skip ci]"
+            git push
+            echo "Changes committed and pushed"
+          fi
+```
+
+### 変更点の差分
+
+```diff
+      - name: Run crawler
+        env:
+-          DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
++          # Multi-source JSON support (Issue #26)
++          # Format: [{"name": "Label", "id": "file_id"}, ...]
++          DRIVE_FILE_IDS: ${{ secrets.DRIVE_FILE_IDS }}
++          # Legacy single ID (backward compatibility)
++          DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
         run: |
 ```
 
