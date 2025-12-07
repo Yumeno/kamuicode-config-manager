@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-06T16:21:35.155544+00:00'
-  total_servers: 210
-  online_servers: 209
+  generated_at: '2025-12-07T13:22:35.635627+00:00'
+  total_servers: 213
+  online_servers: 212
   offline_servers: 0
   error_servers: 1
 servers:
@@ -1074,7 +1074,7 @@ servers:
 - id: i2i-kamui-fal-nano-banana-pro-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: online
-  last_checked: '2025-12-03T13:41:07.819689+00:00'
+  last_checked: '2025-12-07T13:22:32.502645+00:00'
   tools:
   - name: nano_banana_pro_edit_result
     description: Get the result and download completed Nano Banana Pro edited images with AI-generated descriptions.
@@ -1117,6 +1117,11 @@ servers:
           - '2:3'
           - '9:16'
           type: string
+        enable_web_search:
+          default: false
+          description: 'Enable web search for the image generation task. This will allow the model to use the latest information
+            from the web to generate the image (default: false)'
+          type: boolean
         image_urls:
           description: The URLs of the images to use for image-to-image generation or image editing
           type: array
@@ -1139,6 +1144,14 @@ servers:
           type: string
         prompt:
           description: The prompt for image editing
+          type: string
+        resolution:
+          default: 1K
+          description: 'The resolution of the image to generate (default: 1K)'
+          enum:
+          - 1K
+          - 2K
+          - 4K
           type: string
         sync_mode:
           default: false
@@ -3351,6 +3364,158 @@ servers:
       required:
       - prompt
       - image_urls
+      type: object
+- id: i2i3d-kamui-fal-sam-3-3d-align
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-align
+  status: online
+  last_checked: '2025-12-07T13:22:34.083860+00:00'
+  tools:
+  - name: sam_3_3d_align_result
+    description: Get completed SAM-3 3D Align result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_align_status
+    description: Check SAM-3 3D Align processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_align_submit
+    description: Submit Fal.ai SAM-3 3D Align request to align a SAM-3D Body mesh with MoGe/SAM-3D Objects for scene composition.
+    inputSchema:
+      properties:
+        body_mask_url:
+          description: Optional URL or data URI of the human mask image; uses full image when omitted
+          type: string
+        body_mesh_url:
+          description: URL or data URI of the SAM-3D Body mesh file (.ply or .glb) to align
+          type: string
+        focal_length:
+          description: Optional focal length from SAM-3D Body metadata; estimated automatically when omitted
+          type: number
+        image_url:
+          description: URL or base64 data URI of the original image used for MoGe depth estimation
+          type: string
+        object_mesh_url:
+          description: Optional URL or data URI of the SAM-3D Object mesh (.glb) to create a combined scene
+          type: string
+      required:
+      - image_url
+      - body_mesh_url
+      type: object
+- id: i2i3d-kamui-fal-sam-3-3d-body
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-body
+  status: online
+  last_checked: '2025-12-07T13:22:33.728454+00:00'
+  tools:
+  - name: sam_3_3d_body_result
+    description: Get completed SAM-3 3D Body reconstruction result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_body_status
+    description: Check SAM-3 3D Body processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_body_submit
+    description: Submit Fal.ai SAM-3 3D Body request to reconstruct a human body mesh from a single image.
+    inputSchema:
+      properties:
+        export_meshes:
+          default: true
+          description: 'Export individual .ply meshes per detected person (default: true)'
+          type: boolean
+        image_url:
+          description: URL or base64 data URI of the image containing humans to reconstruct
+          type: string
+        include_3d_keypoints:
+          default: true
+          description: 'Include 3D keypoint markers in the GLB mesh (default: true)'
+          type: boolean
+        mask_url:
+          description: Optional URL or data URI for a binary mask image (white=person, black=background)
+          type: string
+      required:
+      - image_url
+      type: object
+- id: i2i3d-kamui-fal-sam-3-3d-objects
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-objects
+  status: online
+  last_checked: '2025-12-07T13:22:33.935017+00:00'
+  tools:
+  - name: sam_3_3d_objects_result
+    description: Get completed SAM-3 3D Objects reconstruction result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_objects_status
+    description: Check SAM-3 3D Objects processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_objects_submit
+    description: Submit Fal.ai SAM-3 3D Objects request to reconstruct one or more 3D objects from an image and optional masks
+      or prompts.
+    inputSchema:
+      properties:
+        box_prompts:
+          description: Box prompts for auto-segmentation. Each box should include x_min, y_min, x_max, y_max, and optional
+            object_id.
+          type: array
+        image_url:
+          description: URL or base64 data URI of the image to reconstruct in 3D
+          type: string
+        mask_urls:
+          description: Optional list of mask URLs (one per object). If omitted, prompt/point/box prompts or full-image segmentation
+            is used.
+          type: array
+        point_prompts:
+          description: Point prompts for auto-segmentation. Each prompt should include x, y, label (0 or 1), and optional
+            object_id.
+          type: array
+        pointmap_url:
+          description: Optional URL to external pointmap/depth data (NPY or NPZ) for improved depth estimation
+          type: string
+        prompt:
+          default: car
+          description: 'Text prompt for auto-segmentation when no masks are provided (default: ''car'')'
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - image_url
       type: object
 - id: i2i3d-kamui-hunyuan3d-v21
   url: https://kamui-code.ai/i2i3d/fal/hunyuan/3d-v21
@@ -6792,7 +6957,7 @@ servers:
 - id: t2i-kamui-fal-nano-banana-pro
   url: https://kamui-code.ai/t2i/fal/nano-banana-pro
   status: online
-  last_checked: '2025-12-03T13:41:07.844150+00:00'
+  last_checked: '2025-12-07T13:22:32.506800+00:00'
   tools:
   - name: nano_banana_pro_t2i_result
     description: Get the result and download completed Nano Banana Pro generated images with AI-generated descriptions.
@@ -6834,6 +6999,11 @@ servers:
           - '2:3'
           - '9:16'
           type: string
+        enable_web_search:
+          default: false
+          description: 'Enable web search for the image generation task. This will allow the model to use the latest information
+            from the web to generate the image (default: false)'
+          type: boolean
         limit_generations:
           default: false
           description: 'Experimental parameter to limit the number of generations from each round of prompting to 1 (default:
@@ -6853,6 +7023,14 @@ servers:
           type: string
         prompt:
           description: The text prompt to generate an image from
+          type: string
+        resolution:
+          default: 1K
+          description: 'The resolution of the image to generate (default: 1K)'
+          enum:
+          - 1K
+          - 2K
+          - 4K
           type: string
         sync_mode:
           default: false
