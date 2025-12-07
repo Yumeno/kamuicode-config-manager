@@ -800,6 +800,18 @@ ai_models:
       server_name: i2i3d-kamui-meshy-v5-multi-image-to-3d
       release_date: 2025年8月8日
       features: "(Meshy AI) 1〜4枚の異なる視点からの画像を入力し、単一の高品質な3Dモデルを生成。"
+    - name: SAM 3D Body
+      server_name: i2i3d-kamui-fal-sam-3-3d-body
+      release_date: 2025年11月19日
+      features: "(Meta) 単一画像から高精度な3D人体メッシュとスケルトンを再構成するAIモデル。Segment Anything Model 3 (SAM 3) ファミリーとして公開され、複雑なポーズや体型の推定に優れる。"
+    - name: SAM 3D Objects
+      server_name: i2i3d-kamui-fal-sam-3-3d-objects
+      release_date: 2025年11月19日
+      features: "(Meta) SAM 3と同時に発表された、単一画像から3Dオブジェクトを再構築するモデル。SAM 3の強力なセグメンテーション能力を活用し、プロンプトで指定したオブジェクトの形状とテクスチャを高精度に3D化する。"
+    - name: SAM-3 3D Align
+      server_name: i2i3d-kamui-fal-sam-3-3d-align
+      release_date: 2025年11月19日
+      features: "(Kamui Code) MetaのSAM-3D技術を利用し、人体の3DメッシュをMoGe/SAM-3Dの物体座標系に精密に位置合わせするツール。画像とボディメッシュを入力とし、シーン合成に適した整合性のある3Dデータと視覚化オーバーレイを出力する。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
