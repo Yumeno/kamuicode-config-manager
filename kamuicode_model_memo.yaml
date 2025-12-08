@@ -128,6 +128,10 @@ ai_models:
       server_name: t2i-kamui-flux-2-lora-gallery-digital-comic-art
       release_date: 2025年11月25日
       features: "(fal.ai) Black Forest LabsのFLUX.2をベースに、fal.aiが提供するLoRAギャラリーの一つ。デジタルコミック調のスタイル変換に特化しており、トリガーワード「d1g1t4l」を使用することで高品質なイラストを生成できる。"
+    - name: LongCat Image
+      server_name: t2i-kamui-fal-longcat-image
+      release_date: 2025年12月4日
+      features: "(Meituan) 60億パラメータを持つ高効率なオープンソース画像生成モデル。中国語と英語のバイリンガル対応で、特にテキストレンダリング（文字描写）の精度が高く、フォトリアリスティックな画質と高速な推論が特徴。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -293,6 +297,14 @@ ai_models:
       server_name: i2i-kamui-flux-2-edit
       release_date: 2025年11月25日
       features: "(Black Forest Labs) 最新の32BパラメータモデルFLUX.2 [dev]を使用した画像編集機能。プロンプトによる指示に加え、複数の参照画像を組み合わせた高度な編集（マルチリファレンス）が可能。従来モデルより詳細再現性とプロンプト順守性が大幅に向上している。"
+    - name: Z-Image Turbo ControlNet
+      server_name: i2i-kamui-fal-z-image-turbo-controlnet
+      release_date: 2025年12月1日
+      features: "(Alibaba Tongyi Lab) 6Bパラメータの高速画像生成モデルZ-Image Turbo向けのControlNetモデル。Canny、Depth、Pose等の条件付けに対応し、エッジや深度マップを用いた高速かつ高品質な画像生成が可能。"
+    - name: Z-Image Turbo Image-to-Image
+      server_name: i2i-kamui-fal-z-image-turbo-image-to-image
+      release_date: 2025年11月26日
+      features: "(Tongyi-MAI / Alibaba) 6Bパラメータを持つ高速な画像生成・編集モデル。8ステップという少ない推論数で高品質な画像を生成でき、特に英語と中国語のテキストレンダリング能力に優れている。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
