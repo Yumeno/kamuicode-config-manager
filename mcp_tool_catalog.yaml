@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-07T13:22:35.635627+00:00'
-  total_servers: 213
-  online_servers: 212
+  generated_at: '2025-12-08T12:11:21.493927+00:00'
+  total_servers: 217
+  online_servers: 216
   offline_servers: 0
   error_servers: 1
 servers:
@@ -1071,6 +1071,76 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-fal-longcat-image-edit
+  url: https://kamui-code.ai/i2i/fal/longcat-image/edit
+  status: online
+  last_checked: '2025-12-08T12:11:19.649833+00:00'
+  tools:
+  - name: longcat_image_edit_result
+    description: Get the result JSON for a completed LongCat Image Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_edit_status
+    description: Check status of a LongCat Image Edit request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_edit_submit
+    description: Submit LongCat Image Edit request. Edit images with multilingual text rendering and photorealistic results.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular, or high (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'Guidance scale to steer the edit (default: 4.5)'
+          type: number
+        image_url:
+          description: URL of the image to edit (public URL or Base64 data URI)
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of edited images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, or webp (default: png)'
+          type: string
+        prompt:
+          description: Instruction describing how to edit the image
+          type: string
+        seed:
+          description: Seed for reproducible results
+          type: number
+        sync_mode:
+          default: false
+          description: 'Return media synchronously (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2i-kamui-fal-nano-banana-pro-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: online
@@ -1233,6 +1303,186 @@ servers:
           description: 'Text prompt for segmentation (default: empty string)'
           type: string
       required:
+      - image_url
+      type: object
+- id: i2i-kamui-fal-z-image-turbo-controlnet
+  url: https://kamui-code.ai/i2i/fal/z-image-turbo/controlnet
+  status: online
+  last_checked: '2025-12-08T12:11:19.861789+00:00'
+  tools:
+  - name: z_image_turbo_controlnet_result
+    description: Get result of completed Z-Image Turbo ControlNet image-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_controlnet_status
+    description: Check status of Z-Image Turbo ControlNet image-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_controlnet_submit
+    description: Submit Fal.ai Z-Image Turbo ControlNet image-to-image generation request with edge/depth/pose guidance.
+    inputSchema:
+      properties:
+        acceleration:
+          default: none
+          description: 'Acceleration level (none, regular, high, default: none)'
+          type: string
+        control_end:
+          default: 0.4
+          description: 'End point of ControlNet conditioning (default: 0.4)'
+          type: number
+        control_scale:
+          default: 0.9
+          description: 'Scale of the ControlNet conditioning (default: 0.9)'
+          type: number
+        control_start:
+          description: Start point of ControlNet conditioning (optional)
+          type: number
+        enable_prompt_expansion:
+          default: false
+          description: 'Whether to enable prompt expansion (adds cost, default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: auto
+          description: 'The size of the generated image. Use preset string (square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9, auto) or custom object {width: number, height: number} (default: auto)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            - auto
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_url:
+          description: URL of the reference image for ControlNet guidance
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 8
+          description: 'The number of inference steps to perform (default: 8)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        preprocess:
+          default: none
+          description: 'Preprocessing type for the reference image (none, canny, depth, pose, default: none)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible generations
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and omitted from request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2i-kamui-fal-z-image-turbo-image-to-image
+  url: https://kamui-code.ai/i2i/fal/z-image-turbo/image-to-image
+  status: online
+  last_checked: '2025-12-08T12:11:19.921845+00:00'
+  tools:
+  - name: z_image_turbo_image_to_image_result
+    description: Get result of completed Z-Image Turbo image-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_image_to_image_status
+    description: Check status of Z-Image Turbo image-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_image_to_image_submit
+    description: Submit Fal.ai Z-Image Turbo image-to-image generation request and receive request ID for polling. Edit images
+      with fast multilingual rendering.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level (none, regular, high, default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'CFG guidance scale for image generation (default: 4.5)'
+          type: number
+        image_url:
+          description: URL of the image to edit
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image with
+          type: string
+        seed:
+          description: Seed for reproducible generations
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and omitted from request history (default: false)'
+          type: boolean
+      required:
+      - prompt
       - image_url
       type: object
 - id: i2i-kamui-flux-2-edit
@@ -6950,6 +7200,99 @@ servers:
           default: false
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-longcat-image
+  url: https://kamui-code.ai/t2i/fal/longcat-image
+  status: online
+  last_checked: '2025-12-08T12:11:19.668748+00:00'
+  tools:
+  - name: longcat_image_result
+    description: Get result of completed LongCat Image text-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_status
+    description: Check status of LongCat Image text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_submit
+    description: Submit Fal.ai LongCat Image text-to-image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'The acceleration level to use (none, regular, high, default: regular)'
+          enum:
+          - none
+          - regular
+          - high
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'The guidance scale to use for the image generation (default: 4.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Use presets (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9) or custom object {width: number, height: number} (default: landscape_4_3)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible image generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, media is returned as data URI and not stored in request history (default: false)'
           type: boolean
       required:
       - prompt
