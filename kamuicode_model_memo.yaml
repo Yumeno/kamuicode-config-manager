@@ -305,6 +305,10 @@ ai_models:
       server_name: i2i-kamui-fal-z-image-turbo-image-to-image
       release_date: 2025年11月26日
       features: "(Tongyi-MAI / Alibaba) 6Bパラメータを持つ高速な画像生成・編集モデル。8ステップという少ない推論数で高品質な画像を生成でき、特に英語と中国語のテキストレンダリング能力に優れている。"
+    - name: LongCat Image Edit
+      server_name: i2i-kamui-fal-longcat-image-edit
+      release_date: 2025年12月5日
+      features: "(Meituan) 60億パラメータを持つ高効率な画像編集モデル。特に中国語と英語のバイリンガルテキストレンダリングに優れ、フォトリアリスティックな品質と高い編集一貫性を維持する。fal.ai等のプラットフォームでも利用可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
