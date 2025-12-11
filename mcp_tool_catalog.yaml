@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-11T10:27:09.379818+00:00'
-  total_servers: 220
-  online_servers: 220
+  generated_at: '2025-12-11T13:36:33.894247+00:00'
+  total_servers: 221
+  online_servers: 221
   offline_servers: 0
   error_servers: 0
 servers:
@@ -14086,6 +14086,63 @@ servers:
       required:
       - prompt
       - video_uri
+      type: object
+- id: v2v-kamui-sync-lipsync-react-1
+  url: https://kamui-code.ai/v2v/fal/sync-lipsync/react-1
+  status: online
+  last_checked: '2025-12-11T13:36:32.141744+00:00'
+  tools:
+  - name: sync_lipsync_react_1_result
+    description: Get result of completed Sync Lipsync React-1 generation. Returns Fal JSON with video metadata and URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sync_lipsync_react_1_status
+    description: Check status of Sync Lipsync React-1 generation request. Returns JSON status payload including logs.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sync_lipsync_react_1_submit
+    description: Submit a lipsync request to Fal.ai Sync Lipsync React-1 API. Generates realistic lip sync with emotion control
+      and optional facial/head movement settings.
+    inputSchema:
+      properties:
+        audio_url:
+          description: URL of the input audio (15 seconds or shorter)
+          type: string
+        emotion:
+          description: 'Emotion prompt to drive lip and facial expression. Options: happy, angry, sad, neutral, disgusted,
+            surprised'
+          type: string
+        lipsync_mode:
+          default: bounce
+          description: 'Sync strategy when durations differ. Options: cut_off, loop, bounce (default), silence, remap'
+          type: string
+        model_mode:
+          default: face
+          description: 'Edit scope. Options: lips (minimal changes), face (default), head (adds head motion)'
+          type: string
+        temperature:
+          default: 0.5
+          description: 'Controls expressiveness of the lipsync (default: 0.5)'
+          type: number
+        video_url:
+          description: URL of the input video (15 seconds or shorter)
+          type: string
+      required:
+      - video_url
+      - audio_url
+      - emotion
       type: object
 - id: v2v-kamui-sync-lipsync-v2
   url: https://kamui-code.ai/v2v/fal/sync-lipsync/v2
