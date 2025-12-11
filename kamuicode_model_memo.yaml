@@ -422,6 +422,14 @@ ai_models:
       server_name: t2v-kamui-hunyuan-video-v15-text-to-video
       release_date: 2024年11月20日
       features: "(Tencent) 8.3Bパラメータの軽量かつ高性能な動画生成モデル。DiTアーキテクチャと独自のSSTA注意機構を採用し、コンシューマーGPUでも動作する効率性を実現。テキストおよび画像からの動画生成に対応。"
+    - name: Sora 2 Pro
+      server_name: t2v-kamui-fal-sora-2-pro
+      release_date: 2025年11月5日
+      features: "(OpenAI) 物理シミュレーションと映像品質が大幅に向上した動画生成モデルの第2世代。音声生成やプロンプトへの高い忠実度を備え、Fal.aiを通じて商用利用が可能。"
+    - name: Sora 2 (via Fal)
+      server_name: t2v-kamui-fal-sora-2
+      release_date: 2025年11月5日
+      features: "(OpenAI / Fal) 物理シミュレーションとリアリズムを追求したOpenAIの最新動画生成モデル。音声生成にも対応し、高いプロンプト忠実度と動画品質を誇る。Fal.ai経由でAPI利用が可能。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -563,6 +571,14 @@ ai_models:
       server_name: i2v-kamui-seedance-v1-pro-fast
       release_date: 2025年10月24日
       features: "(ByteDance) Seedance 1.0 Proの高速化モデル。推論速度が約3倍向上し、コスト効率に優れる。1080pの高解像度出力、マルチショットの物語一貫性、高いプロンプト忠実度を維持しつつ、クリエイティブな試行錯誤を高速化する動画生成モデル。"
+    - name: Sora 2 (Image-to-Video)
+      server_name: i2v-kamui-fal-sora-2-pro
+      release_date: 2025年9月30日
+      features: "(OpenAI) 物理シミュレーションと映像品質が飛躍的に向上したSoraの第2世代モデル。画像入力に対応し、Fal.ai経由でPro版として提供。音声同期や複雑な動きの再現に優れる。"
+    - name: Sora 2
+      server_name: i2v-kamui-fal-sora-2
+      release_date: 2025年9月30日
+      features: "(OpenAI) 物理シミュレーション能力が大幅に向上した動画生成モデルの第2世代。画像とテキストプロンプトから、効果音や音声が同期した高品質な動画を生成可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -668,6 +684,10 @@ ai_models:
       server_name: v2v-kamui-kling-video-o1-reference
       release_date: 2025年12月1日
       features: "(Kuaishou) 動画から動画を生成・変換するVideo-to-Videoモデル。参照動画の動きや構図を維持しながら、テキストや参照画像を用いてスタイルや要素を変更可能。テキスト・画像・動画を統合的に理解する新しい『Kling O1』アーキテクチャを採用しており、高い一貫性と編集能力を持つ。"
+    - name: SyncLabs React-1
+      server_name: v2v-kamui-sync-lipsync-react-1
+      release_date: 2025年12月1日
+      features: "(Sync Labs) 音声に合わせて唇の動きを同期させるだけでなく、人物の感情表現や頭の動きまで編集可能な次世代リップシンクモデル。従来のリップシンクを超え、指定した感情（喜び、怒り、悲しみなど）に基づいた自然なパフォーマンスを生成できる。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
