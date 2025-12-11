@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-08T13:32:40.782990+00:00'
-  total_servers: 217
-  online_servers: 217
+  generated_at: '2025-12-11T10:27:09.379818+00:00'
+  total_servers: 220
+  online_servers: 220
   offline_servers: 0
   error_servers: 0
 servers:
@@ -4422,6 +4422,133 @@ servers:
           default: true
           description: 'If set to true, wait for generation before returning (default: true)'
           type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-fal-sora-2
+  url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video
+  status: online
+  last_checked: '2025-12-11T10:27:07.399383+00:00'
+  tools:
+  - name: sora2_image_to_video_result
+    description: Get result of completed Fal.ai Sora 2 Image-to-Video generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_status
+    description: Check status of Fal.ai Sora 2 Image-to-Video request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_submit
+    description: Submit Fal.ai Sora 2 Image-to-Video request. Generates richly detailed video (with audio) from an image and
+      prompt with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. Options: auto, 9:16, 16:9 (default: auto)'
+          enum:
+          - auto
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        image_url:
+          description: URL of the image to use as the first frame
+          type: string
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: auto
+          description: 'Resolution of the generated video. Options: auto, 720p (default: auto)'
+          enum:
+          - auto
+          - 720p
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-fal-sora-2-pro
+  url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video/pro
+  status: online
+  last_checked: '2025-12-11T10:27:07.367716+00:00'
+  tools:
+  - name: sora2_image_to_video_pro_result
+    description: Get result of completed Fal.ai Sora 2 Image-to-Video Pro generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_pro_status
+    description: Check status of Fal.ai Sora 2 Image-to-Video Pro request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_pro_submit
+    description: Submit Fal.ai Sora 2 Image-to-Video Pro request. Generates richly detailed video (with audio) from an image
+      and prompt with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. Options: auto, 9:16, 16:9 (default: auto)'
+          enum:
+          - auto
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        image_url:
+          description: URL of the image to use as the first frame
+          type: string
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: auto
+          description: 'Resolution of the generated video. Options: auto, 720p, 1080p (default: auto)'
+          enum:
+          - auto
+          - 720p
+          - 1080p
+          type: string
       required:
       - prompt
       - image_url
@@ -10443,6 +10570,121 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-fal-sora-2
+  url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video
+  status: online
+  last_checked: '2025-12-11T10:27:07.502561+00:00'
+  tools:
+  - name: sora2_text_to_video_result
+    description: Get result of completed Fal.ai Sora 2 Text-to-Video generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_status
+    description: Check status of Fal.ai Sora 2 Text-to-Video request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_submit
+    description: Submit Fal.ai Sora 2 Text-to-Video request. Generates richly detailed, dynamic video with audio from text
+      prompts with adjustable aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Options: 16:9, 9:16 (default: 16:9)'
+          enum:
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video. Options: 720p (default: 720p)'
+          enum:
+          - 720p
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-sora-2-pro
+  url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video/pro
+  status: online
+  last_checked: '2025-12-11T10:27:07.395168+00:00'
+  tools:
+  - name: sora2_text_to_video_pro_result
+    description: Get result of completed Fal.ai Sora 2 Text-to-Video Pro generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_pro_status
+    description: Check status of Fal.ai Sora 2 Text-to-Video Pro request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_pro_submit
+    description: Submit Fal.ai Sora 2 Text-to-Video Pro request. Generates richly detailed, dynamic video with audio from
+      text prompts with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Options: 16:9, 9:16 (default: 16:9)'
+          enum:
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Resolution of the generated video. Options: 720p, 1080p (default: 1080p)'
+          enum:
+          - 720p
+          - 1080p
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/pro
   status: online
@@ -11138,94 +11380,6 @@ servers:
           type: string
         resolution:
           description: 'The resolution of the generated video. Options: 1080p, 1440p, 2160p. Default: 1080p'
-          type: string
-      required:
-      - prompt
-      type: object
-- id: t2v-kamui-openai-sora
-  url: https://kamui-code.ai/t2v/openai/sora
-  status: online
-  last_checked: '2025-12-03T13:41:04.483803+00:00'
-  tools:
-  - name: openai_sora_remix
-    description: Remix an existing OpenAI Sora video with targeted modifications. Takes a completed video_id and applies changes
-      described in the prompt while preserving the original structure, continuity, and composition. Best for single, focused
-      changes (e.g., 'Change the color palette to teal and rust', 'Add falling snow to the scene').
-    inputSchema:
-      properties:
-        prompt:
-          description: 'Description of the modification to apply. Best results with single, specific changes. Example: ''Shift
-            the color palette to teal, sand, and rust with a warm backlight'' or ''Change the purple monster to orange'''
-          type: string
-        video_id:
-          description: Video ID of a previously completed video to remix. Must be a video generated by OpenAI Sora (e.g.,
-            'video_68d7512d07848190b3e45da0ecbebcde004da08e1e0678d5')
-          type: string
-      required:
-      - video_id
-      - prompt
-      type: object
-  - name: openai_sora_result
-    description: Get download URL for completed OpenAI Sora video. Can retrieve video (MP4), thumbnail (WebP), or spritesheet
-      (JPG). Download URLs are valid for 24 hours after generation.
-    inputSchema:
-      properties:
-        variant:
-          default: video
-          description: 'Type of asset to download: ''video'' (MP4), ''thumbnail'' (WebP preview), or ''spritesheet'' (JPG
-            with multiple frames). Default: video'
-          type: string
-        video_id:
-          description: Video ID received from submit operation
-          type: string
-      required:
-      - video_id
-      type: object
-  - name: openai_sora_status
-    description: 'Check status of OpenAI Sora video generation using video_id. Returns job status: ''queued'', ''in_progress'',
-      ''completed'', or ''failed''. Includes progress percentage when available.'
-    inputSchema:
-      properties:
-        video_id:
-          description: Video ID received from submit operation (e.g., 'video_68d7512d07848190b3e45da0ecbebcde004da08e1e0678d5')
-          type: string
-      required:
-      - video_id
-      type: object
-  - name: openai_sora_submit
-    description: Submit OpenAI Sora video generation request. Supports text-to-video, image-to-video (first frame reference),
-      and remix functionality. Returns a job object with video_id for polling.
-    inputSchema:
-      properties:
-        input_reference:
-          description: 'Optional: **Public URL** to an input image that will serve as the first frame of the video. Image
-            must match the target video resolution (size parameter). Supported formats: image/jpeg, image/png, image/webp.
-            Example: ''https://storage.googleapis.com/bucket/image.jpg''. Note: The server will download the image from the
-            URL and upload it to OpenAI. For local files, first upload to GCS using gcs_upload tool.'
-          type: string
-        model:
-          default: sora-2
-          description: 'Model to use: ''sora-2'' (fast, flexible, good for iteration) or ''sora-2-pro'' (higher quality, production-grade).
-            Default: sora-2'
-          type: string
-        prompt:
-          description: 'Text prompt describing the video you want to generate. Best results with detailed descriptions including
-            shot type, subject, action, setting, and lighting. Example: ''Wide shot of a child flying a red kite in a grassy
-            park, golden hour sunlight, camera slowly pans upward.'''
-          type: string
-        remix_video_id:
-          description: 'Optional: ID of a previously completed video to remix. When provided, the system reuses the original
-            video''s structure while applying modifications described in the prompt. Best for single, focused changes (e.g.,
-            ''Change the color palette to teal and rust'').'
-          type: string
-        seconds:
-          default: '8'
-          description: 'Duration of the generated video in seconds. Supported values vary by model. Default: 8'
-          type: string
-        size:
-          default: 1280x720
-          description: 'Video resolution. Common formats: ''1280x720'' (720p), ''1920x1080'' (1080p), ''720x1280'' (portrait),
-            ''1080x1920'' (portrait HD). Default: 1280x720'
           type: string
       required:
       - prompt
