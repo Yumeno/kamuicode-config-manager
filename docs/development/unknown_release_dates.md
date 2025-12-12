@@ -2,6 +2,15 @@
 
 このドキュメントは、Web検索で特定できなかったモデルのリリース日をリストアップするためのものです。
 
+## 調査報告 (2025-12-12 22:06)
+- **モデル名**: Wan Vision Enhancer (server_name: `v2v-kamui-fal-wan-vision-enhancer`)
+- **推測される開発元**: Fal.ai (Wan-AI / Alibaba Cloud のモデルを利用)
+- **調査で確認した情報源**: 
+  - Wan 2.1 Open Source Release: 2025年2月25日 (GitHub)
+  - Wan 2.5 Preview on Fal: 2025年9月24日 (Fal Blog)
+  - Fal 'Recently Added' List: 2025年12月確認時点で掲載あり
+- **不明な理由**: Fal.ai 上での 'Wan Vision Enhancer' という名称でのリリース告知記事が見当たらず、正確な提供開始日が特定できません。Wan 2.1 (2月) ベースなのか、Wan 2.5 (9月) ベースなのか、あるいはその後に追加されたFal独自のパイプライン (11-12月頃) なのか判別が困難です。
+---
 ## **✅ 調査完了（2025-11-22）**
 
 調査完了: 8/8モデル（100%）  
