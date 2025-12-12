@@ -728,6 +728,10 @@ ai_models:
       server_name: a2v-kamui-veed-fabric-1-0
       release_date: 2025年9月25日
       features: "(Veed.io) 画像と音声から、高度なリップシンクと顔のアニメーションを持つトーキングヘッド動画を生成。"
+    - name: Creatify Aurora
+      server_name: a2v-kamui-creatify-aurora
+      release_date: 2025年9月5日
+      features: "(Creatify) 画像と音声から、唇の動きや表情、ジェスチャーが自然に同期した高忠実度のアバター動画を生成するモデル。静止画1枚からリアルなトーキングヘッドを作成可能。"
   text_to_speech:
     - name: Minimax Speech-02 Turbo
       server_name: t2s-kamui-minimax-speech-02-turbo
