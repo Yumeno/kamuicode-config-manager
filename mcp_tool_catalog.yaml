@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-11T13:36:33.894247+00:00'
-  total_servers: 221
-  online_servers: 221
+  generated_at: '2025-12-12T13:32:50.177642+00:00'
+  total_servers: 223
+  online_servers: 223
   offline_servers: 0
   error_servers: 0
 servers:
@@ -103,6 +103,61 @@ servers:
       required:
       - audio_url
       - prompt
+      type: object
+- id: a2v-kamui-creatify-aurora
+  url: https://kamui-code.ai/a2v/fal/creatify/aurora
+  status: online
+  last_checked: '2025-12-12T13:32:48.390607+00:00'
+  tools:
+  - name: creatify_aurora_result
+    description: Get result of completed Creatify Aurora generation. Returns JSON response with video URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: creatify_aurora_status
+    description: Check status of Creatify Aurora generation request. Returns JSON response with queue state.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: creatify_aurora_submit
+    description: Submit a Creatify Aurora request to Fal.ai to generate an avatar video from an image and audio. Returns JSON
+      response with request_id for status tracking.
+    inputSchema:
+      properties:
+        audio_guidance_scale:
+          default: 2
+          description: 'Guidance scale for audio adherence (default: 2)'
+          type: number
+        audio_url:
+          description: URL of the audio (speech or singing) to drive the animation
+          type: string
+        guidance_scale:
+          default: 1
+          description: 'Guidance scale for prompt adherence (default: 1)'
+          type: number
+        image_url:
+          description: URL of the avatar image to animate
+          type: string
+        prompt:
+          description: Optional text prompt to guide the video generation style and behavior
+          type: string
+        resolution:
+          default: 720p
+          description: 'Output resolution (480p or 720p, default: 720p)'
+          type: string
+      required:
+      - image_url
+      - audio_url
       type: object
 - id: a2v-kamui-kling-video-v1-pro-ai-avatar
   url: https://kamui-code.ai/a2v/fal/kling-video/v1/pro/ai-avatar
@@ -13314,6 +13369,63 @@ servers:
           type: string
         video_url:
           description: The URL of the video to be segmented
+          type: string
+      required:
+      - video_url
+      type: object
+- id: v2v-kamui-fal-wan-vision-enhancer
+  url: https://kamui-code.ai/v2v/fal/wan-vision-enhancer
+  status: online
+  last_checked: '2025-12-12T13:32:48.530175+00:00'
+  tools:
+  - name: wan_vision_enhancer_result
+    description: Get result of completed WAN Vision Enhancer job. Returns Fal.ai JSON including enhanced video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_vision_enhancer_status
+    description: Check status of WAN Vision Enhancer processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_vision_enhancer_submit
+    description: Submit Fal.ai WAN Vision Enhancer request to magnify/enhance a video with high fidelity and creative control.
+      Returns request ID for polling.
+    inputSchema:
+      properties:
+        creativity:
+          default: 1
+          description: Controls enhancement strength (0=minimal change, 1=subtle default, 2=medium, 3=strong, 4=maximum).
+          type: number
+        negative_prompt:
+          description: Negative prompt to avoid unwanted features. Default removes oversaturation, artifacts, clutter, and
+            distorted anatomy.
+          type: string
+        prompt:
+          description: Optional prompt prepended to the auto-generated video description.
+          type: string
+        seed:
+          description: Random seed for reproducibility. If omitted, a random seed is used.
+          type: number
+        target_resolution:
+          default: 720p
+          description: Target output resolution. 720p is native (faster), 1080p upscales after processing.
+          enum:
+          - 720p
+          - 1080p
+          type: string
+        video_url:
+          description: URL of the video to enhance. Videos over ~200MB are rejected, and only the first ~500 frames are processed.
           type: string
       required:
       - video_url
