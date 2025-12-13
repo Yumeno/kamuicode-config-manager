@@ -688,6 +688,10 @@ ai_models:
       server_name: v2v-kamui-sync-lipsync-react-1
       release_date: 2025年12月1日
       features: "(Sync Labs) 音声に合わせて唇の動きを同期させるだけでなく、人物の感情表現や頭の動きまで編集可能な次世代リップシンクモデル。従来のリップシンクを超え、指定した感情（喜び、怒り、悲しみなど）に基づいた自然なパフォーマンスを生成できる。"
+    - name: Wan Vision Enhancer
+      server_name: v2v-kamui-fal-wan-vision-enhancer
+      release_date: 2025年9月28日
+      features: "(Alibaba Cloud / Fal.ai) Wanモデル（Wan 2.5等）をベースにした動画エンハンス・アップスケーリングモデル。動画の解像度（720p/1080p）向上やディテールの復元、プロンプトによるスタイル変換が可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
