@@ -132,6 +132,14 @@ ai_models:
       server_name: t2i-kamui-fal-longcat-image
       release_date: 2025年12月4日
       features: "(Meituan) 60億パラメータを持つ高効率なオープンソース画像生成モデル。中国語と英語のバイリンガル対応で、特にテキストレンダリング（文字描写）の精度が高く、フォトリアリスティックな画質と高速な推論が特徴。"
+    - name: FLUX.2 [max]
+      server_name: t2i-kamui-flux-2-max
+      release_date: 2025年12月16日
+      features: "(Black Forest Labs) FLUX.2シリーズの最上位モデル。リアルタイムのWeb検索情報を反映するGrounded Generation機能を搭載し、最高のプロンプト追従性と編集一貫性を実現。商用API（fal.ai/Replicate）等で提供。"
+    - name: GPT Image 1.5
+      server_name: t2i-kamui-fal-gpt-image-1-5
+      release_date: 2025年12月16日
+      features: "(OpenAI) プロンプトへの忠実性と画像品質が大幅に向上した最新の画像生成モデル。構図や照明、細部の表現力に優れ、特にテキストのレンダリング能力が強化されている。fal.ai経由で提供され、高速な生成と正確な編集が可能。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -309,6 +317,18 @@ ai_models:
       server_name: i2i-kamui-fal-longcat-image-edit
       release_date: 2025年12月5日
       features: "(Meituan) 60億パラメータを持つ高効率な画像編集モデル。特に中国語と英語のバイリンガルテキストレンダリングに優れ、フォトリアリスティックな品質と高い編集一貫性を維持する。fal.ai等のプラットフォームでも利用可能。"
+    - name: Qwen Lighting Restore (Qwen-Image-Edit-2509)
+      server_name: i2i-kamui-qwen-lighting-restore
+      release_date: 2025年9月22日
+      features: "(Alibaba Cloud) Qwen-Image-Edit-2509をベースとした照明補正モデル。画像内のきつい影やハイライトを除去し、柔らかく均一な照明に再構成する。ポートレートや商品写真のライティング修正に特化している。"
+    - name: FLUX.2 [max] Edit
+      server_name: i2i-kamui-flux-2-max-edit
+      release_date: 2025年12月16日
+      features: "(Black Forest Labs) FLUX.2シリーズの最上位モデル。プロンプトの理解力と編集時の被写体・スタイルの維持能力が大幅に向上しており、最高品質の画像編集が可能。"
+    - name: GPT Image 1.5 Edit
+      server_name: i2i-kamui-fal-gpt-image-1-5-edit
+      release_date: 2025年12月16日
+      features: "(OpenAI) GPT Image 1.5モデルを使用した高忠実度な画像編集API。元の画像の構図や照明、細部を維持しながら、プロンプトに忠実な編集が可能。高速な生成速度と改善されたテキストレンダリング機能を備える。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -430,6 +450,10 @@ ai_models:
       server_name: t2v-kamui-fal-sora-2
       release_date: 2025年11月5日
       features: "(OpenAI / Fal) 物理シミュレーションとリアリズムを追求したOpenAIの最新動画生成モデル。音声生成にも対応し、高いプロンプト忠実度と動画品質を誇る。Fal.ai経由でAPI利用が可能。"
+    - name: Wan v2.6 Text-to-Video
+      server_name: t2v-kamui-wan-v2.6
+      release_date: 2025年12月16日
+      features: "(Alibaba Cloud) 高品質な動画生成モデルWanシリーズの最新版。インテリジェントなシーン分割によるマルチショット生成、最大15秒の長尺生成、720p/1080p解像度に対応。LLMによるプロンプト拡張機能を備え、複雑な演出指示にも忠実に追従する。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -579,6 +603,10 @@ ai_models:
       server_name: i2v-kamui-fal-sora-2
       release_date: 2025年9月30日
       features: "(OpenAI) 物理シミュレーション能力が大幅に向上した動画生成モデルの第2世代。画像とテキストプロンプトから、効果音や音声が同期した高品質な動画を生成可能。"
+    - name: Wan v2.6
+      server_name: i2v-kamui-wan-v2.6
+      release_date: 2025年12月12日
+      features: "(Alibaba Cloud) 高品質な動画生成モデル。最大1080p、15秒の生成に対応し、テキストによるモーション制御やマルチショット（シーン分割）、音声同期機能を備える。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -692,6 +720,14 @@ ai_models:
       server_name: v2v-kamui-fal-wan-vision-enhancer
       release_date: 2025年9月28日
       features: "(Alibaba Cloud / Fal.ai) Wanモデル（Wan 2.5等）をベースにした動画エンハンス・アップスケーリングモデル。動画の解像度（720p/1080p）向上やディテールの復元、プロンプトによるスタイル変換が可能。"
+    - name: Veo 3.1 Extend Video
+      server_name: v2v-kamui-fal-veo31-extend-video
+      release_date: 2025年10月15日
+      features: "(Google DeepMind / fal.ai) Googleの最新動画生成モデルVeo 3.1を使用した動画拡張機能。既存の動画クリップをプロンプトに基づいて最大30秒まで延長可能で、映像に同期したオーディオ生成もサポートする。"
+    - name: Veo 3.1 Fast Extend Video
+      server_name: v2v-kamui-fal-veo31-fast-extend-video
+      release_date: 2025年10月15日
+      features: "(Google DeepMind) Googleの動画生成モデルVeo 3.1の高速版（Fast）を使用した動画拡張機能。Veoで生成した動画を最大30秒まで自然に延長可能。720p/1080p対応、オーディオ生成もサポート。fal.ai経由で利用可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -713,6 +749,22 @@ ai_models:
       server_name: r2v-kamui-bytedance-seedance-v1-lite
       release_date: 2025年10月24日頃
       features: "(ByteDance) おそらく参照動画（例: ダンスの動き）を基に、別の被写体で動画を生成する。"
+    - name: Steady Dancer
+      server_name: r2v-kamui-fal-ai-steady-dancer
+      release_date: 2025年11月24日
+      features: "(MCG-NJU / Tencent) 参照画像とポーズ動画からキャラクター動画を生成するImage-to-Videoモデル。Wan 2.1をベースに、最初のフレームのアイデンティティを厳密に維持するFirst-Frame Preservation技術を採用し、一貫性の高いダンス動画生成が可能。"
+    - name: One-to-All Animation 1.3B
+      server_name: r2v-kamui-fal-ai-one-to-all-animation-13b
+      release_date: 2025年11月
+      features: "(Shijun Shi et al.) 1枚の参照画像とポーズ動画からアニメーションを生成するReference-to-Videoモデル。Wan 2.1をベースとし、画像とポーズの位置合わせ不要で動作する点が特徴。"
+    - name: One-to-All Animation 14B
+      server_name: r2v-kamui-fal-ai-one-to-all-animation-14b
+      release_date: 2025年11月
+      features: "(Shijun Shi et al.) 1枚の参照画像と動きを指定する動画からアニメーションを生成するモデル。画像と動画のポーズが一致していなくても自然な動作転送が可能な「Alignment-Free」技術が特徴。14Bモデルは細部の忠実度と安定性が高い。"
+    - name: Wan 2.6
+      server_name: r2v-kamui-wan-v2.6
+      release_date: 2025年12月15日
+      features: "(Alibaba Cloud) 参照動画を用いてキャラクターや被写体の一貫性を保った動画を生成するReference-to-Videoモデル。最大3つの参照動画を入力可能で、1080p解像度やマルチショット生成に対応する。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -736,6 +788,10 @@ ai_models:
       server_name: a2v-kamui-creatify-aurora
       release_date: 2025年9月5日
       features: "(Creatify) 画像と音声から、唇の動きや表情、ジェスチャーが自然に同期した高忠実度のアバター動画を生成するモデル。静止画1枚からリアルなトーキングヘッドを作成可能。"
+    - name: VEED Fabric 1.0
+      server_name: a2v-kamui-fal-veed-fabric-1-0-text
+      release_date: 2025年9月25日
+      features: "(VEED.IO) 静止画と音声/テキストから、自然な口の動きや表情を持つトーキングヘッド動画を生成するモデル。fal.ai API経由で提供。"
   text_to_speech:
     - name: Minimax Speech-02 Turbo
       server_name: t2s-kamui-minimax-speech-02-turbo
