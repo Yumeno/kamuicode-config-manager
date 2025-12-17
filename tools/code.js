@@ -53,6 +53,9 @@ function getConfig() {
   // Drive File IDsのパース処理 (JSON配列形式 or カンマ区切り)
   const driveFileConfigs = parseDriveFileIds(props);
 
+  // フォルダID (再帰探索用)
+  const driveFolderId = (props.getProperty('DRIVE_FOLDER_ID') || '').trim();
+
   return {
     // GitHub設定
     REPO_OWNER: props.getProperty('REPO_OWNER') || DEFAULT_CONFIG.REPO_OWNER,
@@ -77,7 +80,10 @@ function getConfig() {
     INDENT_SIZE: parseInt(props.getProperty('INDENT_SIZE') || DEFAULT_CONFIG.INDENT_SIZE, 10),
 
     // Drive設定 (複数ファイル対応)
-    DRIVE_FILE_CONFIGS: driveFileConfigs
+    DRIVE_FILE_CONFIGS: driveFileConfigs,
+
+    // フォルダ再帰探索設定 (Issue #30)
+    DRIVE_FOLDER_ID: driveFolderId
   };
 }
 
@@ -378,6 +384,104 @@ function escapeYamlString(str) {
 }
 
 // ==========================================
+// 再帰的フォルダ探索機能 (Issue #30)
+// ==========================================
+
+// フィルタリング基準日 (2025年11月20日)
+const DEFAULT_TARGET_DATE = new Date('2025-11-20T00:00:00');
+
+/**
+ * 指定フォルダ以下を再帰的に探索し、条件を満たすMCP設定をマージして返す
+ *
+ * フィルタリング条件:
+ * 1. 更新日時: 2025年11月20日以降
+ * 2. 拡張子: .json
+ * 3. 構造: mcpServersキーを持つ有効なMCP設定
+ *
+ * @param {string} folderId - 監視対象のルートフォルダID
+ * @param {Date} [targetDate] - 基準日 (デフォルト: 2025-11-20)
+ * @returns {{mcpServers: object}} マージされた設定
+ */
+function fetchAllConfigsRecursive(folderId, targetDate) {
+  targetDate = targetDate || DEFAULT_TARGET_DATE;
+
+  const rootFolder = DriveApp.getFolderById(folderId);
+  let mergedServers = {};
+  let validFileCount = 0;
+  let skippedFileCount = 0;
+
+  console.log(`🔍 Starting recursive scan: ${rootFolder.getName()}`);
+  console.log(`📅 Filtering files modified after: ${targetDate.toISOString()}`);
+
+  /**
+   * 再帰処理関数
+   * @param {GoogleAppsScript.Drive.Folder} folder - 現在のフォルダ
+   * @param {string} currentPath - 現在のパス (ログ用)
+   */
+  function traverse(folder, currentPath) {
+    currentPath = currentPath || '';
+    const folderPath = currentPath ? `${currentPath}/${folder.getName()}` : folder.getName();
+
+    // 1. ファイルの処理
+    const files = folder.getFiles();
+    while (files.hasNext()) {
+      const file = files.next();
+      const fileName = file.getName();
+      const filePath = `${folderPath}/${fileName}`;
+
+      // 条件1: 拡張子が .json であること
+      if (!fileName.endsWith('.json')) {
+        continue;
+      }
+
+      // 条件2: 更新日時が基準日以降であること
+      const lastUpdated = file.getLastUpdated();
+      if (lastUpdated < targetDate) {
+        console.log(`⏭️ Skipped (too old): ${filePath} (${lastUpdated.toISOString()})`);
+        skippedFileCount++;
+        continue;
+      }
+
+      try {
+        const contentStr = file.getBlob().getDataAsString();
+        const content = JSON.parse(contentStr);
+
+        // 条件3: 構造チェック (mcpServersキーがあるか、かつオブジェクトか)
+        if (content && content.mcpServers && typeof content.mcpServers === 'object' && !Array.isArray(content.mcpServers)) {
+          const serverCount = Object.keys(content.mcpServers).length;
+          console.log(`✅ Valid: ${filePath} (${serverCount} servers)`);
+
+          // マージ処理 (後勝ち)
+          mergedServers = { ...mergedServers, ...content.mcpServers };
+          validFileCount++;
+        } else {
+          console.log(`⏭️ Skipped (invalid structure): ${filePath}`);
+          skippedFileCount++;
+        }
+      } catch (e) {
+        console.warn(`❌ Error reading ${filePath}: ${e.message}`);
+        skippedFileCount++;
+      }
+    }
+
+    // 2. サブフォルダの再帰処理
+    const subFolders = folder.getFolders();
+    while (subFolders.hasNext()) {
+      const subFolder = subFolders.next();
+      console.log(`📂 Entering folder: ${folderPath}/${subFolder.getName()}`);
+      traverse(subFolder, folderPath);
+    }
+  }
+
+  traverse(rootFolder, '');
+
+  const totalServers = Object.keys(mergedServers).length;
+  console.log(`✅ Folder scan complete: ${validFileCount} valid files, ${skippedFileCount} skipped, ${totalServers} unique servers`);
+
+  return { mcpServers: mergedServers };
+}
+
+// ==========================================
 // 複数ソースJSON マージ機能
 // ==========================================
 
@@ -426,16 +530,17 @@ function main() {
   const githubToken = props.getProperty('GITHUB_TOKEN');
   const geminiModel = props.getProperty('GEMINI_MODEL_NAME'); // 例: gemini-1.5-pro
 
-  // Drive設定の確認 (複数ファイル対応)
+  // Drive設定の確認 (複数ファイル対応 + フォルダ探索)
   const fileConfigs = CONFIG.DRIVE_FILE_CONFIGS;
+  const folderId = CONFIG.DRIVE_FOLDER_ID;
 
   if (!geminiKey || !githubToken || !geminiModel) {
     console.error('設定不足: スクリプトプロパティ(GEMINI_API_KEY, GITHUB_TOKEN, GEMINI_MODEL_NAME)を確認してください。');
     return;
   }
 
-  if (fileConfigs.length === 0) {
-    console.error('設定不足: DRIVE_JSON_FILE_IDS (または DRIVE_JSON_FILE_ID) を設定してください。');
+  if (fileConfigs.length === 0 && !folderId) {
+    console.error('設定不足: DRIVE_JSON_FILE_IDS、DRIVE_JSON_FILE_ID、または DRIVE_FOLDER_ID のいずれかを設定してください。');
     return;
   }
 
@@ -443,14 +548,32 @@ function main() {
   let processingQueue = JSON.parse(props.getProperty('PROCESSING_QUEUE') || '[]');
   let isResuming = processingQueue.length > 0;
 
-  // JSON取得 (Drive) - 複数ファイルのマージ
-  console.log(`📋 Loading ${fileConfigs.length} config file(s) from Google Drive...`);
-  let mcpData;
-  try {
-    mcpData = mergeConfigsLastWins(fileConfigs);
-  } catch (e) {
-    console.error(`Drive取得エラー: ${e.message}`);
-    return;
+  // JSON取得 (Drive) - 複数ファイルのマージ + フォルダ探索
+  let mcpData = { mcpServers: {} };
+
+  // Step 1a: 明示的なファイルIDからの読み込み
+  if (fileConfigs.length > 0) {
+    console.log(`📋 Loading ${fileConfigs.length} explicit config file(s) from Google Drive...`);
+    try {
+      const fileData = mergeConfigsLastWins(fileConfigs);
+      mcpData.mcpServers = { ...mcpData.mcpServers, ...fileData.mcpServers };
+    } catch (e) {
+      console.error(`Drive (explicit files) 取得エラー: ${e.message}`);
+      return;
+    }
+  }
+
+  // Step 1b: フォルダ再帰探索からの読み込み (Issue #30)
+  if (folderId) {
+    console.log(`📂 Scanning folder recursively: ${folderId}`);
+    try {
+      const folderData = fetchAllConfigsRecursive(folderId);
+      // フォルダからの設定は後勝ち (上書き)
+      mcpData.mcpServers = { ...mcpData.mcpServers, ...folderData.mcpServers };
+    } catch (e) {
+      console.error(`Drive (folder scan) 取得エラー: ${e.message}`);
+      return;
+    }
   }
 
   if (!mcpData.mcpServers || Object.keys(mcpData.mcpServers).length === 0) {

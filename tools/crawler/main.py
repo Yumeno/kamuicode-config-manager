@@ -9,9 +9,15 @@ Usage:
     python main.py [--output PATH] [--max-concurrent N] [--timeout SECONDS]
 
 Environment Variables:
+    DRIVE_FOLDER_ID: (New) Google Drive folder ID for recursive scanning.
+                     When set, enables automatic discovery of MCP config files.
     DRIVE_FILE_IDS: JSON array of file configs [{"name": "...", "id": "..."}, ...]
                     or comma-separated IDs for backward compatibility
     DRIVE_FILE_ID: (Legacy) Single Google Drive file ID for MCP config JSON
+    GOOGLE_API_KEY: (Required for folder scan) Google API key with Drive API access
+
+Priority: DRIVE_FILE_IDS > DRIVE_FILE_ID (explicit files take priority)
+          DRIVE_FOLDER_ID configs are merged after explicit files (folder configs win on conflict)
 """
 
 import argparse
@@ -175,8 +181,16 @@ async def main() -> int:
         if legacy_id:
             file_configs = [{"name": "Default", "id": legacy_id.strip()}]
 
-    if not file_configs:
-        logger.error("DRIVE_FILE_IDS (or DRIVE_FILE_ID) environment variable is not set")
+    # Check for folder scan mode
+    folder_id = os.environ.get("DRIVE_FOLDER_ID", "").strip()
+    google_api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+
+    if folder_id and not google_api_key:
+        logger.error("GOOGLE_API_KEY is required when using DRIVE_FOLDER_ID")
+        return 1
+
+    if not file_configs and not folder_id:
+        logger.error("Either DRIVE_FILE_IDS/DRIVE_FILE_ID or DRIVE_FOLDER_ID must be set")
         return 1
 
     # Determine output path
@@ -191,14 +205,39 @@ async def main() -> int:
     logger.info("MCP Tool Catalog Crawler")
     logger.info("=" * 60)
 
-    # Step 1: Fetch MCP config from Google Drive (multiple sources)
-    logger.info(f"Step 1: Fetching MCP configuration from {len(file_configs)} source(s)...")
-    try:
-        drive_client = DriveClient()
-        server_candidates = await drive_client.fetch_mcp_configs_multi(file_configs)
-    except Exception as e:
-        logger.error(f"Failed to fetch MCP config from Drive: {e}")
-        return 1
+    # Step 1: Fetch MCP config from Google Drive
+    drive_client = DriveClient()
+    server_candidates: dict[str, list] = {}
+
+    # Step 1a: Fetch from explicit file IDs (if any)
+    if file_configs:
+        logger.info(f"Step 1a: Fetching MCP configuration from {len(file_configs)} explicit file(s)...")
+        try:
+            file_candidates = await drive_client.fetch_mcp_configs_multi(file_configs)
+            # Merge into server_candidates
+            for server_id, configs in file_candidates.items():
+                if server_id not in server_candidates:
+                    server_candidates[server_id] = []
+                server_candidates[server_id].extend(configs)
+        except Exception as e:
+            logger.error(f"Failed to fetch MCP config from explicit files: {e}")
+            return 1
+
+    # Step 1b: Fetch from folder scan (if enabled)
+    if folder_id:
+        logger.info(f"Step 1b: Scanning folder recursively: {folder_id}")
+        try:
+            folder_candidates = await drive_client.fetch_mcp_configs_from_folder(
+                folder_id, google_api_key
+            )
+            # Merge into server_candidates (folder configs appended, so they take priority)
+            for server_id, configs in folder_candidates.items():
+                if server_id not in server_candidates:
+                    server_candidates[server_id] = []
+                server_candidates[server_id].extend(configs)
+        except Exception as e:
+            logger.error(f"Failed to scan folder: {e}")
+            return 1
 
     if not server_candidates:
         logger.warning("No MCP servers found in configuration")

@@ -3,12 +3,16 @@
 import json
 import logging
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any
 
 import aiohttp
 
 logger = logging.getLogger(__name__)
+
+# Default minimum modified time for folder scan filtering (2025-11-20)
+DEFAULT_MIN_MODIFIED_TIME = "2025-11-20T00:00:00"
 
 
 @dataclass
@@ -216,5 +220,220 @@ class DriveClient:
                     )
 
                 data = json.loads(content)
+
+        return self._extract_servers(data, source_name)
+
+    async def fetch_mcp_configs_from_folder(
+        self,
+        root_folder_id: str,
+        api_key: str,
+        min_modified_time: str | None = None,
+    ) -> dict[str, list[MCPServerConfig]]:
+        """
+        Recursively scan a Google Drive folder and fetch MCP configs from all valid JSON files.
+
+        Filtering conditions:
+        1. Modified after min_modified_time (default: 2025-11-20)
+        2. File extension is .json
+        3. Has valid mcpServers key in root
+
+        Args:
+            root_folder_id: Google Drive folder ID to scan
+            api_key: Google API key for Drive API access
+            min_modified_time: ISO format datetime string (default: 2025-11-20T00:00:00)
+
+        Returns:
+            Dict mapping server_id to list of MCPServerConfig objects
+        """
+        if min_modified_time is None:
+            min_modified_time = DEFAULT_MIN_MODIFIED_TIME
+
+        logger.info(f"🔍 Starting recursive folder scan: {root_folder_id}")
+        logger.info(f"📅 Filtering files modified after: {min_modified_time}")
+
+        # Step 1: Recursively scan for candidate files
+        found_files = await self._scan_folder_recursive(
+            root_folder_id, api_key, min_modified_time
+        )
+
+        logger.info(f"📁 Found {len(found_files)} candidate JSON file(s)")
+
+        # Step 2: Fetch and validate each file
+        server_candidates: dict[str, list[MCPServerConfig]] = {}
+        valid_count = 0
+
+        for file_item in found_files:
+            file_id = file_item["id"]
+            file_name = file_item["name"]
+            file_path = file_item.get("path", file_name)
+
+            try:
+                # Download and parse the file
+                configs = await self._fetch_and_validate_mcp_file(
+                    file_id, f"Auto:{file_path}"
+                )
+
+                if configs:
+                    valid_count += 1
+                    logger.info(f"✅ Valid: {file_path} ({len(configs)} servers)")
+
+                    for server_config in configs:
+                        if server_config.id not in server_candidates:
+                            server_candidates[server_config.id] = []
+                        server_candidates[server_config.id].append(server_config)
+                else:
+                    logger.debug(f"⏭️ Skipped (no mcpServers): {file_path}")
+
+            except Exception as e:
+                logger.warning(f"⚠️ Skipped invalid file {file_path}: {e}")
+                continue
+
+        total_servers = len(server_candidates)
+        logger.info(f"✅ Folder scan complete: {valid_count} valid files, {total_servers} unique servers")
+        return server_candidates
+
+    async def _scan_folder_recursive(
+        self,
+        folder_id: str,
+        api_key: str,
+        min_modified_time: str,
+        current_path: str = "",
+    ) -> list[dict[str, Any]]:
+        """
+        Recursively scan a Google Drive folder for candidate JSON files.
+
+        Uses Drive API v3 with query parameters to filter:
+        - Files with .json extension modified after min_modified_time
+        - Subfolders for recursive traversal
+
+        Args:
+            folder_id: Google Drive folder ID to scan
+            api_key: Google API key
+            min_modified_time: ISO format datetime string for filtering
+            current_path: Current folder path for logging
+
+        Returns:
+            List of file metadata dicts with id, name, mimeType, modifiedTime, path
+        """
+        results: list[dict[str, Any]] = []
+
+        # Drive API v3 endpoint
+        url = "https://www.googleapis.com/drive/v3/files"
+
+        # Query: Items in this folder that are either:
+        # - Folders (for recursion)
+        # - JSON files modified after the threshold
+        query = (
+            f"'{folder_id}' in parents and trashed = false and ("
+            f"mimeType = 'application/vnd.google-apps.folder' or "
+            f"(name contains '.json' and modifiedTime >= '{min_modified_time}')"
+            f")"
+        )
+
+        params = {
+            "q": query,
+            "key": api_key,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime)",
+            "pageSize": 1000,
+        }
+
+        async with aiohttp.ClientSession() as session:
+            page_token = None
+
+            while True:
+                if page_token:
+                    params["pageToken"] = page_token
+
+                async with session.get(url, params=params) as response:
+                    if response.status != 200:
+                        error_text = await response.text()
+                        raise Exception(
+                            f"Drive API error: {response.status} - {error_text}"
+                        )
+
+                    data = await response.json()
+
+                files = data.get("files", [])
+
+                for item in files:
+                    item_name = item["name"]
+                    item_path = f"{current_path}/{item_name}" if current_path else item_name
+                    item["path"] = item_path
+
+                    if item["mimeType"] == "application/vnd.google-apps.folder":
+                        # Recurse into subfolder
+                        logger.debug(f"📂 Entering folder: {item_path}")
+                        sub_results = await self._scan_folder_recursive(
+                            item["id"], api_key, min_modified_time, item_path
+                        )
+                        results.extend(sub_results)
+                    else:
+                        # JSON file candidate
+                        results.append(item)
+
+                page_token = data.get("nextPageToken")
+                if not page_token:
+                    break
+
+        return results
+
+    async def _fetch_and_validate_mcp_file(
+        self, file_id: str, source_name: str
+    ) -> list[MCPServerConfig]:
+        """
+        Fetch a file from Drive and validate it has mcpServers structure.
+
+        Validation criteria:
+        - Root object is a dict
+        - Has 'mcpServers' key
+        - 'mcpServers' value is a dict
+
+        Args:
+            file_id: Google Drive file ID
+            source_name: Label for this source
+
+        Returns:
+            List of MCPServerConfig if valid, empty list otherwise
+        """
+        logger.debug(f"Fetching and validating: {file_id} ({source_name})")
+
+        url = self.DRIVE_DOWNLOAD_URL
+        params = {
+            "export": "download",
+            "id": file_id,
+        }
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, allow_redirects=True) as response:
+                if response.status != 200:
+                    error_text = await response.text()
+                    raise Exception(
+                        f"Failed to fetch file from Drive: {response.status} - {error_text}"
+                    )
+
+                content = await response.text()
+
+                # Check if we got HTML instead of JSON
+                if content.strip().startswith("<!DOCTYPE") or content.strip().startswith("<html"):
+                    raise Exception(
+                        "Received HTML instead of JSON. "
+                        "Make sure the file is shared as 'Anyone with the link can view'."
+                    )
+
+                data = json.loads(content)
+
+        # Validate mcpServers structure
+        if not isinstance(data, dict):
+            logger.debug(f"Invalid structure: root is not an object")
+            return []
+
+        mcp_servers = data.get("mcpServers")
+        if mcp_servers is None:
+            logger.debug(f"Invalid structure: no mcpServers key")
+            return []
+
+        if not isinstance(mcp_servers, dict):
+            logger.debug(f"Invalid structure: mcpServers is not an object")
+            return []
 
         return self._extract_servers(data, source_name)
