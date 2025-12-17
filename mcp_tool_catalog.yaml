@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-17T03:50:06.565078+00:00'
-  total_servers: 237
-  online_servers: 237
+  generated_at: '2025-12-17T13:31:51.874757+00:00'
+  total_servers: 238
+  online_servers: 238
   offline_servers: 0
   error_servers: 0
 servers:
@@ -11879,7 +11879,7 @@ servers:
 - id: t2v-kamui-kling-video-v26-pro
   url: https://kamui-code.ai/t2v/fal/kling-video/v26-pro
   status: online
-  last_checked: '2025-12-12T13:47:53.444661+00:00'
+  last_checked: '2025-12-17T13:31:48.044675+00:00'
   tools:
   - name: kling_video_v26_pro_text_to_video_result
     description: Kling Video v2.6 Pro Text-to-Videoリクエストの結果を取得します。
@@ -11924,6 +11924,9 @@ servers:
         prompt:
           description: 動画生成のためのテキストプロンプト（必須）
           type: string
+        voice_ids:
+          description: 音声制御用のボイスID配列。プロンプト内で<<<voice_1>>>や<<<voice_2>>>として参照します。最大2つまで指定可能。
+          type: array
       required:
       - prompt
       type: object
@@ -15883,4 +15886,39 @@ servers:
           type: string
       required:
       - audio_url
+      type: object
+- id: voice-kamui-kling-video-create-voice
+  url: https://kamui-code.ai/voice/fal/kling-video/create-voice
+  status: online
+  last_checked: '2025-12-17T13:31:50.020929+00:00'
+  tools:
+  - name: kling_video_create_voice_result
+    description: Kling Create Voiceリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_create_voice_status
+    description: Kling Create Voiceリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_create_voice_submit
+    description: Kling Create Voiceで音声ファイルからカスタムボイスを作成します。5-30秒の単一話者の音声が必要です。
+    inputSchema:
+      properties:
+        voice_url:
+          description: 音声ファイルのURL（.mp3/.wav、または音声を含む .mp4/.mov）。5-30秒のノイズの少ない単一話者音声が必要です。
+          type: string
+      required:
+      - voice_url
       type: object
