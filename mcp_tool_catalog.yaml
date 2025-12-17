@@ -1,10 +1,66 @@
 metadata:
-  generated_at: '2025-12-16T13:36:21.458093+00:00'
-  total_servers: 209
-  online_servers: 208
+  generated_at: '2025-12-17T03:50:06.565078+00:00'
+  total_servers: 237
+  online_servers: 237
   offline_servers: 0
-  error_servers: 1
+  error_servers: 0
 servers:
+- id: 3d23d-kamui-meshy-v5-remesh
+  url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
+  status: online
+  last_checked: '2025-12-17T03:49:58.780782+00:00'
+  tools:
+  - name: meshy_v5_remesh_result
+    description: Get result of completed Meshy V5 Remesh as raw JSON. Returns remeshed 3D model in requested formats.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: meshy_v5_remesh_status
+    description: Check status of Meshy V5 Remesh processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: meshy_v5_remesh_submit
+    description: 'Submit Meshy V5 Remesh request to remesh a 3D model. Supports GLB, GLTF, OBJ, FBX, STL formats. Processing
+      time: 3-5 minutes.'
+    inputSchema:
+      properties:
+        model_url:
+          description: URL or base64 data URI of a 3D model to remesh. Supports .glb, .gltf, .obj, .fbx, .stl formats
+          type: string
+        origin_at:
+          description: 'Position of the origin: bottom or center. None means no effect'
+          type: string
+        resize_height:
+          description: Resize the model to a certain height measured in meters. Set to 0 for no resizing
+          type: number
+        target_formats:
+          description: 'List of target formats for the remeshed model. Options: glb, fbx, obj, usdz, stl'
+          type: array
+        target_polycount:
+          default: 30000
+          description: 'Target number of polygons in the generated model. Actual count may vary based on geometry complexity.
+            Default: 30000'
+          minimum: 1000
+          type: number
+        topology:
+          default: triangle
+          description: 'Topology of the generated model: quad (smooth surfaces) or triangle (detailed geometry). Default:
+            triangle'
+          type: string
+      required:
+      - model_url
+      type: object
 - id: a2t-kamui-audio-understanding
   url: https://kamui-code.ai/a2t/fal/audio-understanding
   status: online
@@ -47,6 +103,109 @@ servers:
       required:
       - audio_url
       - prompt
+      type: object
+- id: a2v-kamui-creatify-aurora
+  url: https://kamui-code.ai/a2v/fal/creatify/aurora
+  status: online
+  last_checked: '2025-12-17T03:50:04.160547+00:00'
+  tools:
+  - name: creatify_aurora_result
+    description: Get result of completed Creatify Aurora generation. Returns JSON response with video URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: creatify_aurora_status
+    description: Check status of Creatify Aurora generation request. Returns JSON response with queue state.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: creatify_aurora_submit
+    description: Submit a Creatify Aurora request to Fal.ai to generate an avatar video from an image and audio. Returns JSON
+      response with request_id for status tracking.
+    inputSchema:
+      properties:
+        audio_guidance_scale:
+          default: 2
+          description: 'Guidance scale for audio adherence (default: 2)'
+          type: number
+        audio_url:
+          description: URL of the audio (speech or singing) to drive the animation
+          type: string
+        guidance_scale:
+          default: 1
+          description: 'Guidance scale for prompt adherence (default: 1)'
+          type: number
+        image_url:
+          description: URL of the avatar image to animate
+          type: string
+        prompt:
+          description: Optional text prompt to guide the video generation style and behavior
+          type: string
+        resolution:
+          default: 720p
+          description: 'Output resolution (480p or 720p, default: 720p)'
+          type: string
+      required:
+      - image_url
+      - audio_url
+      type: object
+- id: a2v-kamui-fal-veed-fabric-1-0-text
+  url: https://kamui-code.ai/a2v/fal/veed/fabric-1.0-text
+  status: online
+  last_checked: '2025-12-17T03:50:04.175510+00:00'
+  tools:
+  - name: veed_fabric_10_text_result
+    description: Get result of completed Veed Fabric 1.0 Text video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veed_fabric_10_text_status
+    description: Check status of Veed Fabric 1.0 Text processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veed_fabric_10_text_submit
+    description: Submit Fal.ai Veed Fabric 1.0 Text request to generate talking videos from images and text with AI voice
+      synthesis.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL of the input image to use as the base for video generation
+          type: string
+        resolution:
+          description: 'Resolution of the generated video (480p or 720p). Default: 720p'
+          type: string
+        text:
+          description: Text to be spoken in the generated video
+          type: string
+        voice_description:
+          description: Optional additional voice description. The primary voice description is auto-generated from the image.
+            You can use simple descriptors like 'British accent' or 'Confident' or provide a detailed description like 'Confident
+            male voice, mid-20s, with notes of...'
+          type: string
+      required:
+      - image_url
+      - text
       type: object
 - id: a2v-kamui-kling-video-v1-pro-ai-avatar
   url: https://kamui-code.ai/a2v/fal/kling-video/v1/pro/ai-avatar
@@ -1015,6 +1174,144 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-fal-gpt-image-1-5-edit
+  url: https://kamui-code.ai/i2i/fal/gpt-image-1.5/edit
+  status: online
+  last_checked: '2025-12-17T03:50:04.829407+00:00'
+  tools:
+  - name: gpt_image_1_5_edit_result
+    description: Get the result of a completed GPT Image 1.5 Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gpt_image_1_5_edit_status
+    description: Check the status of a GPT Image 1.5 Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gpt_image_1_5_edit_submit
+    description: Submit GPT Image 1.5 Edit request for high-fidelity image editing with strong prompt adherence and composition
+      preservation.
+    inputSchema:
+      properties:
+        background:
+          default: auto
+          description: 'Background mode: auto, transparent, opaque (default: auto)'
+          type: string
+        image_size:
+          default: auto
+          description: 'Aspect ratio preset: auto, 1024x1024, 1536x1024, 1024x1536 (default: auto)'
+          type: string
+        image_urls:
+          description: List of URLs of input images for editing
+          type: array
+        input_fidelity:
+          default: high
+          description: 'Input fidelity preset: low or high (default: high)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format for the images: jpeg, png, or webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt for image editing
+          type: string
+        quality:
+          default: high
+          description: 'Quality preset: low, medium, high (default: high)'
+          type: string
+        sync_mode:
+          default: false
+          description: 'When true, images will be returned as data URIs instead of URLs (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-fal-longcat-image-edit
+  url: https://kamui-code.ai/i2i/fal/longcat-image/edit
+  status: online
+  last_checked: '2025-12-17T03:50:03.509565+00:00'
+  tools:
+  - name: longcat_image_edit_result
+    description: Get the result JSON for a completed LongCat Image Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_edit_status
+    description: Check status of a LongCat Image Edit request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_edit_submit
+    description: Submit LongCat Image Edit request. Edit images with multilingual text rendering and photorealistic results.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular, or high (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'Guidance scale to steer the edit (default: 4.5)'
+          type: number
+        image_url:
+          description: URL of the image to edit (public URL or Base64 data URI)
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of edited images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, or webp (default: png)'
+          type: string
+        prompt:
+          description: Instruction describing how to edit the image
+          type: string
+        seed:
+          description: Seed for reproducible results
+          type: number
+        sync_mode:
+          default: false
+          description: 'Return media synchronously (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2i-kamui-fal-nano-banana-pro-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: online
@@ -1177,6 +1474,210 @@ servers:
           description: 'Text prompt for segmentation (default: empty string)'
           type: string
       required:
+      - image_url
+      type: object
+- id: i2i-kamui-fal-z-image-turbo-controlnet
+  url: https://kamui-code.ai/i2i/fal/z-image-turbo/controlnet
+  status: online
+  last_checked: '2025-12-17T03:50:03.656132+00:00'
+  tools:
+  - name: z_image_turbo_controlnet_result
+    description: Get result of completed Z-Image Turbo ControlNet image-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_controlnet_status
+    description: Check status of Z-Image Turbo ControlNet image-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_controlnet_submit
+    description: Submit Fal.ai Z-Image Turbo ControlNet image-to-image generation request with edge/depth/pose guidance.
+    inputSchema:
+      properties:
+        acceleration:
+          default: none
+          description: 'Acceleration level (none, regular, high, default: none)'
+          type: string
+        control_end:
+          default: 0.4
+          description: 'End point of ControlNet conditioning (default: 0.4)'
+          type: number
+        control_scale:
+          default: 0.9
+          description: 'Scale of the ControlNet conditioning (default: 0.9)'
+          type: number
+        control_start:
+          description: Start point of ControlNet conditioning (optional)
+          type: number
+        enable_prompt_expansion:
+          default: false
+          description: 'Whether to enable prompt expansion (adds cost, default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: auto
+          description: 'The size of the generated image. Use preset string (square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9, auto) or custom object {width: number, height: number} (default: auto)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            - auto
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_url:
+          description: URL of the reference image for ControlNet guidance
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 8
+          description: 'The number of inference steps to perform (default: 8)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        preprocess:
+          default: none
+          description: 'Preprocessing type for the reference image (none, canny, depth, pose, default: none)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible generations
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and omitted from request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2i-kamui-fal-z-image-turbo-image-to-image
+  url: https://kamui-code.ai/i2i/fal/z-image-turbo/image-to-image
+  status: online
+  last_checked: '2025-12-17T03:50:03.660578+00:00'
+  tools:
+  - name: z_image_turbo_image_to_image_result
+    description: Get result of completed Z-Image Turbo image-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_image_to_image_status
+    description: Check status of Z-Image Turbo image-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_turbo_image_to_image_submit
+    description: Submit Fal.ai Z-Image Turbo image-to-image generation request and receive request ID for polling. Edit images
+      with fast multilingual rendering.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level (none, regular, high, default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'CFG guidance scale for image generation (default: 4.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Generated image size. Presets: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            auto, or custom {width,height} (default: landscape_4_3)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            - auto
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_url:
+          description: URL of the image to edit
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image with
+          type: string
+        seed:
+          description: Seed for reproducible generations
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and omitted from request history (default: false)'
+          type: boolean
+      required:
+      - prompt
       - image_url
       type: object
 - id: i2i-kamui-flux-2-edit
@@ -1428,6 +1929,82 @@ servers:
           type: string
         seed:
           description: The seed to use for the generation. If not provided, a random seed will be used
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-flux-2-max-edit
+  url: https://kamui-code.ai/i2i/fal/flux-2-max/edit
+  status: online
+  last_checked: '2025-12-17T03:50:04.822785+00:00'
+  tools:
+  - name: flux_2_max_edit_result
+    description: Get result and download completed Flux-2 Max Edit edited image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_max_edit_status
+    description: Check status of Flux-2 Max Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_max_edit_submit
+    description: Submit Fal.ai Flux-2 Max Edit image editing request and receive request ID for polling. Edit existing images
+      using text prompts with highest quality.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: auto
+          description: 'The size of the generated image. Possible values: auto, square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9. For custom sizes, pass an object with width and height (default: auto)'
+          type: string
+        image_urls:
+          description: List of URLs of input images for editing
+          type: array
+        output_format:
+          default: jpeg
+          description: 'The format of the generated image (jpeg, png, default: jpeg)'
+          type: string
+        prompt:
+          description: The prompt to generate an edited image from
+          type: string
+        safety_tolerance:
+          default: '2'
+          description: 'The safety tolerance level for the generated image. 1 being the most strict and 5 being the most permissive
+            (default: 2)'
+          type: string
+        seed:
+          description: The seed to use for the generation
           type: number
         sync_mode:
           default: false
@@ -3046,6 +3623,88 @@ servers:
       required:
       - image_urls
       type: object
+- id: i2i-kamui-qwen-lighting-restore
+  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/lighting-restoration
+  status: online
+  last_checked: '2025-12-17T03:50:01.638203+00:00'
+  tools:
+  - name: qwen_image_edit_plus_lora_gallery_lighting_restoration_result
+    description: Get the result of a completed Qwen Image Edit Plus LoRA Gallery Lighting Restoration request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_plus_lora_gallery_lighting_restoration_status
+    description: Check the status of a Qwen Image Edit Plus LoRA Gallery Lighting Restoration processing request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_plus_lora_gallery_lighting_restoration_submit
+    description: 'Submit a Qwen Image Edit Plus LoRA Gallery Lighting Restoration request. Restores natural lighting by removing
+      harsh shadows and light spots. Removes harsh shadows, highlights, and directional lighting. Removes visible light spots
+      and shadows. Applies neutral, soft illumination across the image. Relights the image with soft, even light. Perfect
+      for restoring photos with harsh or uneven lighting, normalizing lighting across photo collections, removing unwanted
+      lighting effects, and preparing images for consistent relighting. Note: This uses a fixed prompt optimized for lighting
+      restoration - no prompt input needed. Works best with: Portrait and product photography.'
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level for image generation. ''regular'' balances speed and quality. Possible values:
+            none, regular (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker for the generated image (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 1
+          description: 'The CFG (Classifier Free Guidance) scale. Controls how closely the model follows the prompt (default:
+            1)'
+          type: number
+        image_size:
+          description: 'The size of the generated image. Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9) or custom dimensions {width: number, height: number}. If not provided, the size
+            of the final input image will be used.'
+          type: string
+        image_urls:
+          description: Array of URLs of the images to restore lighting for.
+          type: array
+        negative_prompt:
+          default: ' '
+          description: 'The negative prompt for the generation (default: '' '')'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 6
+          description: 'The number of inference steps to perform (default: 6)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the output image. Possible values: png, jpeg, webp (default: png)'
+          type: string
+        seed:
+          description: Random seed for reproducibility. Same seed with same prompt will produce same result.
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and won''t be saved in history (default: false)'
+          type: boolean
+      required:
+      - image_urls
+      type: object
 - id: i2i-kamui-reve-edit
   url: https://kamui-code.ai/i2i/fal/reve/edit
   status: online
@@ -3336,6 +3995,158 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i3d-kamui-fal-sam-3-3d-align
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-align
+  status: online
+  last_checked: '2025-12-17T03:50:03.495938+00:00'
+  tools:
+  - name: sam_3_3d_align_result
+    description: Get completed SAM-3 3D Align result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_align_status
+    description: Check SAM-3 3D Align processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_align_submit
+    description: Submit Fal.ai SAM-3 3D Align request to align a SAM-3D Body mesh with MoGe/SAM-3D Objects for scene composition.
+    inputSchema:
+      properties:
+        body_mask_url:
+          description: Optional URL or data URI of the human mask image; uses full image when omitted
+          type: string
+        body_mesh_url:
+          description: URL or data URI of the SAM-3D Body mesh file (.ply or .glb) to align
+          type: string
+        focal_length:
+          description: Optional focal length from SAM-3D Body metadata; estimated automatically when omitted
+          type: number
+        image_url:
+          description: URL or base64 data URI of the original image used for MoGe depth estimation
+          type: string
+        object_mesh_url:
+          description: Optional URL or data URI of the SAM-3D Object mesh (.glb) to create a combined scene
+          type: string
+      required:
+      - image_url
+      - body_mesh_url
+      type: object
+- id: i2i3d-kamui-fal-sam-3-3d-body
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-body
+  status: online
+  last_checked: '2025-12-17T03:50:03.331705+00:00'
+  tools:
+  - name: sam_3_3d_body_result
+    description: Get completed SAM-3 3D Body reconstruction result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_body_status
+    description: Check SAM-3 3D Body processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_body_submit
+    description: Submit Fal.ai SAM-3 3D Body request to reconstruct a human body mesh from a single image.
+    inputSchema:
+      properties:
+        export_meshes:
+          default: true
+          description: 'Export individual .ply meshes per detected person (default: true)'
+          type: boolean
+        image_url:
+          description: URL or base64 data URI of the image containing humans to reconstruct
+          type: string
+        include_3d_keypoints:
+          default: true
+          description: 'Include 3D keypoint markers in the GLB mesh (default: true)'
+          type: boolean
+        mask_url:
+          description: Optional URL or data URI for a binary mask image (white=person, black=background)
+          type: string
+      required:
+      - image_url
+      type: object
+- id: i2i3d-kamui-fal-sam-3-3d-objects
+  url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-objects
+  status: online
+  last_checked: '2025-12-17T03:50:03.382576+00:00'
+  tools:
+  - name: sam_3_3d_objects_result
+    description: Get completed SAM-3 3D Objects reconstruction result as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_objects_status
+    description: Check SAM-3 3D Objects processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_3d_objects_submit
+    description: Submit Fal.ai SAM-3 3D Objects request to reconstruct one or more 3D objects from an image and optional masks
+      or prompts.
+    inputSchema:
+      properties:
+        box_prompts:
+          description: Box prompts for auto-segmentation. Each box should include x_min, y_min, x_max, y_max, and optional
+            object_id.
+          type: array
+        image_url:
+          description: URL or base64 data URI of the image to reconstruct in 3D
+          type: string
+        mask_urls:
+          description: Optional list of mask URLs (one per object). If omitted, prompt/point/box prompts or full-image segmentation
+            is used.
+          type: array
+        point_prompts:
+          description: Point prompts for auto-segmentation. Each prompt should include x, y, label (0 or 1), and optional
+            object_id.
+          type: array
+        pointmap_url:
+          description: Optional URL to external pointmap/depth data (NPY or NPZ) for improved depth estimation
+          type: string
+        prompt:
+          default: car
+          description: 'Text prompt for auto-segmentation when no masks are provided (default: ''car'')'
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - image_url
+      type: object
 - id: i2i3d-kamui-hunyuan3d-v21
   url: https://kamui-code.ai/i2i3d/fal/hunyuan/3d-v21
   status: online
@@ -3531,11 +4342,6 @@ servers:
       required:
       - image_urls
       type: object
-- id: i2i3d-kamui-meshy-v5-remesh
-  url: https://kamui-code.ai/i2i3d/fal/meshy/v5/remesh
-  status: error
-  last_checked: '2025-12-16T13:36:14.779613+00:00'
-  error_message: 'tools/list error: {''code'': -32601, ''message'': ''tools not supported''}'
 - id: i2i3d-kamui-meshy-v6-preview-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/meshy/v6-preview/image-to-3d
   status: online
@@ -3754,6 +4560,91 @@ servers:
       required:
       - image_url
       type: object
+- id: i2v-kamui-bytedance-lynx
+  url: https://kamui-code.ai/i2v/fal/bytedance/lynx
+  status: online
+  last_checked: '2025-12-17T03:49:52.773122+00:00'
+  tools:
+  - name: lynx_image_to_video_result
+    description: Get result of completed Lynx image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: lynx_image_to_video_status
+    description: Check status of Lynx image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: lynx_image_to_video_submit
+    description: Submit Fal.ai Lynx image-to-video generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: Aspect ratio of the generated video (16:9, 9:16, 1:1)
+          type: string
+        frames_per_second:
+          default: 16
+          description: Frames per second (5 to 30)
+          type: number
+        guidance_scale:
+          default: 5
+          description: Classifier-free guidance scale (adherence to prompt)
+          type: number
+        guidance_scale_2:
+          default: 2
+          description: Image guidance scale (adherence to reference image)
+          type: number
+        image_url:
+          description: The URL of the subject image to be used for video generation
+          type: string
+        ip_scale:
+          default: 1
+          description: Identity preservation scale (how closely to preserve subject identity)
+          type: number
+        negative_prompt:
+          default: Bright tones, overexposed, blurred background, static, subtitles, style, works, paintings, images, overall
+            gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands,
+            poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three
+            legs, many people in the background, walking backwards
+          description: Negative prompt to exclude undesired artifacts
+          type: string
+        num_frames:
+          default: 81
+          description: Number of frames in the generated video (9 to 100)
+          type: number
+        num_inference_steps:
+          default: 50
+          description: Number of inference steps (higher = better quality, slower)
+          type: number
+        prompt:
+          description: Text prompt to guide video generation
+          type: string
+        resolution:
+          default: 720p
+          description: Resolution of the generated video (480p, 580p, 720p)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+        strength:
+          default: 1
+          description: Reference image scale (influence of the reference image)
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-bytedance-seedance-v1-pro-fast
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
   status: online
@@ -3911,6 +4802,133 @@ servers:
           default: true
           description: 'If set to true, wait for generation before returning (default: true)'
           type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-fal-sora-2
+  url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video
+  status: online
+  last_checked: '2025-12-17T03:50:03.975071+00:00'
+  tools:
+  - name: sora2_image_to_video_result
+    description: Get result of completed Fal.ai Sora 2 Image-to-Video generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_status
+    description: Check status of Fal.ai Sora 2 Image-to-Video request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_submit
+    description: Submit Fal.ai Sora 2 Image-to-Video request. Generates richly detailed video (with audio) from an image and
+      prompt with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. Options: auto, 9:16, 16:9 (default: auto)'
+          enum:
+          - auto
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        image_url:
+          description: URL of the image to use as the first frame
+          type: string
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: auto
+          description: 'Resolution of the generated video. Options: auto, 720p (default: auto)'
+          enum:
+          - auto
+          - 720p
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-fal-sora-2-pro
+  url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video/pro
+  status: online
+  last_checked: '2025-12-17T03:50:03.720067+00:00'
+  tools:
+  - name: sora2_image_to_video_pro_result
+    description: Get result of completed Fal.ai Sora 2 Image-to-Video Pro generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_pro_status
+    description: Check status of Fal.ai Sora 2 Image-to-Video Pro request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_image_to_video_pro_submit
+    description: Submit Fal.ai Sora 2 Image-to-Video Pro request. Generates richly detailed video (with audio) from an image
+      and prompt with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. Options: auto, 9:16, 16:9 (default: auto)'
+          enum:
+          - auto
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        image_url:
+          description: URL of the image to use as the first frame
+          type: string
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: auto
+          description: 'Resolution of the generated video. Options: auto, 720p, 1080p (default: auto)'
+          enum:
+          - auto
+          - 720p
+          - 1080p
+          type: string
       required:
       - prompt
       - image_url
@@ -5702,6 +6720,83 @@ servers:
       - image_url
       - prompt
       type: object
+- id: i2v-kamui-wan-v2.6
+  url: https://kamui-code.ai/i2v/fal/wan/v2.6
+  status: online
+  last_checked: '2025-12-17T03:50:04.652913+00:00'
+  tools:
+  - name: wan_v2_6_image_to_video_result
+    description: Get result of completed WAN v2.6 Image-to-Video generation. Returns JSON response with video URL, seed used,
+      and actual prompt if prompt rewriting was enabled.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_video_status
+    description: Check status of WAN v2.6 Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_video_submit
+    description: 'Submit Fal.ai WAN v2.6 Image-to-Video generation request. WAN 2.6 I2V features motion generation from an
+      input image with text prompt control, 480p/720p/1080p resolutions, 5/10/15 second durations, and multi-shot support
+      with intelligent scene segmentation. Processing time: 1-5 minutes depending on duration.'
+    inputSchema:
+      properties:
+        audio_url:
+          description: 'Optional URL of the audio to use as background music. Must be publicly accessible. Format: WAV, MP3.
+            Duration: 3-30s. File size: Up to 15MB. If audio duration exceeds the video duration, it is truncated. If audio
+            is shorter, the remaining video will be silent.'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration of the generated video in seconds. Options: 5, 10, 15. Default: 5'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Whether to enable prompt rewriting using LLM. Improves results for short prompts but increases processing
+            time. Default: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default: true'
+          type: boolean
+        image_url:
+          description: 'URL of the image to use as the first frame. Must be publicly accessible or base64 data URI. Supported
+            formats: JPEG, JPG, PNG (no alpha), BMP, WEBP. Resolution: 360-2000 pixels (width and height). Max size: 25MB.'
+          type: string
+        multi_shots:
+          description: When true, enables intelligent multi-shot segmentation. Only active when enable_prompt_expansion is
+            true. Set to false for single-shot generation.
+          type: boolean
+        negative_prompt:
+          default: ''
+          description: 'Negative prompt to describe content to avoid. Max 500 characters. Default: '''''
+          type: string
+        prompt:
+          description: 'Text prompt describing the desired video motion. Supports Chinese and English, max 800 characters.
+            For multi-shot videos, use format: ''Overall description. First shot [0-3s] content. Second shot [3-5s] content.'''
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Video resolution. Options: 480p, 720p, 1080p. Default: 1080p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed is chosen.
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: misc-kamui-bria-fibo-generate-structured-prompt
   url: https://kamui-code.ai/misc/fal/bria/fibo/generate/structured_prompt
   status: online
@@ -6002,6 +7097,250 @@ servers:
       - prompt
       - reference_image_urls
       type: object
+- id: r2v-kamui-fal-ai-one-to-all-animation-13b
+  url: https://kamui-code.ai/r2v/fal/fal-ai/one-to-all-animation-13b
+  status: online
+  last_checked: '2025-12-17T03:50:04.317967+00:00'
+  tools:
+  - name: one_to_all_animation_13b_result
+    description: Get result of completed Fal.ai One-to-All Animation 1.3b video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: one_to_all_animation_13b_status
+    description: Check status of Fal.ai One-to-All Animation 1.3b processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: one_to_all_animation_13b_submit
+    description: Submit Fal.ai One-to-All Animation 1.3b request to generate animation video from a reference image, driving
+      pose video, and text prompt.
+    inputSchema:
+      properties:
+        image_guidance_scale:
+          default: 2
+          description: 'Image guidance scale for controlling how closely the output follows the reference image. Default:
+            2.0'
+          type: number
+        image_url:
+          description: URL of the reference image to use for the video generation. This image will be animated based on the
+            driving video pose.
+          type: string
+        negative_prompt:
+          description: 'Negative prompt for video generation. Default: ''black background, Aerial view, aerial view, overexposed,
+            low quality, deformation, a poor composition, bad hands, bad teeth, bad eyes, bad limbs, distortion'''
+          type: string
+        num_inference_steps:
+          default: 30
+          description: 'Number of inference steps for video generation. Higher values give better quality but take longer.
+            Default: 30'
+          type: number
+        pose_guidance_scale:
+          default: 1.5
+          description: 'Pose guidance scale for controlling how closely the output follows the driving video pose. Default:
+            1.5'
+          type: number
+        prompt:
+          description: 'Text prompt describing the desired video animation. Example: ''A robot figure dancing'''
+          type: string
+        resolution:
+          default: 480p
+          description: 'Resolution of the generated video. Possible values: 480p, 580p, 720p. Default: 480p'
+          type: string
+        video_url:
+          description: URL of the driving video to use as a reference for the motion. The pose from this video will be applied
+            to the reference image.
+          type: string
+      required:
+      - prompt
+      - image_url
+      - video_url
+      type: object
+- id: r2v-kamui-fal-ai-one-to-all-animation-14b
+  url: https://kamui-code.ai/r2v/fal/fal-ai/one-to-all-animation-14b
+  status: online
+  last_checked: '2025-12-17T03:50:04.321164+00:00'
+  tools:
+  - name: one_to_all_animation_14b_result
+    description: Get result of completed Fal.ai One-to-All Animation 14b video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: one_to_all_animation_14b_status
+    description: Check status of Fal.ai One-to-All Animation 14b processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: one_to_all_animation_14b_submit
+    description: Submit Fal.ai One-to-All Animation 14b request to generate animation video from a reference image, driving
+      pose video, and text prompt.
+    inputSchema:
+      properties:
+        image_guidance_scale:
+          default: 2
+          description: 'Image guidance scale for controlling how closely the output follows the reference image. Default:
+            2.0'
+          type: number
+        image_url:
+          description: URL of the reference image to use for the video generation. This image will be animated based on the
+            driving video pose.
+          type: string
+        negative_prompt:
+          description: 'Negative prompt for video generation. Default: ''black background, Aerial view, aerial view, overexposed,
+            low quality, deformation, a poor composition, bad hands, bad teeth, bad eyes, bad limbs, distortion'''
+          type: string
+        num_inference_steps:
+          default: 30
+          description: 'Number of inference steps for video generation. Higher values give better quality but take longer.
+            Default: 30'
+          type: number
+        pose_guidance_scale:
+          default: 1.5
+          description: 'Pose guidance scale for controlling how closely the output follows the driving video pose. Default:
+            1.5'
+          type: number
+        prompt:
+          description: 'Text prompt describing the desired video animation. Example: ''A robot figure dancing'''
+          type: string
+        resolution:
+          default: 480p
+          description: 'Resolution of the generated video. Possible values: 480p, 580p, 720p. Default: 480p'
+          type: string
+        video_url:
+          description: URL of the driving video to use as a reference for the motion. The pose from this video will be applied
+            to the reference image.
+          type: string
+      required:
+      - prompt
+      - image_url
+      - video_url
+      type: object
+- id: r2v-kamui-fal-ai-steady-dancer
+  url: https://kamui-code.ai/r2v/fal/fal-ai/steady-dancer
+  status: online
+  last_checked: '2025-12-17T03:50:04.310041+00:00'
+  tools:
+  - name: steady_dancer_result
+    description: Get result of completed Fal.ai Steady Dancer video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: steady_dancer_status
+    description: Check status of Fal.ai Steady Dancer processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: steady_dancer_submit
+    description: Submit Fal.ai Steady Dancer request to generate dance animation video from a reference image and driving
+      pose video.
+    inputSchema:
+      properties:
+        acceleration:
+          default: aggressive
+          description: 'Acceleration levels. Possible values: light, moderate, aggressive. Default: aggressive'
+          type: string
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. If ''auto'', will be determined from the reference image. Possible
+            values: auto, 16:9, 9:16, 1:1. Default: auto'
+          type: string
+        enable_safety_checker:
+          description: If set to true, the safety checker will be enabled.
+          type: boolean
+        frames_per_second:
+          default: 16
+          description: 'Frames per second of the generated video. Must be between 5 to 24. Default: 16'
+          type: number
+        guidance_scale:
+          default: 5
+          description: 'Classifier-free guidance scale for prompt adherence. Default: 5'
+          type: number
+        image_url:
+          description: URL of the reference image to animate. This is the person/character whose appearance will be preserved.
+          type: string
+        negative_prompt:
+          description: 'Negative prompt for video generation. Default: ''blurred, distorted face, bad anatomy, extra limbs,
+            poorly drawn hands, poorly drawn feet, disfigured, out of frame, duplicate, watermark, signature, text'''
+          type: string
+        num_frames:
+          default: 81
+          description: 'Number of frames to generate. Will be adjusted to nearest valid value (must satisfy 4k+1 pattern).
+            Default: 81'
+          type: number
+        num_inference_steps:
+          default: 30
+          description: 'Number of inference steps for sampling. Higher values give better quality but take longer. Default:
+            30'
+          type: number
+        pose_guidance_end:
+          default: 0.4
+          description: 'End ratio for pose guidance. Controls when pose guidance ends. Default: 0.4'
+          type: number
+        pose_guidance_scale:
+          default: 1
+          description: 'Pose guidance scale for pose control strength. Default: 1'
+          type: number
+        pose_guidance_start:
+          default: 0.1
+          description: 'Start ratio for pose guidance. Controls when pose guidance begins. Default: 0.1'
+          type: number
+        preserve_audio:
+          default: true
+          description: 'If enabled, copies audio from the input driving video to the output video. Default: true'
+          type: boolean
+        prompt:
+          description: 'Text prompt describing the desired animation. Default: ''A person dancing with smooth and natural
+            movements.'''
+          type: string
+        resolution:
+          default: 576p
+          description: 'Resolution of the generated video. 576p is default, 720p for higher quality, 480p is lower quality.
+            Possible values: 480p, 576p, 720p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed will be used.
+          type: number
+        shift:
+          default: 5
+          description: 'Shift parameter for video generation. Default: 5'
+          type: number
+        video_url:
+          description: URL of the driving pose video. The motion from this video will be transferred to the reference image.
+          type: string
+      required:
+      - image_url
+      - video_url
+      type: object
 - id: r2v-kamui-kling-video-o1
   url: https://kamui-code.ai/r2v/fal/kling-video/o1
   status: online
@@ -6214,6 +7553,85 @@ servers:
       required:
       - reference_image_urls
       - prompt
+      type: object
+- id: r2v-kamui-wan-v2.6
+  url: https://kamui-code.ai/r2v/fal/wan/v2.6
+  status: online
+  last_checked: '2025-12-17T03:50:04.707025+00:00'
+  tools:
+  - name: wan_v2_6_reference_to_video_result
+    description: Get result of completed WAN v2.6 Reference-to-Video generation. Returns JSON response with video URL, seed
+      used, and actual prompt if prompt rewriting was enabled.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_reference_to_video_status
+    description: Check status of WAN v2.6 Reference-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_reference_to_video_submit
+    description: 'Submit Fal.ai WAN v2.6 Reference-to-Video (R2V) generation request. WAN 2.6 R2V features character/subject
+      consistency using 1-3 reference videos, 720p/1080p resolutions (no 480p), 5/10 second durations (no 15s), and multi-shot
+      support with intelligent scene segmentation. Processing time: 2-8 minutes depending on duration and complexity.'
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'The aspect ratio of the generated video. Options: 16:9, 9:16, 1:1, 4:3, 3:4. Default: 16:9'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration of the generated video in seconds. R2V supports only 5 or 10 seconds (no 15s). Options: 5,
+            10. Default: 5'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Whether to enable prompt rewriting using LLM. Default: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default: true'
+          type: boolean
+        multi_shots:
+          description: When true (default), enables intelligent multi-shot segmentation for coherent narrative videos with
+            multiple shots. When false, generates single continuous shot. Only active when enable_prompt_expansion is True.
+          type: boolean
+        negative_prompt:
+          default: ''
+          description: 'Negative prompt to describe content to avoid. Max 500 characters. Default: '''''
+          type: string
+        prompt:
+          description: 'Text prompt describing the desired video. Use @Video1, @Video2, @Video3 to reference subjects from
+            your videos. Works for people, animals, or objects. For multi-shot prompts: ''[0-3s] Shot 1. [3-6s] Shot 2.''
+            Max 800 characters. Example: ''Dance battle between @Video1 and @Video2.'''
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Video resolution tier. R2V only supports 720p and 1080p (no 480p). Options: 720p, 1080p. Default:
+            1080p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If None, a random seed is chosen.
+          type: number
+        video_urls:
+          description: 'Array of reference video URLs (1-3 videos). Reference in prompt as @Video1, @Video2, @Video3. Works
+            for people, animals, or objects. Format: mp4, mov. Duration: 2-30 seconds each. File size: Up to 30MB each. Cannot
+            be used with audio_url.'
+          type: array
+      required:
+      - prompt
+      - video_urls
       type: object
 - id: s2v-kamui-wan-v2-2-14b
   url: https://kamui-code.ai/s2v/fal/wan/v2.2-14b
@@ -6750,6 +8168,158 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-fal-gpt-image-1-5
+  url: https://kamui-code.ai/t2i/fal/gpt-image-1.5
+  status: online
+  last_checked: '2025-12-17T03:50:04.965051+00:00'
+  tools:
+  - name: gpt_image_1_5_t2i_result
+    description: Get the result of a completed GPT Image 1.5 T2I request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gpt_image_1_5_t2i_status
+    description: Check the status of a GPT Image 1.5 T2I request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gpt_image_1_5_t2i_submit
+    description: Submit GPT Image 1.5 Text-to-Image request for high-fidelity image generation with strong prompt adherence.
+    inputSchema:
+      properties:
+        background:
+          default: auto
+          description: 'Background for the generated image: auto, transparent, opaque (default: auto)'
+          type: string
+        image_size:
+          default: 1024x1024
+          description: 'Aspect ratio for the generated image: 1024x1024, 1536x1024, 1024x1536 (default: 1024x1024)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format for the images: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt for image generation
+          type: string
+        quality:
+          default: high
+          description: 'Quality for the generated image: low, medium, high (default: high)'
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, media will be returned as data URIs and not stored in request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-longcat-image
+  url: https://kamui-code.ai/t2i/fal/longcat-image
+  status: online
+  last_checked: '2025-12-17T03:50:03.656079+00:00'
+  tools:
+  - name: longcat_image_result
+    description: Get result of completed LongCat Image text-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_status
+    description: Check status of LongCat Image text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_image_submit
+    description: Submit Fal.ai LongCat Image text-to-image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'The acceleration level to use (none, regular, high, default: regular)'
+          enum:
+          - none
+          - regular
+          - high
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'The guidance scale to use for the image generation (default: 4.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Use presets (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9) or custom object {width: number, height: number} (default: landscape_4_3)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible image generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, media is returned as data URI and not stored in request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-fal-nano-banana-pro
   url: https://kamui-code.ai/t2i/fal/nano-banana-pro
   status: online
@@ -7269,6 +8839,78 @@ servers:
         sync_mode:
           default: false
           description: 'If True, the media will be returned as a data URI and won''t be saved in history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-flux-2-max
+  url: https://kamui-code.ai/t2i/fal/flux-2-max
+  status: online
+  last_checked: '2025-12-17T03:49:50.109804+00:00'
+  tools:
+  - name: flux_2_max_result
+    description: Get result and download completed Flux-2 Max generated image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_max_status
+    description: Check status of Flux-2 Max image generation processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_max_submit
+    description: Submit Fal.ai Flux-2 Max text-to-image generation request and receive request ID for polling. Generate highest-quality
+      images from text prompts.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable the safety checker (default: true)'
+          type: boolean
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        output_format:
+          default: jpeg
+          description: 'The format of the generated image (jpeg, png, default: jpeg)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        safety_tolerance:
+          default: '2'
+          description: 'The safety tolerance level for the generated image. 1 being the most strict and 5 being the most permissive
+            (default: 2)'
+          type: string
+        seed:
+          description: The seed to use for the generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
           type: boolean
       required:
       - prompt
@@ -9839,6 +11481,121 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-fal-sora-2
+  url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video
+  status: online
+  last_checked: '2025-12-17T03:50:03.990744+00:00'
+  tools:
+  - name: sora2_text_to_video_result
+    description: Get result of completed Fal.ai Sora 2 Text-to-Video generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_status
+    description: Check status of Fal.ai Sora 2 Text-to-Video request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_submit
+    description: Submit Fal.ai Sora 2 Text-to-Video request. Generates richly detailed, dynamic video with audio from text
+      prompts with adjustable aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Options: 16:9, 9:16 (default: 16:9)'
+          enum:
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video. Options: 720p (default: 720p)'
+          enum:
+          - 720p
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-sora-2-pro
+  url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video/pro
+  status: online
+  last_checked: '2025-12-17T03:50:03.959193+00:00'
+  tools:
+  - name: sora2_text_to_video_pro_result
+    description: Get result of completed Fal.ai Sora 2 Text-to-Video Pro generation. Returns Fal JSON with video and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_pro_status
+    description: Check status of Fal.ai Sora 2 Text-to-Video Pro request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_text_to_video_pro_submit
+    description: Submit Fal.ai Sora 2 Text-to-Video Pro request. Generates richly detailed, dynamic video with audio from
+      text prompts with adjustable resolution, aspect ratio, duration, and delete_video privacy option.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Options: 16:9, 9:16 (default: 16:9)'
+          enum:
+          - '9:16'
+          - '16:9'
+          type: string
+        delete_video:
+          default: true
+          description: 'Whether to delete the video after generation (default: true)'
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired video
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Resolution of the generated video. Options: 720p, 1080p (default: 1080p)'
+          enum:
+          - 720p
+          - 1080p
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/pro
   status: online
@@ -10534,94 +12291,6 @@ servers:
           type: string
         resolution:
           description: 'The resolution of the generated video. Options: 1080p, 1440p, 2160p. Default: 1080p'
-          type: string
-      required:
-      - prompt
-      type: object
-- id: t2v-kamui-openai-sora
-  url: https://kamui-code.ai/t2v/openai/sora
-  status: online
-  last_checked: '2025-12-16T13:36:14.350263+00:00'
-  tools:
-  - name: openai_sora_remix
-    description: Remix an existing OpenAI Sora video with targeted modifications. Takes a completed video_id and applies changes
-      described in the prompt while preserving the original structure, continuity, and composition. Best for single, focused
-      changes (e.g., 'Change the color palette to teal and rust', 'Add falling snow to the scene').
-    inputSchema:
-      properties:
-        prompt:
-          description: 'Description of the modification to apply. Best results with single, specific changes. Example: ''Shift
-            the color palette to teal, sand, and rust with a warm backlight'' or ''Change the purple monster to orange'''
-          type: string
-        video_id:
-          description: Video ID of a previously completed video to remix. Must be a video generated by OpenAI Sora (e.g.,
-            'video_68d7512d07848190b3e45da0ecbebcde004da08e1e0678d5')
-          type: string
-      required:
-      - video_id
-      - prompt
-      type: object
-  - name: openai_sora_result
-    description: Get download URL for completed OpenAI Sora video. Can retrieve video (MP4), thumbnail (WebP), or spritesheet
-      (JPG). Download URLs are valid for 24 hours after generation.
-    inputSchema:
-      properties:
-        variant:
-          default: video
-          description: 'Type of asset to download: ''video'' (MP4), ''thumbnail'' (WebP preview), or ''spritesheet'' (JPG
-            with multiple frames). Default: video'
-          type: string
-        video_id:
-          description: Video ID received from submit operation
-          type: string
-      required:
-      - video_id
-      type: object
-  - name: openai_sora_status
-    description: 'Check status of OpenAI Sora video generation using video_id. Returns job status: ''queued'', ''in_progress'',
-      ''completed'', or ''failed''. Includes progress percentage when available.'
-    inputSchema:
-      properties:
-        video_id:
-          description: Video ID received from submit operation (e.g., 'video_68d7512d07848190b3e45da0ecbebcde004da08e1e0678d5')
-          type: string
-      required:
-      - video_id
-      type: object
-  - name: openai_sora_submit
-    description: Submit OpenAI Sora video generation request. Supports text-to-video, image-to-video (first frame reference),
-      and remix functionality. Returns a job object with video_id for polling.
-    inputSchema:
-      properties:
-        input_reference:
-          description: 'Optional: **Public URL** to an input image that will serve as the first frame of the video. Image
-            must match the target video resolution (size parameter). Supported formats: image/jpeg, image/png, image/webp.
-            Example: ''https://storage.googleapis.com/bucket/image.jpg''. Note: The server will download the image from the
-            URL and upload it to OpenAI. For local files, first upload to GCS using gcs_upload tool.'
-          type: string
-        model:
-          default: sora-2
-          description: 'Model to use: ''sora-2'' (fast, flexible, good for iteration) or ''sora-2-pro'' (higher quality, production-grade).
-            Default: sora-2'
-          type: string
-        prompt:
-          description: 'Text prompt describing the video you want to generate. Best results with detailed descriptions including
-            shot type, subject, action, setting, and lighting. Example: ''Wide shot of a child flying a red kite in a grassy
-            park, golden hour sunlight, camera slowly pans upward.'''
-          type: string
-        remix_video_id:
-          description: 'Optional: ID of a previously completed video to remix. When provided, the system reuses the original
-            video''s structure while applying modifications described in the prompt. Best for single, focused changes (e.g.,
-            ''Change the color palette to teal and rust'').'
-          type: string
-        seconds:
-          default: '8'
-          description: 'Duration of the generated video in seconds. Supported values vary by model. Default: 8'
-          type: string
-        size:
-          default: 1280x720
-          description: 'Video resolution. Common formats: ''1280x720'' (720p), ''1920x1080'' (1080p), ''720x1280'' (portrait),
-            ''1080x1920'' (portrait HD). Default: 1280x720'
           type: string
       required:
       - prompt
@@ -11407,6 +13076,84 @@ servers:
         sync_mode:
           description: 'If true, wait for generation before returning (default: false)'
           type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-wan-v2.6
+  url: https://kamui-code.ai/t2v/fal/wan/v2.6
+  status: online
+  last_checked: '2025-12-17T03:49:59.362369+00:00'
+  tools:
+  - name: wan_v2_6_text_to_video_result
+    description: Get result of completed WAN v2.6 Text-to-Video generation. Returns JSON response with video URL, seed used,
+      and actual prompt if prompt rewriting was enabled.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_text_to_video_status
+    description: Check status of WAN v2.6 Text-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_text_to_video_submit
+    description: 'Submit Fal.ai WAN v2.6 Text-to-Video generation request. WAN 2.6 T2V features multi-shot video generation
+      with intelligent scene segmentation, 720p/1080p resolutions, 5/10/15 second durations, and multiple aspect ratios (16:9,
+      9:16, 1:1, 4:3, 3:4). Processing time: 1-5 minutes depending on duration.'
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Options: 16:9, 9:16, 1:1, 4:3, 3:4. Default: 16:9'
+          type: string
+        audio_url:
+          description: 'Optional URL of the audio to use as background music. Must be publicly accessible. Format: WAV, MP3.
+            Duration: 3-30s. File size: Up to 15MB. If audio duration exceeds the video duration, it is truncated. If audio
+            is shorter, the remaining video will be silent.'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration of the generated video in seconds. Options: 5, 10, 15. Default: 5'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Whether to enable prompt rewriting using LLM. Improves results for short prompts but increases processing
+            time. Default: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default: true'
+          type: boolean
+        multi_shots:
+          default: true
+          description: 'When true, enables intelligent multi-shot segmentation for coherent narrative videos. Only active
+            when enable_prompt_expansion is true. Set to false for single-shot generation. Default: true'
+          type: boolean
+        negative_prompt:
+          default: ''
+          description: 'Negative prompt to describe content to avoid. Max 500 characters. Default: '''''
+          type: string
+        prompt:
+          description: 'Text prompt for video generation. Supports Chinese and English, max 800 characters. For multi-shot
+            videos, use format: ''Overall description. First shot [0-3s] content. Second shot [3-5s] content.'''
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Video resolution tier. WAN 2.6 T2V only supports 720p and 1080p (no 480p). Options: 720p, 1080p. Default:
+            1080p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed is chosen.
+          type: number
       required:
       - prompt
       type: object
@@ -12560,6 +14307,184 @@ servers:
       required:
       - video_url
       type: object
+- id: v2v-kamui-fal-veo31-extend-video
+  url: https://kamui-code.ai/v2v/fal/veo31/extend-video
+  status: online
+  last_checked: '2025-12-17T03:50:04.617137+00:00'
+  tools:
+  - name: veo31_extend_video_result
+    description: Get result of completed Veo3.1 extend-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_extend_video_status
+    description: Check status of Veo3.1 extend-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_extend_video_submit
+    description: Submit Fal.ai Veo3.1 extend-video request to continue a Veo-generated clip up to 30 seconds.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio for the extended video (auto, 16:9, 9:16, default: auto)'
+          type: string
+        auto_fix:
+          default: true
+          description: 'Automatically rewrite prompts that fail content policy or validation (default: true)'
+          type: boolean
+        duration:
+          default: 7s
+          description: Duration of the extended segment. Currently only '7s' is supported.
+          type: string
+        generate_audio:
+          default: true
+          description: 'Whether to generate audio for the extended video (default: true)'
+          type: boolean
+        prompt:
+          description: Text prompt describing how the existing video should continue. Include action, style, camera motion,
+            and ambiance.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p or 1080p, default: 720p)'
+          type: string
+        video_url:
+          description: URL of the video to extend (720p or 1080p, 16:9 or 9:16, up to 8 seconds).
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-fal-veo31-fast-extend-video
+  url: https://kamui-code.ai/v2v/fal/veo31/fast/extend-video
+  status: online
+  last_checked: '2025-12-17T03:50:04.627856+00:00'
+  tools:
+  - name: veo31_fast_extend_video_result
+    description: Get result of completed Veo3.1 Fast extend-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_fast_extend_video_status
+    description: Check status of Veo3.1 Fast extend-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_fast_extend_video_submit
+    description: Submit Fal.ai Veo3.1 Fast extend-video request to continue a Veo-generated clip up to 30 seconds with the
+      fast model.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio for the extended video (auto, 16:9, 9:16, default: auto)'
+          type: string
+        auto_fix:
+          default: true
+          description: 'Automatically rewrite prompts that fail content policy or validation (default: true)'
+          type: boolean
+        duration:
+          default: 7s
+          description: Duration of the extended segment. Currently only '7s' is supported.
+          type: string
+        generate_audio:
+          default: true
+          description: 'Whether to generate audio for the extended video (default: true)'
+          type: boolean
+        prompt:
+          description: Text prompt describing how the existing video should continue. Include action, style, camera motion,
+            and ambiance.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p or 1080p, default: 720p)'
+          type: string
+        video_url:
+          description: URL of the video to extend (720p or 1080p, 16:9 or 9:16, up to 8 seconds).
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-fal-wan-vision-enhancer
+  url: https://kamui-code.ai/v2v/fal/wan-vision-enhancer
+  status: online
+  last_checked: '2025-12-17T03:50:04.383387+00:00'
+  tools:
+  - name: wan_vision_enhancer_result
+    description: Get result of completed WAN Vision Enhancer job. Returns Fal.ai JSON including enhanced video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_vision_enhancer_status
+    description: Check status of WAN Vision Enhancer processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_vision_enhancer_submit
+    description: Submit Fal.ai WAN Vision Enhancer request to magnify/enhance a video with high fidelity and creative control.
+      Returns request ID for polling.
+    inputSchema:
+      properties:
+        creativity:
+          default: 1
+          description: Controls enhancement strength (0=minimal change, 1=subtle default, 2=medium, 3=strong, 4=maximum).
+          type: number
+        negative_prompt:
+          description: Negative prompt to avoid unwanted features. Default removes oversaturation, artifacts, clutter, and
+            distorted anatomy.
+          type: string
+        prompt:
+          description: Optional prompt prepended to the auto-generated video description.
+          type: string
+        seed:
+          description: Random seed for reproducibility. If omitted, a random seed is used.
+          type: number
+        target_resolution:
+          default: 720p
+          description: Target output resolution. 720p is native (faster), 1080p upscales after processing.
+          enum:
+          - 720p
+          - 1080p
+          type: string
+        video_url:
+          description: URL of the video to enhance. Videos over ~200MB are rejected, and only the first ~500 frames are processed.
+          type: string
+      required:
+      - video_url
+      type: object
 - id: v2v-kamui-fal-workflow-utilities-auto-subtitle
   url: https://kamui-code.ai/v2v/fal/workflow-utilities/auto-subtitle
   status: online
@@ -13328,6 +15253,63 @@ servers:
       required:
       - prompt
       - video_uri
+      type: object
+- id: v2v-kamui-sync-lipsync-react-1
+  url: https://kamui-code.ai/v2v/fal/sync-lipsync/react-1
+  status: online
+  last_checked: '2025-12-17T03:50:04.047775+00:00'
+  tools:
+  - name: sync_lipsync_react_1_result
+    description: Get result of completed Sync Lipsync React-1 generation. Returns Fal JSON with video metadata and URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sync_lipsync_react_1_status
+    description: Check status of Sync Lipsync React-1 generation request. Returns JSON status payload including logs.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sync_lipsync_react_1_submit
+    description: Submit a lipsync request to Fal.ai Sync Lipsync React-1 API. Generates realistic lip sync with emotion control
+      and optional facial/head movement settings.
+    inputSchema:
+      properties:
+        audio_url:
+          description: URL of the input audio (15 seconds or shorter)
+          type: string
+        emotion:
+          description: 'Emotion prompt to drive lip and facial expression. Options: happy, angry, sad, neutral, disgusted,
+            surprised'
+          type: string
+        lipsync_mode:
+          default: bounce
+          description: 'Sync strategy when durations differ. Options: cut_off, loop, bounce (default), silence, remap'
+          type: string
+        model_mode:
+          default: face
+          description: 'Edit scope. Options: lips (minimal changes), face (default), head (adds head motion)'
+          type: string
+        temperature:
+          default: 0.5
+          description: 'Controls expressiveness of the lipsync (default: 0.5)'
+          type: number
+        video_url:
+          description: URL of the input video (15 seconds or shorter)
+          type: string
+      required:
+      - video_url
+      - audio_url
+      - emotion
       type: object
 - id: v2v-kamui-sync-lipsync-v2
   url: https://kamui-code.ai/v2v/fal/sync-lipsync/v2
