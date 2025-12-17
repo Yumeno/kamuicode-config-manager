@@ -26,6 +26,17 @@ pip install \-r requirements.txt
 cp .env.example .env
 \# .envを編集してDRIVE\_FILE\_IDSを設定
 
+#### **設定方法一覧**
+
+| 環境変数 | 必須 | 説明 |
+| :---- | :---- | :---- |
+| DRIVE\_FILE\_IDS | 任意 | JSON配列形式の個別ファイルID設定（推奨） |
+| DRIVE\_FILE\_ID | 任意 | 単一ファイルID（後方互換用） |
+| DRIVE\_FOLDER\_ID | 任意 | 監視対象のルートフォルダID（再帰探索） |
+| GOOGLE\_API\_KEY | DRIVE\_FOLDER\_ID使用時必須 | Google Drive API キー |
+
+**注意**: `DRIVE_FILE_IDS`/`DRIVE_FILE_ID` と `DRIVE_FOLDER_ID` は併用可能です。両方設定した場合、明示的なファイルIDの設定が先に読み込まれ、フォルダスキャンの結果がマージされます（後勝ち）。
+
 #### **マルチソース形式（推奨）**
 
 ```json
@@ -38,6 +49,30 @@ DRIVE_FILE_IDS=[{"name": "Legacy", "id": "1ABC..."}, {"name": "Latest", "id": "1
   * クローラーは最も優先度の高いソースから接続を試行し、失敗時に次のソースにフォールバック
 
 **後方互換**: `DRIVE_FILE_IDS` が未設定の場合、`DRIVE_FILE_ID`（単一ID）を使用
+
+#### **フォルダ再帰探索形式（Issue #30 新機能）**
+
+```bash
+DRIVE_FOLDER_ID=1FolderID_Here
+GOOGLE_API_KEY=AIzaSy...
+```
+
+指定したフォルダ以下を再帰的に探索し、以下の条件を満たすJSONファイルを自動検出します:
+
+| フィルタ条件 | 説明 |
+| :---- | :---- |
+| 更新日時 | 2025年11月20日以降に更新されたファイル |
+| 拡張子 | `.json` ファイルのみ |
+| 構造チェック | ルートに `mcpServers` キー（オブジェクト型）を持つこと |
+
+**Google API キーの取得方法**:
+1. [Google Cloud Console](https://console.cloud.google.com/) にアクセス
+2. プロジェクトを選択または新規作成
+3. 「APIとサービス」→「認証情報」→「認証情報を作成」→「APIキー」
+4. Drive API を有効化（「APIとサービス」→「ライブラリ」→「Google Drive API」）
+5. 生成されたAPIキーを `GOOGLE_API_KEY` に設定
+
+**重要**: フォルダ内の全ファイルは「リンクを知っている全員が閲覧可」に設定してください。
 
 ### **3\. Google Driveファイルの準備**
 
@@ -102,10 +137,14 @@ python main.py \--merge
 
 リポジトリの Settings \> Secrets and variables \> Actions で以下を設定：
 
-| Secret名 | 説明 |
-| :---- | :---- |
-| DRIVE\_FILE\_IDS | JSON配列形式のファイル設定（推奨） |
-| DRIVE\_FILE\_ID | Google DriveファイルのID（後方互換用） |
+| Secret名 | 必須 | 説明 |
+| :---- | :---- | :---- |
+| DRIVE\_FILE\_IDS | 任意 | JSON配列形式のファイル設定（推奨） |
+| DRIVE\_FILE\_ID | 任意 | Google DriveファイルのID（後方互換用） |
+| DRIVE\_FOLDER\_ID | 任意 | 監視対象のルートフォルダID |
+| GOOGLE\_API\_KEY | フォルダ探索時必須 | Google Drive API キー |
+
+**注意**: `DRIVE_FILE_IDS`/`DRIVE_FILE_ID`/`DRIVE_FOLDER_ID` のいずれかは必須です。
 
 #### **DRIVE\_FILE\_IDS の形式**
 
@@ -155,3 +194,4 @@ python main.py \--timeout 120 \--max-concurrent 5
 ---
 
 *Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
+*Updated: 2025-12-17 (Issue #30 フォルダ再帰探索機能追加)*
