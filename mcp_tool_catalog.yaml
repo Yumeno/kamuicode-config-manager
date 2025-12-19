@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-17T13:31:51.874757+00:00'
-  total_servers: 238
-  online_servers: 238
+  generated_at: '2025-12-19T13:31:05.131160+00:00'
+  total_servers: 249
+  online_servers: 249
   offline_servers: 0
   error_servers: 0
 servers:
@@ -4204,6 +4204,115 @@ servers:
       required:
       - input_image_url
       type: object
+- id: i2i3d-kamui-hunyuan3d-v3-image-to-3d
+  url: https://kamui-code.ai/i2i3d/fal/hunyuan3d-v3/image-to-3d
+  status: online
+  last_checked: '2025-12-19T13:31:02.825050+00:00'
+  tools:
+  - name: hunyuan3d_v3_image_to_3d_result
+    description: Get Hunyuan3D v3 Image-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_image_to_3d_status
+    description: Check Hunyuan3D v3 Image-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_image_to_3d_submit
+    description: Submit Fal.ai Hunyuan3D v3 Image-to-3D request to generate high-fidelity 3D models from input images.
+    inputSchema:
+      properties:
+        back_image_url:
+          description: Optional back view image URL for better 3D reconstruction
+          type: string
+        enable_pbr:
+          description: Whether to enable PBR material generation (ignored when generate_type is Geometry)
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal, LowPoly, or Geometry (default: Normal)'
+          type: string
+        input_image_url:
+          description: URL of the input image to convert to a 3D model
+          type: string
+        left_image_url:
+          description: Optional left view image URL for better 3D reconstruction
+          type: string
+        polygon_type:
+          default: triangle
+          description: 'Polygon type when LowPoly: triangle or quadrilateral (default: triangle)'
+          type: string
+        right_image_url:
+          description: Optional right view image URL for better 3D reconstruction
+          type: string
+      required:
+      - input_image_url
+      type: object
+- id: i2i3d-kamui-hunyuan3d-v3-sketch-to-3d
+  url: https://kamui-code.ai/i2i3d/fal/hunyuan3d-v3/sketch-to-3d
+  status: online
+  last_checked: '2025-12-19T13:31:02.851700+00:00'
+  tools:
+  - name: hunyuan3d_v3_sketch_to_3d_result
+    description: Get Hunyuan3D v3 Sketch-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_sketch_to_3d_status
+    description: Check Hunyuan3D v3 Sketch-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_sketch_to_3d_submit
+    description: Submit Fal.ai Hunyuan3D v3 Sketch-to-3D request to convert sketches or line art into 3D models.
+    inputSchema:
+      properties:
+        enable_pbr:
+          description: Whether to enable PBR material generation
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        input_image_url:
+          description: URL of the sketch or line art image to transform into a 3D model
+          type: string
+        prompt:
+          description: Text prompt describing the 3D content (e.g., color, material, category)
+          type: string
+      required:
+      - input_image_url
+      - prompt
+      type: object
 - id: i2i3d-kamui-hyper3d-rodin-v2
   url: https://kamui-code.ai/i2i3d/fal/hyper3d/rodin/v2
   status: online
@@ -4484,6 +4593,113 @@ servers:
         texture_size:
           default: 1024
           description: 'Texture resolution: 512, 1024, or 2048 (default: 1024)'
+          type: number
+      required:
+      - image_url
+      type: object
+- id: i2i3d-kamui-trellis-2
+  url: https://kamui-code.ai/i2i3d/fal/trellis-2
+  status: online
+  last_checked: '2025-12-19T13:31:02.856855+00:00'
+  tools:
+  - name: trellis_2_result
+    description: Get completed Trellis 2 3D model results as JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: trellis_2_status
+    description: Check Trellis 2 processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: trellis_2_submit
+    description: Submit Fal.ai Trellis 2 Image-to-3D request and receive request ID for polling.
+    inputSchema:
+      properties:
+        decimation_target:
+          default: 500000
+          description: 'Target vertex count for mesh simplification during export (default: 500000)'
+          type: number
+        image_url:
+          description: URL of the input image to convert to 3D
+          type: string
+        remesh:
+          description: 'Run remeshing (default: true)'
+          type: boolean
+        remesh_band:
+          default: 1
+          description: 'Remeshing band setting (default: 1)'
+          type: number
+        remesh_project:
+          description: Projection value used during remeshing
+          type: number
+        resolution:
+          default: 1024
+          description: 'Output resolution (512, 1024, or 1536, default: 1024)'
+          type: number
+        seed:
+          description: Random seed for reproducibility
+          type: number
+        shape_slat_guidance_rescale:
+          default: 0.5
+          description: 'Guidance rescale for shape SLAT generation (default: 0.5)'
+          type: number
+        shape_slat_guidance_strength:
+          default: 7.5
+          description: 'Guidance strength for shape SLAT generation (default: 7.5)'
+          type: number
+        shape_slat_rescale_t:
+          default: 3
+          description: 'Rescale T for shape SLAT generation (default: 3)'
+          type: number
+        shape_slat_sampling_steps:
+          default: 12
+          description: 'Sampling steps for shape SLAT generation (default: 12)'
+          type: number
+        ss_guidance_rescale:
+          default: 0.7
+          description: 'Guidance rescale for sparse structure generation (default: 0.7)'
+          type: number
+        ss_guidance_strength:
+          default: 7.5
+          description: 'Guidance strength for sparse structure generation (default: 7.5)'
+          type: number
+        ss_rescale_t:
+          default: 5
+          description: 'Rescale T for sparse structure generation (default: 5)'
+          type: number
+        ss_sampling_steps:
+          default: 12
+          description: 'Sampling steps for sparse structure generation (default: 12)'
+          type: number
+        tex_slat_guidance_rescale:
+          description: Guidance rescale for texture SLAT generation
+          type: number
+        tex_slat_guidance_strength:
+          default: 1
+          description: 'Guidance strength for texture SLAT generation (default: 1)'
+          type: number
+        tex_slat_rescale_t:
+          default: 3
+          description: 'Rescale T for texture SLAT generation (default: 3)'
+          type: number
+        tex_slat_sampling_steps:
+          default: 12
+          description: 'Sampling steps for texture SLAT generation (default: 12)'
+          type: number
+        texture_size:
+          default: 2048
+          description: 'Texture resolution (1024, 2048, or 4096, default: 2048)'
           type: number
       required:
       - image_url
@@ -5123,6 +5339,74 @@ servers:
           default: true
           description: 'Whether to use the model''s prompt optimizer (default: true)'
           type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-hunyuan-video-v15-image-to-video
+  url: https://kamui-code.ai/i2v/fal/hunyuan-video-v1.5/image-to-video
+  status: online
+  last_checked: '2025-12-19T13:31:02.891596+00:00'
+  tools:
+  - name: hunyuan_video_v15_image_to_video_result
+    description: Get result of completed Hunyuan Video v1.5 Image-to-Video generation. Returns Fal JSON response with video
+      URL and seed.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_video_v15_image_to_video_status
+    description: Check status of Hunyuan Video v1.5 Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_video_v15_image_to_video_submit
+    description: Submit Fal.ai Hunyuan Video v1.5 Image-to-Video request and receive request ID for polling. Generate videos
+      from a reference image and prompt with customizable parameters.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'The aspect ratio of the video. Possible values: 16:9, 9:16 (default: 16:9)'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable prompt expansion to enhance the input prompt (default: true)'
+          type: boolean
+        image_url:
+          description: URL of the reference image for image-to-video generation
+          type: string
+        negative_prompt:
+          default: ''
+          description: 'The negative prompt to guide what not to generate (default: empty string)'
+          type: string
+        num_frames:
+          default: 121
+          description: 'The number of frames to generate (default: 121)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps (default: 28)'
+          type: number
+        prompt:
+          description: The prompt to generate the video
+          type: string
+        resolution:
+          default: 480p
+          description: 'The resolution of the video. Possible values: 480p (default: 480p)'
+          type: string
+        seed:
+          description: Random seed for reproducibility (optional)
+          type: number
       required:
       - prompt
       - image_url
@@ -7229,6 +7513,58 @@ servers:
         video_url:
           description: URL of the driving video to use as a reference for the motion. The pose from this video will be applied
             to the reference image.
+          type: string
+      required:
+      - prompt
+      - image_url
+      - video_url
+      type: object
+- id: r2v-kamui-fal-ai-scail
+  url: https://kamui-code.ai/r2v/fal/fal-ai/scail
+  status: online
+  last_checked: '2025-12-19T13:31:02.905656+00:00'
+  tools:
+  - name: scail_result
+    description: Get result of completed Fal.ai Scail video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: scail_status
+    description: Check status of Fal.ai Scail processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: scail_submit
+    description: Submit Fal.ai Scail request to animate a reference image using a driving video with 3D-consistent motion.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL of the reference image to animate.
+          type: string
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps for generation. Default: 28'
+          type: number
+        prompt:
+          description: Text prompt guiding the animation style and motion intent.
+          type: string
+        resolution:
+          default: 512p
+          description: 'Output resolution (landscape or portrait chosen automatically based on image aspect ratio). Default:
+            512p'
+          type: string
+        video_url:
+          description: URL of the driving video that provides the motion.
           type: string
       required:
       - prompt
@@ -10480,6 +10816,58 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i3d-kamui-hunyuan3d-v3-text-to-3d
+  url: https://kamui-code.ai/t2i3d/fal/hunyuan3d-v3/text-to-3d
+  status: online
+  last_checked: '2025-12-19T13:30:55.184261+00:00'
+  tools:
+  - name: hunyuan3d_v3_text_to_3d_result
+    description: Get Hunyuan3D v3 Text-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_text_to_3d_status
+    description: Check Hunyuan3D v3 Text-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v3_text_to_3d_submit
+    description: Submit Fal.ai Hunyuan3D v3 Text-to-3D request to generate fully textured 3D models from prompts.
+    inputSchema:
+      properties:
+        enable_pbr:
+          description: Whether to enable PBR material generation
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal, LowPoly, or Geometry (default: Normal)'
+          type: string
+        polygon_type:
+          default: triangle
+          description: 'Polygon type when LowPoly: triangle or quadrilateral (default: triangle)'
+          type: string
+        prompt:
+          description: Text description of the 3D content to generate (up to 1024 UTF-8 characters)
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2i3d-kamui-meshy-v6-preview-text-to-3d
   url: https://kamui-code.ai/t2i3d/fal/meshy/v6-preview/text-to-3d
   status: online
@@ -10746,6 +11134,58 @@ servers:
       required:
       - prompt
       - lyrics_prompt
+      type: object
+- id: t2s-kamui-fal-ai-vibevoice-0-5b
+  url: https://kamui-code.ai/t2s/fal/fal-ai/vibevoice/0.5b
+  status: online
+  last_checked: '2025-12-19T13:31:03.113723+00:00'
+  tools:
+  - name: vibevoice_0_5b_result
+    description: Get the result of a completed VibeVoice 0.5b text-to-speech request. Returns Fal JSON including audio URL
+      and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vibevoice_0_5b_status
+    description: Check the status of a VibeVoice 0.5b text-to-speech request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vibevoice_0_5b_submit
+    description: Generate speech from text using Fal.ai VibeVoice 0.5b (Microsoft TTS). Select a speaker and optional seed/cfg_scale
+      to control output.
+    inputSchema:
+      properties:
+        cfg_scale:
+          default: 1.3
+          description: 'Classifier-Free Guidance scale for generation. Higher values increase adherence to the text (default:
+            1.3).'
+          type: number
+        script:
+          description: The text script to convert to speech.
+          type: string
+        seed:
+          description: Random seed for reproducible generation (optional).
+          type: number
+        speaker:
+          description: 'Voice to use for speaking. Options: Frank, Wayne, Carter, Emma, Grace, Mike.'
+          type: string
+        webhook_url:
+          description: Optional webhook URL to receive the generation result asynchronously.
+          type: string
+      required:
+      - script
+      - speaker
       type: object
 - id: t2s-kamui-index-tts-2-text-to-speech
   url: https://kamui-code.ai/t2s/fal/index-tts-2/text-to-speech
@@ -13905,6 +14345,154 @@ servers:
       required:
       - video_url
       type: object
+- id: v2v-kamui-bria-video-eraser-erase-keypoints
+  url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/keypoints
+  status: online
+  last_checked: '2025-12-19T13:31:03.169914+00:00'
+  tools:
+  - name: bria_video_eraser_erase_keypoints_result
+    description: Get result of completed Bria Video Eraser (Erase by Keypoints) processing. Returns Fal JSON response with
+      video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_keypoints_status
+    description: Check status of Bria Video Eraser (Erase by Keypoints) processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_keypoints_submit
+    description: Submit Fal.ai Bria Video Eraser (Erase by Keypoints) request and receive request ID for polling.
+    inputSchema:
+      properties:
+        keypoints:
+          description: 'Keypoints to erase or keep in format like {"x":100, "y":100, "type":"positive/negative"}. Example:
+            ["{''x'': 765, ''y'': 344, ''type'': ''positive''}"]'
+          type: array
+        output_container_and_codec:
+          default: mp4_h264
+          description: 'Output container and codec. Options: mp4_h265, mp4_h264, webm_vp9, gif, mov_h264, mov_h265, mov_proresks,
+            mkv_h264, mkv_h265, mkv_vp9, mkv_mpeg4 (default: mp4_h264)'
+          type: string
+        preserve_audio:
+          default: true
+          description: 'Whether to preserve audio in the output video (default: true)'
+          type: boolean
+        video_url:
+          description: Input video to erase objects from (duration must be less than 5s)
+          type: string
+      required:
+      - video_url
+      - keypoints
+      type: object
+- id: v2v-kamui-bria-video-eraser-erase-mask
+  url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/mask
+  status: online
+  last_checked: '2025-12-19T13:31:03.162601+00:00'
+  tools:
+  - name: bria_video_eraser_erase_mask_result
+    description: Get result of completed Bria Video Eraser (Erase by Mask) processing. Returns Fal JSON response with video
+      URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_mask_status
+    description: Check status of Bria Video Eraser (Erase by Mask) processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_mask_submit
+    description: Submit Fal.ai Bria Video Eraser (Erase by Mask) request and receive request ID for polling.
+    inputSchema:
+      properties:
+        mask_video_url:
+          description: Input mask video to define the erase region (duration must be less than 5s)
+          type: string
+        output_container_and_codec:
+          default: mp4_h264
+          description: 'Output container and codec. Options: mp4_h265, mp4_h264, webm_vp9, gif, mov_h264, mov_h265, mov_proresks,
+            mkv_h264, mkv_h265, mkv_vp9, mkv_mpeg4 (default: mp4_h264)'
+          type: string
+        preserve_audio:
+          default: true
+          description: 'Whether to preserve audio in the output video (default: true)'
+          type: boolean
+        video_url:
+          description: Input video to erase objects from (duration must be less than 5s)
+          type: string
+      required:
+      - video_url
+      - mask_video_url
+      type: object
+- id: v2v-kamui-bria-video-eraser-erase-prompt
+  url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/prompt
+  status: online
+  last_checked: '2025-12-19T13:31:03.146302+00:00'
+  tools:
+  - name: bria_video_eraser_erase_prompt_result
+    description: Get result of completed Bria Video Eraser (Erase by Prompt) processing. Returns Fal JSON response with video
+      URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_prompt_status
+    description: Check status of Bria Video Eraser (Erase by Prompt) processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_video_eraser_erase_prompt_submit
+    description: Submit Fal.ai Bria Video Eraser (Erase by Prompt) request and receive request ID for polling.
+    inputSchema:
+      properties:
+        output_container_and_codec:
+          default: mp4_h264
+          description: 'Output container and codec. Options: mp4_h265, mp4_h264, webm_vp9, gif, mov_h264, mov_h265, mov_proresks,
+            mkv_h264, mkv_h265, mkv_vp9, mkv_mpeg4 (default: mp4_h264)'
+          type: string
+        preserve_audio:
+          default: true
+          description: 'Whether to preserve audio in the output video (default: true)'
+          type: boolean
+        prompt:
+          description: Input prompt to detect the object to erase
+          type: string
+        video_url:
+          description: Input video to erase objects from (duration must be less than 5s)
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
 - id: v2v-kamui-bytedance-upscale-video
   url: https://kamui-code.ai/v2v/fal/bytedance/upscale-video
   status: online
@@ -15452,6 +16040,53 @@ servers:
         video_url:
           description: Video URL to upscale (exclusive with image_url)
           type: string
+      type: object
+- id: v2v-kamui-veed-video-background-removal
+  url: https://kamui-code.ai/video/fal/veed/video-background-removal
+  status: online
+  last_checked: '2025-12-19T13:31:03.221675+00:00'
+  tools:
+  - name: veed_video_background_removal_result
+    description: Get result of completed Veed Video Background Removal processing.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veed_video_background_removal_status
+    description: Check status of Veed Video Background Removal processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veed_video_background_removal_submit
+    description: Submit Fal.ai Veed Video Background Removal request and receive request ID for polling.
+    inputSchema:
+      properties:
+        output_codec:
+          default: vp9
+          description: 'Output codec for the video (vp9 or h264, default: vp9)'
+          type: string
+        refine_foreground_edges:
+          default: true
+          description: 'Improve the quality of extracted object edges (default: true)'
+          type: boolean
+        subject_is_person:
+          default: true
+          description: 'Set to false if the subject is not a person (default: true)'
+          type: boolean
+        video_url:
+          description: The URL of the video file to remove background from
+          type: string
+      required:
+      - video_url
       type: object
 - id: v2v-kamui-vidu-q2-video-extension-pro
   url: https://kamui-code.ai/v2v/fal/vidu/q2/video-extension/pro
