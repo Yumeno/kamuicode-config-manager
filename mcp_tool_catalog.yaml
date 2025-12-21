@@ -1,9 +1,9 @@
 metadata:
-  generated_at: '2025-12-19T13:31:05.131160+00:00'
-  total_servers: 249
-  online_servers: 249
+  generated_at: '2025-12-21T13:25:23.409355+00:00'
+  total_servers: 256
+  online_servers: 254
   offline_servers: 0
-  error_servers: 0
+  error_servers: 2
 servers:
 - id: 3d23d-kamui-meshy-v5-remesh
   url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
@@ -1761,6 +1761,91 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-flux-2-flash-edit
+  url: https://kamui-code.ai/i2i/fal/flux-2/flash/edit
+  status: online
+  last_checked: '2025-12-21T13:25:19.166532+00:00'
+  tools:
+  - name: flux_2_flash_edit_result
+    description: Get result and download completed Flux-2 Flash Edit generated image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_flash_edit_status
+    description: Check status of Flux-2 Flash Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_flash_edit_submit
+    description: Submit Fal.ai Flux-2 Flash Edit image editing request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: false
+          description: 'If set to true, the prompt will be expanded for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'Guidance Scale is a measure of how close you want the model to stick to your prompt when looking for
+            a related image to show you (default: 2.5)'
+          type: number
+        image_size:
+          default: square_hd
+          description: 'The size of the image to generate. The width and height must be between 512 and 2048 pixels. Possible
+            values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9. For custom sizes, pass
+            an object with width and height (default: square_hd)'
+          type: string
+        image_urls:
+          description: The URLs of the images for editing. A maximum of 4 images are allowed, if more are provided, only the
+            first 4 will be used.
+          type: array
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Possible values: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image
+          type: string
+        seed:
+          description: The seed to use for the generation. If not provided, a random seed will be used.
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-flux-2-flex-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-flex/edit
   status: online
@@ -2081,6 +2166,82 @@ servers:
           type: string
         seed:
           description: The seed to use for the generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-flux-2-turbo-edit
+  url: https://kamui-code.ai/i2i/fal/flux-2/turbo/edit
+  status: online
+  last_checked: '2025-12-21T13:25:19.098440+00:00'
+  tools:
+  - name: flux_2_turbo_edit_result
+    description: Get result of completed Flux-2 Turbo Edit image editing. Returns JSON response with edited image URL and
+      metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_turbo_edit_status
+    description: Check status of Flux-2 Turbo Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_turbo_edit_submit
+    description: Submit Fal.ai Flux-2 Turbo Edit image editing request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: false
+          description: 'If set to true, the prompt will be expanded for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'Guidance Scale is a measure of how close you want the model to stick to your prompt when looking for
+            a related image to show you (default: 2.5)'
+          type: number
+        image_size:
+          default: square_hd
+          description: 'The size of the image to generate. The width and height must be between 512 and 2048 pixels. Possible
+            values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9. For custom sizes, pass
+            an object with width and height (default: square_hd)'
+          type: string
+        image_urls:
+          description: The URLs of the images for editing. A maximum of 4 images are allowed, if more are provided, only the
+            first 4 will be used.
+          type: array
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Possible values: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image
+          type: string
+        seed:
+          description: The seed to use for the generation. If not provided, a random seed will be used.
           type: number
         sync_mode:
           default: false
@@ -3622,6 +3783,82 @@ servers:
           type: boolean
       required:
       - image_urls
+      type: object
+- id: i2i-kamui-qwen-image-layered
+  url: https://kamui-code.ai/i2i/fal/qwen-image-layered
+  status: online
+  last_checked: '2025-12-21T13:25:21.634823+00:00'
+  tools:
+  - name: qwen_image_layered_result
+    description: Get result of completed Qwen Image Layered generation. Returns JSON response with generated layer images
+      and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_layered_status
+    description: Check status of Qwen Image Layered processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_layered_submit
+    description: Submit Qwen Image Layered generation request to generate multiple image layers from an input image. Receive
+      request ID for polling.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular, high. Higher acceleration increases speed (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker to filter NSFW content (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 5
+          description: 'The guidance scale for image generation (default: 5)'
+          type: number
+        image_url:
+          description: The URL of the input image to generate layers from
+          type: string
+        negative_prompt:
+          default: ''
+          description: 'The negative prompt to avoid in generation (default: '''')'
+          type: string
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        num_layers:
+          default: 4
+          description: 'The number of layers to generate (default: 4)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image: png or webp (default: png)'
+          type: string
+        prompt:
+          description: A caption for the input image (optional)
+          type: string
+        seed:
+          description: Seed for reproducible generation. The same seed with the same prompt will output the same image every
+            time
+          type: number
+        sync_mode:
+          description: 'If True, the media will be returned as a data URI and won''t be available in request history (default:
+            false)'
+          type: boolean
+      required:
+      - image_url
       type: object
 - id: i2i-kamui-qwen-lighting-restore
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/lighting-restoration
@@ -8835,6 +9072,83 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-flux-2-flash
+  url: https://kamui-code.ai/t2i/fal/flux-2/flash
+  status: online
+  last_checked: '2025-12-21T13:25:19.079390+00:00'
+  tools:
+  - name: flux_2_flash_result
+    description: Get result and download completed Flux-2 Flash generated image to local directory.
+    inputSchema:
+      properties:
+        auto_open:
+          description: 'Automatically open downloaded image (default: true)'
+          type: boolean
+        filename_prefix:
+          description: Optional filename prefix (uses auto-generated names if not specified)
+          type: string
+        output_directory:
+          default: ./
+          description: 'Local directory to save image (default: ./)'
+          type: string
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_flash_status
+    description: Check status of Flux-2 Flash text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_flash_submit
+    description: Submit Fal.ai Flux-2 Flash text-to-image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: false
+          description: 'Expand the prompt for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable the safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'Guidance scale to control adherence to the prompt (default: 2.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, returns media as data URI and omits request history output (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-flux-2-flex
   url: https://kamui-code.ai/t2i/fal/flux-2-flex
   status: online
@@ -9390,6 +9704,74 @@ servers:
         num_inference_steps:
           default: 28
           description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: Seed for reproducible generation
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, returns media as data URI and omits request history output (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-flux-2-turbo
+  url: https://kamui-code.ai/t2i/fal/flux-2/turbo
+  status: online
+  last_checked: '2025-12-21T13:25:19.095413+00:00'
+  tools:
+  - name: flux_2_turbo_result
+    description: Get result of completed Flux-2 Turbo text-to-image generation. Returns JSON response with generated image
+      URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_turbo_status
+    description: Check status of Flux-2 Turbo text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_turbo_submit
+    description: Submit Fal.ai Flux-2 Turbo text-to-image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: false
+          description: 'Expand the prompt for better results (default: false)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable the safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 2.5
+          description: 'Guidance scale to control adherence to the prompt (default: 2.5)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Size of the generated image. Possible values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. For custom sizes, pass an object with width and height (default: landscape_4_3)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
           type: number
         output_format:
           default: png
@@ -11009,6 +11391,11 @@ servers:
       required:
       - prompt
       type: object
+- id: t2m-kamui-cassetteai-music-generator
+  url: https://kamui-code.ai/t2m/fal/cassetteai/music-generator
+  status: error
+  last_checked: '2025-12-21T13:25:21.569330+00:00'
+  error_message: 'tools/list error: {''code'': -32601, ''message'': ''tools not supported''}'
 - id: t2m-kamui-lyria
   url: https://kamui-code.ai/t2m/google/lyria
   status: online
@@ -11135,6 +11522,11 @@ servers:
       - prompt
       - lyrics_prompt
       type: object
+- id: t2m-kamui-sonauto-v2-text-to-music
+  url: https://kamui-code.ai/t2m/fal/sonauto/v2/text-to-music
+  status: error
+  last_checked: '2025-12-21T13:25:21.592444+00:00'
+  error_message: 'tools/list error: {''code'': -32601, ''message'': ''tools not supported''}'
 - id: t2s-kamui-fal-ai-vibevoice-0-5b
   url: https://kamui-code.ai/t2s/fal/fal-ai/vibevoice/0.5b
   status: online
