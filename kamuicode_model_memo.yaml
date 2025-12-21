@@ -607,6 +607,10 @@ ai_models:
       server_name: i2v-kamui-wan-v2.6
       release_date: 2025年12月12日
       features: "(Alibaba Cloud) 高品質な動画生成モデル。最大1080p、15秒の生成に対応し、テキストによるモーション制御やマルチショット（シーン分割）、音声同期機能を備える。"
+    - name: Hunyuan Video v1.5 Image-to-Video
+      server_name: i2v-kamui-hunyuan-video-v15-image-to-video
+      release_date: 2025年11月21日
+      features: "(Tencent) 8.3Bパラメータの動画生成モデルHunyuanVideo v1.5を使用したImage-to-Videoモデル。コンシューマーGPUでも動作可能な軽量性と高品質を両立し、入力画像とプロンプトから一貫性のある動画を生成可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -765,6 +769,10 @@ ai_models:
       server_name: r2v-kamui-wan-v2.6
       release_date: 2025年12月15日
       features: "(Alibaba Cloud) 参照動画を用いてキャラクターや被写体の一貫性を保った動画を生成するReference-to-Videoモデル。最大3つの参照動画を入力可能で、1080p解像度やマルチショット生成に対応する。"
+    - name: SCAIL
+      server_name: r2v-kamui-fal-ai-scail
+      release_date: 2025年12月11日
+      features: "(Z.ai) 参照画像と駆動用動画から、3D整合性のあるポーズ制御を用いて高品質な動画を生成するモデル。複雑な動きやキャラクターの一貫性維持に優れる。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -821,6 +829,10 @@ ai_models:
       server_name: t2s-kamui-maya
       release_date: 2025年11月6日
       features: "(Maya Research / fal.ai) テキストから感情豊かな音声を生成するAI音声合成モデル。年齢、アクセント、ピッチなどを制御可能。"
+    - name: VibeVoice 0.5b
+      server_name: t2s-kamui-fal-ai-vibevoice-0-5b
+      release_date: 2025年12月3日
+      features: "(Microsoft) 0.5Bパラメータの軽量かつ高速なリアルタイム音声合成モデル。ストリーミング入力に対応し、長時間の音声生成も安定して行える。fal.aiでは複数のスピーカープリセットと共に提供。"
   text_to_audio:
     - name: Stability AI Stable Audio 2.5
       server_name: t2a-kamui-stable-audio-v25
@@ -916,11 +928,27 @@ ai_models:
       server_name: i2i3d-kamui-meshy-v5-remesh
       release_date: 2025年7月28日
       features: "(Meshy AI) 3Dモデルのトポロジーを最適化・再構築するリメッシュモデル。Meshy V5アーキテクチャを採用し、詳細な形状を維持しながらポリゴン数の調整や四角形ポリゴン化が可能。"
+    - name: Hunyuan3D v3
+      server_name: i2i3d-kamui-hunyuan3d-v3-image-to-3d
+      release_date: 2025年9月16日
+      features: "(Tencent) 画像から高品質な3Dモデルを生成するHunyuan3Dシリーズの第3世代モデル。マルチビュー入力（背面・側面）による形状補正に対応し、PBRマテリアル生成やポリゴン数制御（4万〜150万）、LowPoly/Geometryモードの切り替えが可能。"
+    - name: Hunyuan3D v3 Sketch-to-3D
+      server_name: i2i3d-kamui-hunyuan3d-v3-sketch-to-3d
+      release_date: 2025年9月16日
+      features: "(Tencent) スケッチや線画から高品質な3Dモデルを生成するHunyuan3Dの最新バージョン。v3ではモデリング精度が前バージョンの3倍に向上し、1536³の高解像度ボクセルやPBRマテリアル生成に対応。"
+    - name: TRELLIS 2
+      server_name: i2i3d-kamui-trellis-2
+      release_date: 2025年12月17日
+      features: "(Microsoft) 高忠実度なImage-to-3D生成モデル。40億パラメータを持ち、独自のO-Voxel構造とFlow-Matching Transformerにより、複雑なトポロジーやPBRマテリアル（透明度含む）を持つ高品質な3Dアセットを高速に生成可能。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
       release_date: 2025年9月13日
       features: "(Meshy AI) テキスト記述から最高品質の3Dモデルを生成。プレビュー（ジオメトリのみ）とフル（テクスチャ付き）モードを選択可能。"
+    - name: Hunyuan3D v3
+      server_name: t2i3d-kamui-hunyuan3d-v3-text-to-3d
+      release_date: 2025年9月16日
+      features: "(Tencent) テキストや画像から高品質な3Dモデルを生成する最新AIモデル。前バージョンからモデリング精度が3倍に向上し、最大150万ポリゴンの詳細なメッシュ生成やPBRマテリアルに対応。商用利用可能なAPIとしても提供されている。"
   3d_to_3d:
     - name: Meshy V5 Remesh
       server_name: 3d23d-kamui-meshy-v5-remesh
@@ -980,3 +1008,9 @@ ai_models:
       server_name: r2i-kamui-vidu-q2-reference-to-image
       release_date: 2025年12月1日
       features: "(ShengShu Technology) 複数の参照画像を使用して、被写体やスタイルの一貫性を保ちながら新しい画像を生成するモデル。動画生成モデルVidu Q2と共通のエンジンを使用しており、キャラクターや製品の同一性を維持した画像生成が可能。"
+
+  voice_cloning:
+    - name: Kling 2.6 Create Voice
+      server_name: voice-kamui-kling-video-create-voice
+      release_date: 2025年12月16日
+      features: "(Kuaishou) Kling 2.6 VideoモデルのVoice Control機能で使用するカスタムボイスを作成するモデル。5〜30秒の音声クリップから話者の声質を学習し、動画生成時のキャラクターの発話やリップシンクに適用できる。"
