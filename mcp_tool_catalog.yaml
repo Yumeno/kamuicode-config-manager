@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-21T13:25:23.409355+00:00'
-  total_servers: 256
-  online_servers: 254
+  generated_at: '2025-12-23T13:33:39.540228+00:00'
+  total_servers: 258
+  online_servers: 256
   offline_servers: 0
   error_servers: 2
 servers:
@@ -7961,6 +7961,102 @@ servers:
           type: string
       required:
       - prompt
+      type: object
+- id: r2v-kamui-kling-video-v26-pro-motion-control
+  url: https://kamui-code.ai/r2v/fal/kling-video/v26-pro/motion-control
+  status: online
+  last_checked: '2025-12-23T13:33:37.459375+00:00'
+  tools:
+  - name: kling_video_v26_pro_motion_control_result
+    description: Kling Video v2.6 Pro Motion Controlリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_motion_control_status
+    description: Kling Video v2.6 Pro Motion Controlリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_pro_motion_control_submit
+    description: Kling Video v2.6 Pro Motion Controlを使用して参照動画の動きを参照画像のキャラクターに転写します。
+    inputSchema:
+      properties:
+        character_orientation:
+          description: 出力キャラクターの向き。image または video（任意）
+          type: string
+        image_url:
+          description: 参照画像のURL（必須）
+          type: string
+        keep_original_sound:
+          description: '参照動画の音声を保持するかどうか（デフォルト: true）'
+          type: boolean
+        prompt:
+          description: 生成動画のプロンプト（任意）
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）
+          type: string
+      required:
+      - image_url
+      - video_url
+      type: object
+- id: r2v-kamui-kling-video-v26-standard-motion-control
+  url: https://kamui-code.ai/r2v/fal/kling-video/v26-standard/motion-control
+  status: online
+  last_checked: '2025-12-23T13:33:37.540734+00:00'
+  tools:
+  - name: kling_video_v26_standard_motion_control_result
+    description: Kling Video v2.6 Standard Motion Controlリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_standard_motion_control_status
+    description: Kling Video v2.6 Standard Motion Controlリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v26_standard_motion_control_submit
+    description: Kling Video v2.6 Standard Motion Controlを使用して参照動画の動きを参照画像のキャラクターに転写します。
+    inputSchema:
+      properties:
+        character_orientation:
+          description: 出力キャラクターの向き。image または video（任意）
+          type: string
+        image_url:
+          description: 参照画像のURL（必須）
+          type: string
+        keep_original_sound:
+          description: '参照動画の音声を保持するかどうか（デフォルト: true）'
+          type: boolean
+        prompt:
+          description: 生成動画のプロンプト（任意）
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）
+          type: string
+      required:
+      - image_url
+      - video_url
       type: object
 - id: r2v-kamui-ltx-2
   url: https://kamui-code.ai/r2v/fal/ltx-2
