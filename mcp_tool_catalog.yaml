@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2025-12-23T13:33:39.540228+00:00'
-  total_servers: 258
-  online_servers: 256
+  generated_at: '2025-12-24T10:25:25.418831+00:00'
+  total_servers: 266
+  online_servers: 264
   offline_servers: 0
   error_servers: 2
 servers:
@@ -3170,6 +3170,82 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2i-kamui-qwen-image-edit-2511
+  url: https://kamui-code.ai/i2i/fal/qwen-image-edit-2511
+  status: online
+  last_checked: '2025-12-24T10:25:23.596892+00:00'
+  tools:
+  - name: qwen_image_edit_2511_result
+    description: Get result of completed Qwen Image Edit 2511 editing. Returns Fal response JSON with edited images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_2511_status
+    description: Check status of Qwen Image Edit 2511 processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_2511_submit
+    description: Submit Qwen Image Edit 2511 request for AI-powered image editing. Edit images using text prompts.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular, high (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'Guidance scale for image generation (default: 4.5)'
+          type: number
+        image_size:
+          description: 'Size of generated image: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            or use custom {width, height} object. If None, uses input image dimensions.'
+          type: string
+        image_urls:
+          description: List of URLs of input images to edit
+          type: array
+        negative_prompt:
+          description: 'The negative prompt for image generation (default: empty)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt to edit the image with
+          type: string
+        seed:
+          description: Seed for reproducible generation. Same seed and prompt will output same image.
+          type: number
+        sync_mode:
+          description: If true, media is returned as data URI
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-qwen-image-edit-plus
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus
   status: online
@@ -4232,6 +4308,71 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-wan-v26
+  url: https://kamui-code.ai/i2i/fal/wan/v2.6
+  status: online
+  last_checked: '2025-12-24T10:25:23.679926+00:00'
+  tools:
+  - name: wan_v2_6_image_to_image_result
+    description: Get result of completed Wan v2.6 Image-to-Image generation. Returns Fal response JSON with generated images
+      in PNG format.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_image_status
+    description: Check status of Wan v2.6 Image-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_image_submit
+    description: Submit Wan v2.6 Image-to-Image generation request. Edit or generate images using 1-3 reference images with
+      style transfer and subject consistency. Reference images as 'image 1', 'image 2', 'image 3' in prompt.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          description: 'Enable LLM prompt optimization. Improves results for simple prompts but adds 3-4 seconds. Default:
+            true'
+          type: boolean
+        enable_safety_checker:
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output image size. Presets: ''square_hd'', ''square'', ''portrait_4_3'', ''portrait_16_9'', ''landscape_4_3'',
+            ''landscape_16_9''. Default: square_hd'
+          type: string
+        image_urls:
+          description: 'Reference images for editing (1-3 images required). Order matters: reference as ''image 1'', ''image
+            2'', ''image 3'' in prompt. Resolution: 384-5000px each dimension. Max size: 10MB each. Formats: JPEG, JPG, PNG
+            (no alpha), BMP, WEBP.'
+          type: array
+        negative_prompt:
+          description: Content to avoid in the generated image. Max 500 characters.
+          type: string
+        num_images:
+          description: 'Number of images to generate (1-4). Default: 1'
+          type: number
+        prompt:
+          description: 'Text prompt describing the desired image. Reference images as ''image 1'', ''image 2'', ''image 3''.
+            Supports Chinese and English. Max 2000 characters. Example: ''Generate using the style of image 1 and background
+            of image 2''.'
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647). Same seed produces more consistent results.
+          type: number
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i3d-kamui-fal-sam-3-3d-align
   url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-align
   status: online
@@ -5161,6 +5302,71 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-bytedance-seedance-v15-pro
+  url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1.5-pro
+  status: online
+  last_checked: '2025-12-24T10:25:23.273568+00:00'
+  tools:
+  - name: bytedance_seedance_v15_pro_i2v_result
+    description: Get result of completed ByteDance Seedance V1.5 Pro I2V video generation with audio.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v15_pro_i2v_status
+    description: Check status of ByteDance Seedance V1.5 Pro I2V processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v15_pro_i2v_submit
+    description: Submit Fal.ai ByteDance Seedance V1.5 Pro Image-to-Video generation request with audio support. Receive request
+      ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of generated video (21:9, 16:9, 4:3, 1:1, 3:4, 9:16, default: 16:9)'
+          type: string
+        camera_fixed:
+          description: Whether to fix camera position
+          type: boolean
+        duration:
+          default: '5'
+          description: 'Video duration in seconds (4, 5, 6, 7, 8, 9, 10, 11, 12, default: 5)'
+          type: string
+        end_image_url:
+          description: Optional end frame image URL for video generation
+          type: string
+        generate_audio:
+          default: true
+          description: 'Whether to generate audio for the video (default: true)'
+          type: boolean
+        image_url:
+          description: Base image URL for video generation. Base64 data URI also supported.
+          type: string
+        prompt:
+          description: Text prompt for video generation
+          type: string
+        resolution:
+          default: 720p
+          description: 'Video resolution (480p, 720p, default: 720p)'
+          type: string
+        seed:
+          description: Random seed for video generation. -1 for random.
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-decart-lucy-14b
   url: https://kamui-code.ai/i2v/fal/decart/lucy-14b
   status: online
@@ -5644,6 +5850,63 @@ servers:
         seed:
           description: Random seed for reproducibility (optional)
           type: number
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-kandinsky5-pro
+  url: https://kamui-code.ai/i2v/fal/kandinsky5-pro
+  status: online
+  last_checked: '2025-12-24T10:25:23.575807+00:00'
+  tools:
+  - name: kandinsky5_pro_i2v_result
+    description: Get result of completed Kandinsky5 Pro Image-to-Video generation. Returns JSON response with video URL and
+      metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kandinsky5_pro_i2v_status
+    description: Check status of Kandinsky5 Pro Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kandinsky5_pro_i2v_submit
+    description: Submit Fal.ai Kandinsky5 Pro Image-to-Video request. Kandinsky 5.0 Pro is a diffusion model for fast, high-quality
+      image-to-video generation.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level for faster generation (none, regular). Default: regular'
+          type: string
+        duration:
+          default: 5s
+          description: 'Duration of the video (5s). Default: 5s'
+          type: string
+        image_url:
+          description: URL of the image to use as a reference for video generation
+          type: string
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps. Default: 28'
+          type: number
+        prompt:
+          description: Text prompt to guide video generation from the image
+          type: string
+        resolution:
+          default: 512P
+          description: 'Video resolution: 512P or 1024P. Default: 512P'
+          type: string
       required:
       - prompt
       - image_url
@@ -11294,6 +11557,69 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-wan-v26
+  url: https://kamui-code.ai/t2i/fal/wan/v2.6
+  status: online
+  last_checked: '2025-12-24T10:25:23.649327+00:00'
+  tools:
+  - name: wan_v2_6_text_to_image_result
+    description: Get result of completed Wan v2.6 Text-to-Image generation. Returns Fal response JSON with generated images
+      in PNG format.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_text_to_image_status
+    description: Check status of Wan v2.6 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_text_to_image_submit
+    description: Submit Wan v2.6 Text-to-Image generation request. Generates images from text prompts with optional reference
+      image for style guidance. Supports Chinese and English. Max 2000 characters for prompt.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output image size. Use presets: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9.
+            Or specify custom dimensions with {width, height} object. If not set, matches input image size (up to 1280x1280).'
+          type: string
+        image_url:
+          description: 'Optional reference image URL for style guidance. Resolution: 384-5000px each dimension. Max size:
+            10MB. Formats: JPEG, JPG, PNG (no alpha), BMP, WEBP.'
+          type: string
+        max_images:
+          default: 1
+          description: 'Maximum number of images to generate (1-5). Actual count may be less depending on model inference.
+            Default: 1'
+          maximum: 5
+          minimum: 1
+          type: number
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default: empty'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image. Supports Chinese and English. Max 2000 characters.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647).
+          type: number
+      required:
+      - prompt
+      type: object
 - id: t2i3d-kamui-hunyuan3d-v3-text-to-3d
   url: https://kamui-code.ai/t2i3d/fal/hunyuan3d-v3/text-to-3d
   status: online
@@ -12270,6 +12596,64 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-bytedance-seedance-v15-pro
+  url: https://kamui-code.ai/t2v/fal/bytedance/seedance-v1.5-pro
+  status: online
+  last_checked: '2025-12-24T10:25:23.353794+00:00'
+  tools:
+  - name: bytedance_seedance_v15_pro_t2v_result
+    description: Get result of completed ByteDance Seedance V1.5 Pro T2V video generation with audio.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v15_pro_t2v_status
+    description: Check status of ByteDance Seedance V1.5 Pro T2V processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v15_pro_t2v_submit
+    description: Submit Fal.ai ByteDance Seedance V1.5 Pro Text-to-Video generation request with audio support. Receive request
+      ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of generated video (21:9, 16:9, 4:3, 1:1, 3:4, 9:16, default: 16:9)'
+          type: string
+        camera_fixed:
+          description: Whether to fix camera position
+          type: boolean
+        duration:
+          default: '5'
+          description: 'Video duration in seconds (4, 5, 6, 7, 8, 9, 10, 11, 12, default: 5)'
+          type: string
+        generate_audio:
+          default: true
+          description: 'Whether to generate audio for the video (default: true)'
+          type: boolean
+        prompt:
+          description: Text prompt for video generation
+          type: string
+        resolution:
+          default: 720p
+          description: 'Video resolution (480p, 720p, default: 720p)'
+          type: string
+        seed:
+          description: Random seed for video generation. -1 for random.
+          type: number
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-fal-infinity-star
   url: https://kamui-code.ai/t2v/fal/infinity-star
   status: online
@@ -12753,6 +13137,63 @@ servers:
         video_length:
           default: 5s
           description: 'Length of the video to generate (5s or 10s). Default: 5s'
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-kandinsky5-pro
+  url: https://kamui-code.ai/t2v/fal/kandinsky5-pro
+  status: online
+  last_checked: '2025-12-24T10:25:23.387815+00:00'
+  tools:
+  - name: kandinsky5_pro_t2v_result
+    description: Get result of completed Kandinsky5 Pro Text-to-Video generation. Returns JSON response with video URL and
+      metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kandinsky5_pro_t2v_status
+    description: Check status of Kandinsky5 Pro Text-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kandinsky5_pro_t2v_submit
+    description: Submit Fal.ai Kandinsky5 Pro Text-to-Video request. Kandinsky 5.0 Pro is a diffusion model for fast, high-quality
+      text-to-video generation.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level for faster generation (none, regular). Default: regular'
+          type: string
+        aspect_ratio:
+          default: '3:2'
+          description: 'Aspect ratio of the generated video (3:2, 1:1, 2:3). Default: 3:2'
+          type: string
+        duration:
+          default: 5s
+          description: 'Duration of the video (5s). Default: 5s'
+          type: string
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps. Default: 28'
+          type: number
+        prompt:
+          description: Text prompt to guide video generation
+          type: string
+        resolution:
+          default: 512P
+          description: 'Video resolution: 512P or 1024P. Default: 512P'
           type: string
       required:
       - prompt
@@ -15171,6 +15612,62 @@ servers:
           type: boolean
         video_url:
           description: URL of the video to edit. Base64 data URIs also supported.
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-decart-lucy-restyle
+  url: https://kamui-code.ai/v2v/fal/decart/lucy-restyle
+  status: online
+  last_checked: '2025-12-24T10:25:23.614542+00:00'
+  tools:
+  - name: decart_lucy_restyle_result
+    description: Get result for completed Decart Lucy Restyle video restyling. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: decart_lucy_restyle_status
+    description: Check status of Decart Lucy Restyle processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: decart_lucy_restyle_submit
+    description: Submit Fal.ai Decart Lucy Restyle video restyling request and receive request ID for polling. Restyle videos
+      up to 30 min long - maintaining maximum detail quality.
+    inputSchema:
+      properties:
+        enhance_prompt:
+          default: true
+          description: 'Whether to enhance the prompt for better results (default: true)'
+          type: boolean
+        prompt:
+          description: Text description of the desired video style transformation (e.g., 'Make it psychedelic art style with
+            trippy colors and patterns')
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p, default: 720p)'
+          type: string
+        seed:
+          description: Seed for video generation (optional, for reproducibility)
+          type: number
+        sync_mode:
+          default: false
+          description: 'If set to true, wait for generation before returning (default: false)'
+          type: boolean
+        video_url:
+          description: URL of the video to restyle. Base64 data URIs also supported.
           type: string
       required:
       - prompt
