@@ -2,6 +2,20 @@
 
 このドキュメントは、Web検索で特定できなかったモデルのリリース日をリストアップするためのものです。
 
+## 調査報告 (2025-12-24 22:12)
+- **モデル名**: Bria Video Eraser (Erase by Prompt) (server_name: v2v-kamui-bria-video-eraser-erase-prompt)
+- **推測される開発元**: Bria AI
+- **調査で確認した情報源**: fal.ai Blog, Bria AI 2024 Wrapped
+- **不明な理由**: fal.aiのブログにて、Image Eraser (2025/02/25) や Video Background Removal (2025/07/22) のリリース記事は確認できたが、Video Eraser (Prompt/Mask) の具体的なリリース日が記載された記事が見当たらず、正確な日付が特定できないため。
+- **モデル名**: Bria Video Eraser (Keypoints) (server_name: v2v-kamui-bria-video-eraser-erase-keypoints)
+- **推測される開発元**: Bria AI (fal.ai経由で提供)
+- **調査で確認した情報源**: fal.ai Model Page, Bria AI Blog (2024 Wrapped: A Year of Visual Gen AI Innovation)
+- **不明な理由**: Bria AIの公式ブログでは2024年中に「Advanced Eraser」APIをリリースした旨の記述があるが、動画版（Video Eraser）の具体的なリリース日（年月日）が特定できない。fal.aiでは「Recently Added」リストに含まれているが、Changelogやブログで「Video Eraser」の導入日を明記したアナウンスが見当たらない（2025年7月のBria提携記事には「Video Background Removal」のみ記載されている）。
+- **モデル名**: Bria Video Eraser (Erase by Prompt) (server_name: v2v-kamui-bria-video-eraser-erase-prompt)
+- **推測される開発元**: Bria AI (fal.ai経由)
+- **調査で確認した情報源**: [fal.ai Search Result](https://fal.ai/models/bria/bria_video_eraser/erase/prompt), [WaveSpeedAI](https://wavespeed.ai/)
+- **不明な理由**: fal.aiにおける「Bria Video Background Removal」のリリース日（2025年7月22日）は確認できたが、Video Eraser機能の正確な提供開始日が特定できない。「Recently Added」リストに含まれているため2025年後半（特にWan 2.6がリリースされた9月頃）の可能性があるが、明確な日付が見当たらないため。
+---
 ## 調査報告 (2025-12-12 22:06)
 - **モデル名**: Wan Vision Enhancer (server_name: `v2v-kamui-fal-wan-vision-enhancer`)
 - **推測される開発元**: Fal.ai (Wan-AI / Alibaba Cloud のモデルを利用)
