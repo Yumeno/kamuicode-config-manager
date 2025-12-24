@@ -140,6 +140,30 @@ ai_models:
       server_name: t2i-kamui-fal-gpt-image-1-5
       release_date: 2025年12月16日
       features: "(OpenAI) プロンプトへの忠実性と画像品質が大幅に向上した最新の画像生成モデル。構図や照明、細部の表現力に優れ、特にテキストのレンダリング能力が強化されている。fal.ai経由で提供され、高速な生成と正確な編集が可能。"
+    - name: FLUX.2 Flash
+      server_name: t2i-kamui-flux-2-flash
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2ファミリーの高速画像生成モデル。前世代のSchnellに相当する位置づけ、またはFlexの高速化版として、プロンプトへの忠実性と高品質を維持しながら高速な推論を実現。fal.aiなどを通じて提供されている。"
+    - name: FLUX.2 Turbo
+      server_name: t2i-kamui-flux-2-turbo
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 次世代画像生成モデルFLUX.2シリーズの高速推論版。前世代を凌駕するフォトリアルな画質と、非常に高いプロンプト忠実性・文字生成能力を持つFLUX.2 [dev]をベースに、高速生成（Turbo）を実現したモデル。"
+    - name: FLUX.2 Turbo
+      server_name: t2i-kamui-flux-2-turbo
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2アーキテクチャを採用した高速画像生成モデル。高いプロンプト忠実性と画質を維持しながら、低遅延での生成を実現。"
+    - name: FLUX.2 Flash
+      server_name: t2i-kamui-flux-2-flash
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2アーキテクチャを採用した高速画像生成モデル。FLUX.2 Devをベースに推論速度を最適化しており、高品質な画像を短時間で生成可能。プロンプトへの忠実性とリアルな描写に優れる。"
+    - name: FLUX.2 Turbo
+      server_name: t2i-kamui-flux-2-turbo
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 次世代画像生成モデルFLUX.2シリーズの高速推論版。FLUX.2 [dev]をベースに、プロンプトへの忠実性やテキストレンダリング能力、高画質を維持しつつ、生成速度を大幅に向上させたモデル。"
+    - name: Wan v2.6 (Text-to-Image)
+      server_name: t2i-kamui-wan-v26
+      release_date: 2025年12月15日
+      features: "(Alibaba Cloud) 中国語と英語に対応した高品質な画像生成モデル。動画生成モデルWan 2.6シリーズの一部として提供され、参照画像によるスタイル制御や忠実なプロンプト反映が可能。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -329,6 +353,42 @@ ai_models:
       server_name: i2i-kamui-fal-gpt-image-1-5-edit
       release_date: 2025年12月16日
       features: "(OpenAI) GPT Image 1.5モデルを使用した高忠実度な画像編集API。元の画像の構図や照明、細部を維持しながら、プロンプトに忠実な編集が可能。高速な生成速度と改善されたテキストレンダリング機能を備える。"
+    - name: FLUX.2 Turbo Edit
+      server_name: i2i-kamui-flux-2-turbo-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2アーキテクチャを採用した高速画像編集モデル。FLUX.2 [dev]をベースに推論速度を最適化しており、自然言語による指示で画像の編集（置き換え、変更）を高速かつ高精度に行うことができる。"
+    - name: FLUX.2 Flash Edit
+      server_name: i2i-kamui-flux-2-flash-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 高速生成に特化したFLUX.2シリーズの軽量モデル。画像編集（インペイント、背景置換など）において、プロンプトへの忠実性を保ちつつ極めて高速な推論を実現。"
+    - name: FLUX.2 Turbo Edit Image
+      server_name: i2i-kamui-flux-2-turbo-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 次世代モデルFLUX.2 [dev]をベースにした高速画像編集モデル。自然言語のプロンプトと入力画像を用いて、照明、色、オブジェクトの変更などを高速かつ高品質に行うことが可能。"
+    - name: FLUX.2 Flash Edit
+      server_name: i2i-kamui-flux-2-flash-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) 次世代モデルFLUX.2 [dev]をベースにした高速画像編集モデル。自然言語プロンプトによる指示で、画像のインペイントや背景置換、スタイル変換を高精度かつ高速に実行可能。"
+    - name: FLUX.2 Turbo Edit
+      server_name: i2i-kamui-flux-2-turbo-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2アーキテクチャを採用した高速な画像編集モデル。自然言語のプロンプトによる指示で、既存の画像に対して色や照明の変更、オブジェクトの操作などを高精度かつ高速に行うことが可能。"
+    - name: FLUX.2 Flash Edit
+      server_name: i2i-kamui-flux-2-flash-edit
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2をベースにした高速な画像編集モデル。テキスト指示による精密な画像編集（インペイント、背景置換など）が可能で、高いプロンプト忠実度と生成速度を両立。"
+    - name: Qwen-Image-Layered
+      server_name: i2i-kamui-qwen-image-layered
+      release_date: 2025年12月19日
+      features: "(Alibaba Cloud) 画像を複数のRGBAレイヤー（背景、前景、オブジェクトなど）に分解生成するモデル。各レイヤーを独立して編集・操作可能にし、高精度な画像編集を支援する。"
+    - name: Qwen Image Edit 2511
+      server_name: i2i-kamui-qwen-image-edit-2511
+      release_date: 2025年12月23日
+      features: "(Alibaba Cloud) Qwen2.5-VLを活用した高度な画像編集モデル。前バージョン(2509)からキャラクターの一貫性や複数人の編集機能が大幅に強化されている。"
+    - name: Wan v2.6 Image-to-Image
+      server_name: i2i-kamui-wan-v26
+      release_date: 2025年12月15日
+      features: "(Alibaba) 1〜3枚の参照画像を使用してスタイル転送や被写体の一貫性を保った画像生成・編集が可能なモデル。プロンプト内で「image 1」のように参照を指定でき、高度な構成の画像を生成できる。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -454,6 +514,14 @@ ai_models:
       server_name: t2v-kamui-wan-v2.6
       release_date: 2025年12月16日
       features: "(Alibaba Cloud) 高品質な動画生成モデルWanシリーズの最新版。インテリジェントなシーン分割によるマルチショット生成、最大15秒の長尺生成、720p/1080p解像度に対応。LLMによるプロンプト拡張機能を備え、複雑な演出指示にも忠実に追従する。"
+    - name: Seedance V1.5 Pro
+      server_name: t2v-kamui-bytedance-seedance-v15-pro
+      release_date: 2025年12月16日
+      features: "(ByteDance) 音声と動画を同時に生成できるハイエンドモデル。テキストや画像から、リップシンクや環境音を含むシネマティックな動画を生成可能。シード値による再現性や多様なアスペクト比に対応。"
+    - name: Kandinsky 5.0 Video Pro
+      server_name: t2v-kamui-kandinsky5-pro
+      release_date: 2025年11月20日
+      features: "(AI-Forever) 19Bパラメータを持つKandinsky 5.0シリーズの最上位動画生成モデル。Flow Matchingを採用し、高品質なHD動画生成やカメラコントロールに対応。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -611,6 +679,14 @@ ai_models:
       server_name: i2v-kamui-hunyuan-video-v15-image-to-video
       release_date: 2025年11月21日
       features: "(Tencent) 8.3Bパラメータの動画生成モデルHunyuanVideo v1.5を使用したImage-to-Videoモデル。コンシューマーGPUでも動作可能な軽量性と高品質を両立し、入力画像とプロンプトから一貫性のある動画を生成可能。"
+    - name: Seedance V1.5 Pro
+      server_name: i2v-kamui-bytedance-seedance-v15-pro
+      release_date: 2025年12月16日
+      features: "(ByteDance) 音声と映像を高度に同期生成できる最新の動画生成モデル。画像からの動画生成（I2V）において、キャラクターのリップシンク、複雑なカメラワーク、1080pの高解像度出力を実現。セマンティック理解が強化され、より自然でダイナミックな動画表現が可能。"
+    - name: Kandinsky 5.0 Pro
+      server_name: i2v-kamui-kandinsky5-pro
+      release_date: 2025年11月20日
+      features: "(AI-Forever) ロシアSber AI発の190億パラメータを持つ大規模な動画生成モデル。テキストおよび画像入力に対応し、高品質な動画生成が可能。オープンソースとして公開されている。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -732,6 +808,34 @@ ai_models:
       server_name: v2v-kamui-fal-veo31-fast-extend-video
       release_date: 2025年10月15日
       features: "(Google DeepMind) Googleの動画生成モデルVeo 3.1の高速版（Fast）を使用した動画拡張機能。Veoで生成した動画を最大30秒まで自然に延長可能。720p/1080p対応、オーディオ生成もサポート。fal.ai経由で利用可能。"
+    - name: Bria Video Eraser (Erase by Prompt)
+      server_name: v2v-kamui-bria-video-eraser-erase-prompt
+      release_date: 2024年12月19日
+      features: "(Bria AI) テキストプロンプトで動画内の不要なオブジェクトを削除できるインペインティングモデル。フレーム間の一貫性を保ちながら背景を自然に補完し、元の音声も維持可能。商用利用を想定したBria AIの技術を使用。"
+    - name: Bria Video Eraser (Erase by Mask)
+      server_name: v2v-kamui-bria-video-eraser-erase-mask
+      release_date: 2024年12月19日
+      features: "(BRIA AI) 動画内の不要なオブジェクトをマスクで指定して削除するインペインティングモデル。背景を自然に再構成し、時間的な整合性を維持する。元の音声を保持するオプションもあり、5秒未満の短い動画編集に最適。"
+    - name: Veed Video Background Removal
+      server_name: v2v-kamui-veed-video-background-removal
+      release_date: 2025年6月20日
+      features: "(VEED.IO) 人物やオブジェクトを含むあらゆる動画から背景を削除するAIモデル。グリーンスクリーン不要で、WebM/VP9やH.264形式での透過出力に対応。fal.ai上で提供される商用API。"
+    - name: Bria Video Eraser (Mask)
+      server_name: v2v-kamui-bria-video-eraser-erase-mask
+      release_date: 2025年12月頃
+      features: "(Bria AI) 動画内の不要なオブジェクトをマスク動画で指定して削除するAIモデル。背景を時間的に整合性のある形で再構築し、音声の維持も可能。商用利用を想定したBria AIの技術を使用。"
+    - name: Bria Video Eraser (Keypoints)
+      server_name: v2v-kamui-bria-video-eraser-erase-keypoints
+      release_date: 2025年7月22日
+      features: "(Bria AI) 動画内の不要なオブジェクトを削除するAIモデル。キーポイント（座標）による対象指定に対応し、削除後の背景を自然に補完する。商用利用可能なライセンス済みデータのみで学習されており、音声の維持も可能。Fal.aiを通じて提供される。"
+    - name: VEED Video Background Removal
+      server_name: v2v-kamui-veed-video-background-removal
+      release_date: 2025年6月20日
+      features: "(VEED.IO) 動画から人物やオブジェクトの背景を高精度に除去するモデル。グリーンバック不要で、VP9（透過）やH264（デュアルストリーム）での出力に対応。fal.aiを通じてAPI提供されている。"
+    - name: Decart Lucy Restyle
+      server_name: v2v-kamui-decart-lucy-restyle
+      release_date: 2024年11月13日
+      features: "(Decart AI) 長尺動画（最大30分）のスタイル変換に特化したAIモデル。時間的一貫性を維持しながら、プロンプトで指定したアートスタイルへ動画全体を変換できる。fal.ai独自の提携モデルとして提供。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -773,6 +877,14 @@ ai_models:
       server_name: r2v-kamui-fal-ai-scail
       release_date: 2025年12月11日
       features: "(Z.ai) 参照画像と駆動用動画から、3D整合性のあるポーズ制御を用いて高品質な動画を生成するモデル。複雑な動きやキャラクターの一貫性維持に優れる。"
+    - name: Kling Video v2.6 Pro Motion Control
+      server_name: r2v-kamui-kling-video-v26-pro-motion-control
+      release_date: 2025年12月17日
+      features: "(Kuaishou) 参照ビデオの動きを参照画像のキャラクターに正確に転写する動画生成モデル。v2.6の高品質な生成能力をベースに、複雑なアクションや表情、リップシンクの再現が可能。"
+    - name: Kling Video v2.6 Standard Motion Control
+      server_name: r2v-kamui-kling-video-v26-standard-motion-control
+      release_date: 2025年12月3日
+      features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに転写するMotion Control機能のv2.6標準モデル。画像と動画の向き（Orientation）を制御可能で、ダンスやジェスチャーの転写に適しており、コストパフォーマンスに優れる。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -859,6 +971,22 @@ ai_models:
       server_name: t2m-kamui-minimax-music-v2
       release_date: 2025年10月31日
       features: "(Minimax / fal.ai) 歌詞とスタイル制御に基づいて音楽を生成。長い歌詞（10-3000文字）、構造タグ（[Intro]、[Verse]、[Chorus]、[Bridge]、[Outro]）、カスタマイズ可能なオーディオ設定（サンプルレート、ビットレート、フォーマット）をサポート。"
+    - name: CassetteAI Music Generator
+      server_name: t2m-kamui-cassetteai-music-generator
+      release_date: 2024年3月27日
+      features: "(CassetteAI) テキストプロンプトから高品質な音楽や効果音（SFX）を生成するモデル。fal.ai上で提供され、30秒のオーディオを2秒未満で生成する高速な推論が特徴。ロイヤリティフリーの楽曲生成が可能。"
+    - name: Sonauto V2
+      server_name: t2m-kamui-sonauto-v2-text-to-music
+      release_date: 2025年1月7日
+      features: "(Sonauto) テキストからボーカル入りの楽曲をフル生成できる音楽生成モデル。歌詞の自動生成やスタイル指定に対応し、API経由で高品質な楽曲作成が可能。"
+    - name: CassetteAI Music Generator
+      server_name: t2m-kamui-cassetteai-music-generator
+      release_date: 2025年3月27日
+      features: "(CassetteAI) テキストプロンプトから高品質な音楽や効果音（SFX）を生成するモデル。fal.aiプラットフォームで提供されており、30秒の楽曲を2秒未満で生成するなど、非常に高速な処理能力が特徴。"
+    - name: Sonauto V2
+      server_name: t2m-kamui-sonauto-v2-text-to-music
+      release_date: 2025年1月7日
+      features: "(Sonauto) テキストから歌詞付きの高品質な楽曲を生成するAIモデル。潜在拡散モデル'Melodia'を採用しており、ボーカルの明瞭さと楽曲構成力に優れる。Webサービス版と同時に商用APIとしても展開されている。"
   video_to_audio:
     - name: ThinkSound (fal.ai)
       server_name: v2a-kamui-thinksound
