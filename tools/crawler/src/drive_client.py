@@ -229,6 +229,16 @@ class DriveClient:
             # Ensure KAMUI-CODE-PASS header exists if env var is set
             final_headers = ensure_kamui_pass_header(expanded_headers)
 
+            # Debug: Log header expansion for troubleshooting
+            if final_headers:
+                for k, v in final_headers.items():
+                    if k.upper() == "KAMUI-CODE-PASS":
+                        if v and len(v) > 8:
+                            masked = f"{v[:4]}...{v[-4:]} (len={len(v)})"
+                        else:
+                            masked = f"*** (len={len(v) if v else 0})"
+                        logger.info(f"[{server_id}] Header {k}: {masked}")
+
             server = MCPServerConfig(
                 id=server_id,
                 url=url,

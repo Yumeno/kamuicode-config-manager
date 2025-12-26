@@ -149,7 +149,19 @@ class MCPClient:
         if headers:
             request_headers.update(headers)
 
-        logger.debug(f"Connecting to {server_url} with headers: {list(request_headers.keys())}")
+        # Debug: Log header keys and masked values for troubleshooting
+        header_info = []
+        for k, v in request_headers.items():
+            if k.upper() in ["KAMUI-CODE-PASS", "AUTHORIZATION"]:
+                # Mask sensitive values: show first 4 and last 4 chars
+                if v and len(v) > 8:
+                    masked = f"{v[:4]}...{v[-4:]} (len={len(v)})"
+                else:
+                    masked = f"*** (len={len(v) if v else 0})"
+                header_info.append(f"{k}: {masked}")
+            else:
+                header_info.append(f"{k}: {v}")
+        logger.info(f"[{server_url}] Request headers: {header_info}")
 
         async with aiohttp.ClientSession() as session:
             # Step 1: Initialize
