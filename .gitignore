@@ -46,6 +46,7 @@ Thumbs.db
 !package.json
 !package-lock.json
 !tools/category_master.json
+!tools/crawler/sample_mcp_config.json
 service-account*.json
 *-credentials.json
 *_credentials.json

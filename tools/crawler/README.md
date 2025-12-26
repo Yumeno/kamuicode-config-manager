@@ -204,6 +204,239 @@ Kamui Code MCPサーバーへのアクセスには認証用パスキーが必要
 * .envファイルは.gitignoreに追加済み  
 * Driveファイルは公開設定でも、認証ヘッダーの内容は出力されません
 
+## **パスキーローカルテストツール**
+
+GitHub Actions でパスキー認証が動作しない場合、ローカル環境でデバッグするためのテストツールが用意されています。
+
+### **基本的な使い方**
+
+```bash
+cd tools/crawler
+
+# ローカルJSONファイルからテスト（推奨）
+KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json
+
+# 特定のサーバーのみテスト
+python test_passkey.py --config ./mcp_config.json --server my-server-id
+
+# ドライラン（接続せずにヘッダー展開を確認）
+KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json --dry-run
+
+# 環境変数展開のテスト
+python test_passkey.py --test-expand
+
+# MCP サーバー接続テスト（URL直接指定）
+python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_PASSKEY
+```
+
+### **JSONファイルの準備**
+
+テスト用のMCP設定JSONファイルを作成します（`mcpServers` 形式）:
+
+```json
+{
+  "mcpServers": {
+    "example-server": {
+      "url": "https://kamui-code.ai/v2v/example",
+      "headers": {
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
+      }
+    }
+  }
+}
+```
+
+サンプルファイル `sample_mcp_config.json` が用意されています。
+
+### **テストオプション**
+
+| オプション | 説明 |
+| :---- | :---- |
+| --config, -c FILE | MCP設定JSONファイルのパス（推奨） |
+| --server, -s ID | テスト対象のサーバーID（--config と併用） |
+| --test-expand | 環境変数展開機能のテスト（`${VAR}` → 値への変換） |
+| --server-url URL | テスト対象の MCP サーバー URL（直接指定） |
+| --passkey KEY | パスキー（省略時は環境変数 `KAMUI_CODE_PASS_KEY` を使用） |
+| --timeout SEC | 接続タイムアウト秒数（デフォルト: 30） |
+| --verbose, -v | 詳細なリクエスト/レスポンス情報を表示 |
+| --dry-run | 実際の接続を行わず、送信ヘッダーのみ確認 |
+
+### **テスト項目**
+
+1. **JSONファイルテスト** (`--config`)
+   - JSONファイルの読み込みと構造検証
+   - 各サーバーの `${KAMUI_CODE_PASS_KEY}` 展開確認
+   - 未展開プレースホルダーの警告表示
+   - 全サーバーへの接続テスト
+
+2. **環境変数展開テスト** (`--test-expand`)
+   - `${KAMUI_CODE_PASS_KEY}` プレースホルダーが正しく展開されるか
+   - 環境変数未設定時にプレースホルダーがそのまま残るか
+
+3. **MCP サーバー接続テスト** (`--server-url`)
+   - `KAMUI-CODE-PASS` ヘッダーが正しく送信されるか
+   - MCP プロトコルの `initialize` → `tools/list` フローが成功するか
+
+### **デバッグのヒント**
+
+- **未展開プレースホルダー警告**: 環境変数が設定されていない
+- **HTTP 401/403 エラー**: パスキーが正しくないか、有効期限切れ
+- **タイムアウト**: サーバーが起動していないか、ネットワーク問題
+- `--dry-run` で接続前にヘッダー展開を確認可能
+- `--verbose` で送受信の詳細を確認可能
+
+### **Windowsでのテスト手順**
+
+Windowsでパスキーテストを行う場合の詳細な手順です。
+
+#### **1. 事前準備**
+
+```powershell
+# リポジトリをクローン（まだの場合）
+git clone https://github.com/Yumeno/kamuicode-config-manager.git
+cd kamuicode-config-manager\tools\crawler
+
+# Python仮想環境を作成
+python -m venv venv
+
+# 仮想環境をアクティベート
+.\venv\Scripts\activate
+
+# 依存パッケージをインストール
+pip install -r requirements.txt
+```
+
+#### **2. テスト用JSONファイルを準備**
+
+Claude Desktopの設定ファイル（`claude_desktop_config.json`）をコピーするか、新規作成します。
+
+**場所の例:**
+- Claude Desktop設定: `%APPDATA%\Claude\claude_desktop_config.json`
+- テスト用にコピー: `tools\crawler\my_config.json`
+
+```powershell
+# Claude Desktopの設定をコピーする場合
+copy "$env:APPDATA\Claude\claude_desktop_config.json" .\my_config.json
+```
+
+または `sample_mcp_config.json` を編集して使用:
+```powershell
+copy sample_mcp_config.json my_config.json
+notepad my_config.json
+```
+
+#### **3. 環境変数を設定してテスト**
+
+**方法A: PowerShellで一時的に設定（推奨）**
+
+```powershell
+# 環境変数を設定
+$env:KAMUI_CODE_PASS_KEY = "your-passkey-here"
+
+# ドライラン（展開結果を確認、接続はしない）
+python test_passkey.py --config .\my_config.json --dry-run
+
+# 展開後のJSONをファイルに出力
+python test_passkey.py --config .\my_config.json --output .\expanded.json --dry-run
+
+# 実際に接続テスト
+python test_passkey.py --config .\my_config.json
+
+# 特定のサーバーのみテスト
+python test_passkey.py --config .\my_config.json --server example-server
+
+# 詳細ログ付きでテスト
+python test_passkey.py --config .\my_config.json --verbose
+```
+
+**方法B: コマンドプロンプト(cmd.exe)の場合**
+
+```cmd
+REM 環境変数を設定
+set KAMUI_CODE_PASS_KEY=your-passkey-here
+
+REM ドライラン
+python test_passkey.py --config .\my_config.json --dry-run
+
+REM 実際に接続テスト
+python test_passkey.py --config .\my_config.json
+```
+
+**方法C: .envファイルを使用**
+
+```powershell
+# .envファイルを作成
+echo "KAMUI_CODE_PASS_KEY=your-passkey-here" > .env
+
+# テスト実行（.envが自動で読み込まれる）
+python test_passkey.py --config .\my_config.json --dry-run
+```
+
+#### **4. テスト結果の確認**
+
+```
+============================================================
+ローカルJSONファイルからのテスト
+============================================================
+
+ℹ️  Step 1: 設定ファイル読み込み
+  入力: .\my_config.json
+✅ 読み込み完了: 2 サーバー
+
+ℹ️  Step 2: 環境変数プレースホルダーを展開
+
+ℹ️  展開前のJSON:
+{
+  "mcpServers": {
+    "example-server": {
+      "headers": {
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"   ← プレースホルダー
+      }
+    }
+  }
+}
+
+ℹ️  展開後のJSON:
+{
+  "mcpServers": {
+    "example-server": {
+      "headers": {
+        "KAMUI-CODE-PASS": "your**********here"      ← 展開済み（マスク表示）
+      }
+    }
+  }
+}
+```
+
+#### **5. よくある問題と解決方法**
+
+| 症状 | 原因 | 解決方法 |
+| :---- | :---- | :---- |
+| `${KAMUI_CODE_PASS_KEY}` が展開されない | 環境変数が設定されていない | `$env:KAMUI_CODE_PASS_KEY` を設定 |
+| `ModuleNotFoundError: No module named 'aiohttp'` | 依存パッケージ未インストール | `pip install -r requirements.txt` |
+| 文字化け | 文字コードの問題 | PowerShellで `chcp 65001` を実行 |
+| 接続タイムアウト | ネットワーク問題 | `--timeout 60` でタイムアウトを延長 |
+
+#### **6. トラブルシューティング用コマンド**
+
+```powershell
+# 環境変数が設定されているか確認
+echo $env:KAMUI_CODE_PASS_KEY
+
+# Pythonのバージョン確認
+python --version
+
+# インストール済みパッケージ確認
+pip list
+
+# 環境変数展開のみテスト
+python test_passkey.py --test-expand
+
+# 展開後のJSONをファイルに保存して確認
+python test_passkey.py --config .\my_config.json --output .\debug_expanded.json --dry-run
+type .\debug_expanded.json
+```
+
 ## **トラブルシューティング**
 
 ### **DRIVE\_FILE\_IDS (or DRIVE\_FILE\_ID) environment variable is not set**
@@ -226,3 +459,5 @@ python main.py \--timeout 120 \--max-concurrent 5
 *Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
 *Updated: 2025-12-17 (Issue #30 フォルダ再帰探索機能追加)*
 *Updated: 2025-12-26 (KAMUI\_CODE\_PASS\_KEY パスキー認証対応)*
+*Updated: 2025-12-26 (パスキーローカルテストツール追加)*
+*Updated: 2025-12-26 (Windowsでのテスト手順を追加)*

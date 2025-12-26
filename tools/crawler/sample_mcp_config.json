@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "example-server": {
+      "url": "https://example.com/mcp",
+      "headers": {
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
+      }
+    },
+    "another-server": {
+      "url": "https://another.example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MY_API_KEY}",
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
+      }
+    }
+  }
+}

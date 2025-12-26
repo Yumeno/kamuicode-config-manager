@@ -46,6 +46,11 @@ def expand_headers(headers: dict[str, str] | None) -> dict[str, str] | None:
     """
     Expand environment variable placeholders in header values.
 
+    Processing:
+    1. Expand ${VAR} placeholders with environment variable values
+    2. Override KAMUI-CODE-PASS header with KAMUI_CODE_PASS_KEY env var
+       (even if the value is not a placeholder)
+
     Args:
         headers: Dictionary of header key-value pairs
 
@@ -57,8 +62,44 @@ def expand_headers(headers: dict[str, str] | None) -> dict[str, str] | None:
 
     expanded = {}
     for key, value in headers.items():
-        expanded[key] = expand_env_placeholders(value)
+        # First expand placeholders
+        expanded_value = expand_env_placeholders(value)
+
+        # Override KAMUI-CODE-PASS with env var value
+        if key.upper() == "KAMUI-CODE-PASS":
+            env_passkey = os.environ.get("KAMUI_CODE_PASS_KEY")
+            if env_passkey:
+                expanded_value = env_passkey
+
+        expanded[key] = expanded_value
     return expanded
+
+
+def ensure_kamui_pass_header(headers: dict[str, str] | None) -> dict[str, str]:
+    """
+    Ensure KAMUI-CODE-PASS header exists if KAMUI_CODE_PASS_KEY env var is set.
+
+    Processing:
+    1. Create headers dict if None
+    2. Add KAMUI-CODE-PASS header if not present and env var is set
+
+    Args:
+        headers: Dictionary of header key-value pairs (may be None)
+
+    Returns:
+        Dictionary with KAMUI-CODE-PASS header ensured
+    """
+    if headers is None:
+        headers = {}
+
+    env_passkey = os.environ.get("KAMUI_CODE_PASS_KEY")
+    if env_passkey:
+        # Check if KAMUI-CODE-PASS already exists (case-insensitive)
+        has_kamui_pass = any(k.upper() == "KAMUI-CODE-PASS" for k in headers.keys())
+        if not has_kamui_pass:
+            headers["KAMUI-CODE-PASS"] = env_passkey
+
+    return headers
 
 # Default minimum modified time for folder scan filtering (2025-11-20)
 DEFAULT_MIN_MODIFIED_TIME = "2025-11-20T00:00:00"
@@ -80,10 +121,12 @@ class MCPServerConfig:
         # Expand environment variable placeholders in headers
         raw_headers = data.get("headers")
         expanded_headers = expand_headers(raw_headers)
+        # Ensure KAMUI-CODE-PASS header exists if env var is set
+        final_headers = ensure_kamui_pass_header(expanded_headers)
         return cls(
             id=data.get("id", ""),
             url=data.get("url", ""),
-            headers=expanded_headers,
+            headers=final_headers if final_headers else None,
             transport=data.get("transport", "sse"),
             source_name=source_name,
         )
@@ -183,11 +226,13 @@ class DriveClient:
             # Expand environment variable placeholders in headers
             raw_headers = server_config.get("headers")
             expanded_headers = expand_headers(raw_headers)
+            # Ensure KAMUI-CODE-PASS header exists if env var is set
+            final_headers = ensure_kamui_pass_header(expanded_headers)
 
             server = MCPServerConfig(
                 id=server_id,
                 url=url,
-                headers=expanded_headers,
+                headers=final_headers if final_headers else None,
                 transport=server_config.get("transport", "sse"),
                 source_name=source_name,
             )
