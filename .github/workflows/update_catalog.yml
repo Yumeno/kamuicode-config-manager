@@ -60,6 +60,13 @@ jobs:
         run: |
           cd tools/crawler
 
+          # Debug: Check if KAMUI_CODE_PASS_KEY is set (show length only, not the value)
+          if [ -n "$KAMUI_CODE_PASS_KEY" ]; then
+            echo "✅ KAMUI_CODE_PASS_KEY is set (length: ${#KAMUI_CODE_PASS_KEY} chars)"
+          else
+            echo "❌ KAMUI_CODE_PASS_KEY is NOT set or empty!"
+          fi
+
           # Build options
           OPTIONS="--max-concurrent ${{ inputs.max_concurrent || '10' }}"
 
