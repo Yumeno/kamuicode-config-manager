@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- js-yaml CDN (YAMLパーサー) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <!-- Alpine.js Collapse Plugin (アコーディオンアニメーション) -->
+    <script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js" defer></script>
     <!-- Alpine.js CDN (リアクティブUI) -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
     <style>
@@ -106,9 +108,10 @@
                 showServerDialog: false,     // ダイアログ表示フラグ
 
                 // --- パスキー設定 ---
-                passKeyMode: 'default',      // 'default' | 'manual'
+                passKeyMode: 'default',      // 'default' | 'manual' | 'keep'
                 manualPassKey: '',           // 手動入力値
                 showPassKey: false,          // パスキー表示/非表示
+                passKeyExpanded: false,      // パスキー設定セクションの展開状態
 
                 // --- 初期化 ---
                 init() {
@@ -992,98 +995,129 @@
             </div>
         </template>
 
-        <!-- パスキー設定セクション -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-lg font-semibold mb-3">パスキー設定 (KAMUI-CODE-PASS)</h2>
-            <p class="text-sm text-gray-600 mb-4">kamuicodeリモートMCPサーバーに接続するためのパスキーを設定します。</p>
-
-            <div class="space-y-4">
-                <!-- デフォルト設定 -->
-                <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
-                       :class="passKeyMode === 'default' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'">
-                    <input type="radio" name="passKeyMode" value="default"
-                           x-model="passKeyMode" @change="setPassKeyMode('default')"
-                           class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
-                    <div class="flex-1">
-                        <span class="block font-medium text-gray-900">デフォルト設定</span>
-                        <span class="block text-xs text-gray-500 mt-1">環境変数プレースホルダー <code class="bg-gray-100 px-1 py-0.5 rounded text-orange-600">${KAMUI_CODE_PASS_KEY}</code> を使用します</span>
-                        <span class="block text-xs text-gray-400 mt-1">※ Claude Desktopなどで環境変数を設定している場合に使用</span>
-                    </div>
-                </label>
-
-                <!-- 手動入力 -->
-                <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
-                       :class="passKeyMode === 'manual' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'">
-                    <input type="radio" name="passKeyMode" value="manual"
-                           x-model="passKeyMode" @change="setPassKeyMode('manual')"
-                           class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
-                    <div class="flex-1">
-                        <span class="block font-medium text-gray-900">パスキーを直接入力</span>
-                        <span class="block text-xs text-gray-500 mt-1">発行されたパスキーを直接設定します</span>
-
-                        <!-- 手動入力詳細 (選択時のみ表示) -->
-                        <template x-if="passKeyMode === 'manual'">
-                            <div class="mt-3 pt-3 border-t border-gray-200">
-                                <div class="flex items-center gap-2">
-                                    <div class="relative flex-1">
-                                        <input :type="showPassKey ? 'text' : 'password'"
-                                               x-model="manualPassKey"
-                                               placeholder="パスキーを入力..."
-                                               class="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 text-sm font-mono"
-                                               @click.stop>
-                                        <button type="button"
-                                                @click.stop="togglePassKeyVisibility()"
-                                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
-                                            <template x-if="!showPassKey">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                </svg>
-                                            </template>
-                                            <template x-if="showPassKey">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                                                </svg>
-                                            </template>
-                                        </button>
-                                    </div>
-                                    <button type="button"
-                                            @click.stop="saveManualPassKey()"
-                                            class="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap">
-                                        保存
-                                    </button>
-                                </div>
-                                <p class="mt-2 text-xs text-gray-500">※ パスキーはブラウザのLocalStorageに保存されます</p>
+        <!-- パスキー設定セクション（折りたたみ可能） -->
+        <div class="bg-white rounded-lg shadow-md mb-6">
+            <!-- ヘッダー（クリックで展開/折りたたみ） -->
+            <div class="p-4 cursor-pointer flex items-center justify-between"
+                 @click="passKeyExpanded = !passKeyExpanded">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3">
+                        <h2 class="text-lg font-semibold">パスキー設定 (KAMUI-CODE-PASS)</h2>
+                        <!-- 折りたたみ時のサマリー表示 -->
+                        <template x-if="!passKeyExpanded">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-gray-500">|</span>
+                                <span class="text-gray-600" x-text="passKeyMode === 'default' ? 'デフォルト設定' : (passKeyMode === 'manual' ? '手動入力' : '変更しない')"></span>
+                                <span class="text-gray-400">→</span>
+                                <code class="bg-gray-100 px-2 py-0.5 rounded text-xs font-mono"
+                                      x-text="passKeyMode === 'keep' ? '(元の設定を維持)' : (passKeyMode === 'manual' && manualPassKey ? '****' + manualPassKey.slice(-4) : '${KAMUI_CODE_PASS_KEY}')"></code>
                             </div>
                         </template>
                     </div>
-                </label>
-
-                <!-- 変更しない -->
-                <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
-                       :class="passKeyMode === 'keep' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'">
-                    <input type="radio" name="passKeyMode" value="keep"
-                           x-model="passKeyMode" @change="setPassKeyMode('keep')"
-                           class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
-                    <div class="flex-1">
-                        <span class="block font-medium text-gray-900">変更しない</span>
-                        <span class="block text-xs text-gray-500 mt-1">元のJSON設定をそのまま維持します（headers を変更しない）</span>
-                    </div>
-                </label>
+                </div>
+                <!-- 展開/折りたたみアイコン -->
+                <svg class="w-5 h-5 text-gray-500 transition-transform duration-200"
+                     :class="passKeyExpanded ? 'rotate-180' : ''"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
             </div>
 
-            <!-- 現在の設定表示 -->
-            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                <span class="text-sm font-medium text-gray-700">出力時の値: </span>
-                <template x-if="passKeyMode === 'keep'">
-                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">(元の設定を維持)</code>
-                </template>
-                <template x-if="passKeyMode === 'manual' && manualPassKey">
-                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200" x-text="'****' + manualPassKey.slice(-4)"></code>
-                </template>
-                <template x-if="passKeyMode === 'default' || (passKeyMode === 'manual' && !manualPassKey)">
-                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">${KAMUI_CODE_PASS_KEY}</code>
-                </template>
+            <!-- 展開時のコンテンツ -->
+            <div x-show="passKeyExpanded" x-collapse class="px-6 pb-6">
+                <p class="text-sm text-gray-600 mb-4">kamuicodeリモートMCPサーバーに接続するためのパスキーを設定します。</p>
+
+                <div class="space-y-4">
+                    <!-- デフォルト設定 -->
+                    <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
+                           :class="passKeyMode === 'default' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'"
+                           @click.stop>
+                        <input type="radio" name="passKeyMode" value="default"
+                               x-model="passKeyMode" @change="setPassKeyMode('default')"
+                               class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
+                        <div class="flex-1">
+                            <span class="block font-medium text-gray-900">デフォルト設定</span>
+                            <span class="block text-xs text-gray-500 mt-1">環境変数プレースホルダー <code class="bg-gray-100 px-1 py-0.5 rounded text-orange-600">${KAMUI_CODE_PASS_KEY}</code> を使用します</span>
+                            <span class="block text-xs text-gray-400 mt-1">※ Claude Desktopなどで環境変数を設定している場合に使用</span>
+                        </div>
+                    </label>
+
+                    <!-- 手動入力 -->
+                    <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
+                           :class="passKeyMode === 'manual' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'"
+                           @click.stop>
+                        <input type="radio" name="passKeyMode" value="manual"
+                               x-model="passKeyMode" @change="setPassKeyMode('manual')"
+                               class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
+                        <div class="flex-1">
+                            <span class="block font-medium text-gray-900">パスキーを直接入力</span>
+                            <span class="block text-xs text-gray-500 mt-1">発行されたパスキーを直接設定します</span>
+
+                            <!-- 手動入力詳細 (選択時のみ表示) -->
+                            <template x-if="passKeyMode === 'manual'">
+                                <div class="mt-3 pt-3 border-t border-gray-200">
+                                    <div class="flex items-center gap-2">
+                                        <div class="relative flex-1">
+                                            <input :type="showPassKey ? 'text' : 'password'"
+                                                   x-model="manualPassKey"
+                                                   placeholder="パスキーを入力..."
+                                                   class="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 text-sm font-mono"
+                                                   @click.stop>
+                                            <button type="button"
+                                                    @click.stop="togglePassKeyVisibility()"
+                                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+                                                <template x-if="!showPassKey">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                </template>
+                                                <template x-if="showPassKey">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                                                    </svg>
+                                                </template>
+                                            </button>
+                                        </div>
+                                        <button type="button"
+                                                @click.stop="saveManualPassKey()"
+                                                class="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap">
+                                            保存
+                                        </button>
+                                    </div>
+                                    <p class="mt-2 text-xs text-gray-500">※ パスキーはブラウザのLocalStorageに保存されます</p>
+                                </div>
+                            </template>
+                        </div>
+                    </label>
+
+                    <!-- 変更しない -->
+                    <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
+                           :class="passKeyMode === 'keep' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'"
+                           @click.stop>
+                        <input type="radio" name="passKeyMode" value="keep"
+                               x-model="passKeyMode" @change="setPassKeyMode('keep')"
+                               class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
+                        <div class="flex-1">
+                            <span class="block font-medium text-gray-900">変更しない</span>
+                            <span class="block text-xs text-gray-500 mt-1">元のJSON設定をそのまま維持します（headers を変更しない）</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- 現在の設定表示 -->
+                <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                    <span class="text-sm font-medium text-gray-700">出力時の値: </span>
+                    <template x-if="passKeyMode === 'keep'">
+                        <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">(元の設定を維持)</code>
+                    </template>
+                    <template x-if="passKeyMode === 'manual' && manualPassKey">
+                        <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200" x-text="'****' + manualPassKey.slice(-4)"></code>
+                    </template>
+                    <template x-if="passKeyMode === 'default' || (passKeyMode === 'manual' && !manualPassKey)">
+                        <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">${KAMUI_CODE_PASS_KEY}</code>
+                    </template>
+                </div>
             </div>
         </div>
 
