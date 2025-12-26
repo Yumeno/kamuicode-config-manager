@@ -966,6 +966,60 @@
                     this.catalogLoaded = false;
                     this.selectedServer = null;
                     this.showServerDialog = false;
+                },
+
+                // --- 設定JSONから選択状態をインポート ---
+
+                // 設定JSONをインポートするためのファイル入力をトリガー
+                triggerConfigJsonImport() {
+                    const input = this.$refs.configJsonInput;
+                    if (input) {
+                        input.click();
+                    }
+                },
+
+                // 設定JSONを読み込んで選択状態を適用
+                importFromConfigJson(event) {
+                    this.errorMessage = '';
+                    this.successMessage = '';
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    this.readFile(file, (content) => {
+                        try {
+                            const configJson = JSON.parse(content);
+                            const configServers = configJson.mcpServers;
+
+                            if (!configServers || typeof configServers !== 'object') {
+                                this.errorMessage = '設定JSONに mcpServers キーが見つかりません。';
+                                return;
+                            }
+
+                            // 設定JSONに存在するサーバー名のセット
+                            const configServerNames = new Set(Object.keys(configServers));
+                            let matchedCount = 0;
+
+                            // masterListの各サーバーについて、設定JSONに存在するかどうかでチェック状態を設定
+                            this.masterList.forEach(model => {
+                                // リネームされたキーの場合は元のキーで照合
+                                const lookupKey = this.originalKeyMap[model.server_name] || model.server_name;
+                                if (configServerNames.has(lookupKey)) {
+                                    model.checked = true;
+                                    matchedCount++;
+                                } else {
+                                    model.checked = false;
+                                }
+                            });
+
+                            this.applyFilters();
+                            this.successMessage = `設定JSONから ${matchedCount} 件のサーバーを選択しました（${file.name}）`;
+                        } catch (e) {
+                            this.errorMessage = `設定JSONの解析に失敗しました: ${e.message}`;
+                        }
+                    });
+
+                    // ファイル入力をリセット
+                    event.target.value = '';
                 }
             };
         }
@@ -1155,7 +1209,7 @@
                     <template x-if="secondaryJsonContents.length > 0">
                         <div class="mt-2 p-2 bg-green-50 rounded-lg">
                             <p class="text-xs text-green-700 font-medium mb-1">読み込み済み:</p>
-                            <ul class="text-xs text-green-600 space-y-0.5">
+                            <ul class="text-xs text-green-600 space-y-0.5 max-h-24 overflow-y-auto">
                                 <template x-for="(sec, idx) in secondaryJsonContents" :key="idx">
                                     <li class="flex items-center">
                                         <span class="mr-1">•</span>
@@ -1328,6 +1382,14 @@
 
                             <span class="text-gray-300">|</span>
 
+                            <!-- 設定JSONからインポートボタン -->
+                            <input type="file" @change="importFromConfigJson" accept=".json" id="configJsonInput" x-ref="configJsonInput" class="hidden">
+                            <button type="button" @click="$refs.configJsonInput.click()" class="px-3 py-1.5 text-xs font-medium text-orange-700 bg-orange-100 rounded-lg hover:bg-orange-200 transition-colors" title="既存の設定JSONに含まれるサーバーだけを選択状態にします">
+                                設定JSONからインポート
+                            </button>
+
+                            <span class="text-gray-300">|</span>
+
                             <!-- 状態読み込みボタン (inputを隠す) -->
                             <input type="file" @change="loadCheckState" accept=".yaml, .yml" id="checkStateInput" x-ref="checkStateInput" class="hidden">
                             <button type="button" @click="$refs.checkStateInput.click()" class="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">
@@ -1386,10 +1448,10 @@
                     </div>
                 </div>
 
-                <!-- テーブルコンテナ -->
-                <div class="overflow-x-auto">
+                <!-- テーブルコンテナ (スクロール対応) -->
+                <div class="overflow-auto max-h-[60vh]">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-gray-50 sticky top-0 z-10 shadow-sm">
                             <tr>
                                 <th scope="col" class="w-16 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <!-- チェックボックスヘッダー -->
