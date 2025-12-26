@@ -1,5 +1,5 @@
 metadata:
-  generated_at: '2025-12-26T14:51:26.398269+00:00'
+  generated_at: '2025-12-26T14:54:43.888479+00:00'
   total_servers: 266
   online_servers: 0
   offline_servers: 0
@@ -8,1596 +8,1596 @@ servers:
 - id: 3d23d-kamui-meshy-v5-remesh
   url: https://kamui-code.ai/3d23d/fal/meshy/v5/remesh
   status: error
-  last_checked: '2025-12-26T14:51:08.934002+00:00'
+  last_checked: '2025-12-26T14:54:30.423833+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: a2t-kamui-audio-understanding
   url: https://kamui-code.ai/a2t/fal/audio-understanding
   status: error
-  last_checked: '2025-12-26T14:51:11.664843+00:00'
+  last_checked: '2025-12-26T14:54:32.559527+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: a2v-kamui-creatify-aurora
   url: https://kamui-code.ai/a2v/fal/creatify/aurora
   status: error
-  last_checked: '2025-12-26T14:51:19.072059+00:00'
+  last_checked: '2025-12-26T14:54:38.116764+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: a2v-kamui-fal-veed-fabric-1-0-text
   url: https://kamui-code.ai/a2v/fal/veed/fabric-1.0-text
   status: error
-  last_checked: '2025-12-26T14:51:19.317243+00:00'
+  last_checked: '2025-12-26T14:54:38.116832+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: a2v-kamui-kling-video-v1-pro-ai-avatar
   url: https://kamui-code.ai/a2v/fal/kling-video/v1/pro/ai-avatar
   status: error
-  last_checked: '2025-12-26T14:51:05.169780+00:00'
+  last_checked: '2025-12-26T14:54:26.723080+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: a2v-kamui-veed-fabric-1-0
   url: https://kamui-code.ai/a2v/fal/veed/fabric-1.0
   status: error
-  last_checked: '2025-12-26T14:51:07.504724+00:00'
+  last_checked: '2025-12-26T14:54:29.077530+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: avatar-kamui-kling-video-v2-pro
   url: https://kamui-code.ai/avatar/fal/kling-video/v2-pro
   status: error
-  last_checked: '2025-12-26T14:51:16.598559+00:00'
+  last_checked: '2025-12-26T14:54:35.517852+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: avatar-kamui-kling-video-v2-standard
   url: https://kamui-code.ai/avatar/fal/kling-video/v2-standard
   status: error
-  last_checked: '2025-12-26T14:51:16.623205+00:00'
+  last_checked: '2025-12-26T14:54:35.818249+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: file-upload-kamui-fal
   url: https://kamui-code.ai/uploader/fal
   status: error
-  last_checked: '2025-12-26T14:50:55.864681+00:00'
+  last_checked: '2025-12-26T14:54:17.321304+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: flf2v-kamui-veo31
   url: https://kamui-code.ai/flf2v/fal/veo31
   status: error
-  last_checked: '2025-12-26T14:51:00.702952+00:00'
+  last_checked: '2025-12-26T14:54:22.077766+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-aura-sr
   url: https://kamui-code.ai/i2i/fal/aura-sr
   status: error
-  last_checked: '2025-12-26T14:50:58.506389+00:00'
+  last_checked: '2025-12-26T14:54:19.800125+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-chrono-edit
   url: https://kamui-code.ai/i2i/fal/chrono-edit
   status: error
-  last_checked: '2025-12-26T14:51:08.528114+00:00'
+  last_checked: '2025-12-26T14:54:29.953236+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-crystal-upscaler
   url: https://kamui-code.ai/i2i/fal/crystal-upscaler
   status: error
-  last_checked: '2025-12-26T14:50:58.763109+00:00'
+  last_checked: '2025-12-26T14:54:19.876696+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-dreamomni2-edit
   url: https://kamui-code.ai/i2i/fal/dreamomni2/edit
   status: error
-  last_checked: '2025-12-26T14:50:59.366126+00:00'
+  last_checked: '2025-12-26T14:54:20.555068+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-easel-ai-fashion-size-estimator
   url: https://kamui-code.ai/i2i/fal/easel-ai-fashion-size-estimator
   status: error
-  last_checked: '2025-12-26T14:50:58.791570+00:00'
+  last_checked: '2025-12-26T14:54:19.889760+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-emu-3-5-image-edit
   url: https://kamui-code.ai/i2i/fal/emu-3.5-image/edit
   status: error
-  last_checked: '2025-12-26T14:51:10.738656+00:00'
+  last_checked: '2025-12-26T14:54:31.870743+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-chrono-edit-lora
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora
   status: error
-  last_checked: '2025-12-26T14:51:08.523665+00:00'
+  last_checked: '2025-12-26T14:54:30.110762+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-paintbrush
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/paintbrush
   status: error
-  last_checked: '2025-12-26T14:51:15.222372+00:00'
+  last_checked: '2025-12-26T14:54:34.909460+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-chrono-edit-lora-gallery-upscaler
   url: https://kamui-code.ai/i2i/fal/chrono-edit-lora-gallery/upscaler
   status: error
-  last_checked: '2025-12-26T14:51:15.520780+00:00'
+  last_checked: '2025-12-26T14:54:35.009813+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-flux-2-lora-gallery-apartment-staging
   url: https://kamui-code.ai/i2i/fal/flux-2-lora-gallery/apartment-staging
   status: error
-  last_checked: '2025-12-26T14:51:15.735489+00:00'
+  last_checked: '2025-12-26T14:54:35.128640+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-gemini-3-pro-image-preview-edit
   url: https://kamui-code.ai/i2i/fal/gemini-3-pro-image-preview/edit
   status: error
-  last_checked: '2025-12-26T14:51:14.897290+00:00'
+  last_checked: '2025-12-26T14:54:34.459685+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-gpt-image-1-5-edit
   url: https://kamui-code.ai/i2i/fal/gpt-image-1.5/edit
   status: error
-  last_checked: '2025-12-26T14:51:20.132208+00:00'
+  last_checked: '2025-12-26T14:54:38.911071+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-longcat-image-edit
   url: https://kamui-code.ai/i2i/fal/longcat-image/edit
   status: error
-  last_checked: '2025-12-26T14:51:18.215175+00:00'
+  last_checked: '2025-12-26T14:54:36.890032+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-nano-banana-pro-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana-pro/edit
   status: error
-  last_checked: '2025-12-26T14:51:14.318810+00:00'
+  last_checked: '2025-12-26T14:54:34.364515+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-sam-3-image
   url: https://kamui-code.ai/i2i/fal/sam-3/image
   status: error
-  last_checked: '2025-12-26T14:51:15.261451+00:00'
+  last_checked: '2025-12-26T14:54:34.894844+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-z-image-turbo-controlnet
   url: https://kamui-code.ai/i2i/fal/z-image-turbo/controlnet
   status: error
-  last_checked: '2025-12-26T14:51:18.660981+00:00'
+  last_checked: '2025-12-26T14:54:37.378998+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-fal-z-image-turbo-image-to-image
   url: https://kamui-code.ai/i2i/fal/z-image-turbo/image-to-image
   status: error
-  last_checked: '2025-12-26T14:51:18.732615+00:00'
+  last_checked: '2025-12-26T14:54:37.407371+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-edit
   url: https://kamui-code.ai/i2i/fal/flux-2/edit
   status: error
-  last_checked: '2025-12-26T14:51:18.036084+00:00'
+  last_checked: '2025-12-26T14:54:36.734262+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-flash-edit
   url: https://kamui-code.ai/i2i/fal/flux-2/flash/edit
   status: error
-  last_checked: '2025-12-26T14:51:17.737070+00:00'
+  last_checked: '2025-12-26T14:54:36.186688+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-flex-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-flex/edit
   status: error
-  last_checked: '2025-12-26T14:50:57.850421+00:00'
+  last_checked: '2025-12-26T14:54:18.837677+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-lora-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-lora/edit
   status: error
-  last_checked: '2025-12-26T14:50:57.203702+00:00'
+  last_checked: '2025-12-26T14:54:18.715316+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-max-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-max/edit
   status: error
-  last_checked: '2025-12-26T14:51:19.996238+00:00'
+  last_checked: '2025-12-26T14:54:38.873288+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-pro-edit
   url: https://kamui-code.ai/i2i/fal/flux-2-pro/edit
   status: error
-  last_checked: '2025-12-26T14:50:57.821983+00:00'
+  last_checked: '2025-12-26T14:54:19.082267+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-2-turbo-edit
   url: https://kamui-code.ai/i2i/fal/flux-2/turbo/edit
   status: error
-  last_checked: '2025-12-26T14:51:17.507796+00:00'
+  last_checked: '2025-12-26T14:54:36.062319+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-kontext-lora
   url: https://kamui-code.ai/i2i/fal/flux/kontext
   status: error
-  last_checked: '2025-12-26T14:50:58.794950+00:00'
+  last_checked: '2025-12-26T14:54:20.187228+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-kontext-max
   url: https://kamui-code.ai/i2i/fal/flux/kontext/max
   status: error
-  last_checked: '2025-12-26T14:50:59.056542+00:00'
+  last_checked: '2025-12-26T14:54:20.228007+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-flux-krea-lora
   url: https://kamui-code.ai/i2i/fal/flux-krea-lora/image-to-image
   status: error
-  last_checked: '2025-12-26T14:50:59.064926+00:00'
+  last_checked: '2025-12-26T14:54:20.257494+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-gemini-25-flash-image-edit
   url: https://kamui-code.ai/i2i/fal/gemini-25-flash-image/edit
   status: error
-  last_checked: '2025-12-26T14:51:03.665946+00:00'
+  last_checked: '2025-12-26T14:54:25.253448+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-gpt-image-1-mini-edit
   url: https://kamui-code.ai/i2i/fal/gpt-image-1-mini/edit
   status: error
-  last_checked: '2025-12-26T14:51:10.735174+00:00'
+  last_checked: '2025-12-26T14:54:31.826538+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-ideogram-character-remix
   url: https://kamui-code.ai/i2i/fal/ideogram/character-remix
   status: error
-  last_checked: '2025-12-26T14:50:59.078732+00:00'
+  last_checked: '2025-12-26T14:54:20.512624+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-image-apps-v2-outpaint
   url: https://kamui-code.ai/i2i/fal/image-apps-v2/outpaint
   status: error
-  last_checked: '2025-12-26T14:50:59.313112+00:00'
+  last_checked: '2025-12-26T14:54:20.552824+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-image2pixel
   url: https://kamui-code.ai/i2i/fal/image2pixel
   status: error
-  last_checked: '2025-12-26T14:51:08.703142+00:00'
+  last_checked: '2025-12-26T14:54:30.292567+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-kling-image-o1
   url: https://kamui-code.ai/i2i/fal/kling-image/o1
   status: error
-  last_checked: '2025-12-26T14:51:18.083702+00:00'
+  last_checked: '2025-12-26T14:54:36.746065+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-lucidflux
   url: https://kamui-code.ai/i2i/fal/lucidflux
   status: error
-  last_checked: '2025-12-26T14:51:08.629534+00:00'
+  last_checked: '2025-12-26T14:54:30.286041+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-nano-banana-edit
   url: https://kamui-code.ai/i2i/fal/nano-banana/edit
   status: error
-  last_checked: '2025-12-26T14:51:03.641951+00:00'
+  last_checked: '2025-12-26T14:54:25.183642+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit
   url: https://kamui-code.ai/i2i/fal/qwen/image-edit
   status: error
-  last_checked: '2025-12-26T14:50:59.309348+00:00'
+  last_checked: '2025-12-26T14:54:20.546609+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-2511
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-2511
   status: error
-  last_checked: '2025-12-26T14:51:21.542669+00:00'
+  last_checked: '2025-12-26T14:54:41.066121+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus
   status: error
-  last_checked: '2025-12-26T14:51:07.267338+00:00'
+  last_checked: '2025-12-26T14:54:28.940340+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora
   status: error
-  last_checked: '2025-12-26T14:51:08.288608+00:00'
+  last_checked: '2025-12-26T14:54:29.759969+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-add-background
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/add-background
   status: error
-  last_checked: '2025-12-26T14:51:13.152287+00:00'
+  last_checked: '2025-12-26T14:54:33.486072+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-face-to-full-portrait
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/face-to-full-portrait
   status: error
-  last_checked: '2025-12-26T14:51:13.348246+00:00'
+  last_checked: '2025-12-26T14:54:33.495311+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-group-photo
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/group-photo
   status: error
-  last_checked: '2025-12-26T14:51:13.416756+00:00'
+  last_checked: '2025-12-26T14:54:33.513562+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-integrate-product
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/integrate-product
   status: error
-  last_checked: '2025-12-26T14:51:13.747456+00:00'
+  last_checked: '2025-12-26T14:54:33.999776+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-edit-plus-lora-gallery-next-scene
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/next-scene
   status: error
-  last_checked: '2025-12-26T14:51:13.850320+00:00'
+  last_checked: '2025-12-26T14:54:34.063957+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-image-layered
   url: https://kamui-code.ai/i2i/fal/qwen-image-layered
   status: error
-  last_checked: '2025-12-26T14:51:20.905430+00:00'
+  last_checked: '2025-12-26T14:54:40.341091+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-qwen-lighting-restore
   url: https://kamui-code.ai/i2i/fal/qwen-image-edit-plus-lora-gallery/lighting-restoration
   status: error
-  last_checked: '2025-12-26T14:51:14.036071+00:00'
+  last_checked: '2025-12-26T14:54:34.120160+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-reve-edit
   url: https://kamui-code.ai/i2i/fal/reve/edit
   status: error
-  last_checked: '2025-12-26T14:51:10.021925+00:00'
+  last_checked: '2025-12-26T14:54:31.135864+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-reve-remix
   url: https://kamui-code.ai/i2i/fal/reve/remix
   status: error
-  last_checked: '2025-12-26T14:51:10.035751+00:00'
+  last_checked: '2025-12-26T14:54:31.176036+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-seedream-v4-5-edit
   url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4.5
   status: error
-  last_checked: '2025-12-26T14:51:04.671040+00:00'
+  last_checked: '2025-12-26T14:54:26.092231+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-seedream-v4-edit
   url: https://kamui-code.ai/i2i/fal/bytedance/seedream/v4
   status: error
-  last_checked: '2025-12-26T14:51:04.636170+00:00'
+  last_checked: '2025-12-26T14:54:26.043828+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-wan-25-preview
   url: https://kamui-code.ai/i2i/fal/wan/25-preview
   status: error
-  last_checked: '2025-12-26T14:51:07.717376+00:00'
+  last_checked: '2025-12-26T14:54:29.200230+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i-kamui-wan-v26
   url: https://kamui-code.ai/i2i/fal/wan/v2.6
   status: error
-  last_checked: '2025-12-26T14:51:21.730246+00:00'
+  last_checked: '2025-12-26T14:54:41.526952+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-fal-sam-3-3d-align
   url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-align
   status: error
-  last_checked: '2025-12-26T14:51:18.176474+00:00'
+  last_checked: '2025-12-26T14:54:36.791119+00:00'
   error_message: |
-    Initialize failed: 401 - {"error":"Invalid passcode"}
+    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
 - id: i2i3d-kamui-fal-sam-3-3d-body
   url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-body
   status: error
-  last_checked: '2025-12-26T14:51:17.985590+00:00'
+  last_checked: '2025-12-26T14:54:36.663514+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-fal-sam-3-3d-objects
   url: https://kamui-code.ai/i2i3d/fal/sam-3/3d-objects
   status: error
-  last_checked: '2025-12-26T14:51:18.131394+00:00'
+  last_checked: '2025-12-26T14:54:36.730322+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-hunyuan3d-v21
   url: https://kamui-code.ai/i2i3d/fal/hunyuan/3d-v21
   status: error
-  last_checked: '2025-12-26T14:51:06.822876+00:00'
+  last_checked: '2025-12-26T14:54:28.363987+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-hunyuan3d-v3-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/hunyuan3d-v3/image-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:20.158433+00:00'
+  last_checked: '2025-12-26T14:54:39.074336+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-hunyuan3d-v3-sketch-to-3d
   url: https://kamui-code.ai/i2i3d/fal/hunyuan3d-v3/sketch-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:20.181802+00:00'
+  last_checked: '2025-12-26T14:54:39.461688+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-hyper3d-rodin-v2
   url: https://kamui-code.ai/i2i3d/fal/hyper3d/rodin/v2
   status: error
-  last_checked: '2025-12-26T14:51:08.010984+00:00'
+  last_checked: '2025-12-26T14:54:29.690980+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-meshy-v5-multi-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/meshy/v5/multi-image-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:08.898302+00:00'
+  last_checked: '2025-12-26T14:54:30.423788+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-meshy-v6-preview-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/meshy/v6-preview/image-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:08.238229+00:00'
+  last_checked: '2025-12-26T14:54:29.742874+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-trellis
   url: https://kamui-code.ai/i2i3d/fal/trellis
   status: error
-  last_checked: '2025-12-26T14:51:07.133453+00:00'
+  last_checked: '2025-12-26T14:54:28.919415+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-trellis-2
   url: https://kamui-code.ai/i2i3d/fal/trellis-2
   status: error
-  last_checked: '2025-12-26T14:51:20.232538+00:00'
+  last_checked: '2025-12-26T14:54:39.541425+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2i3d-kamui-tripo3d-image-to-3d
   url: https://kamui-code.ai/i2i3d/fal/tripo3d/tripo/v25/image-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:07.018322+00:00'
+  last_checked: '2025-12-26T14:54:28.642360+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-bytedance-lynx
   url: https://kamui-code.ai/i2v/fal/bytedance/lynx
   status: error
-  last_checked: '2025-12-26T14:51:00.362096+00:00'
+  last_checked: '2025-12-26T14:54:21.543839+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-bytedance-seedance-v1-pro-fast
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
   status: error
-  last_checked: '2025-12-26T14:51:03.494010+00:00'
+  last_checked: '2025-12-26T14:54:24.515468+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-bytedance-seedance-v15-pro
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1.5-pro
   status: error
-  last_checked: '2025-12-26T14:51:21.341500+00:00'
+  last_checked: '2025-12-26T14:54:40.852244+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-decart-lucy-14b
   url: https://kamui-code.ai/i2v/fal/decart/lucy-14b
   status: error
-  last_checked: '2025-12-26T14:51:04.497314+00:00'
+  last_checked: '2025-12-26T14:54:26.050816+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-decart-lucy-5b
   url: https://kamui-code.ai/i2v/fal/decart/lucy-5b
   status: error
-  last_checked: '2025-12-26T14:51:04.498607+00:00'
+  last_checked: '2025-12-26T14:54:26.131079+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-fal-sora-2
   url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video
   status: error
-  last_checked: '2025-12-26T14:51:18.823825+00:00'
+  last_checked: '2025-12-26T14:54:37.564921+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-fal-sora-2-pro
   url: https://kamui-code.ai/i2v/fal/sora-2/image-to-video/pro
   status: error
-  last_checked: '2025-12-26T14:51:18.778591+00:00'
+  last_checked: '2025-12-26T14:54:37.423096+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-hailuo-02-fast
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/fast
   status: error
-  last_checked: '2025-12-26T14:51:00.025618+00:00'
+  last_checked: '2025-12-26T14:54:21.267985+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-02/pro
   status: error
-  last_checked: '2025-12-26T14:51:00.039141+00:00'
+  last_checked: '2025-12-26T14:54:21.280593+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-hailuo-23-fast-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3-fast/pro/image-to-video
   status: error
-  last_checked: '2025-12-26T14:51:12.063971+00:00'
+  last_checked: '2025-12-26T14:54:32.625098+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-hailuo-23-pro
   url: https://kamui-code.ai/i2v/fal/minimax/hailuo-2.3/pro/image-to-video
   status: error
-  last_checked: '2025-12-26T14:51:12.006356+00:00'
+  last_checked: '2025-12-26T14:54:32.601038+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-hunyuan-video-v15-image-to-video
   url: https://kamui-code.ai/i2v/fal/hunyuan-video-v1.5/image-to-video
   status: error
-  last_checked: '2025-12-26T14:51:20.234919+00:00'
+  last_checked: '2025-12-26T14:54:39.570529+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-kandinsky5-pro
   url: https://kamui-code.ai/i2v/fal/kandinsky5-pro
   status: error
-  last_checked: '2025-12-26T14:51:21.526147+00:00'
+  last_checked: '2025-12-26T14:54:40.989030+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-kling-video-o1
   url: https://kamui-code.ai/i2v/fal/kling-video/o1
   status: error
-  last_checked: '2025-12-26T14:51:06.118650+00:00'
+  last_checked: '2025-12-26T14:54:27.677703+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-kling-video-v25-turbo-pro
   url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-pro
   status: error
-  last_checked: '2025-12-26T14:51:05.873321+00:00'
+  last_checked: '2025-12-26T14:54:27.514637+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-kling-video-v25-turbo-standard
   url: https://kamui-code.ai/i2v/fal/kling-video/v25-turbo-standard
   status: error
-  last_checked: '2025-12-26T14:51:06.083417+00:00'
+  last_checked: '2025-12-26T14:54:27.644151+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-kling-video-v26-pro
   url: https://kamui-code.ai/i2v/fal/kling-video/v26-pro
   status: error
-  last_checked: '2025-12-26T14:51:16.435090+00:00'
+  last_checked: '2025-12-26T14:54:35.314310+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-longcat-video-480p
   url: https://kamui-code.ai/i2v/fal/longcat-video-480p
   status: error
-  last_checked: '2025-12-26T14:51:10.431170+00:00'
+  last_checked: '2025-12-26T14:54:31.861295+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-longcat-video-720p
   url: https://kamui-code.ai/i2v/fal/longcat-video-720p
   status: error
-  last_checked: '2025-12-26T14:51:10.544269+00:00'
+  last_checked: '2025-12-26T14:54:31.838852+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-ltx-2
   url: https://kamui-code.ai/i2v/fal/ltx-2
   status: error
-  last_checked: '2025-12-26T14:51:16.211512+00:00'
+  last_checked: '2025-12-26T14:54:32.681639+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-ltx-2-fast
   url: https://kamui-code.ai/i2v/fal/ltx-2/image-to-video/fast
   status: error
-  last_checked: '2025-12-26T14:51:11.431206+00:00'
+  last_checked: '2025-12-26T14:54:32.663799+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-ltxv-2
   url: https://kamui-code.ai/i2v/fal/ltxv-2
   status: error
-  last_checked: '2025-12-26T14:51:10.987846+00:00'
+  last_checked: '2025-12-26T14:54:32.094434+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-lynx
   url: https://kamui-code.ai/i2v/fal/lynx
   status: error
-  last_checked: '2025-12-26T14:51:08.944726+00:00'
+  last_checked: '2025-12-26T14:54:30.438266+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-omnihuman
   url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman
   status: error
-  last_checked: '2025-12-26T14:51:00.486996+00:00'
+  last_checked: '2025-12-26T14:54:21.588701+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-omnihuman-v15
   url: https://kamui-code.ai/i2v/fal/bytedance/omnihuman-v1.5
   status: error
-  last_checked: '2025-12-26T14:51:00.823729+00:00'
+  last_checked: '2025-12-26T14:54:21.584525+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-ovi
   url: https://kamui-code.ai/i2v/fal/ovi
   status: error
-  last_checked: '2025-12-26T14:51:07.778552+00:00'
+  last_checked: '2025-12-26T14:54:29.537078+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-pixverse-v5
   url: https://kamui-code.ai/i2v/fal/pixverse/v5
   status: error
-  last_checked: '2025-12-26T14:51:09.306609+00:00'
+  last_checked: '2025-12-26T14:54:30.713325+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-pixverse-v5-transition
   url: https://kamui-code.ai/i2v/fal/pixverse/v5/transition
   status: error
-  last_checked: '2025-12-26T14:51:09.208371+00:00'
+  last_checked: '2025-12-26T14:54:30.726621+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-pixverse-v5.5-effects
   url: https://kamui-code.ai/i2v/fal/pixverse/v5.5/effects
   status: error
-  last_checked: '2025-12-26T14:51:17.114974+00:00'
+  last_checked: '2025-12-26T14:54:40.911891+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-pixverse-v55
   url: https://kamui-code.ai/i2v/fal/pixverse/v5.5
   status: error
-  last_checked: '2025-12-26T14:51:09.345705+00:00'
+  last_checked: '2025-12-26T14:54:30.875960+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-seedance-v1-lite
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-lite
   status: error
-  last_checked: '2025-12-26T14:51:05.608215+00:00'
+  last_checked: '2025-12-26T14:54:21.896755+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-seedance-v1-pro-fast
   url: https://kamui-code.ai/i2v/fal/bytedance/seedance-v1-pro-fast
   status: error
-  last_checked: '2025-12-26T14:51:21.773554+00:00'
+  last_checked: '2025-12-26T14:54:41.674141+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-veo3-fast
   url: https://kamui-code.ai/i2v/fal/veo3/fast
   status: error
-  last_checked: '2025-12-26T14:51:00.533571+00:00'
+  last_checked: '2025-12-26T14:54:21.704636+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-veo31
   url: https://kamui-code.ai/i2v/fal/veo31
   status: error
-  last_checked: '2025-12-26T14:51:00.554237+00:00'
+  last_checked: '2025-12-26T14:54:21.969260+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-veo31-fast
   url: https://kamui-code.ai/i2v/fal/veo31/fast
   status: error
-  last_checked: '2025-12-26T14:51:00.550857+00:00'
+  last_checked: '2025-12-26T14:54:21.945406+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-vidu-q2-i2v-pro
   url: https://kamui-code.ai/i2v/fal/vidu/q2-i2v-pro
   status: error
-  last_checked: '2025-12-26T14:51:02.767810+00:00'
+  last_checked: '2025-12-26T14:54:23.588434+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-wan-25-preview
   url: https://kamui-code.ai/i2v/fal/wan/25-preview
   status: error
-  last_checked: '2025-12-26T14:51:07.733363+00:00'
+  last_checked: '2025-12-26T14:54:29.356690+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/i2v/fal/wan/v2.2-a14b
   status: error
-  last_checked: '2025-12-26T14:51:00.741499+00:00'
+  last_checked: '2025-12-26T14:54:22.248891+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: i2v-kamui-wan-v2.6
   url: https://kamui-code.ai/i2v/fal/wan/v2.6
   status: error
-  last_checked: '2025-12-26T14:51:19.571199+00:00'
+  last_checked: '2025-12-26T14:54:38.793144+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: misc-kamui-bria-fibo-generate-structured-prompt
   url: https://kamui-code.ai/misc/fal/bria/fibo/generate/structured_prompt
   status: error
-  last_checked: '2025-12-26T14:51:12.545434+00:00'
+  last_checked: '2025-12-26T14:54:33.414831+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: misc-kamui-bria-fibo-mashup
   url: https://kamui-code.ai/misc/fal/bria/fibo-mashup
   status: error
-  last_checked: '2025-12-26T14:50:58.568561+00:00'
+  last_checked: '2025-12-26T14:54:19.882746+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: misc-kamui-hunyuan-part
   url: https://kamui-code.ai/misc/fal/hunyuan-part
   status: error
-  last_checked: '2025-12-26T14:51:08.450313+00:00'
+  last_checked: '2025-12-26T14:54:30.103335+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2i-kamui-vidu-q2-reference-to-image
   url: https://kamui-code.ai/r2i/fal/vidu/q2/reference-to-image
   status: error
-  last_checked: '2025-12-26T14:51:16.930865+00:00'
+  last_checked: '2025-12-26T14:54:35.820837+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-bytedance-seedance-v1-lite
   url: https://kamui-code.ai/r2v/fal/bytedance/seedance-v1-lite
   status: error
-  last_checked: '2025-12-26T14:51:03.702402+00:00'
+  last_checked: '2025-12-26T14:54:24.726024+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-fal-ai-one-to-all-animation-13b
   url: https://kamui-code.ai/r2v/fal/fal-ai/one-to-all-animation-13b
   status: error
-  last_checked: '2025-12-26T14:51:19.430968+00:00'
+  last_checked: '2025-12-26T14:54:38.232847+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-fal-ai-one-to-all-animation-14b
   url: https://kamui-code.ai/r2v/fal/fal-ai/one-to-all-animation-14b
   status: error
-  last_checked: '2025-12-26T14:51:19.492075+00:00'
+  last_checked: '2025-12-26T14:54:38.243269+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-fal-ai-scail
   url: https://kamui-code.ai/r2v/fal/fal-ai/scail
   status: error
-  last_checked: '2025-12-26T14:51:20.411938+00:00'
+  last_checked: '2025-12-26T14:54:39.570569+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-fal-ai-steady-dancer
   url: https://kamui-code.ai/r2v/fal/fal-ai/steady-dancer
   status: error
-  last_checked: '2025-12-26T14:51:19.425575+00:00'
+  last_checked: '2025-12-26T14:54:38.187972+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-kling-video-o1
   url: https://kamui-code.ai/r2v/fal/kling-video/o1
   status: error
-  last_checked: '2025-12-26T14:51:06.198792+00:00'
+  last_checked: '2025-12-26T14:54:27.690268+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-kling-video-v26-pro-motion-control
   url: https://kamui-code.ai/r2v/fal/kling-video/v26-pro/motion-control
   status: error
-  last_checked: '2025-12-26T14:51:21.061489+00:00'
+  last_checked: '2025-12-26T14:54:40.415193+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-kling-video-v26-standard-motion-control
   url: https://kamui-code.ai/r2v/fal/kling-video/v26-standard/motion-control
   status: error
-  last_checked: '2025-12-26T14:51:21.088077+00:00'
+  last_checked: '2025-12-26T14:54:40.422775+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-ltx-2
   url: https://kamui-code.ai/r2v/fal/ltx-2
   status: error
-  last_checked: '2025-12-26T14:51:11.568819+00:00'
+  last_checked: '2025-12-26T14:54:37.618829+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-veo31
   url: https://kamui-code.ai/r2v/fal/veo31
   status: error
-  last_checked: '2025-12-26T14:51:00.557844+00:00'
+  last_checked: '2025-12-26T14:54:22.075132+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-vidu-q1
   url: https://kamui-code.ai/r2v/fal/vidu/q1
   status: error
-  last_checked: '2025-12-26T14:51:02.422485+00:00'
+  last_checked: '2025-12-26T14:54:23.329709+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: r2v-kamui-wan-v2.6
   url: https://kamui-code.ai/r2v/fal/wan/v2.6
   status: error
-  last_checked: '2025-12-26T14:51:19.754055+00:00'
+  last_checked: '2025-12-26T14:54:38.858805+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: s2v-kamui-wan-v2-2-14b
   url: https://kamui-code.ai/s2v/fal/wan/v2.2-14b
   status: error
-  last_checked: '2025-12-26T14:51:03.508396+00:00'
+  last_checked: '2025-12-26T14:54:24.932430+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2a-kamui-beatoven-sound-effect-generation
   url: https://kamui-code.ai/t2a/fal/beatoven/sound-effect-generation
   status: error
-  last_checked: '2025-12-26T14:51:10.709510+00:00'
+  last_checked: '2025-12-26T14:54:31.699364+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2a-kamui-stable-audio-v25
   url: https://kamui-code.ai/t2a/fal/stable-audio/v2.5
   status: error
-  last_checked: '2025-12-26T14:51:06.150508+00:00'
+  last_checked: '2025-12-26T14:54:27.775416+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-bria-fibo-generate
   url: https://kamui-code.ai/t2i/fal/bria/fibo/generate
   status: error
-  last_checked: '2025-12-26T14:50:58.557364+00:00'
+  last_checked: '2025-12-26T14:54:19.857338+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-dreamina-v31
   url: https://kamui-code.ai/t2i/fal/bytedance/dreamina/v3.1/text-to-image
   status: error
-  last_checked: '2025-12-26T14:50:56.365408+00:00'
+  last_checked: '2025-12-26T14:54:17.769513+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-emu-3-5-image
   url: https://kamui-code.ai/t2i/fal/emu-3.5-image
   status: error
-  last_checked: '2025-12-26T14:51:04.143024+00:00'
+  last_checked: '2025-12-26T14:54:25.428490+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-bytedance-seedream-v4-5
   url: https://kamui-code.ai/t2i/fal/bytedance/seedream/v4.5
   status: error
-  last_checked: '2025-12-26T14:51:16.060303+00:00'
+  last_checked: '2025-12-26T14:54:35.305574+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-gemini-3-pro-image-preview
   url: https://kamui-code.ai/t2i/fal/gemini-3-pro-image-preview
   status: error
-  last_checked: '2025-12-26T14:51:14.623429+00:00'
+  last_checked: '2025-12-26T14:54:34.403664+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-gpt-image-1-5
   url: https://kamui-code.ai/t2i/fal/gpt-image-1.5
   status: error
-  last_checked: '2025-12-26T14:51:20.139693+00:00'
+  last_checked: '2025-12-26T14:54:38.939039+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-longcat-image
   url: https://kamui-code.ai/t2i/fal/longcat-image
   status: error
-  last_checked: '2025-12-26T14:51:18.429551+00:00'
+  last_checked: '2025-12-26T14:54:36.895563+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-nano-banana-pro
   url: https://kamui-code.ai/t2i/fal/nano-banana-pro
   status: error
-  last_checked: '2025-12-26T14:51:14.398723+00:00'
+  last_checked: '2025-12-26T14:54:34.380395+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-fal-z-image-turbo
   url: https://kamui-code.ai/t2i/fal/z-image-turbo
   status: error
-  last_checked: '2025-12-26T14:51:15.816164+00:00'
+  last_checked: '2025-12-26T14:54:35.277528+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-flash
   url: https://kamui-code.ai/t2i/fal/flux-2/flash
   status: error
-  last_checked: '2025-12-26T14:51:17.280985+00:00'
+  last_checked: '2025-12-26T14:54:35.980783+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-flex
   url: https://kamui-code.ai/t2i/fal/flux-2-flex
   status: error
-  last_checked: '2025-12-26T14:50:57.051556+00:00'
+  last_checked: '2025-12-26T14:54:18.658585+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-lora
   url: https://kamui-code.ai/t2i/fal/flux-2-lora
   status: error
-  last_checked: '2025-12-26T14:50:57.537431+00:00'
+  last_checked: '2025-12-26T14:54:18.690601+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-lora-gallery-ballpoint-pen-sketch
   url: https://kamui-code.ai/t2i/fal/flux-2-lora-gallery/ballpoint-pen-sketch
   status: error
-  last_checked: '2025-12-26T14:50:57.429619+00:00'
+  last_checked: '2025-12-26T14:54:18.723132+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-lora-gallery-digital-comic-art
   url: https://kamui-code.ai/t2i/fal/flux-2-lora-gallery/digital-comic-art
   status: error
-  last_checked: '2025-12-26T14:51:22.022842+00:00'
+  last_checked: '2025-12-26T14:54:41.691040+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-max
   url: https://kamui-code.ai/t2i/fal/flux-2-max
   status: error
-  last_checked: '2025-12-26T14:50:56.816111+00:00'
+  last_checked: '2025-12-26T14:54:18.284715+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-pro
   url: https://kamui-code.ai/t2i/fal/flux-2-pro
   status: error
-  last_checked: '2025-12-26T14:50:57.220369+00:00'
+  last_checked: '2025-12-26T14:54:18.675190+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-text-to-image
   url: https://kamui-code.ai/t2i/fal/flux-2/text-to-image
   status: error
-  last_checked: '2025-12-26T14:51:17.244763+00:00'
+  last_checked: '2025-12-26T14:54:36.177227+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-2-turbo
   url: https://kamui-code.ai/t2i/fal/flux-2/turbo
   status: error
-  last_checked: '2025-12-26T14:51:17.281025+00:00'
+  last_checked: '2025-12-26T14:54:36.000827+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-krea-lora
   url: https://kamui-code.ai/t2i/fal/flux-krea-lora
   status: error
-  last_checked: '2025-12-26T14:50:55.864831+00:00'
+  last_checked: '2025-12-26T14:54:17.321457+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-schnell
   url: https://kamui-code.ai/t2i/fal/flux/schnell
   status: error
-  last_checked: '2025-12-26T14:50:55.864845+00:00'
+  last_checked: '2025-12-26T14:54:17.321472+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-flux-srpo
   url: https://kamui-code.ai/t2i/fal/flux/srpo
   status: error
-  last_checked: '2025-12-26T14:50:56.752423+00:00'
+  last_checked: '2025-12-26T14:54:18.235359+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-gemini-25-flash-image
   url: https://kamui-code.ai/t2i/fal/gemini-25-flash-image
   status: error
-  last_checked: '2025-12-26T14:51:03.683736+00:00'
+  last_checked: '2025-12-26T14:54:25.287622+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-gpt-image-1-mini
   url: https://kamui-code.ai/t2i/fal/gpt-image-1-mini
   status: error
-  last_checked: '2025-12-26T14:51:10.987807+00:00'
+  last_checked: '2025-12-26T14:54:31.927496+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-hunyuan-image-v3
   url: https://kamui-code.ai/t2i/fal/hunyuan-image/v3
   status: error
-  last_checked: '2025-12-26T14:51:06.861291+00:00'
+  last_checked: '2025-12-26T14:54:28.435261+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-ideogram-character-base
   url: https://kamui-code.ai/t2i/fal/ideogram/character-base
   status: error
-  last_checked: '2025-12-26T14:50:57.535060+00:00'
+  last_checked: '2025-12-26T14:54:18.651373+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-imagen3
   url: https://kamui-code.ai/t2i/google/imagen
   status: error
-  last_checked: '2025-12-26T14:50:57.543745+00:00'
+  last_checked: '2025-12-26T14:54:19.166350+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-imagen4-fast
   url: https://kamui-code.ai/t2i/fal/imagen4/fast
   status: error
-  last_checked: '2025-12-26T14:50:57.731785+00:00'
+  last_checked: '2025-12-26T14:54:19.188374+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-imagen4-ultra
   url: https://kamui-code.ai/t2i/fal/imagen4/ultra
   status: error
-  last_checked: '2025-12-26T14:50:57.938885+00:00'
+  last_checked: '2025-12-26T14:54:19.504871+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-nano-banana
   url: https://kamui-code.ai/t2i/fal/nano-banana
   status: error
-  last_checked: '2025-12-26T14:51:03.640270+00:00'
+  last_checked: '2025-12-26T14:54:24.992935+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-ovis-image
   url: https://kamui-code.ai/t2i/fal/ovis-image
   status: error
-  last_checked: '2025-12-26T14:50:58.563360+00:00'
+  last_checked: '2025-12-26T14:54:19.725703+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-piflow
   url: https://kamui-code.ai/t2i/fal/piflow
   status: error
-  last_checked: '2025-12-26T14:50:58.134808+00:00'
+  last_checked: '2025-12-26T14:54:19.546615+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-qwen-image
   url: https://kamui-code.ai/t2i/fal/qwen-image
   status: error
-  last_checked: '2025-12-26T14:50:58.131317+00:00'
+  last_checked: '2025-12-26T14:54:19.538466+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-reve
   url: https://kamui-code.ai/t2i/fal/reve/text-to-image
   status: error
-  last_checked: '2025-12-26T14:51:09.713588+00:00'
+  last_checked: '2025-12-26T14:54:31.134450+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-seedream-v4
   url: https://kamui-code.ai/t2i/fal/bytedance/seedream/v4
   status: error
-  last_checked: '2025-12-26T14:51:04.393357+00:00'
+  last_checked: '2025-12-26T14:54:25.890757+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-vidu-q2-text-to-image
   url: https://kamui-code.ai/t2i/fal/vidu/q2/text-to-image
   status: error
-  last_checked: '2025-12-26T14:51:16.877783+00:00'
+  last_checked: '2025-12-26T14:54:35.899406+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-wan-25-preview
   url: https://kamui-code.ai/t2i/fal/wan/25-preview
   status: error
-  last_checked: '2025-12-26T14:51:07.556036+00:00'
+  last_checked: '2025-12-26T14:54:29.113951+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/t2i/fal/wan/v2.2-a14b/text-to-image
   status: error
-  last_checked: '2025-12-26T14:50:58.257716+00:00'
+  last_checked: '2025-12-26T14:54:19.577615+00:00'
   error_message: |
-    Initialize failed: 401 - {"error":"Invalid passcode"}
+    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
 - id: t2i-kamui-wan-v26
   url: https://kamui-code.ai/t2i/fal/wan/v2.6
   status: error
-  last_checked: '2025-12-26T14:51:21.641855+00:00'
+  last_checked: '2025-12-26T14:54:41.130834+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i3d-kamui-hunyuan3d-v3-text-to-3d
   url: https://kamui-code.ai/t2i3d/fal/hunyuan3d-v3/text-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:06.844444+00:00'
+  last_checked: '2025-12-26T14:54:28.374291+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2i3d-kamui-meshy-v6-preview-text-to-3d
   url: https://kamui-code.ai/t2i3d/fal/meshy/v6-preview/text-to-3d
   status: error
-  last_checked: '2025-12-26T14:51:08.208226+00:00'
+  last_checked: '2025-12-26T14:54:29.729437+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-beatoven-music-generation
   url: https://kamui-code.ai/t2m/fal/beatoven/music-generation
   status: error
-  last_checked: '2025-12-26T14:51:10.644466+00:00'
+  last_checked: '2025-12-26T14:54:31.699327+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-cassetteai-music-generator
   url: https://kamui-code.ai/t2m/fal/cassetteai/music-generator
   status: error
-  last_checked: '2025-12-26T14:51:20.870579+00:00'
+  last_checked: '2025-12-26T14:54:40.267768+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-lyria
   url: https://kamui-code.ai/t2m/google/lyria
   status: error
-  last_checked: '2025-12-26T14:51:02.918145+00:00'
+  last_checked: '2025-12-26T14:54:24.272359+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-minimax-music-v15
   url: https://kamui-code.ai/t2m/fal/minimax/music/v1.5
   status: error
-  last_checked: '2025-12-26T14:51:05.149823+00:00'
+  last_checked: '2025-12-26T14:54:26.689444+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-minimax-music-v2
   url: https://kamui-code.ai/t2m/fal/minimax/music/v2
   status: error
-  last_checked: '2025-12-26T14:51:05.165070+00:00'
+  last_checked: '2025-12-26T14:54:26.718269+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2m-kamui-sonauto-v2-text-to-music
   url: https://kamui-code.ai/t2m/fal/sonauto/v2/text-to-music
   status: error
-  last_checked: '2025-12-26T14:51:20.902087+00:00'
+  last_checked: '2025-12-26T14:54:40.280079+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-fal-ai-vibevoice-0-5b
   url: https://kamui-code.ai/t2s/fal/fal-ai/vibevoice/0.5b
   status: error
-  last_checked: '2025-12-26T14:51:20.675477+00:00'
+  last_checked: '2025-12-26T14:54:39.635481+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-index-tts-2-text-to-speech
   url: https://kamui-code.ai/t2s/fal/index-tts-2/text-to-speech
   status: error
-  last_checked: '2025-12-26T14:51:05.383465+00:00'
+  last_checked: '2025-12-26T14:54:26.826903+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-maya
   url: https://kamui-code.ai/t2s/fal/maya
   status: error
-  last_checked: '2025-12-26T14:51:05.461208+00:00'
+  last_checked: '2025-12-26T14:54:27.095964+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-minimax-speech-02-hd
   url: https://kamui-code.ai/t2s/fal/minimax/speech-02-hd
   status: error
-  last_checked: '2025-12-26T14:51:02.703700+00:00'
+  last_checked: '2025-12-26T14:54:23.706428+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-minimax-speech-02-turbo
   url: https://kamui-code.ai/t2s/fal/minimax/speech-02-turbo
   status: error
-  last_checked: '2025-12-26T14:51:02.570410+00:00'
+  last_checked: '2025-12-26T14:54:23.572116+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-minimax-speech-26-hd
   url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-hd
   status: error
-  last_checked: '2025-12-26T14:51:02.769164+00:00'
+  last_checked: '2025-12-26T14:54:23.765560+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2s-kamui-minimax-speech-26-turbo
   url: https://kamui-code.ai/t2s/fal/minimax/speech-2.6-turbo
   status: error
-  last_checked: '2025-12-26T14:51:02.913870+00:00'
+  last_checked: '2025-12-26T14:54:24.059550+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-bytedance-seedance-v1-pro-fast
   url: https://kamui-code.ai/t2v/fal/bytedance/seedance-v1-pro-fast
   status: error
-  last_checked: '2025-12-26T14:51:03.699571+00:00'
+  last_checked: '2025-12-26T14:54:25.040904+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-bytedance-seedance-v15-pro
   url: https://kamui-code.ai/t2v/fal/bytedance/seedance-v1.5-pro
   status: error
-  last_checked: '2025-12-26T14:51:21.438814+00:00'
+  last_checked: '2025-12-26T14:54:40.970332+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-fal-infinity-star
   url: https://kamui-code.ai/t2v/fal/infinity-star
   status: error
-  last_checked: '2025-12-26T14:51:12.652833+00:00'
+  last_checked: '2025-12-26T14:54:33.353865+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-fal-sana-video
   url: https://kamui-code.ai/t2v/fal/sana-video
   status: error
-  last_checked: '2025-12-26T14:51:12.753602+00:00'
+  last_checked: '2025-12-26T14:54:33.396211+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-fal-sora-2
   url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video
   status: error
-  last_checked: '2025-12-26T14:51:18.864266+00:00'
+  last_checked: '2025-12-26T14:54:37.594695+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-fal-sora-2-pro
   url: https://kamui-code.ai/t2v/fal/sora-2/text-to-video/pro
   status: error
-  last_checked: '2025-12-26T14:51:18.804316+00:00'
+  last_checked: '2025-12-26T14:54:37.498513+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-hailuo-02-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/pro
   status: error
-  last_checked: '2025-12-26T14:50:59.482029+00:00'
+  last_checked: '2025-12-26T14:54:20.614319+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-hailuo-02-standard
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-02/standard
   status: error
-  last_checked: '2025-12-26T14:50:59.645053+00:00'
+  last_checked: '2025-12-26T14:54:20.862830+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-hailuo-23-pro
   url: https://kamui-code.ai/t2v/fal/minimax/hailuo-2.3/pro/text-to-video
   status: error
-  last_checked: '2025-12-26T14:50:59.623759+00:00'
+  last_checked: '2025-12-26T14:54:20.624537+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-hunyuan-video-v15-text-to-video
   url: https://kamui-code.ai/t2v/fal/hunyuan-video-v1.5/text-to-video
   status: error
-  last_checked: '2025-12-26T14:51:18.118250+00:00'
+  last_checked: '2025-12-26T14:54:36.813800+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-kandinsky5
   url: https://kamui-code.ai/t2v/fal/kandinsky5
   status: error
-  last_checked: '2025-12-26T14:50:59.716961+00:00'
+  last_checked: '2025-12-26T14:54:20.932367+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-kandinsky5-pro
   url: https://kamui-code.ai/t2v/fal/kandinsky5-pro
   status: error
-  last_checked: '2025-12-26T14:51:21.463081+00:00'
+  last_checked: '2025-12-26T14:54:40.976748+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-kling-video-v25-turbo-pro
   url: https://kamui-code.ai/t2v/fal/kling-video/v25-turbo-pro
   status: error
-  last_checked: '2025-12-26T14:51:05.741552+00:00'
+  last_checked: '2025-12-26T14:54:27.518423+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-kling-video-v26-pro
   url: https://kamui-code.ai/t2v/fal/kling-video/v26-pro
   status: error
-  last_checked: '2025-12-26T14:51:16.104804+00:00'
+  last_checked: '2025-12-26T14:54:35.272546+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-krea-wan-14b
   url: https://kamui-code.ai/t2v/fal/krea/wan-14b
   status: error
-  last_checked: '2025-12-26T14:51:10.046338+00:00'
+  last_checked: '2025-12-26T14:54:31.415558+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-longcat-video-480p
   url: https://kamui-code.ai/t2v/fal/longcat-video
   status: error
-  last_checked: '2025-12-26T14:51:10.325106+00:00'
+  last_checked: '2025-12-26T14:54:31.737991+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-longcat-video-720p
   url: https://kamui-code.ai/t2v/fal/longcat-video-720p
   status: error
-  last_checked: '2025-12-26T14:51:10.311050+00:00'
+  last_checked: '2025-12-26T14:54:31.844538+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-ltx-2
   url: https://kamui-code.ai/t2v/fal/ltx-2
   status: error
-  last_checked: '2025-12-26T14:51:11.541203+00:00'
+  last_checked: '2025-12-26T14:54:32.756849+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-ltx-2-fast
   url: https://kamui-code.ai/t2v/fal/ltx-2/text-to-video/fast
   status: error
-  last_checked: '2025-12-26T14:51:11.848310+00:00'
+  last_checked: '2025-12-26T14:54:32.767369+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-ltxv-2
   url: https://kamui-code.ai/t2v/fal/ltxv-2
   status: error
-  last_checked: '2025-12-26T14:51:11.317614+00:00'
+  last_checked: '2025-12-26T14:54:32.490140+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-ovi
   url: https://kamui-code.ai/t2v/fal/ovi
   status: error
-  last_checked: '2025-12-26T14:51:07.913264+00:00'
+  last_checked: '2025-12-26T14:54:29.619333+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-pixverse-v5
   url: https://kamui-code.ai/t2v/fal/pixverse/v5
   status: error
-  last_checked: '2025-12-26T14:51:09.356080+00:00'
+  last_checked: '2025-12-26T14:54:30.985528+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-pixverse-v55
   url: https://kamui-code.ai/t2v/fal/pixverse/v5.5
   status: error
-  last_checked: '2025-12-26T14:51:09.773843+00:00'
+  last_checked: '2025-12-26T14:54:30.973796+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-veo3
   url: https://kamui-code.ai/t2v/fal/veo3
   status: error
-  last_checked: '2025-12-26T14:51:04.786966+00:00'
+  last_checked: '2025-12-26T14:54:26.331489+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-veo3-fast
   url: https://kamui-code.ai/t2v/fal/veo3/fast
   status: error
-  last_checked: '2025-12-26T14:50:59.734391+00:00'
+  last_checked: '2025-12-26T14:54:20.959582+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-veo31
   url: https://kamui-code.ai/t2v/fal/veo31
   status: error
-  last_checked: '2025-12-26T14:51:04.832598+00:00'
+  last_checked: '2025-12-26T14:54:26.608626+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-veo31-fast
   url: https://kamui-code.ai/t2v/fal/veo31/fast
   status: error
-  last_checked: '2025-12-26T14:51:05.073425+00:00'
+  last_checked: '2025-12-26T14:54:26.641536+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-wan-25-preview
   url: https://kamui-code.ai/t2v/fal/wan/25-preview
   status: error
-  last_checked: '2025-12-26T14:51:07.726396+00:00'
+  last_checked: '2025-12-26T14:54:29.349548+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-wan-alpha
   url: https://kamui-code.ai/t2v/fal/wan/alpha
   status: error
-  last_checked: '2025-12-26T14:51:09.560319+00:00'
+  last_checked: '2025-12-26T14:54:30.951989+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-wan-v2-2-5b-fast
   url: https://kamui-code.ai/t2v/fal/wan/v2.2-5b/text-to-video/fast-wan
   status: error
-  last_checked: '2025-12-26T14:50:59.748811+00:00'
+  last_checked: '2025-12-26T14:54:21.248258+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-wan-v2-2-a14b
   url: https://kamui-code.ai/t2v/fal/wan/v2-2-a14b
   status: error
-  last_checked: '2025-12-26T14:50:59.827741+00:00'
+  last_checked: '2025-12-26T14:54:21.262365+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2v-kamui-wan-v2.6
   url: https://kamui-code.ai/t2v/fal/wan/v2.6
   status: error
-  last_checked: '2025-12-26T14:51:09.600334+00:00'
+  last_checked: '2025-12-26T14:54:30.953550+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: t2visual-kamui-napkin
   url: https://kamui-code.ai/t2visual/napkin/visual
   status: error
-  last_checked: '2025-12-26T14:51:04.479213+00:00'
+  last_checked: '2025-12-26T14:54:25.941745+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: train-kamui-flux-2-trainer
   url: https://kamui-code.ai/train/fal/flux-2-trainer
   status: error
-  last_checked: '2025-12-26T14:50:56.286382+00:00'
+  last_checked: '2025-12-26T14:54:17.738661+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: train-kamui-flux-2-trainer-edit
   url: https://kamui-code.ai/train/fal/flux-2-trainer/edit
   status: error
-  last_checked: '2025-12-26T14:50:56.331585+00:00'
+  last_checked: '2025-12-26T14:54:17.708566+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: train-kamui-flux-kontext
   url: https://kamui-code.ai/train/fal/flux/kontext
   status: error
-  last_checked: '2025-12-26T14:50:55.864718+00:00'
+  last_checked: '2025-12-26T14:54:17.321345+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: train-kamui-qwen-image-edit
   url: https://kamui-code.ai/train/fal/qwen-image-edit
   status: error
-  last_checked: '2025-12-26T14:50:55.864736+00:00'
+  last_checked: '2025-12-26T14:54:17.321363+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: train-kamui-qwen-image-edit-plus
   url: https://kamui-code.ai/train/fal/qwen-image-edit-plus
   status: error
-  last_checked: '2025-12-26T14:50:55.864752+00:00'
+  last_checked: '2025-12-26T14:54:17.321379+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: tts-kamui-kling-video-v1
   url: https://kamui-code.ai/tts/fal/kling-video/v1
   status: error
-  last_checked: '2025-12-26T14:51:05.285863+00:00'
+  last_checked: '2025-12-26T14:54:26.758209+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2a-kamui-kling-video-to-audio
   url: https://kamui-code.ai/v2a/fal/kling-video
   status: error
-  last_checked: '2025-12-26T14:51:03.274405+00:00'
+  last_checked: '2025-12-26T14:54:24.584784+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2a-kamui-mirelo-ai-sfx-v15
   url: https://kamui-code.ai/v2a/fal/mirelo-ai/sfx-v1.5
   status: error
-  last_checked: '2025-12-26T14:51:06.732380+00:00'
+  last_checked: '2025-12-26T14:54:28.344307+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2a-kamui-thinksound
   url: https://kamui-code.ai/v2a/fal/thinksound/audio/standard
   status: error
-  last_checked: '2025-12-26T14:51:02.947150+00:00'
+  last_checked: '2025-12-26T14:54:24.316510+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2sfx-kamui-mirelo-video-to-sfx
   url: https://kamui-code.ai/v2sfx/replicate/mirelo/video-to-sfx
   status: error
-  last_checked: '2025-12-26T14:51:06.418944+00:00'
+  last_checked: '2025-12-26T14:54:28.222279+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-birefnet-v2-video
   url: https://kamui-code.ai/v2v/fal/birefnet/v2/video
   status: error
-  last_checked: '2025-12-26T14:51:01.575989+00:00'
+  last_checked: '2025-12-26T14:54:22.374123+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-bria-bg-removal
   url: https://kamui-code.ai/video/fal/bria/background-removal
   status: error
-  last_checked: '2025-12-26T14:51:01.511695+00:00'
+  last_checked: '2025-12-26T14:54:22.273105+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-bria-video-eraser-erase-keypoints
   url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/keypoints
   status: error
-  last_checked: '2025-12-26T14:51:20.818748+00:00'
+  last_checked: '2025-12-26T14:54:40.137087+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-bria-video-eraser-erase-mask
   url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/mask
   status: error
-  last_checked: '2025-12-26T14:51:20.800862+00:00'
+  last_checked: '2025-12-26T14:54:39.753260+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-bria-video-eraser-erase-prompt
   url: https://kamui-code.ai/video/fal/bria/bria-video-eraser/erase/prompt
   status: error
-  last_checked: '2025-12-26T14:51:20.795465+00:00'
+  last_checked: '2025-12-26T14:54:39.742435+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-bytedance-upscale-video
   url: https://kamui-code.ai/v2v/fal/bytedance/upscale-video
   status: error
-  last_checked: '2025-12-26T14:51:12.586323+00:00'
+  last_checked: '2025-12-26T14:54:33.423136+00:00'
   error_message: |
-    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
+    Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-creatify-lipsync
   url: https://kamui-code.ai/v2v/fal/creatify/lipsync
   status: error
-  last_checked: '2025-12-26T14:51:01.656761+00:00'
+  last_checked: '2025-12-26T14:54:22.614161+00:00'
   error_message: |
-    Initialize failed: 401 - {"error":"Invalid passcode"}
+    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
 - id: v2v-kamui-decart-lucy-edit-fast
   url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/fast
   status: error
-  last_checked: '2025-12-26T14:51:07.077953+00:00'
+  last_checked: '2025-12-26T14:54:28.773452+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-decart-lucy-edit-pro
   url: https://kamui-code.ai/v2v/fal/decart/lucy-edit/pro
   status: error
-  last_checked: '2025-12-26T14:51:07.045184+00:00'
+  last_checked: '2025-12-26T14:54:28.683403+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-decart-lucy-restyle
   url: https://kamui-code.ai/v2v/fal/decart/lucy-restyle
   status: error
-  last_checked: '2025-12-26T14:51:21.584945+00:00'
+  last_checked: '2025-12-26T14:54:41.078748+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-fal-editto
   url: https://kamui-code.ai/v2v/fal/editto
   status: error
-  last_checked: '2025-12-26T14:51:14.042582+00:00'
+  last_checked: '2025-12-26T14:54:34.138723+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-fal-sam-3-video
   url: https://kamui-code.ai/v2v/fal/sam-3/video
   status: error
-  last_checked: '2025-12-26T14:51:14.940931+00:00'
+  last_checked: '2025-12-26T14:54:34.610118+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-fal-veo31-extend-video
   url: https://kamui-code.ai/v2v/fal/veo31/extend-video
   status: error
-  last_checked: '2025-12-26T14:51:19.500194+00:00'
+  last_checked: '2025-12-26T14:54:38.295471+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-fal-veo31-fast-extend-video
   url: https://kamui-code.ai/v2v/fal/veo31/fast/extend-video
   status: error
-  last_checked: '2025-12-26T14:51:19.555038+00:00'
+  last_checked: '2025-12-26T14:54:38.336590+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-fal-wan-vision-enhancer
   url: https://kamui-code.ai/v2v/fal/wan-vision-enhancer
   status: error
-  last_checked: '2025-12-26T14:51:19.493811+00:00'
+  last_checked: '2025-12-26T14:54:38.283529+00:00'
   error_message: |
-    Initialize failed: 401 - {"error":"Invalid passcode"}
+    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
 - id: v2v-kamui-fal-workflow-utilities-auto-subtitle
   url: https://kamui-code.ai/v2v/fal/workflow-utilities/auto-subtitle
   status: error
-  last_checked: '2025-12-26T14:51:12.496687+00:00'
+  last_checked: '2025-12-26T14:54:33.283585+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-heygen-video-translate
   url: https://kamui-code.ai/v2v/replicate/heygen/video-translate
   status: error
-  last_checked: '2025-12-26T14:51:06.284299+00:00'
+  last_checked: '2025-12-26T14:54:28.216172+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-hunyuan-video-foley
   url: https://kamui-code.ai/v2v/fal/hunyuan/video-foley
   status: error
-  last_checked: '2025-12-26T14:51:04.179255+00:00'
+  last_checked: '2025-12-26T14:54:25.658563+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-kling-video-o1
   url: https://kamui-code.ai/v2v/fal/kling-video/o1
   status: error
-  last_checked: '2025-12-26T14:51:06.166805+00:00'
+  last_checked: '2025-12-26T14:54:27.665618+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-kling-video-o1-reference
   url: https://kamui-code.ai/v2v/fal/kling-video/o1-reference
   status: error
-  last_checked: '2025-12-26T14:51:06.258540+00:00'
+  last_checked: '2025-12-26T14:54:27.769962+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-luma-ray2
   url: https://kamui-code.ai/v2v/fal/luma/dream-machine/ray-2/modify
   status: error
-  last_checked: '2025-12-26T14:51:01.714240+00:00'
+  last_checked: '2025-12-26T14:54:22.639344+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-minimax-voice
   url: https://kamui-code.ai/v2v/fal/minimax/voice-design
   status: error
-  last_checked: '2025-12-26T14:51:01.714279+00:00'
+  last_checked: '2025-12-26T14:54:22.647618+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-mirelo-ai-sfx-v15
   url: https://kamui-code.ai/v2v/fal/mirelo-ai/sfx-v1.5/video-to-video
   status: error
-  last_checked: '2025-12-26T14:51:06.577050+00:00'
+  last_checked: '2025-12-26T14:54:28.239326+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-pixverse-extend
   url: https://kamui-code.ai/v2v/fal/pixverse/extend
   status: error
-  last_checked: '2025-12-26T14:51:01.885280+00:00'
+  last_checked: '2025-12-26T14:54:22.743208+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-pixverse-lipsync
   url: https://kamui-code.ai/v2v/fal/pixverse/lipsync
   status: error
-  last_checked: '2025-12-26T14:51:02.117368+00:00'
+  last_checked: '2025-12-26T14:54:22.829145+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-pixverse-swap
   url: https://kamui-code.ai/v2v/fal/pixverse/swap
   status: error
-  last_checked: '2025-12-26T14:51:13.099422+00:00'
+  last_checked: '2025-12-26T14:54:33.705147+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-runway-aleph
   url: https://kamui-code.ai/v2v/runway/aleph
   status: error
-  last_checked: '2025-12-26T14:51:02.230903+00:00'
+  last_checked: '2025-12-26T14:54:23.035167+00:00'
   error_message: |
-    Initialize failed: 401 - {"error":"Invalid passcode"}
+    Initialize failed: 503 - {"error":"Passcode verification unavailable"}
 - id: v2v-kamui-sync-lipsync-react-1
   url: https://kamui-code.ai/v2v/fal/sync-lipsync/react-1
   status: error
-  last_checked: '2025-12-26T14:51:18.866805+00:00'
+  last_checked: '2025-12-26T14:54:37.599937+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-sync-lipsync-v2
   url: https://kamui-code.ai/v2v/fal/sync-lipsync/v2
   status: error
-  last_checked: '2025-12-26T14:51:02.222593+00:00'
+  last_checked: '2025-12-26T14:54:22.968015+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-topaz-upscale
   url: https://kamui-code.ai/v2v/fal/topaz/upscale-video
   status: error
-  last_checked: '2025-12-26T14:51:02.273646+00:00'
+  last_checked: '2025-12-26T14:54:23.091500+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-veed-video-background-removal
   url: https://kamui-code.ai/video/fal/veed/video-background-removal
   status: error
-  last_checked: '2025-12-26T14:51:20.820135+00:00'
+  last_checked: '2025-12-26T14:54:40.247732+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-vidu-q2-video-extension-pro
   url: https://kamui-code.ai/v2v/fal/vidu/q2/video-extension/pro
   status: error
-  last_checked: '2025-12-26T14:51:02.750691+00:00'
+  last_checked: '2025-12-26T14:54:23.812483+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-wan-v2-2-14b-animate-move
   url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/move
   status: error
-  last_checked: '2025-12-26T14:51:07.504676+00:00'
+  last_checked: '2025-12-26T14:54:29.048295+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-wan-v2-2-14b-animate-replace
   url: https://kamui-code.ai/v2v/fal/wan/v2.2-14b/animate/replace
   status: error
-  last_checked: '2025-12-26T14:51:07.362021+00:00'
+  last_checked: '2025-12-26T14:54:29.000543+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: v2v-kamui-wan-vace-apps-long-reframe
   url: https://kamui-code.ai/v2v/fal/wan/vace-apps/long-reframe
   status: error
-  last_checked: '2025-12-26T14:51:08.419403+00:00'
+  last_checked: '2025-12-26T14:54:30.059123+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: video-analysis-kamui
   url: https://kamui-code.ai/video-analysis/google/gemini
   status: error
-  last_checked: '2025-12-26T14:50:55.864795+00:00'
+  last_checked: '2025-12-26T14:54:17.321418+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: voice-clone-kamui-minimax
   url: https://kamui-code.ai/voice-clone/minimax
   status: error
-  last_checked: '2025-12-26T14:51:12.224510+00:00'
+  last_checked: '2025-12-26T14:54:32.837862+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
 - id: voice-kamui-kling-video-create-voice
   url: https://kamui-code.ai/voice/fal/kling-video/create-voice
   status: error
-  last_checked: '2025-12-26T14:51:20.141038+00:00'
+  last_checked: '2025-12-26T14:54:39.002424+00:00'
   error_message: |
     Initialize failed: 401 - {"error":"Invalid passcode"}
