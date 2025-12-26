@@ -783,6 +783,11 @@
                     // ディープコピーを作成
                     const newServerInfo = JSON.parse(JSON.stringify(serverInfo));
 
+                    // 「変更しない」モードの場合は元の設定をそのまま返す
+                    if (this.passKeyMode === 'keep') {
+                        return newServerInfo;
+                    }
+
                     // headersがなければ作成
                     if (!newServerInfo.headers) {
                         newServerInfo.headers = {};
@@ -1026,12 +1031,32 @@
                         </template>
                     </div>
                 </label>
+
+                <!-- 変更しない -->
+                <label class="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer transition-colors"
+                       :class="passKeyMode === 'keep' ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:bg-gray-50'">
+                    <input type="radio" name="passKeyMode" value="keep"
+                           x-model="passKeyMode" @change="setPassKeyMode('keep')"
+                           class="mt-1 h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
+                    <div class="flex-1">
+                        <span class="block font-medium text-gray-900">変更しない</span>
+                        <span class="block text-xs text-gray-500 mt-1">元のJSON設定をそのまま維持します（headers を変更しない）</span>
+                    </div>
+                </label>
             </div>
 
             <!-- 現在の設定表示 -->
             <div class="mt-4 p-3 bg-gray-50 rounded-lg">
                 <span class="text-sm font-medium text-gray-700">出力時の値: </span>
-                <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200" x-text="passKeyMode === 'manual' && manualPassKey ? '****' + manualPassKey.slice(-4) : '${KAMUI_CODE_PASS_KEY}'"></code>
+                <template x-if="passKeyMode === 'keep'">
+                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">(元の設定を維持)</code>
+                </template>
+                <template x-if="passKeyMode === 'manual' && manualPassKey">
+                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200" x-text="'****' + manualPassKey.slice(-4)"></code>
+                </template>
+                <template x-if="passKeyMode === 'default' || (passKeyMode === 'manual' && !manualPassKey)">
+                    <code class="text-sm bg-white px-2 py-1 rounded border border-gray-200">${KAMUI_CODE_PASS_KEY}</code>
+                </template>
             </div>
         </div>
 
