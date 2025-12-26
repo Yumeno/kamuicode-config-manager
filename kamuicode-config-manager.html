@@ -783,10 +783,13 @@
                     // ディープコピーを作成
                     const newServerInfo = JSON.parse(JSON.stringify(serverInfo));
 
-                    // headersが存在し、KAMUI-CODE-PASSキーがある場合のみ更新
-                    if (newServerInfo.headers && newServerInfo.headers.hasOwnProperty('KAMUI-CODE-PASS')) {
-                        newServerInfo.headers['KAMUI-CODE-PASS'] = this.getCurrentPassKeyValue();
+                    // headersがなければ作成
+                    if (!newServerInfo.headers) {
+                        newServerInfo.headers = {};
                     }
+
+                    // 全サーバーにKAMUI-CODE-PASSを設定（既存の値は上書き）
+                    newServerInfo.headers['KAMUI-CODE-PASS'] = this.getCurrentPassKeyValue();
 
                     return newServerInfo;
                 },
