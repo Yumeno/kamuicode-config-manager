@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
@@ -10,6 +11,54 @@ from typing import Any
 import aiohttp
 
 logger = logging.getLogger(__name__)
+
+
+def expand_env_placeholders(value: str) -> str:
+    """
+    Expand environment variable placeholders in a string.
+
+    Supports ${VAR_NAME} syntax.
+    If the environment variable is not set, the placeholder is left unchanged.
+
+    Args:
+        value: String potentially containing ${VAR_NAME} placeholders
+
+    Returns:
+        String with placeholders replaced by environment variable values
+    """
+    if not value or not isinstance(value, str):
+        return value
+
+    def replace_match(match: re.Match) -> str:
+        var_name = match.group(1)
+        env_value = os.environ.get(var_name)
+        if env_value is not None:
+            return env_value
+        # If not set, return original placeholder
+        return match.group(0)
+
+    # Match ${VAR_NAME} pattern
+    pattern = r'\$\{([A-Za-z_][A-Za-z0-9_]*)\}'
+    return re.sub(pattern, replace_match, value)
+
+
+def expand_headers(headers: dict[str, str] | None) -> dict[str, str] | None:
+    """
+    Expand environment variable placeholders in header values.
+
+    Args:
+        headers: Dictionary of header key-value pairs
+
+    Returns:
+        Dictionary with expanded values, or None if input is None
+    """
+    if headers is None:
+        return None
+
+    expanded = {}
+    for key, value in headers.items():
+        expanded[key] = expand_env_placeholders(value)
+    return expanded
 
 # Default minimum modified time for folder scan filtering (2025-11-20)
 DEFAULT_MIN_MODIFIED_TIME = "2025-11-20T00:00:00"
@@ -28,10 +77,13 @@ class MCPServerConfig:
     @classmethod
     def from_dict(cls, data: dict[str, Any], source_name: str = "") -> "MCPServerConfig":
         """Create MCPServerConfig from dictionary."""
+        # Expand environment variable placeholders in headers
+        raw_headers = data.get("headers")
+        expanded_headers = expand_headers(raw_headers)
         return cls(
             id=data.get("id", ""),
             url=data.get("url", ""),
-            headers=data.get("headers"),
+            headers=expanded_headers,
             transport=data.get("transport", "sse"),
             source_name=source_name,
         )
@@ -128,10 +180,14 @@ class DriveClient:
                 logger.warning(f"Skipping server {server_id}: no URL provided")
                 continue
 
+            # Expand environment variable placeholders in headers
+            raw_headers = server_config.get("headers")
+            expanded_headers = expand_headers(raw_headers)
+
             server = MCPServerConfig(
                 id=server_id,
                 url=url,
-                headers=server_config.get("headers"),
+                headers=expanded_headers,
                 transport=server_config.get("transport", "sse"),
                 source_name=source_name,
             )

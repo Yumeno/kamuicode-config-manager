@@ -54,6 +54,9 @@ jobs:
           DRIVE_FILE_IDS: ${{ secrets.DRIVE_FILE_IDS }}
           # Legacy single ID (backward compatibility)
           DRIVE_FILE_ID: ${{ secrets.DRIVE_FILE_ID }}
+          # Kamui Code passkey for MCP server authentication
+          # This value will replace ${KAMUI_CODE_PASS_KEY} placeholders in headers
+          KAMUI_CODE_PASS_KEY: ${{ secrets.KAMUI_CODE_PASS_KEY }}
         run: |
           cd tools/crawler
 
