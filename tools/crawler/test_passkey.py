@@ -520,6 +520,48 @@ async def test_from_config_file(
     print_header("ローカルJSONファイルからのテスト")
 
     # ========================================
+    # Step 0: 環境変数の状態を確認
+    # ========================================
+    print_info("Step 0: 環境変数の確認")
+
+    # .env ファイルの確認
+    env_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    if os.path.exists(env_file_path):
+        print_info(f".env ファイルが存在します: {env_file_path}")
+        # .env の中身を確認（値は表示しない）
+        try:
+            with open(env_file_path, "r") as f:
+                env_content = f.read()
+                if "KAMUI_CODE_PASS_KEY" in env_content:
+                    # 値が空かどうか確認
+                    for line in env_content.splitlines():
+                        if line.strip().startswith("KAMUI_CODE_PASS_KEY"):
+                            parts = line.split("=", 1)
+                            if len(parts) == 2 and parts[1].strip():
+                                print_success(".env に KAMUI_CODE_PASS_KEY が設定されています")
+                            else:
+                                print_warning(".env の KAMUI_CODE_PASS_KEY が空です!")
+                            break
+                else:
+                    print_info(".env に KAMUI_CODE_PASS_KEY は含まれていません")
+        except Exception as e:
+            print_warning(f".env ファイル読み込みエラー: {e}")
+    else:
+        print_info(".env ファイルは存在しません（環境変数から読み込みます）")
+
+    kamui_key = os.environ.get("KAMUI_CODE_PASS_KEY")
+    if kamui_key:
+        print_success(f"KAMUI_CODE_PASS_KEY が設定されています: {mask_passkey(kamui_key)}")
+        print(f"  値の長さ: {len(kamui_key)} 文字")
+    else:
+        print_warning("KAMUI_CODE_PASS_KEY が設定されていません!")
+        print_info("環境変数を設定してください:")
+        print("  PowerShell: $env:KAMUI_CODE_PASS_KEY = 'your-key'")
+        print("  cmd: set KAMUI_CODE_PASS_KEY=your-key")
+        print("  または .env ファイルに KAMUI_CODE_PASS_KEY=your-key を記載")
+    print()
+
+    # ========================================
     # Step 1: JSONファイルを読み込む
     # ========================================
     print_info(f"Step 1: 設定ファイル読み込み")
