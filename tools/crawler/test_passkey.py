@@ -141,6 +141,11 @@ def expand_mcp_config(config: dict) -> dict:
     """
     MCP設定JSON全体の環境変数プレースホルダーを展開する
 
+    処理:
+    1. 各サーバーの headers を展開
+    2. headers がない場合は作成
+    3. KAMUI-CODE-PASS ヘッダーがない場合は追加
+
     Args:
         config: 元のMCP設定辞書
 
@@ -150,12 +155,27 @@ def expand_mcp_config(config: dict) -> dict:
     import copy
     expanded_config = copy.deepcopy(config)
 
+    env_passkey = os.environ.get("KAMUI_CODE_PASS_KEY")
+
     mcp_servers = expanded_config.get("mcpServers", {})
     for server_id, server_config in mcp_servers.items():
         if isinstance(server_config, dict):
+            # headersがない場合は作成
+            if "headers" not in server_config:
+                server_config["headers"] = {}
+
             # headersを展開
-            if "headers" in server_config:
-                server_config["headers"] = expand_headers(server_config["headers"])
+            server_config["headers"] = expand_headers(server_config["headers"])
+
+            # KAMUI-CODE-PASS がない場合は追加
+            if env_passkey:
+                headers = server_config["headers"]
+                # 大文字小文字を無視してチェック
+                has_kamui_pass = any(
+                    k.upper() == "KAMUI-CODE-PASS" for k in headers.keys()
+                )
+                if not has_kamui_pass:
+                    headers["KAMUI-CODE-PASS"] = env_passkey
 
     return expanded_config
 
