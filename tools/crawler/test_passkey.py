@@ -122,6 +122,54 @@ def expand_headers(headers: dict[str, str] | None) -> dict[str, str] | None:
     return expanded
 
 
+def expand_mcp_config(config: dict) -> dict:
+    """
+    MCP設定JSON全体の環境変数プレースホルダーを展開する
+
+    Args:
+        config: 元のMCP設定辞書
+
+    Returns:
+        展開後のMCP設定辞書（ディープコピー）
+    """
+    import copy
+    expanded_config = copy.deepcopy(config)
+
+    mcp_servers = expanded_config.get("mcpServers", {})
+    for server_id, server_config in mcp_servers.items():
+        if isinstance(server_config, dict):
+            # headersを展開
+            if "headers" in server_config:
+                server_config["headers"] = expand_headers(server_config["headers"])
+
+    return expanded_config
+
+
+def mask_sensitive_values(config: dict) -> dict:
+    """
+    機密情報をマスクしたMCP設定を返す（表示用）
+
+    Args:
+        config: MCP設定辞書
+
+    Returns:
+        機密情報がマスクされた辞書
+    """
+    import copy
+    masked_config = copy.deepcopy(config)
+
+    mcp_servers = masked_config.get("mcpServers", {})
+    for server_id, server_config in mcp_servers.items():
+        if isinstance(server_config, dict) and "headers" in server_config:
+            headers = server_config["headers"]
+            for key, value in headers.items():
+                # 認証関連のヘッダーをマスク
+                if any(keyword in key.upper() for keyword in ["PASS", "KEY", "AUTH", "TOKEN", "SECRET"]):
+                    headers[key] = mask_passkey(value)
+
+    return masked_config
+
+
 # ======================================================================
 # テスト機能
 # ======================================================================
@@ -447,9 +495,16 @@ async def test_from_config_file(
     timeout: float = 30.0,
     verbose: bool = False,
     dry_run: bool = False,
+    output_path: str | None = None,
 ) -> bool:
     """
     ローカルJSONファイルからMCPサーバー設定を読み込んでテスト
+
+    処理フロー:
+    1. JSONファイルを読み込む
+    2. 環境変数プレースホルダーを展開してJSONを書き換える
+    3. 書き換えたJSONを出力（オプション）
+    4. 書き換えたJSONを使って接続テスト
 
     Args:
         config_path: MCP設定JSONファイルのパス
@@ -457,16 +512,21 @@ async def test_from_config_file(
         timeout: 接続タイムアウト
         verbose: 詳細ログ
         dry_run: ドライラン
+        output_path: 展開後のJSONを出力するパス（Noneの場合は出力しない）
 
     Returns:
         全テスト成功ならTrue
     """
     print_header("ローカルJSONファイルからのテスト")
 
-    # ファイル読み込み
-    print_info(f"設定ファイル: {config_path}")
+    # ========================================
+    # Step 1: JSONファイルを読み込む
+    # ========================================
+    print_info(f"Step 1: 設定ファイル読み込み")
+    print(f"  入力: {config_path}")
+
     try:
-        config = load_mcp_config(config_path)
+        original_config = load_mcp_config(config_path)
     except FileNotFoundError:
         print_error(f"ファイルが見つかりません: {config_path}")
         return False
@@ -474,34 +534,86 @@ async def test_from_config_file(
         print_error(f"JSONパースエラー: {e}")
         return False
 
-    # mcpServers の確認
-    mcp_servers = config.get("mcpServers", {})
+    mcp_servers = original_config.get("mcpServers", {})
     if not mcp_servers:
         print_error("mcpServers が見つかりません")
         return False
 
-    print_success(f"サーバー数: {len(mcp_servers)}")
+    print_success(f"読み込み完了: {len(mcp_servers)} サーバー")
     print()
 
-    # サーバー一覧を表示
-    print_info("検出されたサーバー:")
-    for server_id, server_config in mcp_servers.items():
-        url = server_config.get("url", "(URL未設定)")
-        has_headers = "headers" in server_config
-        headers_info = "ヘッダーあり" if has_headers else "ヘッダーなし"
-        print(f"  - {server_id}: {url} ({headers_info})")
+    # ========================================
+    # Step 2: 環境変数を展開してJSONを書き換える
+    # ========================================
+    print_info("Step 2: 環境変数プレースホルダーを展開")
+
+    expanded_config = expand_mcp_config(original_config)
+
+    # 展開前後の比較を表示
     print()
+    print_info("展開前のJSON:")
+    masked_original = mask_sensitive_values(original_config)
+    print(json.dumps(masked_original, indent=2, ensure_ascii=False))
+
+    print()
+    print_info("展開後のJSON:")
+    masked_expanded = mask_sensitive_values(expanded_config)
+    print(json.dumps(masked_expanded, indent=2, ensure_ascii=False))
+
+    # 未展開のプレースホルダーがないか確認
+    unexpanded_found = False
+    for server_id, server_config in expanded_config.get("mcpServers", {}).items():
+        if isinstance(server_config, dict) and "headers" in server_config:
+            for key, value in server_config["headers"].items():
+                if isinstance(value, str) and "${" in value:
+                    if not unexpanded_found:
+                        print()
+                    print_warning(f"未展開のプレースホルダー: [{server_id}] {key}={value}")
+                    unexpanded_found = True
+
+    if unexpanded_found:
+        print_info("対応する環境変数が設定されているか確認してください")
+
+    print()
+
+    # ========================================
+    # Step 3: 書き換えたJSONを出力（オプション）
+    # ========================================
+    if output_path:
+        print_info(f"Step 3: 展開後のJSONを出力")
+        print(f"  出力先: {output_path}")
+        try:
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(expanded_config, f, indent=2, ensure_ascii=False)
+            print_success("JSONファイル出力完了")
+            print_warning("注意: 出力ファイルには展開された認証情報が含まれています")
+        except Exception as e:
+            print_error(f"ファイル出力エラー: {e}")
+            return False
+        print()
+
+    # ========================================
+    # Step 4: 書き換えたJSONを使って接続テスト
+    # ========================================
+    if dry_run:
+        print_info("Step 4: ドライランモード - 接続テストはスキップ")
+        print_success("展開後のJSONを確認してください")
+        return True
+
+    print_info("Step 4: 展開後のJSONを使って接続テスト")
+
+    expanded_servers = expanded_config.get("mcpServers", {})
 
     # フィルタ適用
     if server_filter:
-        if server_filter not in mcp_servers:
+        if server_filter not in expanded_servers:
             print_error(f"サーバー '{server_filter}' が見つかりません")
-            print_info("利用可能なサーバー: " + ", ".join(mcp_servers.keys()))
+            print_info("利用可能なサーバー: " + ", ".join(expanded_servers.keys()))
             return False
-        servers_to_test = {server_filter: mcp_servers[server_filter]}
+        servers_to_test = {server_filter: expanded_servers[server_filter]}
         print_info(f"フィルタ適用: {server_filter} のみテスト")
     else:
-        servers_to_test = mcp_servers
+        servers_to_test = expanded_servers
 
     # 各サーバーをテスト
     all_success = True
@@ -509,58 +621,34 @@ async def test_from_config_file(
 
     for server_id, server_config in servers_to_test.items():
         print()
-        print_header(f"テスト: {server_id}")
+        print_header(f"接続テスト: {server_id}")
 
         url = server_config.get("url")
         if not url:
-            print_error(f"URL が設定されていません")
+            print_error("URL が設定されていません")
             all_success = False
             results.append((server_id, False, "URL未設定"))
             continue
 
-        # ヘッダーを取得して環境変数を展開
-        raw_headers = server_config.get("headers", {})
-        expanded_headers = expand_headers(raw_headers)
+        # 展開済みのヘッダーを使用
+        headers = server_config.get("headers", {})
 
         print_info(f"URL: {url}")
-
-        # ヘッダー情報を表示
-        if raw_headers:
-            print()
-            print_info("元のヘッダー:")
-            for k, v in raw_headers.items():
-                print(f"  {k}: {v}")
-
-            print()
-            print_info("展開後のヘッダー:")
-            for k, v in expanded_headers.items():
-                # KAMUI-CODE-PASS などの認証ヘッダーはマスク
-                if "PASS" in k.upper() or "KEY" in k.upper() or "AUTH" in k.upper():
-                    display_v = mask_passkey(v)
+        if headers:
+            print_info("ヘッダー (展開済み):")
+            for k, v in headers.items():
+                if any(kw in k.upper() for kw in ["PASS", "KEY", "AUTH", "TOKEN", "SECRET"]):
+                    print(f"  {k}: {mask_passkey(v)}")
                 else:
-                    display_v = v
-                print(f"  {k}: {display_v}")
-
-            # プレースホルダーが残っていないか確認
-            for k, v in expanded_headers.items():
-                if "${" in v:
-                    print_warning(f"未展開のプレースホルダーがあります: {k}={v}")
-                    print_info("環境変数が設定されているか確認してください")
-
-        # 接続テスト
-        if dry_run:
-            print()
-            print_info("ドライランモード - 接続は行いません")
-            results.append((server_id, True, "ドライラン"))
-            continue
+                    print(f"  {k}: {v}")
 
         result = await test_mcp_connection(
             server_url=url,
-            passkey=None,  # カスタムヘッダーを使用
+            passkey=None,
             timeout=timeout,
             verbose=verbose,
             dry_run=False,
-            custom_headers=expanded_headers,
+            custom_headers=headers if headers else None,
         )
 
         if result.success:
@@ -666,23 +754,23 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用例:
-  # 環境変数展開のテスト
-  python test_passkey.py --test-expand
-
   # ローカルJSONファイルからテスト（推奨）
   KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json
+
+  # 展開後のJSONをファイルに出力
+  KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json --output ./expanded.json
+
+  # ドライラン（展開結果を確認、接続はしない）
+  KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json --dry-run
 
   # 特定のサーバーのみテスト
   python test_passkey.py --config ./mcp_config.json --server my-server-id
 
-  # ドライラン（ヘッダー確認のみ）
-  python test_passkey.py --config ./mcp_config.json --dry-run
+  # 環境変数展開のテスト
+  python test_passkey.py --test-expand
 
   # MCP サーバー接続テスト（URL直接指定）
   python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY
-
-  # 詳細モード
-  python test_passkey.py --config ./mcp_config.json --verbose
         """,
     )
 
@@ -738,6 +826,13 @@ def parse_args() -> argparse.Namespace:
         help="ドライラン（実際の接続は行わない）",
     )
 
+    parser.add_argument(
+        "--output",
+        "-o",
+        type=str,
+        help="展開後のJSONを出力するファイルパス",
+    )
+
     return parser.parse_args()
 
 
@@ -777,6 +872,7 @@ def main() -> int:
             timeout=args.timeout,
             verbose=args.verbose,
             dry_run=args.dry_run,
+            output_path=args.output,
         )):
             success = False
 
