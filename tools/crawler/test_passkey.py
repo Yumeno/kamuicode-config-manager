@@ -9,6 +9,12 @@ GitHub Actions で動作しない問題をデバッグするために使用し�
     # 環境変数展開のテスト
     python test_passkey.py --test-expand
 
+    # ローカルJSONファイルからテスト（推奨）
+    KAMUI_CODE_PASS_KEY=your-passkey python test_passkey.py --config ./mcp_config.json
+
+    # ローカルJSONファイルからテスト（特定サーバーのみ）
+    python test_passkey.py --config ./mcp_config.json --server my-server-id
+
     # MCP サーバー接続テスト（環境変数から）
     KAMUI_CODE_PASS_KEY=your-passkey python test_passkey.py --server-url https://example.com/mcp
 
@@ -230,13 +236,17 @@ async def test_mcp_connection(
     timeout: float = 30.0,
     verbose: bool = False,
     dry_run: bool = False,
+    custom_headers: dict[str, str] | None = None,
 ) -> ConnectionTestResult:
     """MCP サーバー接続テスト"""
 
     # ヘッダーの構築
     headers = {"Content-Type": "application/json"}
 
-    if passkey:
+    # カスタムヘッダーが指定されている場合はそれを使用
+    if custom_headers:
+        headers.update(custom_headers)
+    elif passkey:
         headers["KAMUI-CODE-PASS"] = passkey
     else:
         # 環境変数から取得
@@ -417,6 +427,167 @@ async def test_mcp_connection(
         )
 
 
+def load_mcp_config(config_path: str) -> dict:
+    """
+    ローカルのMCP設定JSONファイルを読み込む
+
+    Args:
+        config_path: JSONファイルのパス
+
+    Returns:
+        パースされたJSON辞書
+    """
+    with open(config_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+async def test_from_config_file(
+    config_path: str,
+    server_filter: str | None = None,
+    timeout: float = 30.0,
+    verbose: bool = False,
+    dry_run: bool = False,
+) -> bool:
+    """
+    ローカルJSONファイルからMCPサーバー設定を読み込んでテスト
+
+    Args:
+        config_path: MCP設定JSONファイルのパス
+        server_filter: 特定サーバーIDのみテスト（Noneの場合は全サーバー）
+        timeout: 接続タイムアウト
+        verbose: 詳細ログ
+        dry_run: ドライラン
+
+    Returns:
+        全テスト成功ならTrue
+    """
+    print_header("ローカルJSONファイルからのテスト")
+
+    # ファイル読み込み
+    print_info(f"設定ファイル: {config_path}")
+    try:
+        config = load_mcp_config(config_path)
+    except FileNotFoundError:
+        print_error(f"ファイルが見つかりません: {config_path}")
+        return False
+    except json.JSONDecodeError as e:
+        print_error(f"JSONパースエラー: {e}")
+        return False
+
+    # mcpServers の確認
+    mcp_servers = config.get("mcpServers", {})
+    if not mcp_servers:
+        print_error("mcpServers が見つかりません")
+        return False
+
+    print_success(f"サーバー数: {len(mcp_servers)}")
+    print()
+
+    # サーバー一覧を表示
+    print_info("検出されたサーバー:")
+    for server_id, server_config in mcp_servers.items():
+        url = server_config.get("url", "(URL未設定)")
+        has_headers = "headers" in server_config
+        headers_info = "ヘッダーあり" if has_headers else "ヘッダーなし"
+        print(f"  - {server_id}: {url} ({headers_info})")
+    print()
+
+    # フィルタ適用
+    if server_filter:
+        if server_filter not in mcp_servers:
+            print_error(f"サーバー '{server_filter}' が見つかりません")
+            print_info("利用可能なサーバー: " + ", ".join(mcp_servers.keys()))
+            return False
+        servers_to_test = {server_filter: mcp_servers[server_filter]}
+        print_info(f"フィルタ適用: {server_filter} のみテスト")
+    else:
+        servers_to_test = mcp_servers
+
+    # 各サーバーをテスト
+    all_success = True
+    results = []
+
+    for server_id, server_config in servers_to_test.items():
+        print()
+        print_header(f"テスト: {server_id}")
+
+        url = server_config.get("url")
+        if not url:
+            print_error(f"URL が設定されていません")
+            all_success = False
+            results.append((server_id, False, "URL未設定"))
+            continue
+
+        # ヘッダーを取得して環境変数を展開
+        raw_headers = server_config.get("headers", {})
+        expanded_headers = expand_headers(raw_headers)
+
+        print_info(f"URL: {url}")
+
+        # ヘッダー情報を表示
+        if raw_headers:
+            print()
+            print_info("元のヘッダー:")
+            for k, v in raw_headers.items():
+                print(f"  {k}: {v}")
+
+            print()
+            print_info("展開後のヘッダー:")
+            for k, v in expanded_headers.items():
+                # KAMUI-CODE-PASS などの認証ヘッダーはマスク
+                if "PASS" in k.upper() or "KEY" in k.upper() or "AUTH" in k.upper():
+                    display_v = mask_passkey(v)
+                else:
+                    display_v = v
+                print(f"  {k}: {display_v}")
+
+            # プレースホルダーが残っていないか確認
+            for k, v in expanded_headers.items():
+                if "${" in v:
+                    print_warning(f"未展開のプレースホルダーがあります: {k}={v}")
+                    print_info("環境変数が設定されているか確認してください")
+
+        # 接続テスト
+        if dry_run:
+            print()
+            print_info("ドライランモード - 接続は行いません")
+            results.append((server_id, True, "ドライラン"))
+            continue
+
+        result = await test_mcp_connection(
+            server_url=url,
+            passkey=None,  # カスタムヘッダーを使用
+            timeout=timeout,
+            verbose=verbose,
+            dry_run=False,
+            custom_headers=expanded_headers,
+        )
+
+        if result.success:
+            print_success(f"接続成功! ツール数: {result.tools_count}")
+            results.append((server_id, True, f"ツール数: {result.tools_count}"))
+        else:
+            print_error(f"接続失敗: {result.error_message}")
+            all_success = False
+            results.append((server_id, False, result.error_message))
+
+    # サマリー
+    print()
+    print_header("テスト結果サマリー")
+    success_count = sum(1 for _, success, _ in results if success)
+    fail_count = len(results) - success_count
+
+    print(f"成功: {success_count} / {len(results)}")
+    print(f"失敗: {fail_count} / {len(results)}")
+    print()
+
+    for server_id, success, message in results:
+        status = f"{Colors.GREEN}✅{Colors.RESET}" if success else f"{Colors.RED}❌{Colors.RESET}"
+        print(f"  {status} {server_id}: {message}")
+
+    return all_success
+
+
 async def run_connection_test(args: argparse.Namespace) -> bool:
     """接続テストを実行"""
     print_header("MCP サーバー接続テスト")
@@ -498,17 +669,20 @@ def parse_args() -> argparse.Namespace:
   # 環境変数展開のテスト
   python test_passkey.py --test-expand
 
-  # MCP サーバー接続テスト
+  # ローカルJSONファイルからテスト（推奨）
+  KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json
+
+  # 特定のサーバーのみテスト
+  python test_passkey.py --config ./mcp_config.json --server my-server-id
+
+  # ドライラン（ヘッダー確認のみ）
+  python test_passkey.py --config ./mcp_config.json --dry-run
+
+  # MCP サーバー接続テスト（URL直接指定）
   python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY
 
-  # 環境変数からパスキーを読み込んでテスト
-  KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --server-url https://example.com/mcp
-
-  # ドライラン（接続せずに確認）
-  python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --dry-run
-
   # 詳細モード
-  python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --verbose
+  python test_passkey.py --config ./mcp_config.json --verbose
         """,
     )
 
@@ -519,9 +693,23 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--config",
+        "-c",
+        type=str,
+        help="MCP設定JSONファイルのパス（mcpServers形式）",
+    )
+
+    parser.add_argument(
+        "--server",
+        "-s",
+        type=str,
+        help="テスト対象のサーバーID（--config と併用）",
+    )
+
+    parser.add_argument(
         "--server-url",
         type=str,
-        help="テスト対象の MCP サーバー URL",
+        help="テスト対象の MCP サーバー URL（直接指定）",
     )
 
     parser.add_argument(
@@ -565,11 +753,12 @@ def main() -> int:
     print()
 
     # 引数チェック
-    if not args.test_expand and not args.server_url:
-        print_error("--test-expand または --server-url のいずれかを指定してください")
+    if not args.test_expand and not args.server_url and not args.config:
+        print_error("--test-expand, --config, または --server-url のいずれかを指定してください")
         print()
         print("使用例:")
         print("  python test_passkey.py --test-expand")
+        print("  python test_passkey.py --config ./mcp_config.json")
         print("  python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY")
         return 1
 
@@ -580,7 +769,18 @@ def main() -> int:
         if not test_env_expansion():
             success = False
 
-    # 接続テスト
+    # JSONファイルからのテスト
+    if args.config:
+        if not asyncio.run(test_from_config_file(
+            config_path=args.config,
+            server_filter=args.server,
+            timeout=args.timeout,
+            verbose=args.verbose,
+            dry_run=args.dry_run,
+        )):
+            success = False
+
+    # 直接URL指定での接続テスト
     if args.server_url:
         if not asyncio.run(run_connection_test(args)):
             success = False

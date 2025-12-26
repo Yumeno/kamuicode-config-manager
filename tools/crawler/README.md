@@ -213,28 +213,49 @@ GitHub Actions でパスキー認証が動作しない場合、ローカル環�
 ```bash
 cd tools/crawler
 
+# ローカルJSONファイルからテスト（推奨）
+KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json
+
+# 特定のサーバーのみテスト
+python test_passkey.py --config ./mcp_config.json --server my-server-id
+
+# ドライラン（接続せずにヘッダー展開を確認）
+KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --config ./mcp_config.json --dry-run
+
 # 環境変数展開のテスト
 python test_passkey.py --test-expand
 
-# MCP サーバー接続テスト（パスキー直接指定）
+# MCP サーバー接続テスト（URL直接指定）
 python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_PASSKEY
-
-# 環境変数からパスキーを読み込んでテスト
-KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --server-url https://example.com/mcp
-
-# ドライラン（接続せずにヘッダーを確認）
-python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --dry-run
-
-# 詳細デバッグモード
-python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --verbose
 ```
+
+### **JSONファイルの準備**
+
+テスト用のMCP設定JSONファイルを作成します（`mcpServers` 形式）:
+
+```json
+{
+  "mcpServers": {
+    "example-server": {
+      "url": "https://kamui-code.ai/v2v/example",
+      "headers": {
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
+      }
+    }
+  }
+}
+```
+
+サンプルファイル `sample_mcp_config.json` が用意されています。
 
 ### **テストオプション**
 
 | オプション | 説明 |
 | :---- | :---- |
+| --config, -c FILE | MCP設定JSONファイルのパス（推奨） |
+| --server, -s ID | テスト対象のサーバーID（--config と併用） |
 | --test-expand | 環境変数展開機能のテスト（`${VAR}` → 値への変換） |
-| --server-url URL | テスト対象の MCP サーバー URL |
+| --server-url URL | テスト対象の MCP サーバー URL（直接指定） |
 | --passkey KEY | パスキー（省略時は環境変数 `KAMUI_CODE_PASS_KEY` を使用） |
 | --timeout SEC | 接続タイムアウト秒数（デフォルト: 30） |
 | --verbose, -v | 詳細なリクエスト/レスポンス情報を表示 |
@@ -242,21 +263,27 @@ python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY -
 
 ### **テスト項目**
 
-1. **環境変数展開テスト** (`--test-expand`)
+1. **JSONファイルテスト** (`--config`)
+   - JSONファイルの読み込みと構造検証
+   - 各サーバーの `${KAMUI_CODE_PASS_KEY}` 展開確認
+   - 未展開プレースホルダーの警告表示
+   - 全サーバーへの接続テスト
+
+2. **環境変数展開テスト** (`--test-expand`)
    - `${KAMUI_CODE_PASS_KEY}` プレースホルダーが正しく展開されるか
    - 環境変数未設定時にプレースホルダーがそのまま残るか
-   - 複数の環境変数パターンの展開
 
-2. **MCP サーバー接続テスト** (`--server-url`)
+3. **MCP サーバー接続テスト** (`--server-url`)
    - `KAMUI-CODE-PASS` ヘッダーが正しく送信されるか
    - MCP プロトコルの `initialize` → `tools/list` フローが成功するか
-   - 認証エラー時の詳細情報表示
 
 ### **デバッグのヒント**
 
-- HTTP 401/403 エラー: パスキーが正しくないか、有効期限切れの可能性
-- タイムアウト: サーバーが起動していないか、ネットワーク問題
-- `--verbose` オプションで送受信の詳細を確認可能
+- **未展開プレースホルダー警告**: 環境変数が設定されていない
+- **HTTP 401/403 エラー**: パスキーが正しくないか、有効期限切れ
+- **タイムアウト**: サーバーが起動していないか、ネットワーク問題
+- `--dry-run` で接続前にヘッダー展開を確認可能
+- `--verbose` で送受信の詳細を確認可能
 
 ## **トラブルシューティング**
 
