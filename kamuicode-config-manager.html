@@ -692,7 +692,7 @@
                     // フィルタを再適用して表示を更新
                     this.applyFilters();
                 },
-                generateJson() {
+                async generateJson() {
                     const output = {
                         mcpServers: {}
                     };
@@ -705,14 +705,41 @@
                             output.mcpServers[model.server_name] = finalServerInfo;
                         });
 
-                    const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
+                    const jsonContent = JSON.stringify(output, null, 2);
+                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}.json` : 'mcp-kamui-code-filtered.json';
+
+                    // File System Access APIがサポートされている場合はダイアログを表示
+                    if ('showSaveFilePicker' in window) {
+                        try {
+                            const fileHandle = await window.showSaveFilePicker({
+                                suggestedName: fileName,
+                                types: [{
+                                    description: 'JSON Files',
+                                    accept: { 'application/json': ['.json'] }
+                                }]
+                            });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(jsonContent);
+                            await writable.close();
+                            this.successMessage = 'JSONファイルを保存しました。';
+                            setTimeout(() => { this.successMessage = ''; }, 3000);
+                            return;
+                        } catch (e) {
+                            // ユーザーがキャンセルした場合は何もしない
+                            if (e.name === 'AbortError') {
+                                return;
+                            }
+                            // その他のエラーの場合は従来の方式にフォールバック
+                            console.warn('File System Access API failed, falling back to download:', e);
+                        }
+                    }
+
+                    // フォールバック: 従来のダウンロード方式（非対応ブラウザ用）
+                    const blob = new Blob([jsonContent], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-
-                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}.json` : 'mcp-kamui-code-filtered.json';
                     a.download = fileName;
-
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
