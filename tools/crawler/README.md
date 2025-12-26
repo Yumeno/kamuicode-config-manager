@@ -204,6 +204,60 @@ Kamui Code MCPサーバーへのアクセスには認証用パスキーが必要
 * .envファイルは.gitignoreに追加済み  
 * Driveファイルは公開設定でも、認証ヘッダーの内容は出力されません
 
+## **パスキーローカルテストツール**
+
+GitHub Actions でパスキー認証が動作しない場合、ローカル環境でデバッグするためのテストツールが用意されています。
+
+### **基本的な使い方**
+
+```bash
+cd tools/crawler
+
+# 環境変数展開のテスト
+python test_passkey.py --test-expand
+
+# MCP サーバー接続テスト（パスキー直接指定）
+python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_PASSKEY
+
+# 環境変数からパスキーを読み込んでテスト
+KAMUI_CODE_PASS_KEY=xxx python test_passkey.py --server-url https://example.com/mcp
+
+# ドライラン（接続せずにヘッダーを確認）
+python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --dry-run
+
+# 詳細デバッグモード
+python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_KEY --verbose
+```
+
+### **テストオプション**
+
+| オプション | 説明 |
+| :---- | :---- |
+| --test-expand | 環境変数展開機能のテスト（`${VAR}` → 値への変換） |
+| --server-url URL | テスト対象の MCP サーバー URL |
+| --passkey KEY | パスキー（省略時は環境変数 `KAMUI_CODE_PASS_KEY` を使用） |
+| --timeout SEC | 接続タイムアウト秒数（デフォルト: 30） |
+| --verbose, -v | 詳細なリクエスト/レスポンス情報を表示 |
+| --dry-run | 実際の接続を行わず、送信ヘッダーのみ確認 |
+
+### **テスト項目**
+
+1. **環境変数展開テスト** (`--test-expand`)
+   - `${KAMUI_CODE_PASS_KEY}` プレースホルダーが正しく展開されるか
+   - 環境変数未設定時にプレースホルダーがそのまま残るか
+   - 複数の環境変数パターンの展開
+
+2. **MCP サーバー接続テスト** (`--server-url`)
+   - `KAMUI-CODE-PASS` ヘッダーが正しく送信されるか
+   - MCP プロトコルの `initialize` → `tools/list` フローが成功するか
+   - 認証エラー時の詳細情報表示
+
+### **デバッグのヒント**
+
+- HTTP 401/403 エラー: パスキーが正しくないか、有効期限切れの可能性
+- タイムアウト: サーバーが起動していないか、ネットワーク問題
+- `--verbose` オプションで送受信の詳細を確認可能
+
 ## **トラブルシューティング**
 
 ### **DRIVE\_FILE\_IDS (or DRIVE\_FILE\_ID) environment variable is not set**
@@ -226,3 +280,4 @@ python main.py \--timeout 120 \--max-concurrent 5
 *Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
 *Updated: 2025-12-17 (Issue #30 フォルダ再帰探索機能追加)*
 *Updated: 2025-12-26 (KAMUI\_CODE\_PASS\_KEY パスキー認証対応)*
+*Updated: 2025-12-26 (パスキーローカルテストツール追加)*
