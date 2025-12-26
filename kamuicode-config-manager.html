@@ -1209,7 +1209,7 @@
                     <template x-if="secondaryJsonContents.length > 0">
                         <div class="mt-2 p-2 bg-green-50 rounded-lg">
                             <p class="text-xs text-green-700 font-medium mb-1">読み込み済み:</p>
-                            <ul class="text-xs text-green-600 space-y-0.5">
+                            <ul class="text-xs text-green-600 space-y-0.5 max-h-24 overflow-y-auto">
                                 <template x-for="(sec, idx) in secondaryJsonContents" :key="idx">
                                     <li class="flex items-center">
                                         <span class="mr-1">•</span>
