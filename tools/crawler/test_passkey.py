@@ -112,13 +112,28 @@ def expand_env_placeholders(value: str) -> str:
 
 
 def expand_headers(headers: dict[str, str] | None) -> dict[str, str] | None:
-    """Expand environment variable placeholders in header values."""
+    """
+    ヘッダー値を展開する。
+
+    1. ${VAR} 形式のプレースホルダーを環境変数で展開
+    2. KAMUI-CODE-PASS ヘッダーは、環境変数 KAMUI_CODE_PASS_KEY が設定されていれば
+       その値で上書き（プレースホルダーでなくても上書き）
+    """
     if headers is None:
         return None
 
     expanded = {}
     for key, value in headers.items():
-        expanded[key] = expand_env_placeholders(value)
+        # まずプレースホルダーを展開
+        expanded_value = expand_env_placeholders(value)
+
+        # KAMUI-CODE-PASS ヘッダーは環境変数で上書き
+        if key.upper() == "KAMUI-CODE-PASS":
+            env_passkey = os.environ.get("KAMUI_CODE_PASS_KEY")
+            if env_passkey:
+                expanded_value = env_passkey
+
+        expanded[key] = expanded_value
     return expanded
 
 
