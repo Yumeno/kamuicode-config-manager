@@ -70,6 +70,7 @@
                 secondaryJsonFiles: [],    // 副JSONファイルの配列
                 secondaryJsonContents: [], // パース済み副JSONの配列
                 mergeMode: 'main',         // マージモード: 'main' | 'secondary' | 'both'
+                mergeSettingsExpanded: false, // マージ設定セクションの展開状態（デフォルト: 折りたたみ）
                 mergedJsonContent: null,   // マージ済みJSON
                 originalKeyMap: {},        // リネームされたキー -> 元のキー のマップ（両方を含めるモード用）
                 sourceFileMap: {},         // サーバーキー -> ソースファイル名 のマップ
@@ -1222,14 +1223,38 @@
                     </template>
                 </div>
 
-                <!-- マージ設定（副JSONがある場合のみ表示） -->
+                <!-- マージ設定（副JSONがある場合のみ表示・折りたたみ可能） -->
                 <template x-if="secondaryJsonContents.length > 0">
                     <div class="border-t border-gray-200 pt-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">マージ設定（競合解決ルール）</label>
-                        <div class="space-y-2">
+                        <!-- ヘッダー（クリックで展開/折りたたみ） -->
+                        <div class="cursor-pointer flex items-center justify-between mb-2"
+                             @click="mergeSettingsExpanded = !mergeSettingsExpanded">
+                            <div class="flex items-center gap-3 flex-1">
+                                <label class="text-sm font-medium text-gray-700 cursor-pointer">マージ設定（競合解決ルール）</label>
+                                <!-- 折りたたみ時のサマリー表示 -->
+                                <template x-if="!mergeSettingsExpanded">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="text-gray-500">|</span>
+                                        <span class="px-2 py-0.5 rounded text-xs font-medium"
+                                              :class="mergeMode === 'main' ? 'bg-blue-100 text-blue-700' : (mergeMode === 'secondary' ? 'bg-orange-100 text-orange-700' : 'bg-green-100 text-green-700')"
+                                              x-text="mergeMode === 'main' ? '主を優先' : (mergeMode === 'secondary' ? '副を優先' : '両方を含める')"></span>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- 展開/折りたたみアイコン -->
+                            <svg class="w-4 h-4 text-gray-500 transition-transform duration-200"
+                                 :class="mergeSettingsExpanded ? 'rotate-180' : ''"
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+
+                        <!-- 展開時のコンテンツ -->
+                        <div x-show="mergeSettingsExpanded" x-collapse class="space-y-2">
                             <!-- 主を優先 -->
                             <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
-                                   :class="mergeMode === 'main' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                   :class="mergeMode === 'main' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'"
+                                   @click.stop>
                                 <input type="radio" name="mergeMode" value="main"
                                        x-model="mergeMode" @change="setMergeMode('main')"
                                        class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
@@ -1241,7 +1266,8 @@
 
                             <!-- 副を優先 -->
                             <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
-                                   :class="mergeMode === 'secondary' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                   :class="mergeMode === 'secondary' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'"
+                                   @click.stop>
                                 <input type="radio" name="mergeMode" value="secondary"
                                        x-model="mergeMode" @change="setMergeMode('secondary')"
                                        class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
@@ -1253,7 +1279,8 @@
 
                             <!-- 両方を含める -->
                             <label class="flex items-start space-x-2 p-2 border rounded-lg cursor-pointer transition-colors"
-                                   :class="mergeMode === 'both' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'">
+                                   :class="mergeMode === 'both' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'"
+                                   @click.stop>
                                 <input type="radio" name="mergeMode" value="both"
                                        x-model="mergeMode" @change="setMergeMode('both')"
                                        class="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
