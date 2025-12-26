@@ -143,8 +143,38 @@ python main.py \--merge
 | DRIVE\_FILE\_ID | 任意 | Google DriveファイルのID（後方互換用） |
 | DRIVE\_FOLDER\_ID | 任意 | 監視対象のルートフォルダID |
 | GOOGLE\_API\_KEY | フォルダ探索時必須 | Google Drive API キー |
+| KAMUI\_CODE\_PASS\_KEY | 推奨 | Kamui Code MCPサーバー認証用パスキー |
 
 **注意**: `DRIVE_FILE_IDS`/`DRIVE_FILE_ID`/`DRIVE_FOLDER_ID` のいずれかは必須です。
+
+#### **KAMUI\_CODE\_PASS\_KEY の設定**
+
+Kamui Code MCPサーバーへのアクセスには認証用パスキーが必要です。
+
+1. リポジトリ管理者から発行されたパスキーを取得
+2. GitHub リポジトリの **Settings** → **Secrets and variables** → **Actions** に移動
+3. **New repository secret** をクリック
+4. 以下を入力して保存：
+   * **Name**: `KAMUI_CODE_PASS_KEY`
+   * **Secret**: 発行されたパスキー
+
+設定後、クローラーはMCP設定JSONの `headers` 内にある `${KAMUI_CODE_PASS_KEY}` プレースホルダーを自動的にこの値に置換します。
+
+**例**: MCP設定JSONに以下のようなヘッダーがある場合
+```json
+{
+  "mcpServers": {
+    "example-server": {
+      "url": "https://kamui-code.ai/v2v/example",
+      "headers": {
+        "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
+      }
+    }
+  }
+}
+```
+
+クローラー実行時に `${KAMUI_CODE_PASS_KEY}` がシークレットの値に置換され、認証付きでサーバーにアクセスします。
 
 #### **DRIVE\_FILE\_IDS の形式**
 
@@ -195,3 +225,4 @@ python main.py \--timeout 120 \--max-concurrent 5
 
 *Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
 *Updated: 2025-12-17 (Issue #30 フォルダ再帰探索機能追加)*
+*Updated: 2025-12-26 (KAMUI\_CODE\_PASS\_KEY パスキー認証対応)*
