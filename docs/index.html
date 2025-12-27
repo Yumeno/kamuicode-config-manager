@@ -6,245 +6,10 @@
     <title>kamuicode MCP Tool List</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        [x-cloak] { display: none !important; }
     </style>
-
-    <script>
-        function dictionaryApp() {
-            // ★ リポジトリ情報
-            const REPO_USER = 'Yumeno';
-            const REPO_NAME = 'kamuicode-config-manager';
-            const BRANCH = 'main';
-
-            const URL_MODEL_MEMO = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/kamuicode_model_memo.yaml`;
-            const URL_TOOL_CATALOG = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/mcp_tool_catalog.yaml`;
-
-            // カテゴリキーから表示名へのマッピング
-            const CATEGORY_DISPLAY_NAMES = {
-                'text_to_image': 'Text to Image',
-                'image_to_image': 'Image to Image',
-                'text_to_video': 'Text to Video',
-                'image_to_video': 'Image to Video',
-                'video_to_video': 'Video to Video',
-                'reference_to_video': 'Reference to Video',
-                'frame_to_video': 'Frame to Video',
-                'speech_to_video': 'Speech to Video',
-                'audio_to_video': 'Audio to Video',
-                'text_to_speech': 'Text to Speech',
-                'text_to_audio': 'Text to Audio',
-                'text_to_music': 'Text to Music',
-                'video_to_audio': 'Video to Audio',
-                'video_to_sfx': 'Video to SFX',
-                'audio_to_text': 'Audio to Text',
-                'text_to_visual': 'Text to Visual',
-                'image_to_3d': 'Image to 3D',
-                'text_to_3d': 'Text to 3D',
-                '3d_to_3d': '3D to 3D',
-                'training': 'Training',
-                'utility_and_analysis': 'Utility & Analysis',
-                'voice_clone': 'Voice Clone',
-                'miscellaneous': 'Miscellaneous'
-            };
-
-            // カテゴリ表示順序
-            const CATEGORY_ORDER = [
-                'text_to_image',
-                'image_to_image',
-                'text_to_video',
-                'image_to_video',
-                'video_to_video',
-                'reference_to_video',
-                'frame_to_video',
-                'speech_to_video',
-                'audio_to_video',
-                'text_to_speech',
-                'text_to_audio',
-                'text_to_music',
-                'video_to_audio',
-                'video_to_sfx',
-                'audio_to_text',
-                'text_to_visual',
-                'image_to_3d',
-                'text_to_3d',
-                '3d_to_3d',
-                'training',
-                'utility_and_analysis',
-                'voice_clone',
-                'miscellaneous'
-            ];
-
-            return {
-                isLoading: true,
-                errorMessage: '',
-
-                models: [],
-                filteredModels: [], // reactiveなプロパティとして明示的に管理
-                categories: [],
-                periods: [], // 公開時期の選択肢リスト
-
-                searchQuery: '',
-                selectedCategory: '',
-                selectedPeriod: '', // 選択された公開時期
-
-                async init() {
-                    try {
-                        await this.fetchAllData();
-                        // フィルター変更を監視
-                        this.$watch('searchQuery', () => this.updateFilteredModels());
-                        this.$watch('selectedCategory', () => this.updateFilteredModels());
-                        this.$watch('selectedPeriod', () => this.updateFilteredModels());
-                    } catch (e) {
-                        this.errorMessage = `データの読み込みに失敗しました: ${e.message}`;
-                    } finally {
-                        this.isLoading = false;
-                        // DOM更新後にfilteredModelsを再設定してx-forを確実にレンダリング
-                        this.$nextTick(() => {
-                            this.filteredModels = [...this.models];
-                        });
-                    }
-                },
-
-                updateFilteredModels() {
-                    const query = this.searchQuery.toLowerCase();
-                    const category = this.selectedCategory;
-                    const period = this.selectedPeriod;
-
-                    // 絞り込み条件がない場合は全件表示
-                    if (query === '' && category === '' && period === '') {
-                        this.filteredModels = [...this.models];
-                        return;
-                    }
-
-                    this.filteredModels = this.models.filter(model => {
-                        const matchesCategory = category === '' || model.category === category;
-                        const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
-                        const matchesSearch = query === '' ||
-                            model.name.toLowerCase().includes(query) ||
-                            model.server_name.toLowerCase().includes(query) ||
-                            (model.features && model.features.toLowerCase().includes(query));
-
-                        return matchesCategory && matchesPeriod && matchesSearch;
-                    });
-                },
-
-                async fetchAllData() {
-                    const ts = new Date().getTime();
-                    let memoRes, catalogRes;
-
-                    try {
-                        [memoRes, catalogRes] = await Promise.all([
-                            fetch(`${URL_MODEL_MEMO}?t=${ts}`),
-                            fetch(`${URL_TOOL_CATALOG}?t=${ts}`)
-                        ]);
-                    } catch (networkError) {
-                        throw new Error(`ネットワークエラー: ${networkError.message}`);
-                    }
-
-                    if (!memoRes.ok) throw new Error(`Model Memo取得失敗: HTTP ${memoRes.status}`);
-                    if (!catalogRes.ok) throw new Error(`Tool Catalog取得失敗: HTTP ${catalogRes.status}`);
-
-                    let memoYaml, catalogYaml;
-                    try {
-                        memoYaml = jsyaml.load(await memoRes.text());
-                    } catch (parseError) {
-                        throw new Error(`Model Memoパースエラー: ${parseError.message}`);
-                    }
-
-                    try {
-                        catalogYaml = jsyaml.load(await catalogRes.text());
-                    } catch (parseError) {
-                        throw new Error(`Tool Catalogパースエラー: ${parseError.message}`);
-                    }
-
-                    this.processData(memoYaml, catalogYaml);
-                },
-
-                // カテゴリキーから表示名を取得
-                getCategoryDisplayName(categoryKey) {
-                    return CATEGORY_DISPLAY_NAMES[categoryKey] || categoryKey;
-                },
-
-                processData(memoData, catalogData) {
-                    const catalogMap = new Map();
-                    if (catalogData && catalogData.servers) {
-                        catalogData.servers.forEach(server => {
-                            catalogMap.set(server.id, server);
-                        });
-                    }
-
-                    const combinedList = [];
-                    const categorySet = new Set();
-                    const periodSet = new Set(); // 年月を収集
-
-                    if (memoData && memoData.ai_models) {
-                        for (const [category, list] of Object.entries(memoData.ai_models)) {
-                            categorySet.add(category);
-                            if (Array.isArray(list)) {
-                                list.forEach(item => {
-                                    const catalogInfo = catalogMap.get(item.server_name);
-                                    
-                                    // 公開時期の抽出 (例: "2025年8月1日" -> "2025年8月")
-                                    let period = '';
-                                    if (item.release_date) {
-                                        const match = item.release_date.match(/(\d{4}年\d{1,2}月)/);
-                                        if (match) {
-                                            period = match[1];
-                                            periodSet.add(period);
-                                        } else if (item.release_date.match(/(\d{4}年)/)) {
-                                            // 年のみの場合
-                                            period = item.release_date.match(/(\d{4}年)/)[1];
-                                            periodSet.add(period);
-                                        }
-                                    }
-
-                                    // ツール情報の整理
-                                    let tools = [];
-                                    if (catalogInfo && catalogInfo.tools) {
-                                        tools = catalogInfo.tools.map(t => ({
-                                            ...t,
-                                            sortKey: t.name.includes('submit') ? 1 : (t.name.includes('status') ? 2 : 3)
-                                        })).sort((a, b) => a.sortKey - b.sortKey);
-                                    }
-
-                                    combinedList.push({
-                                        ...item,
-                                        category: category,
-                                        period: period, // フィルタ用
-                                        hasCatalog: !!catalogInfo,
-                                        tools: tools,
-                                        isExpanded: false
-                                    });
-                                });
-                            }
-                        }
-                    }
-
-                    this.models = combinedList;
-                    // 初期状態で全件表示するためfilteredModelsも設定
-                    this.filteredModels = [...combinedList];
-                    // カテゴリを定義順でソート
-                    this.categories = Array.from(categorySet).sort((a, b) => {
-                        const indexA = CATEGORY_ORDER.indexOf(a);
-                        const indexB = CATEGORY_ORDER.indexOf(b);
-                        // 定義にないカテゴリは末尾に
-                        if (indexA === -1 && indexB === -1) return a.localeCompare(b);
-                        if (indexA === -1) return 1;
-                        if (indexB === -1) return -1;
-                        return indexA - indexB;
-                    });
-                    // 日付順にソート (新しい順)
-                    this.periods = Array.from(periodSet).sort((a, b) => {
-                        return b.localeCompare(a, undefined, { numeric: true });
-                    });
-                }
-            };
-        }
-    </script>
 </head>
 <body class="bg-gray-50 text-slate-800 min-h-screen">
 
@@ -262,200 +27,429 @@
         </div>
     </nav>
 
-    <div class="container mx-auto p-4 lg:p-8 max-w-6xl" x-data="dictionaryApp()" x-init="init()">
-        
+    <div class="container mx-auto p-4 lg:p-8 max-w-6xl">
+
         <header class="mb-8 text-center pt-6">
             <h2 class="text-3xl font-extrabold text-slate-900 mb-3">リモートMCPサーバー集 "kamuicode" ツールリスト</h2>
             <p class="text-slate-600">kamuicodeが提供するMCPサーバーとツールのリファレンスドキュメントです。</p>
         </header>
 
-        <div x-show="isLoading" class="text-center py-20">
+        <div id="loading" class="text-center py-20">
             <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-indigo-500 border-t-transparent"></div>
             <p class="mt-4 text-slate-500 font-medium">データを読み込んでいます...</p>
         </div>
 
-        <div x-show="errorMessage" x-cloak class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-sm mb-8">
+        <div id="error" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-sm mb-8">
             <p class="font-bold">Error</p>
-            <p x-text="errorMessage"></p>
+            <p id="error-message"></p>
         </div>
 
-        <div x-show="!isLoading && !errorMessage" x-cloak>
-            
+        <div id="main-content" class="hidden">
+
             <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-8 sticky top-20 z-20">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
                     <div class="md:col-span-6 relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </span>
-                        <input type="text" x-model="searchQuery" 
-                               placeholder="モデル名、ID、機能で検索..." 
+                        <input type="text" id="search-input"
+                               placeholder="モデル名、ID、機能で検索..."
                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all">
                     </div>
-                    
+
                     <div class="md:col-span-3">
-                        <select x-model="selectedCategory"
+                        <select id="category-select"
                                 class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
                             <option value="">すべてのカテゴリ</option>
-                            <template x-for="cat in categories" :key="cat">
-                                <option :value="cat" x-text="getCategoryDisplayName(cat)"></option>
-                            </template>
                         </select>
                     </div>
 
                     <div class="md:col-span-3">
-                        <select x-model="selectedPeriod" 
+                        <select id="period-select"
                                 class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
                             <option value="">すべての期間</option>
-                            <template x-for="period in periods" :key="period">
-                                <option :value="period" x-text="period"></option>
-                            </template>
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="mt-3 flex justify-end text-xs text-slate-500 font-mono">
-                    Hit: <span x-text="filteredModels.length" class="font-bold text-slate-700 mx-1"></span> models
+                    Hit: <span id="hit-count" class="font-bold text-slate-700 mx-1">0</span> models
                 </div>
             </div>
 
-            <div class="space-y-6">
-                <template x-for="model in filteredModels" :key="model.server_name">
-                    <div class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200">
-                        
-                        <div @click="model.isExpanded = !model.isExpanded" 
-                             class="p-6 cursor-pointer flex items-start gap-4 hover:bg-slate-50 transition-colors relative">
-                            
-                            <div class="flex-shrink-0 mt-1">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                                     :class="model.hasCatalog ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'">
-                                    <span class="text-lg font-bold" x-text="model.hasCatalog ? '✓' : '?'"></span>
-                                </div>
-                            </div>
+            <div id="model-list" class="space-y-6"></div>
 
-                            <div class="flex-1 min-w-0">
-                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                                    <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200" x-text="getCategoryDisplayName(model.category)"></span>
-                                    <template x-if="model.tools.length > 0">
-                                        <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100" x-text="`${model.tools.length} Tools`"></span>
-                                    </template>
-                                    <span class="text-xs font-mono text-slate-500 flex items-center gap-1 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">
-                                        📅 <span x-text="model.release_date || '不明'"></span>
-                                    </span>
-                                </div>
-                                <h3 class="text-lg font-bold text-indigo-700 truncate" x-text="model.name"></h3>
-                                <div class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded inline-block mt-1 select-all border border-slate-200" x-text="model.server_name"></div>
-                            </div>
-
-                            <div class="text-slate-400 group-hover:text-indigo-500 transition-colors pt-2">
-                                <svg class="w-6 h-6 transform transition-transform duration-200" 
-                                     :class="model.isExpanded ? 'rotate-180' : ''" 
-                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div x-show="model.isExpanded" x-collapse>
-                            <div class="px-6 pb-8 pt-0">
-                                <div class="border-t border-dashed border-gray-200 my-4"></div>
-                                
-                                <div class="mb-8">
-                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">概要</h4>
-                                    <p class="text-sm text-slate-800 leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100" x-text="model.features"></p>
-                                </div>
-
-                                <template x-if="model.tools && model.tools.length > 0">
-                                    <div>
-                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                            利用可能なツール定義 (MCP)
-                                        </h4>
-                                        
-                                        <div class="space-y-6">
-                                            <template x-for="tool in model.tools" :key="tool.name">
-                                                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-                                                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex flex-wrap items-center gap-3">
-                                                        <span class="font-mono text-sm font-bold text-purple-700 select-all" x-text="tool.name"></span>
-                                                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded text-white tracking-wide"
-                                                              :class="{
-                                                                  'bg-blue-600': tool.name.includes('submit'),
-                                                                  'bg-amber-500': tool.name.includes('status'),
-                                                                  'bg-green-600': tool.name.includes('result')
-                                                              }"
-                                                              x-text="tool.name.includes('submit') ? 'SUBMIT' : (tool.name.includes('status') ? 'STATUS' : 'RESULT')">
-                                                        </span>
-                                                    </div>
-                                                    
-                                                    <div class="p-5">
-                                                        <p class="text-sm text-slate-700 mb-4" x-text="tool.description"></p>
-                                                        
-                                                        <template x-if="tool.inputSchema && tool.inputSchema.properties">
-                                                            <div class="overflow-x-auto">
-                                                                <table class="min-w-full text-left text-sm border-collapse">
-                                                                    <thead>
-                                                                        <tr class="border-b border-gray-200">
-                                                                            <th class="py-2 pl-0 pr-4 font-semibold text-slate-500 w-40">Parameter</th>
-                                                                            <th class="py-2 px-4 font-semibold text-slate-500 w-24">Type</th>
-                                                                            <th class="py-2 px-4 font-semibold text-slate-500 w-20">Req</th>
-                                                                            <th class="py-2 pl-4 pr-0 font-semibold text-slate-500">Description</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="divide-y divide-gray-100">
-                                                                        <template x-for="(prop, key) in tool.inputSchema.properties">
-                                                                            <tr class="group hover:bg-slate-50 transition-colors">
-                                                                                <td class="py-2 pl-0 pr-4 align-top font-mono text-slate-700 font-medium" x-text="key"></td>
-                                                                                <td class="py-2 px-4 align-top text-xs text-slate-500 font-mono" x-text="prop.type"></td>
-                                                                                <td class="py-2 px-4 align-top">
-                                                                                    <template x-if="tool.inputSchema.required?.includes(key)">
-                                                                                        <span class="inline-block w-2 h-2 rounded-full bg-red-500" title="Required"></span>
-                                                                                    </template>
-                                                                                </td>
-                                                                                <td class="py-2 pl-4 pr-0 align-top text-slate-600 text-xs leading-relaxed">
-                                                                                    <span x-text="prop.description"></span>
-                                                                                    <template x-if="prop.default !== undefined">
-                                                                                        <div class="mt-1 text-slate-400 font-mono text-[10px]">
-                                                                                            Default: <span x-text="prop.default"></span>
-                                                                                        </div>
-                                                                                    </template>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </template>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </template>
-                                                        <template x-if="!tool.inputSchema.properties">
-                                                            <div class="text-xs text-slate-400 italic mt-2">No parameters required.</div>
-                                                        </template>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </template>
-
-                                <template x-if="!model.tools || model.tools.length === 0">
-                                    <div class="text-sm text-slate-500 bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
-                                        このモデルに関連付けられたMCPツール定義は見つかりませんでした。
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
-
-                    </div>
-                </template>
-                
-                <div x-show="filteredModels.length === 0" class="text-center py-16">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <p class="text-slate-500 font-medium">条件に一致するモデルが見つかりません</p>
-                    <p class="text-sm text-slate-400 mt-1">検索条件やフィルタを変更してみてください</p>
-                </div>
+            <div id="no-results" class="hidden text-center py-16">
+                <div class="text-4xl mb-3">🔍</div>
+                <p class="text-slate-500 font-medium">条件に一致するモデルが見つかりません</p>
+                <p class="text-sm text-slate-400 mt-1">検索条件やフィルタを変更してみてください</p>
             </div>
-            
+
             <footer class="mt-20 text-center text-slate-400 text-xs pb-10 border-t border-gray-200 pt-8">
                 <p>&copy; kamuicode Config Manager</p>
             </footer>
 
         </div>
     </div>
+
+    <script>
+        // ★ リポジトリ情報
+        const REPO_USER = 'Yumeno';
+        const REPO_NAME = 'kamuicode-config-manager';
+        const BRANCH = 'main';
+
+        const URL_MODEL_MEMO = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/kamuicode_model_memo.yaml`;
+        const URL_TOOL_CATALOG = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/mcp_tool_catalog.yaml`;
+
+        // カテゴリキーから表示名へのマッピング
+        const CATEGORY_DISPLAY_NAMES = {
+            'text_to_image': 'Text to Image',
+            'image_to_image': 'Image to Image',
+            'text_to_video': 'Text to Video',
+            'image_to_video': 'Image to Video',
+            'video_to_video': 'Video to Video',
+            'reference_to_video': 'Reference to Video',
+            'frame_to_video': 'Frame to Video',
+            'speech_to_video': 'Speech to Video',
+            'audio_to_video': 'Audio to Video',
+            'text_to_speech': 'Text to Speech',
+            'text_to_audio': 'Text to Audio',
+            'text_to_music': 'Text to Music',
+            'video_to_audio': 'Video to Audio',
+            'video_to_sfx': 'Video to SFX',
+            'audio_to_text': 'Audio to Text',
+            'text_to_visual': 'Text to Visual',
+            'image_to_3d': 'Image to 3D',
+            'text_to_3d': 'Text to 3D',
+            '3d_to_3d': '3D to 3D',
+            'training': 'Training',
+            'utility_and_analysis': 'Utility & Analysis',
+            'voice_clone': 'Voice Clone',
+            'miscellaneous': 'Miscellaneous'
+        };
+
+        // カテゴリ表示順序
+        const CATEGORY_ORDER = [
+            'text_to_image', 'image_to_image', 'text_to_video', 'image_to_video',
+            'video_to_video', 'reference_to_video', 'frame_to_video', 'speech_to_video',
+            'audio_to_video', 'text_to_speech', 'text_to_audio', 'text_to_music',
+            'video_to_audio', 'video_to_sfx', 'audio_to_text', 'text_to_visual',
+            'image_to_3d', 'text_to_3d', '3d_to_3d', 'training',
+            'utility_and_analysis', 'voice_clone', 'miscellaneous'
+        ];
+
+        // グローバル変数
+        let allModels = [];
+        let expandedModels = new Set();
+
+        // DOM要素
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('error');
+        const errorMessageEl = document.getElementById('error-message');
+        const mainContentEl = document.getElementById('main-content');
+        const modelListEl = document.getElementById('model-list');
+        const noResultsEl = document.getElementById('no-results');
+        const hitCountEl = document.getElementById('hit-count');
+        const searchInput = document.getElementById('search-input');
+        const categorySelect = document.getElementById('category-select');
+        const periodSelect = document.getElementById('period-select');
+
+        // カテゴリ表示名を取得
+        function getCategoryDisplayName(key) {
+            return CATEGORY_DISPLAY_NAMES[key] || key;
+        }
+
+        // フィルタリング
+        function filterModels() {
+            const query = searchInput.value.toLowerCase();
+            const category = categorySelect.value;
+            const period = periodSelect.value;
+
+            return allModels.filter(model => {
+                const matchesCategory = category === '' || model.category === category;
+                const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
+                const matchesSearch = query === '' ||
+                    model.name.toLowerCase().includes(query) ||
+                    model.server_name.toLowerCase().includes(query) ||
+                    (model.features && model.features.toLowerCase().includes(query));
+
+                return matchesCategory && matchesPeriod && matchesSearch;
+            });
+        }
+
+        // モデルカードのHTMLを生成
+        function createModelCard(model) {
+            const isExpanded = expandedModels.has(model.server_name);
+            const toolsHtml = model.tools && model.tools.length > 0
+                ? model.tools.map(tool => createToolHtml(tool)).join('')
+                : `<div class="text-sm text-slate-500 bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
+                     このモデルに関連付けられたMCPツール定義は見つかりませんでした。
+                   </div>`;
+
+            return `
+                <div class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200">
+                    <div class="model-header p-6 cursor-pointer flex items-start gap-4 hover:bg-slate-50 transition-colors relative" data-server="${model.server_name}">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors ${model.hasCatalog ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}">
+                                <span class="text-lg font-bold">${model.hasCatalog ? '✓' : '?'}</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200">${getCategoryDisplayName(model.category)}</span>
+                                ${model.tools.length > 0 ? `<span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">${model.tools.length} Tools</span>` : ''}
+                                <span class="text-xs font-mono text-slate-500 flex items-center gap-1 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">
+                                    📅 ${model.release_date || '不明'}
+                                </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-indigo-700 truncate">${model.name}</h3>
+                            <div class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded inline-block mt-1 select-all border border-slate-200">${model.server_name}</div>
+                        </div>
+                        <div class="text-slate-400 group-hover:text-indigo-500 transition-colors pt-2">
+                            <svg class="w-6 h-6 transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="model-details ${isExpanded ? '' : 'hidden'}">
+                        <div class="px-6 pb-8 pt-0">
+                            <div class="border-t border-dashed border-gray-200 my-4"></div>
+                            <div class="mb-8">
+                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">概要</h4>
+                                <p class="text-sm text-slate-800 leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100">${model.features || ''}</p>
+                            </div>
+                            ${model.tools && model.tools.length > 0 ? `
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                        利用可能なツール定義 (MCP)
+                                    </h4>
+                                    <div class="space-y-6">${toolsHtml}</div>
+                                </div>
+                            ` : toolsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ツール情報のHTMLを生成
+        function createToolHtml(tool) {
+            const badgeClass = tool.name.includes('submit') ? 'bg-blue-600' :
+                              tool.name.includes('status') ? 'bg-amber-500' : 'bg-green-600';
+            const badgeText = tool.name.includes('submit') ? 'SUBMIT' :
+                             tool.name.includes('status') ? 'STATUS' : 'RESULT';
+
+            let paramsHtml = '';
+            if (tool.inputSchema && tool.inputSchema.properties) {
+                const rows = Object.entries(tool.inputSchema.properties).map(([key, prop]) => {
+                    const isRequired = tool.inputSchema.required?.includes(key);
+                    return `
+                        <tr class="group hover:bg-slate-50 transition-colors">
+                            <td class="py-2 pl-0 pr-4 align-top font-mono text-slate-700 font-medium">${key}</td>
+                            <td class="py-2 px-4 align-top text-xs text-slate-500 font-mono">${prop.type || ''}</td>
+                            <td class="py-2 px-4 align-top">
+                                ${isRequired ? '<span class="inline-block w-2 h-2 rounded-full bg-red-500" title="Required"></span>' : ''}
+                            </td>
+                            <td class="py-2 pl-4 pr-0 align-top text-slate-600 text-xs leading-relaxed">
+                                ${prop.description || ''}
+                                ${prop.default !== undefined ? `<div class="mt-1 text-slate-400 font-mono text-[10px]">Default: ${prop.default}</div>` : ''}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                paramsHtml = `
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="py-2 pl-0 pr-4 font-semibold text-slate-500 w-40">Parameter</th>
+                                    <th class="py-2 px-4 font-semibold text-slate-500 w-24">Type</th>
+                                    <th class="py-2 px-4 font-semibold text-slate-500 w-20">Req</th>
+                                    <th class="py-2 pl-4 pr-0 font-semibold text-slate-500">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">${rows}</tbody>
+                        </table>
+                    </div>
+                `;
+            } else {
+                paramsHtml = '<div class="text-xs text-slate-400 italic mt-2">No parameters required.</div>';
+            }
+
+            return `
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex flex-wrap items-center gap-3">
+                        <span class="font-mono text-sm font-bold text-purple-700 select-all">${tool.name}</span>
+                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded text-white tracking-wide ${badgeClass}">${badgeText}</span>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-sm text-slate-700 mb-4">${tool.description || ''}</p>
+                        ${paramsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 表示を更新
+        function renderModels() {
+            const filtered = filterModels();
+            hitCountEl.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                modelListEl.innerHTML = '';
+                noResultsEl.classList.remove('hidden');
+            } else {
+                noResultsEl.classList.add('hidden');
+                modelListEl.innerHTML = filtered.map(model => createModelCard(model)).join('');
+
+                // クリックイベントを設定
+                document.querySelectorAll('.model-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const serverName = header.dataset.server;
+                        const details = header.nextElementSibling;
+                        const arrow = header.querySelector('svg');
+
+                        if (expandedModels.has(serverName)) {
+                            expandedModels.delete(serverName);
+                            details.classList.add('hidden');
+                            arrow.classList.remove('rotate-180');
+                        } else {
+                            expandedModels.add(serverName);
+                            details.classList.remove('hidden');
+                            arrow.classList.add('rotate-180');
+                        }
+                    });
+                });
+            }
+        }
+
+        // データを処理
+        function processData(memoData, catalogData) {
+            const catalogMap = new Map();
+            if (catalogData && catalogData.servers) {
+                catalogData.servers.forEach(server => {
+                    catalogMap.set(server.id, server);
+                });
+            }
+
+            const combinedList = [];
+            const categorySet = new Set();
+            const periodSet = new Set();
+
+            if (memoData && memoData.ai_models) {
+                for (const [category, list] of Object.entries(memoData.ai_models)) {
+                    categorySet.add(category);
+                    if (Array.isArray(list)) {
+                        list.forEach(item => {
+                            const catalogInfo = catalogMap.get(item.server_name);
+
+                            let period = '';
+                            if (item.release_date) {
+                                const match = item.release_date.match(/(\d{4}年\d{1,2}月)/);
+                                if (match) {
+                                    period = match[1];
+                                    periodSet.add(period);
+                                } else if (item.release_date.match(/(\d{4}年)/)) {
+                                    period = item.release_date.match(/(\d{4}年)/)[1];
+                                    periodSet.add(period);
+                                }
+                            }
+
+                            let tools = [];
+                            if (catalogInfo && catalogInfo.tools) {
+                                tools = catalogInfo.tools.map(t => ({
+                                    ...t,
+                                    sortKey: t.name.includes('submit') ? 1 : (t.name.includes('status') ? 2 : 3)
+                                })).sort((a, b) => a.sortKey - b.sortKey);
+                            }
+
+                            combinedList.push({
+                                ...item,
+                                category: category,
+                                period: period,
+                                hasCatalog: !!catalogInfo,
+                                tools: tools
+                            });
+                        });
+                    }
+                }
+            }
+
+            allModels = combinedList;
+
+            // カテゴリセレクトを設定
+            const sortedCategories = Array.from(categorySet).sort((a, b) => {
+                const indexA = CATEGORY_ORDER.indexOf(a);
+                const indexB = CATEGORY_ORDER.indexOf(b);
+                if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+                if (indexA === -1) return 1;
+                if (indexB === -1) return -1;
+                return indexA - indexB;
+            });
+            sortedCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = getCategoryDisplayName(cat);
+                categorySelect.appendChild(option);
+            });
+
+            // 期間セレクトを設定
+            const sortedPeriods = Array.from(periodSet).sort((a, b) => {
+                return b.localeCompare(a, undefined, { numeric: true });
+            });
+            sortedPeriods.forEach(period => {
+                const option = document.createElement('option');
+                option.value = period;
+                option.textContent = period;
+                periodSelect.appendChild(option);
+            });
+        }
+
+        // データを取得
+        async function fetchAllData() {
+            const ts = new Date().getTime();
+
+            const [memoRes, catalogRes] = await Promise.all([
+                fetch(`${URL_MODEL_MEMO}?t=${ts}`),
+                fetch(`${URL_TOOL_CATALOG}?t=${ts}`)
+            ]);
+
+            if (!memoRes.ok) throw new Error(`Model Memo取得失敗: HTTP ${memoRes.status}`);
+            if (!catalogRes.ok) throw new Error(`Tool Catalog取得失敗: HTTP ${catalogRes.status}`);
+
+            const memoYaml = jsyaml.load(await memoRes.text());
+            const catalogYaml = jsyaml.load(await catalogRes.text());
+
+            processData(memoYaml, catalogYaml);
+        }
+
+        // 初期化
+        async function init() {
+            try {
+                await fetchAllData();
+
+                // イベントリスナーを設定
+                searchInput.addEventListener('input', renderModels);
+                categorySelect.addEventListener('change', renderModels);
+                periodSelect.addEventListener('change', renderModels);
+
+                // 表示を切り替え
+                loadingEl.classList.add('hidden');
+                mainContentEl.classList.remove('hidden');
+
+                // モデル一覧を表示
+                renderModels();
+
+            } catch (e) {
+                loadingEl.classList.add('hidden');
+                errorEl.classList.remove('hidden');
+                errorMessageEl.textContent = `データの読み込みに失敗しました: ${e.message}`;
+            }
+        }
+
+        // ページ読み込み時に実行
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
