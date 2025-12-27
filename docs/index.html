@@ -94,7 +94,6 @@
                 async init() {
                     try {
                         await this.fetchAllData();
-                        this.updateFilteredModels();
                         // フィルター変更を監視
                         this.$watch('searchQuery', () => this.updateFilteredModels());
                         this.$watch('selectedCategory', () => this.updateFilteredModels());
@@ -103,6 +102,10 @@
                         this.errorMessage = `データの読み込みに失敗しました: ${e.message}`;
                     } finally {
                         this.isLoading = false;
+                        // DOM更新後にfilteredModelsを再設定してx-forを確実にレンダリング
+                        this.$nextTick(() => {
+                            this.filteredModels = [...this.models];
+                        });
                     }
                 },
 
