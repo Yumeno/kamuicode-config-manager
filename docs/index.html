@@ -111,10 +111,16 @@
                     const category = this.selectedCategory;
                     const period = this.selectedPeriod;
 
+                    // 絞り込み条件がない場合は全件表示
+                    if (query === '' && category === '' && period === '') {
+                        this.filteredModels = [...this.models];
+                        return;
+                    }
+
                     this.filteredModels = this.models.filter(model => {
                         const matchesCategory = category === '' || model.category === category;
                         const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
-                        const matchesSearch =
+                        const matchesSearch = query === '' ||
                             model.name.toLowerCase().includes(query) ||
                             model.server_name.toLowerCase().includes(query) ||
                             (model.features && model.features.toLowerCase().includes(query));
