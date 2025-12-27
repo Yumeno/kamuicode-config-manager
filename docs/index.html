@@ -222,6 +222,8 @@
                     }
 
                     this.models = combinedList;
+                    // 初期状態で全件表示するためfilteredModelsも設定
+                    this.filteredModels = [...combinedList];
                     // カテゴリを定義順でソート
                     this.categories = Array.from(categorySet).sort((a, b) => {
                         const indexA = CATEGORY_ORDER.indexOf(a);
