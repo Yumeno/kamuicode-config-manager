@@ -81,11 +81,12 @@
             return {
                 isLoading: true,
                 errorMessage: '',
-                
+
                 models: [],
+                filteredModels: [], // reactiveなプロパティとして明示的に管理
                 categories: [],
                 periods: [], // 公開時期の選択肢リスト
-                
+
                 searchQuery: '',
                 selectedCategory: '',
                 selectedPeriod: '', // 選択された公開時期
@@ -93,11 +94,33 @@
                 async init() {
                     try {
                         await this.fetchAllData();
+                        this.updateFilteredModels();
+                        // フィルター変更を監視
+                        this.$watch('searchQuery', () => this.updateFilteredModels());
+                        this.$watch('selectedCategory', () => this.updateFilteredModels());
+                        this.$watch('selectedPeriod', () => this.updateFilteredModels());
                     } catch (e) {
                         this.errorMessage = `データの読み込みに失敗しました: ${e.message}`;
                     } finally {
                         this.isLoading = false;
                     }
+                },
+
+                updateFilteredModels() {
+                    const query = this.searchQuery.toLowerCase();
+                    const category = this.selectedCategory;
+                    const period = this.selectedPeriod;
+
+                    this.filteredModels = this.models.filter(model => {
+                        const matchesCategory = category === '' || model.category === category;
+                        const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
+                        const matchesSearch =
+                            model.name.toLowerCase().includes(query) ||
+                            model.server_name.toLowerCase().includes(query) ||
+                            (model.features && model.features.toLowerCase().includes(query));
+
+                        return matchesCategory && matchesPeriod && matchesSearch;
+                    });
                 },
 
                 async fetchAllData() {
@@ -206,24 +229,6 @@
                     // 日付順にソート (新しい順)
                     this.periods = Array.from(periodSet).sort((a, b) => {
                         return b.localeCompare(a, undefined, { numeric: true });
-                    });
-                },
-
-                get filteredModels() {
-                    const query = this.searchQuery.toLowerCase();
-                    const category = this.selectedCategory;
-                    const period = this.selectedPeriod;
-
-                    return this.models.filter(model => {
-                        const matchesCategory = category === '' || model.category === category;
-                        // periodが含まれているかで判定（"2025年"で"2025年8月"もヒットさせる等、簡易的な部分一致）
-                        const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
-                        const matchesSearch = 
-                            model.name.toLowerCase().includes(query) ||
-                            model.server_name.toLowerCase().includes(query) ||
-                            (model.features && model.features.toLowerCase().includes(query));
-                        
-                        return matchesCategory && matchesPeriod && matchesSearch;
                     });
                 }
             };
