@@ -6,7 +6,8 @@
     <title>kamuicode MCP Tool List</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
@@ -101,16 +102,32 @@
 
                 async fetchAllData() {
                     const ts = new Date().getTime();
-                    const [memoRes, catalogRes] = await Promise.all([
-                        fetch(`${URL_MODEL_MEMO}?t=${ts}`),
-                        fetch(`${URL_TOOL_CATALOG}?t=${ts}`)
-                    ]);
+                    let memoRes, catalogRes;
 
-                    if (!memoRes.ok) throw new Error(`Model Memo fetch failed: ${memoRes.status}`);
-                    if (!catalogRes.ok) throw new Error(`Tool Catalog fetch failed: ${catalogRes.status}`);
+                    try {
+                        [memoRes, catalogRes] = await Promise.all([
+                            fetch(`${URL_MODEL_MEMO}?t=${ts}`),
+                            fetch(`${URL_TOOL_CATALOG}?t=${ts}`)
+                        ]);
+                    } catch (networkError) {
+                        throw new Error(`ネットワークエラー: ${networkError.message}`);
+                    }
 
-                    const memoYaml = jsyaml.load(await memoRes.text());
-                    const catalogYaml = jsyaml.load(await catalogRes.text());
+                    if (!memoRes.ok) throw new Error(`Model Memo取得失敗: HTTP ${memoRes.status}`);
+                    if (!catalogRes.ok) throw new Error(`Tool Catalog取得失敗: HTTP ${catalogRes.status}`);
+
+                    let memoYaml, catalogYaml;
+                    try {
+                        memoYaml = jsyaml.load(await memoRes.text());
+                    } catch (parseError) {
+                        throw new Error(`Model Memoパースエラー: ${parseError.message}`);
+                    }
+
+                    try {
+                        catalogYaml = jsyaml.load(await catalogRes.text());
+                    } catch (parseError) {
+                        throw new Error(`Tool Catalogパースエラー: ${parseError.message}`);
+                    }
 
                     this.processData(memoYaml, catalogYaml);
                 },
