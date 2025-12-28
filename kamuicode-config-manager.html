@@ -114,6 +114,9 @@
                 showPassKey: false,          // パスキー表示/非表示
                 passKeyExpanded: false,      // パスキー設定セクションの展開状態
 
+                // --- 出力形式設定 ---
+                outputFormat: 'claudecode',  // 'claudecode' | 'geminicli' | 'antigravity'
+
                 // --- 初期化 ---
                 init() {
                     // LocalStorageから設定を復元
@@ -696,6 +699,37 @@
                     // フィルタを再適用して表示を更新
                     this.applyFilters();
                 },
+                // 出力形式に応じたファイル名サフィックスを取得
+                getOutputFileSuffix() {
+                    switch (this.outputFormat) {
+                        case 'geminicli':
+                            return '-geminicli';
+                        case 'antigravity':
+                            return '-antigravity';
+                        default:
+                            return '';
+                    }
+                },
+
+                // 出力形式に応じた完全なファイル名を取得
+                getFullOutputFileName() {
+                    const baseName = this.outputFileName.trim() || 'mcp-kamui-code-filtered';
+                    return `${baseName}${this.getOutputFileSuffix()}.json`;
+                },
+
+                // 出力形式のラベルを取得
+                getOutputFormatLabel() {
+                    switch (this.outputFormat) {
+                        case 'geminicli':
+                            return 'Gemini CLI用';
+                        case 'antigravity':
+                            return 'Antigravity用';
+                        default:
+                            return 'Claude Code用';
+                    }
+                },
+
+                // 選択された形式でJSONを生成して保存
                 async generateJson() {
                     const output = {
                         mcpServers: {}
@@ -706,11 +740,48 @@
                         .forEach(model => {
                             // パスキーを適用したサーバー情報を使用
                             let finalServerInfo = this.applyPassKeyToServerInfo(model.server_info);
-                            output.mcpServers[model.server_name] = finalServerInfo;
+
+                            if (this.outputFormat === 'geminicli') {
+                                // GeminiCLI用形式
+                                const geminiConfig = {
+                                    httpUrl: finalServerInfo.url || ''
+                                };
+                                if (finalServerInfo.headers && Object.keys(finalServerInfo.headers).length > 0) {
+                                    geminiConfig.headers = finalServerInfo.headers;
+                                }
+                                output.mcpServers[model.server_name] = geminiConfig;
+
+                            } else if (this.outputFormat === 'antigravity') {
+                                // Antigravity用形式
+                                const args = [
+                                    "/c",
+                                    "npx",
+                                    "-y",
+                                    "mcp-remote",
+                                    finalServerInfo.url || '',
+                                    "--transport",
+                                    "http-only"
+                                ];
+                                if (finalServerInfo.headers) {
+                                    Object.entries(finalServerInfo.headers).forEach(([key, value]) => {
+                                        args.push("--header");
+                                        args.push(`${key}: ${value}`);
+                                    });
+                                }
+                                output.mcpServers[model.server_name] = {
+                                    command: "cmd",
+                                    args: args
+                                };
+
+                            } else {
+                                // ClaudeCode用形式（従来）
+                                output.mcpServers[model.server_name] = finalServerInfo;
+                            }
                         });
 
                     const jsonContent = JSON.stringify(output, null, 2);
-                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}.json` : 'mcp-kamui-code-filtered.json';
+                    const fileName = this.getFullOutputFileName();
+                    const formatLabel = this.getOutputFormatLabel();
 
                     // File System Access APIがサポートされている場合はダイアログを表示
                     if ('showSaveFilePicker' in window) {
@@ -725,160 +796,18 @@
                             const writable = await fileHandle.createWritable();
                             await writable.write(jsonContent);
                             await writable.close();
-                            this.successMessage = 'JSONファイルを保存しました。';
+                            this.successMessage = `${formatLabel}JSONファイルを保存しました。`;
                             setTimeout(() => { this.successMessage = ''; }, 3000);
                             return;
                         } catch (e) {
-                            // ユーザーがキャンセルした場合は何もしない
                             if (e.name === 'AbortError') {
                                 return;
                             }
-                            // その他のエラーの場合は従来の方式にフォールバック
                             console.warn('File System Access API failed, falling back to download:', e);
                         }
                     }
 
                     // フォールバック: 従来のダウンロード方式（非対応ブラウザ用）
-                    const blob = new Blob([jsonContent], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                },
-
-                // Gemini用JSONを生成して保存
-                async generateGeminiJson() {
-                    const output = {
-                        mcpServers: {}
-                    };
-
-                    this.masterList
-                        .filter(model => model.checked)
-                        .forEach(model => {
-                            // パスキーを適用したサーバー情報を使用
-                            let finalServerInfo = this.applyPassKeyToServerInfo(model.server_info);
-
-                            // Gemini用形式に変換
-                            const geminiConfig = {
-                                httpUrl: finalServerInfo.url || ''
-                            };
-
-                            // headersがあれば追加
-                            if (finalServerInfo.headers && Object.keys(finalServerInfo.headers).length > 0) {
-                                geminiConfig.headers = finalServerInfo.headers;
-                            }
-
-                            output.mcpServers[model.server_name] = geminiConfig;
-                        });
-
-                    const jsonContent = JSON.stringify(output, null, 2);
-                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}-gemini.json` : 'mcp-kamui-code-gemini.json';
-
-                    // File System Access APIがサポートされている場合はダイアログを表示
-                    if ('showSaveFilePicker' in window) {
-                        try {
-                            const fileHandle = await window.showSaveFilePicker({
-                                suggestedName: fileName,
-                                types: [{
-                                    description: 'JSON Files',
-                                    accept: { 'application/json': ['.json'] }
-                                }]
-                            });
-                            const writable = await fileHandle.createWritable();
-                            await writable.write(jsonContent);
-                            await writable.close();
-                            this.successMessage = 'Gemini用JSONファイルを保存しました。';
-                            setTimeout(() => { this.successMessage = ''; }, 3000);
-                            return;
-                        } catch (e) {
-                            if (e.name === 'AbortError') {
-                                return;
-                            }
-                            console.warn('File System Access API failed, falling back to download:', e);
-                        }
-                    }
-
-                    // フォールバック: 従来のダウンロード方式
-                    const blob = new Blob([jsonContent], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                },
-
-                // Antigravity用JSONを生成して保存
-                async generateAntigravityJson() {
-                    const output = {
-                        mcpServers: {}
-                    };
-
-                    this.masterList
-                        .filter(model => model.checked)
-                        .forEach(model => {
-                            // パスキーを適用したサーバー情報を使用
-                            let finalServerInfo = this.applyPassKeyToServerInfo(model.server_info);
-
-                            // Antigravity用形式に変換
-                            const args = [
-                                "/c",
-                                "npx",
-                                "-y",
-                                "mcp-remote",
-                                finalServerInfo.url || '',
-                                "--transport",
-                                "http-only"
-                            ];
-
-                            // headersがあれば--headerオプションとして追加
-                            if (finalServerInfo.headers) {
-                                Object.entries(finalServerInfo.headers).forEach(([key, value]) => {
-                                    args.push("--header");
-                                    args.push(`${key}: ${value}`);
-                                });
-                            }
-
-                            output.mcpServers[model.server_name] = {
-                                command: "cmd",
-                                args: args
-                            };
-                        });
-
-                    const jsonContent = JSON.stringify(output, null, 2);
-                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}-antigravity.json` : 'mcp-kamui-code-antigravity.json';
-
-                    // File System Access APIがサポートされている場合はダイアログを表示
-                    if ('showSaveFilePicker' in window) {
-                        try {
-                            const fileHandle = await window.showSaveFilePicker({
-                                suggestedName: fileName,
-                                types: [{
-                                    description: 'JSON Files',
-                                    accept: { 'application/json': ['.json'] }
-                                }]
-                            });
-                            const writable = await fileHandle.createWritable();
-                            await writable.write(jsonContent);
-                            await writable.close();
-                            this.successMessage = 'Antigravity用JSONファイルを保存しました。';
-                            setTimeout(() => { this.successMessage = ''; }, 3000);
-                            return;
-                        } catch (e) {
-                            if (e.name === 'AbortError') {
-                                return;
-                            }
-                            console.warn('File System Access API failed, falling back to download:', e);
-                        }
-                    }
-
-                    // フォールバック: 従来のダウンロード方式
                     const blob = new Blob([jsonContent], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -1119,7 +1048,42 @@
                     }
                 },
 
-                // 設定JSONを読み込んで選択状態を適用
+                // JSONの形式を検出する（claudecode | geminicli | antigravity）
+                detectConfigFormat(configServers) {
+                    const serverNames = Object.keys(configServers);
+                    if (serverNames.length === 0) return 'claudecode';
+
+                    const firstServer = configServers[serverNames[0]];
+
+                    // GeminiCLI形式: httpUrlキーがある
+                    if (firstServer.httpUrl !== undefined) {
+                        return 'geminicli';
+                    }
+
+                    // Antigravity形式: commandとargsキーがあり、argsにmcp-remoteが含まれる
+                    if (firstServer.command && Array.isArray(firstServer.args)) {
+                        if (firstServer.args.includes('mcp-remote')) {
+                            return 'antigravity';
+                        }
+                    }
+
+                    // デフォルトはClaudeCode形式
+                    return 'claudecode';
+                },
+
+                // 形式名を日本語ラベルに変換
+                getFormatLabel(format) {
+                    switch (format) {
+                        case 'geminicli':
+                            return 'Gemini CLI用';
+                        case 'antigravity':
+                            return 'Antigravity用';
+                        default:
+                            return 'Claude Code用';
+                    }
+                },
+
+                // 設定JSONを読み込んで選択状態を適用（全形式対応）
                 importFromConfigJson(event) {
                     this.errorMessage = '';
                     this.successMessage = '';
@@ -1135,6 +1099,10 @@
                                 this.errorMessage = '設定JSONに mcpServers キーが見つかりません。';
                                 return;
                             }
+
+                            // 形式を自動検出
+                            const detectedFormat = this.detectConfigFormat(configServers);
+                            const formatLabel = this.getFormatLabel(detectedFormat);
 
                             // 設定JSONに存在するサーバー名のセット
                             const configServerNames = new Set(Object.keys(configServers));
@@ -1153,7 +1121,7 @@
                             });
 
                             this.applyFilters();
-                            this.successMessage = `設定JSONから ${matchedCount} 件のサーバーを選択しました（${file.name}）`;
+                            this.successMessage = `${formatLabel}設定JSONから ${matchedCount} 件のサーバーを選択しました（${file.name}）`;
                         } catch (e) {
                             this.errorMessage = `設定JSONの解析に失敗しました: ${e.message}`;
                         }
@@ -1723,26 +1691,53 @@
             <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
                 <!-- ★ 見出し番号を変更 -->
                 <h2 class="text-xl font-semibold mb-4">4. 最終JSONを出力</h2>
+
+                <!-- 出力形式選択（ラジオボタン） -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">出力形式</label>
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Claude Code用 -->
+                        <label class="flex items-center px-4 py-2 border rounded-lg cursor-pointer transition-colors"
+                               :class="outputFormat === 'claudecode' ? 'border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-gray-200 hover:bg-gray-50'">
+                            <input type="radio" name="outputFormat" value="claudecode"
+                                   x-model="outputFormat"
+                                   class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <span class="ml-2 text-sm font-medium">Claude Code用</span>
+                        </label>
+                        <!-- Gemini CLI用 -->
+                        <label class="flex items-center px-4 py-2 border rounded-lg cursor-pointer transition-colors"
+                               :class="outputFormat === 'geminicli' ? 'border-green-500 bg-green-50 text-green-700' : 'border-gray-200 hover:bg-gray-50'">
+                            <input type="radio" name="outputFormat" value="geminicli"
+                                   x-model="outputFormat"
+                                   class="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
+                            <span class="ml-2 text-sm font-medium">Gemini CLI用</span>
+                        </label>
+                        <!-- Antigravity用 -->
+                        <label class="flex items-center px-4 py-2 border rounded-lg cursor-pointer transition-colors"
+                               :class="outputFormat === 'antigravity' ? 'border-purple-500 bg-purple-50 text-purple-700' : 'border-gray-200 hover:bg-gray-50'">
+                            <input type="radio" name="outputFormat" value="antigravity"
+                                   x-model="outputFormat"
+                                   class="h-4 w-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+                            <span class="ml-2 text-sm font-medium">Antigravity用</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ファイル名と保存ボタン -->
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-grow">
                         <label for="outputFileName" class="block text-sm font-medium text-gray-700">出力JSONファイル名</label>
-                        <input type="text" id="outputFileName" x-model="outputFileName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <div class="mt-1 flex items-center gap-2">
+                            <input type="text" id="outputFileName" x-model="outputFileName" class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <span class="text-sm text-gray-500 whitespace-nowrap" x-text="getOutputFileSuffix() + '.json'"></span>
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">保存予定: <code class="bg-gray-100 px-1 rounded" x-text="getFullOutputFileName()"></code></p>
                     </div>
                     <div class="flex-shrink-0 md:mt-6">
-                        <button @click="generateJson" class="w-full md:w-auto px-6 py-2.5 text-base font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
-                            JSONを生成して保存
-                        </button>
-                    </div>
-                </div>
-                <!-- Gemini・Antigravity用出力ボタン -->
-                <div class="mt-4 pt-4 border-t border-gray-200">
-                    <p class="text-sm text-gray-600 mb-3">他のクライアント向け形式で出力:</p>
-                    <div class="flex flex-wrap gap-3">
-                        <button @click="generateGeminiJson" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">
-                            Gemini用JSON
-                        </button>
-                        <button @click="generateAntigravityJson" class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors">
-                            Antigravity用JSON
+                        <button @click="generateJson"
+                                class="w-full md:w-auto px-6 py-2.5 text-base font-semibold text-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
+                                :class="outputFormat === 'geminicli' ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500' : (outputFormat === 'antigravity' ? 'bg-purple-600 hover:bg-purple-700 focus:ring-purple-500' : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500')">
+                            <span x-text="getOutputFormatLabel()"></span> JSONを保存
                         </button>
                     </div>
                 </div>
