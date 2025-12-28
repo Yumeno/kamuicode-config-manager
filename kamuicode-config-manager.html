@@ -750,6 +750,146 @@
                     URL.revokeObjectURL(url);
                 },
 
+                // Gemini用JSONを生成して保存
+                async generateGeminiJson() {
+                    const output = {
+                        mcpServers: {}
+                    };
+
+                    this.masterList
+                        .filter(model => model.checked)
+                        .forEach(model => {
+                            // パスキーを適用したサーバー情報を使用
+                            let finalServerInfo = this.applyPassKeyToServerInfo(model.server_info);
+
+                            // Gemini用形式に変換
+                            const geminiConfig = {
+                                httpUrl: finalServerInfo.url || ''
+                            };
+
+                            // headersがあれば追加
+                            if (finalServerInfo.headers && Object.keys(finalServerInfo.headers).length > 0) {
+                                geminiConfig.headers = finalServerInfo.headers;
+                            }
+
+                            output.mcpServers[model.server_name] = geminiConfig;
+                        });
+
+                    const jsonContent = JSON.stringify(output, null, 2);
+                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}-gemini.json` : 'mcp-kamui-code-gemini.json';
+
+                    // File System Access APIがサポートされている場合はダイアログを表示
+                    if ('showSaveFilePicker' in window) {
+                        try {
+                            const fileHandle = await window.showSaveFilePicker({
+                                suggestedName: fileName,
+                                types: [{
+                                    description: 'JSON Files',
+                                    accept: { 'application/json': ['.json'] }
+                                }]
+                            });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(jsonContent);
+                            await writable.close();
+                            this.successMessage = 'Gemini用JSONファイルを保存しました。';
+                            setTimeout(() => { this.successMessage = ''; }, 3000);
+                            return;
+                        } catch (e) {
+                            if (e.name === 'AbortError') {
+                                return;
+                            }
+                            console.warn('File System Access API failed, falling back to download:', e);
+                        }
+                    }
+
+                    // フォールバック: 従来のダウンロード方式
+                    const blob = new Blob([jsonContent], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+
+                // Antigravity用JSONを生成して保存
+                async generateAntigravityJson() {
+                    const output = {
+                        mcpServers: {}
+                    };
+
+                    this.masterList
+                        .filter(model => model.checked)
+                        .forEach(model => {
+                            // パスキーを適用したサーバー情報を使用
+                            let finalServerInfo = this.applyPassKeyToServerInfo(model.server_info);
+
+                            // Antigravity用形式に変換
+                            const args = [
+                                "/c",
+                                "npx",
+                                "-y",
+                                "mcp-remote",
+                                finalServerInfo.url || '',
+                                "--transport",
+                                "http-only"
+                            ];
+
+                            // headersがあれば--headerオプションとして追加
+                            if (finalServerInfo.headers) {
+                                Object.entries(finalServerInfo.headers).forEach(([key, value]) => {
+                                    args.push("--header");
+                                    args.push(`${key}: ${value}`);
+                                });
+                            }
+
+                            output.mcpServers[model.server_name] = {
+                                command: "cmd",
+                                args: args
+                            };
+                        });
+
+                    const jsonContent = JSON.stringify(output, null, 2);
+                    const fileName = this.outputFileName.trim() ? `${this.outputFileName.trim()}-antigravity.json` : 'mcp-kamui-code-antigravity.json';
+
+                    // File System Access APIがサポートされている場合はダイアログを表示
+                    if ('showSaveFilePicker' in window) {
+                        try {
+                            const fileHandle = await window.showSaveFilePicker({
+                                suggestedName: fileName,
+                                types: [{
+                                    description: 'JSON Files',
+                                    accept: { 'application/json': ['.json'] }
+                                }]
+                            });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(jsonContent);
+                            await writable.close();
+                            this.successMessage = 'Antigravity用JSONファイルを保存しました。';
+                            setTimeout(() => { this.successMessage = ''; }, 3000);
+                            return;
+                        } catch (e) {
+                            if (e.name === 'AbortError') {
+                                return;
+                            }
+                            console.warn('File System Access API failed, falling back to download:', e);
+                        }
+                    }
+
+                    // フォールバック: 従来のダウンロード方式
+                    const blob = new Blob([jsonContent], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+
                 // チェック状態をYAMLとして保存する関数
                 generateCheckStateYaml() {
                     const output = {};
@@ -1591,6 +1731,18 @@
                     <div class="flex-shrink-0 md:mt-6">
                         <button @click="generateJson" class="w-full md:w-auto px-6 py-2.5 text-base font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
                             JSONを生成して保存
+                        </button>
+                    </div>
+                </div>
+                <!-- Gemini・Antigravity用出力ボタン -->
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-600 mb-3">他のクライアント向け形式で出力:</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button @click="generateGeminiJson" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">
+                            Gemini用JSON
+                        </button>
+                        <button @click="generateAntigravityJson" class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors">
+                            Antigravity用JSON
                         </button>
                     </div>
                 </div>
