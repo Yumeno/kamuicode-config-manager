@@ -92,14 +92,10 @@ class YAMLGenerator:
 
     def _is_content_changed(self, old_server: dict[str, Any], new_server: dict[str, Any]) -> bool:
         """
-        Check if the meaningful content (URL or tools) has changed.
+        Check if the meaningful content (tools) has changed.
         Ignores status, last_checked, and error_message.
         """
-        # 1. URL Check
-        if old_server.get("url") != new_server.get("url"):
-            return True
-
-        # 2. Tools Check (Deep comparison using JSON serialization for stability)
+        # Tools Check (Deep comparison using JSON serialization for stability)
         # Normalize tools list by sorting to ensure order doesn't affect comparison
         old_tools = sorted(old_server.get("tools", []), key=lambda x: x.get("name", ""))
         new_tools = sorted(new_server.get("tools", []), key=lambda x: x.get("name", ""))

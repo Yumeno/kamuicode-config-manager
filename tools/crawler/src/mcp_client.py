@@ -41,17 +41,20 @@ class ServerResult:
     error_message: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert to dictionary for YAML output (excluding sensitive data)."""
+        """Convert to dictionary for YAML output (excluding sensitive data like URL)."""
         result: dict[str, Any] = {
             "id": self.id,
-            "url": self.url,
             "status": self.status,
             "last_checked": self.last_checked,
         }
         if self.tools:
             result["tools"] = [tool.to_dict() for tool in self.tools]
         if self.error_message:
-            result["error_message"] = self.error_message
+            # Sanitize error message to remove any URL references
+            sanitized_error = self.error_message
+            if self.url and self.url in sanitized_error:
+                sanitized_error = sanitized_error.replace(self.url, "[URL]")
+            result["error_message"] = sanitized_error
         return result
 
 

@@ -165,7 +165,7 @@ Kamui Code MCPサーバーへのアクセスには認証用パスキーが必要
 {
   "mcpServers": {
     "example-server": {
-      "url": "https://kamui-code.ai/v2v/example",
+      "url": "https://example.com/mcp/server",
       "headers": {
         "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
       }
@@ -237,7 +237,7 @@ python test_passkey.py --server-url https://example.com/mcp --passkey YOUR_PASSK
 {
   "mcpServers": {
     "example-server": {
-      "url": "https://kamui-code.ai/v2v/example",
+      "url": "https://example.com/mcp/server",
       "headers": {
         "KAMUI-CODE-PASS": "${KAMUI_CODE_PASS_KEY}"
       }
