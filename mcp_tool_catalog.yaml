@@ -1,5 +1,5 @@
 metadata:
-  generated_at: '2025-12-28T12:59:06.255312+00:00'
+  generated_at: '2026-01-02T13:30:59.557579+00:00'
   total_servers: 266
   online_servers: 264
   offline_servers: 0
@@ -6482,7 +6482,7 @@ servers:
       type: object
 - id: i2v-kamui-omnihuman-v15
   status: online
-  last_checked: '2025-12-28T12:58:30.623411+00:00'
+  last_checked: '2026-01-02T13:30:16.851621+00:00'
   tools:
   - name: omnihuman_v15_result
     description: ByteDance OmniHuman v1.5の生成完了した動画の結果を取得します。
@@ -6514,6 +6514,12 @@ servers:
         image_url:
           description: 動画生成の元となる人物画像のURL
           type: string
+        prompt:
+          description: 動画生成をガイドするテキストプロンプト（オプション）
+          type: string
+        turbo_mode:
+          description: より高速な生成を有効にする（品質は若干低下）（オプション）
+          type: boolean
       required:
       - image_url
       - audio_url
