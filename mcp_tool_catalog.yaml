@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-02T13:30:59.557579+00:00'
-  total_servers: 266
-  online_servers: 264
+  generated_at: '2026-01-04T13:28:20.433339+00:00'
+  total_servers: 267
+  online_servers: 265
   offline_servers: 0
   error_servers: 2
 servers:
@@ -11039,6 +11039,96 @@ servers:
         output_format:
           default: png
           description: 'Output format (jpeg, png, default: png)'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image to generate
+          type: string
+        seed:
+          description: Random seed for reproducible results
+          type: number
+        sync_mode:
+          description: 'Wait for image generation before returning response (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-qwen-image-2512
+  status: online
+  last_checked: '2026-01-04T13:27:36.690597+00:00'
+  tools:
+  - name: qwen_image_2512_t2i_result
+    description: Get result of completed Qwen Image 2512 Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2512_t2i_status
+    description: Check status of Qwen Image 2512 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2512_t2i_submit
+    description: Submit Qwen Image 2512 Text-to-Image generation request. Qwen Image 2512 is an improved version with better
+      text rendering, finer natural textures, and more realistic human generation. Receive request ID for polling.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular, high. Higher acceleration increases speed (default: regular)'
+          type: string
+        enable_safety_checker:
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4
+          description: 'CFG scale for how closely to follow the prompt (default: 4)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9)
+            or custom object {width: number, height: number} (default: landscape_4_3)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        negative_prompt:
+          description: Negative prompt to avoid certain elements in the generated image
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1, max: 4)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, webp (default: png)'
           type: string
         prompt:
           description: Text prompt describing the desired image to generate
