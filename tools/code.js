@@ -384,14 +384,26 @@ function escapeYamlString(str) {
 }
 
 // ==========================================
-// 再帰的フォルダ探索機能 (Issue #30)
+// 再帰的フォルダ探索機能 (Issue #30) - 修正版
 // ==========================================
 
 // フィルタリング基準日 (2025年11月20日)
 const DEFAULT_TARGET_DATE = new Date('2025-11-20T00:00:00');
 
 /**
+ * 実行時間が制限に近づいているか判定する
+ * @param {number} startTime - 開始時刻
+ * @param {number} limitMs - 制限時間(ms)
+ * @returns {boolean}
+ */
+function isTimeUp(startTime, limitMs) {
+  // 安全マージンとして少し早めに判定 (例: 10秒前)
+  return (Date.now() - startTime) > (limitMs - 10000);
+}
+
+/**
  * 指定フォルダ以下を再帰的に探索し、条件を満たすMCP設定をマージして返す
+ * ★修正: タイムアウト監視を追加
  *
  * フィルタリング条件:
  * 1. 更新日時: 2025年11月20日以降
@@ -400,15 +412,18 @@ const DEFAULT_TARGET_DATE = new Date('2025-11-20T00:00:00');
  *
  * @param {string} folderId - 監視対象のルートフォルダID
  * @param {Date} [targetDate] - 基準日 (デフォルト: 2025-11-20)
- * @returns {{mcpServers: object}} マージされた設定
+ * @param {number} startTime - スクリプト開始時刻
+ * @param {number} timeLimit - 制限時間(ms)
+ * @returns {{mcpServers: object, partial: boolean}} マージされた設定と、スキャンが中断されたかのフラグ
  */
-function fetchAllConfigsRecursive(folderId, targetDate) {
+function fetchAllConfigsRecursive(folderId, targetDate, startTime, timeLimit) {
   targetDate = targetDate || DEFAULT_TARGET_DATE;
 
   const rootFolder = DriveApp.getFolderById(folderId);
   let mergedServers = {};
   let validFileCount = 0;
   let skippedFileCount = 0;
+  let isInterrupted = false; // タイムアウト中断フラグ
 
   console.log(`🔍 Starting recursive scan: ${rootFolder.getName()}`);
   console.log(`📅 Filtering files modified after: ${targetDate.toISOString()}`);
@@ -419,12 +434,28 @@ function fetchAllConfigsRecursive(folderId, targetDate) {
    * @param {string} currentPath - 現在のパス (ログ用)
    */
   function traverse(folder, currentPath) {
+    if (isInterrupted) return; // 既に中断フラグが立っていれば何もしない
+
+    // ★ここで時間をチェック (フォルダ単位)
+    if (isTimeUp(startTime, timeLimit)) {
+      console.warn(`⏳ Scan time limit reached at folder: ${currentPath || 'root'}`);
+      isInterrupted = true;
+      return;
+    }
+
     currentPath = currentPath || '';
     const folderPath = currentPath ? `${currentPath}/${folder.getName()}` : folder.getName();
 
     // 1. ファイルの処理
     const files = folder.getFiles();
     while (files.hasNext()) {
+      // ★ここで時間をチェック (ファイル単位)
+      if (isTimeUp(startTime, timeLimit)) {
+        console.warn(`⏳ Scan time limit reached at file loop: ${folderPath}`);
+        isInterrupted = true;
+        return;
+      }
+
       const file = files.next();
       const fileName = file.getName();
       const filePath = `${folderPath}/${fileName}`;
@@ -467,6 +498,7 @@ function fetchAllConfigsRecursive(folderId, targetDate) {
     // 2. サブフォルダの再帰処理
     const subFolders = folder.getFolders();
     while (subFolders.hasNext()) {
+      if (isInterrupted) return;
       const subFolder = subFolders.next();
       console.log(`📂 Entering folder: ${folderPath}/${subFolder.getName()}`);
       traverse(subFolder, folderPath);
@@ -476,9 +508,9 @@ function fetchAllConfigsRecursive(folderId, targetDate) {
   traverse(rootFolder, '');
 
   const totalServers = Object.keys(mergedServers).length;
-  console.log(`✅ Folder scan complete: ${validFileCount} valid files, ${skippedFileCount} skipped, ${totalServers} unique servers`);
+  console.log(`✅ Folder scan ${isInterrupted ? 'INTERRUPTED' : 'complete'}: ${validFileCount} valid files, ${skippedFileCount} skipped, ${totalServers} unique servers`);
 
-  return { mcpServers: mergedServers };
+  return { mcpServers: mergedServers, partial: isInterrupted };
 }
 
 // ==========================================
@@ -567,9 +599,20 @@ function main() {
   if (folderId) {
     console.log(`📂 Scanning folder recursively: ${folderId}`);
     try {
-      const folderData = fetchAllConfigsRecursive(folderId);
+      // ★修正: タイムアウト監視のために startTime と 制限時間を渡す
+      const folderData = fetchAllConfigsRecursive(folderId, DEFAULT_TARGET_DATE, startTime, CONFIG.MAX_EXECUTION_TIME_MS);
       // フォルダからの設定は後勝ち (上書き)
       mcpData.mcpServers = { ...mcpData.mcpServers, ...folderData.mcpServers };
+
+      // ★追加: スキャン中にタイムアウトした場合の処理
+      if (folderData.partial) {
+        console.warn('⚠️ Drive scan timed out. Suspending execution to avoid incomplete data processing.');
+        // スキャンすら完了していないので、データが不完全な可能性がある。
+        // 無理に処理を進めず、次回実行を予約して終了する。
+        setContinuationTrigger(); 
+        return;
+      }
+
     } catch (e) {
       console.error(`Drive (folder scan) 取得エラー: ${e.message}`);
       return;
@@ -1082,20 +1125,13 @@ function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, model
  */
 function setContinuationTrigger() {
   const props = PropertiesService.getScriptProperties();
-  const existingTriggerId = props.getProperty('CONTINUATION_TRIGGER_ID');
+  
+  // ★修正: 既存のトリガーIDがあっても、それは「今回の実行を起こした古いトリガー」である可能性が高い。
+  // また、再タイムアウト時は「次のための新しいトリガー」が必要なので、
+  // 古いトリガー情報は破棄して、常に新しく作り直す（上書きする）のが正しい。
 
-  // 既に継続トリガーが登録されている場合はスキップ
-  if (existingTriggerId) {
-    const triggers = ScriptApp.getProjectTriggers();
-    for (const trigger of triggers) {
-      if (trigger.getUniqueId() === existingTriggerId) {
-        console.log('Continuation trigger already exists.');
-        return;
-      }
-    }
-    // IDは保存されているがトリガーが見つからない場合はクリア
-    props.deleteProperty('CONTINUATION_TRIGGER_ID');
-  }
+  // 既存の継続トリガーがあれば削除（クリーンアップ）
+  deleteContinuationTriggers();
 
   // 新規トリガーを作成しIDを保存
   const newTrigger = ScriptApp.newTrigger('main').timeBased().after(1 * 60 * 1000).create();
@@ -1149,10 +1185,43 @@ function fetchGithubFile(owner, repo, path, token, branch) {
     headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' },
     muteHttpExceptions: true
   };
+  
   const response = UrlFetchApp.fetch(url, options);
   if (response.getResponseCode() !== 200) throw new Error(`GitHub Error: ${response.getContentText()}`);
+  
   const data = JSON.parse(response.getContentText());
-  return { content: Utilities.newBlob(Utilities.base64Decode(data.content)).getDataAsString('UTF-8'), sha: data.sha };
+  let contentStr = "";
+
+  // ★修正: contentプロパティが存在するか確認
+  if (data.content) {
+    // 1MB以下の通常ファイル
+    contentStr = Utilities.newBlob(Utilities.base64Decode(data.content)).getDataAsString('UTF-8');
+  } else if (data.sha) {
+    // ★重要修正: data.contentがない(1MB超)場合、Git Blobs APIを使って安全に取得する
+    // download_url はリダイレクトや認証で不安定なため使用しない
+    console.log(`Info: File ${path} is large. Fetching raw content via Blobs API (SHA: ${data.sha}).`);
+    
+    // Blobs API エンドポイント
+    const blobUrl = `https://api.github.com/repos/${owner}/${repo}/git/blobs/${data.sha}`;
+    const blobOptions = {
+      method: 'get',
+      headers: { 
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3.raw' // Raw形式(テキスト)で取得
+      },
+      muteHttpExceptions: true
+    };
+    
+    const blobResponse = UrlFetchApp.fetch(blobUrl, blobOptions);
+    if (blobResponse.getResponseCode() !== 200) {
+      throw new Error(`Failed to fetch blob content: ${blobResponse.getContentText()}`);
+    }
+    contentStr = blobResponse.getContentText();
+  } else {
+    throw new Error('GitHub API response contained neither content nor sha.');
+  }
+
+  return { content: contentStr, sha: data.sha };
 }
 
 function updateGithubFile(owner, repo, path, newContent, sha, message, token, branch) {
