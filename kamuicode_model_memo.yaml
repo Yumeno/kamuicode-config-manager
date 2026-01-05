@@ -164,6 +164,10 @@ ai_models:
       server_name: t2i-kamui-wan-v26
       release_date: 2025年12月15日
       features: "(Alibaba Cloud) 中国語と英語に対応した高品質な画像生成モデル。動画生成モデルWan 2.6シリーズの一部として提供され、参照画像によるスタイル制御や忠実なプロンプト反映が可能。"
+    - name: Qwen Image 2512
+      server_name: t2i-kamui-qwen-image-2512
+      release_date: 2025年12月31日
+      features: "(Alibaba Cloud) 人物のリアリズム、自然なテクスチャ、テキストレンダリング能力が大幅に向上したQwenシリーズの最新画像生成モデル。Kamui Codeによる提供。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
