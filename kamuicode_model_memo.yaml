@@ -526,6 +526,14 @@ ai_models:
       server_name: t2v-kamui-kandinsky5-pro
       release_date: 2025年11月20日
       features: "(AI-Forever) 19Bパラメータを持つKandinsky 5.0シリーズの最上位動画生成モデル。Flow Matchingを採用し、高品質なHD動画生成やカメラコントロールに対応。"
+    - name: LTX-2 19B Distilled
+      server_name: t2v-kamui-fal-ltx-2-19b-distilled-text-to-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) 190億パラメータを持つLTX-2の蒸留モデル。テキストから高品質な動画と同期した音声を同時に生成可能。推論速度と品質のバランスに優れる。"
+    - name: LTX-2 (19B)
+      server_name: t2v-kamui-fal-ltx-2-19b-text-to-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) ネイティブ4K解像度と同期オーディオ生成に対応した19Bパラメータの動画生成モデル。高品質な動画と音声を同時に生成可能なオープンウェイトモデル。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -691,6 +699,14 @@ ai_models:
       server_name: i2v-kamui-kandinsky5-pro
       release_date: 2025年11月20日
       features: "(AI-Forever) ロシアSber AI発の190億パラメータを持つ大規模な動画生成モデル。テキストおよび画像入力に対応し、高品質な動画生成が可能。オープンソースとして公開されている。"
+    - name: LTX-2 19B Distilled
+      server_name: i2v-kamui-fal-ltx-2-19b-distilled-image-to-video
+      release_date: 2026年1月5日
+      features: "(Lightricks) 次世代のオープンウェイト動画生成モデルLTX-2の蒸留版。19Bパラメータを持ち、画像とテキストから音声同期（Audio-Video）された高品質な動画を高速に生成可能。4K解像度対応。"
+    - name: LTX-2 19B
+      server_name: i2v-kamui-fal-ltx-2-19b-image-to-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) 4K解像度・50fpsでの生成が可能な19Bパラメータのオープンソース動画生成モデル。画像からの動画生成に加え、音声の同期生成にも対応。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -840,6 +856,14 @@ ai_models:
       server_name: v2v-kamui-decart-lucy-restyle
       release_date: 2024年11月13日
       features: "(Decart AI) 長尺動画（最大30分）のスタイル変換に特化したAIモデル。時間的一貫性を維持しながら、プロンプトで指定したアートスタイルへ動画全体を変換できる。fal.ai独自の提携モデルとして提供。"
+    - name: LTX-2 (19B)
+      server_name: v2v-kamui-fal-ltx-2-19b-extend-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) ネイティブ4K解像度、50fps、音声同期生成に対応したオープンウェイトの動画生成モデル。Extend Video機能により、プロンプトに基づいて既存の動画を拡張可能。"
+    - name: LTX-2 19B Distilled Extend Video
+      server_name: v2v-kamui-fal-ltx-2-19b-distilled-extend-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) 高品質な動画生成モデルLTX-2の19B蒸留版を使用した動画拡張モデル。テキストプロンプトに基づいて動画の続きを生成でき、映像に同期した音声を生成する機能も備えている。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
