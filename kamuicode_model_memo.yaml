@@ -1015,6 +1015,10 @@ ai_models:
       server_name: t2m-kamui-sonauto-v2-text-to-music
       release_date: 2025年1月7日
       features: "(Sonauto) テキストから歌詞付きの高品質な楽曲を生成するAIモデル。潜在拡散モデル'Melodia'を採用しており、ボーカルの明瞭さと楽曲構成力に優れる。Webサービス版と同時に商用APIとしても展開されている。"
+    - name: ElevenLabs Music
+      server_name: t2m-kamui-elevenlabs-music
+      release_date: 2025年8月5日
+      features: "(ElevenLabs) テキストプロンプトから高品質な楽曲を生成するAIモデル。ボーカル入り・インストゥルメンタルの選択、詳細な楽曲構成（イントロ、Aメロ、サビ等）の指定が可能で、日本語を含む多言語ボーカルに対応。権利クリアなデータで学習されており商用利用に適している。"
   video_to_audio:
     - name: ThinkSound (fal.ai)
       server_name: v2a-kamui-thinksound
