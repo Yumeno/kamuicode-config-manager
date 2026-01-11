@@ -393,6 +393,10 @@ ai_models:
       server_name: i2i-kamui-wan-v26
       release_date: 2025年12月15日
       features: "(Alibaba) 1〜3枚の参照画像を使用してスタイル転送や被写体の一貫性を保った画像生成・編集が可能なモデル。プロンプト内で「image 1」のように参照を指定でき、高度な構成の画像を生成できる。"
+    - name: Qwen Image Edit 2511 Multiple Angles
+      server_name: i2i-kamui-qwen-image-edit-2511-multiple-angles
+      release_date: 2025年12月23日
+      features: "(Alibaba Cloud / fal.ai) Qwen-Image-Edit-2511にカメラアングル制御用LoRAを統合したモデル。水平・垂直方向のアングル指定やズームレベルの調整により、被写体の一貫性を保ちながら視点を自由に変更できる画像編集が可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -918,6 +922,10 @@ ai_models:
       server_name: flf2v-kamui-veo31
       release_date: 2025年10月15日 #[修正] fal.aiローンチ日 (ソース124, 153, 204)
       features: "(Google) 動画の「最初のフレーム」と「最後のフレーム」を指定し、その間をAIが滑らかに補間・アニメーション生成する。"
+    - name: Veo 3.1 Fast First-Last-Frame-to-Video
+      server_name: flf2v-kamui-veo31-fast
+      release_date: 2025年10月15日
+      features: "(Google DeepMind) 始点と終点の2枚の画像をキーフレームとして指定し、その間を滑らかに補間する動画生成モデル。Veo 3.1 Fastを使用しており、720p/1080pの解像度、最大8秒の動画生成、音声生成に対応。fal.aiを通じて提供される。"
   speech_to_video:
     - name: WAN v2.2-14b (Speech-to-Video) (fal.ai)
       server_name: s2v-kamui-wan-v2-2-14b
