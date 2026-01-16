@@ -1,5 +1,5 @@
 metadata:
-  generated_at: '2026-01-07T13:38:29.742813+00:00'
+  generated_at: '2026-01-16T13:35:57.761211+00:00'
   total_servers: 273
   online_servers: 271
   offline_servers: 0
@@ -7202,7 +7202,7 @@ servers:
       type: object
 - id: i2v-kamui-veo31
   status: online
-  last_checked: '2026-01-07T13:37:50.989784+00:00'
+  last_checked: '2026-01-16T13:35:17.559016+00:00'
   tools:
   - name: veo31_i2v_result
     description: Get result of completed Veo3.1 image-to-video generation.
@@ -7233,6 +7233,10 @@ servers:
           default: auto
           description: 'Aspect ratio of the generated video (auto, 16:9, 9:16, 1:1, default: auto)'
           type: string
+        auto_fix:
+          description: Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them.
+          type: boolean
         duration:
           default: 8s
           description: Duration of the generated video in seconds. Only '8s' is currently supported.
@@ -7245,14 +7249,20 @@ servers:
           description: URL of the input image to animate. Should be 720p or higher resolution in 16:9 or 9:16 aspect ratio,
             up to 8MB in size.
           type: string
+        negative_prompt:
+          description: A negative prompt to guide the video generation.
+          type: string
         prompt:
           description: Text prompt describing how the image should be animated. Include action, style, camera motion, and
             ambiance.
           type: string
         resolution:
           default: 720p
-          description: 'Resolution of the generated video (720p, 1080p, default: 720p)'
+          description: 'Resolution of the generated video (720p, 1080p, 4k, default: 720p)'
           type: string
+        seed:
+          description: The seed for the random number generator.
+          type: number
       required:
       - prompt
       - image_url
@@ -14211,7 +14221,7 @@ servers:
       type: object
 - id: t2v-kamui-veo31
   status: online
-  last_checked: '2026-01-07T13:37:57.793073+00:00'
+  last_checked: '2026-01-16T13:35:24.795649+00:00'
   tools:
   - name: veo31_result
     description: Get result of completed Veo3.1 video generation.
@@ -14239,23 +14249,20 @@ servers:
       properties:
         aspect_ratio:
           default: '16:9'
-          description: 'Aspect ratio of the generated video (16:9, 9:16, 1:1, default: 16:9)'
+          description: 'Aspect ratio of the generated video (16:9, 9:16, default: 16:9)'
           type: string
         auto_fix:
           default: true
-          description: 'Whether to automatically attempt to fix prompts that fail content policy (default: true)'
+          description: 'Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them (default: true)'
           type: boolean
         duration:
           default: 8s
           description: 'Duration of the generated video in seconds (4s, 6s, 8s, default: 8s)'
           type: string
-        enhance_prompt:
-          default: true
-          description: 'Whether to enhance the video generation (default: true)'
-          type: boolean
         generate_audio:
           default: true
-          description: 'Whether to generate audio for the video. If false, 33% less credits will be used. (default: true)'
+          description: 'Whether to generate audio for the video (default: true)'
           type: boolean
         negative_prompt:
           description: A negative prompt to guide the video generation
@@ -14265,10 +14272,10 @@ servers:
           type: string
         resolution:
           default: 720p
-          description: 'Resolution of the generated video (720p, 1080p, default: 720p)'
+          description: 'Resolution of the generated video (720p, 1080p, 4k, default: 720p)'
           type: string
         seed:
-          description: A seed to use for the video generation
+          description: The seed for the random number generator
           type: number
       required:
       - prompt
