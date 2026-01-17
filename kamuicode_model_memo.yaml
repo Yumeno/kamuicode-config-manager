@@ -168,6 +168,10 @@ ai_models:
       server_name: t2i-kamui-qwen-image-2512
       release_date: 2025年12月31日
       features: "(Alibaba Cloud) 人物のリアリズム、自然なテクスチャ、テキストレンダリング能力が大幅に向上したQwenシリーズの最新画像生成モデル。Kamui Codeによる提供。"
+    - name: GLM-Image
+      server_name: t2i-kamui-fal-glm-image
+      release_date: 2026年1月14日
+      features: "(Zhipu AI) 高度なテキストレンダリング能力を持つ画像生成モデル。9Bの自己回帰モデルでレイアウトを計画し、7Bの拡散モデルで描画するハイブリッドアーキテクチャを採用しており、複雑なテキストや知識集約的な画像の生成に優れる。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -397,6 +401,10 @@ ai_models:
       server_name: i2i-kamui-qwen-image-edit-2511-multiple-angles
       release_date: 2025年12月23日
       features: "(Alibaba Cloud / fal.ai) Qwen-Image-Edit-2511にカメラアングル制御用LoRAを統合したモデル。水平・垂直方向のアングル指定やズームレベルの調整により、被写体の一貫性を保ちながら視点を自由に変更できる画像編集が可能。"
+    - name: GLM-Image
+      server_name: i2i-kamui-fal-glm-image-image-to-image
+      release_date: 2026年1月14日
+      features: "(Zhipu AI) 9Bの自己回帰型モデルと7Bの拡散モデルを統合したハイブリッドアーキテクチャを持つオープンソース画像生成モデル。テキストレンダリングの精度が非常に高く、Image-to-Image機能では参照画像を用いた高度な編集やスタイル変換が可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -868,6 +876,18 @@ ai_models:
       server_name: v2v-kamui-fal-ltx-2-19b-distilled-extend-video
       release_date: 2026年1月6日
       features: "(Lightricks) 高品質な動画生成モデルLTX-2の19B蒸留版を使用した動画拡張モデル。テキストプロンプトに基づいて動画の続きを生成でき、映像に同期した音声を生成する機能も備えている。"
+    - name: LTX-2 19B Distilled Video-to-Video
+      server_name: v2v-kamui-fal-ltx-2-19b-distilled-video-to-video
+      release_date: 2026年1月6日
+      features: "(Lightricks) 190億パラメータを持つ動画生成モデル「LTX-2」の蒸留版。動画から動画への変換（V2V）に特化しており、プロンプトによるスタイル変換やIC-LoRAを用いたポーズ制御などが可能。音声の同時生成やネイティブ4K解像度にも対応するオープンウェイトモデル。"
+    - name: LTX-2 19B
+      server_name: v2v-kamui-fal-ltx-2-19b-video-to-video
+      release_date: 2026年1月5日
+      features: "(Lightricks) 音声と動画を同時に生成・編集可能な190億パラメータのDiTベース基盤モデル。動画からのスタイル変換やリファインに対応し、高い忠実度と一貫性を持つオープンウェイトモデル。"
+    - name: Crystal Video Upscaler
+      server_name: v2v-kamui-fal-clarityai-crystal-video-upscaler
+      release_date: 2026年1月13日
+      features: "(Clarity AI) 元動画の忠実性を最優先し、顔のディテールや肌の質感を維持する動画アップスケーラー。プロンプト不要で、最大5K解像度までの高画質化が可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1050,6 +1070,10 @@ ai_models:
       server_name: a2t-kamui-audio-understanding
       release_date: 2025年中頃 #[修正] (ソース27, 40, 90)
       features: "\"(fal.ai) 音声ファイル（URLまたはBase64）をアップロードし、その内容について「何が話されていますか？」などの質問に回答する（音声認識＋AIによる内容理解）。\" #[検証済] (ソース27, 90)"
+    - name: Silero VAD
+      server_name: a2t-kamui-fal-silero-vad
+      release_date: 2020年12月15日
+      features: "(Silero Team) 軽量かつ高精度な音声区間検出（VAD）モデル。6000以上の言語に対応し、CPU単一スレッドでも1ms以下で処理可能な高速性が特徴。音声認識の前処理や無音区間のカットなどに広く利用される。"
   text_to_visual:
     - name: Napkin AI
       server_name: t2visual-kamui-napkin
@@ -1122,6 +1146,10 @@ ai_models:
       server_name: 3d23d-kamui-meshy-v5-remesh
       release_date: 2024年12月頃
       features: "(Meshy) Meshy-5モデルを使用した3Dリメッシュ機能。3Dモデルのトポロジー最適化（四角形/三角形）、ポリゴン数削減、フォーマット変換を行い、ジオメトリを簡素化または洗練させるツール。"
+    - name: UltraShape 1.0
+      server_name: 3d23d-kamui-ultrashape
+      release_date: 2025年12月26日
+      features: "(PKU-YuanGroup) 粗い3Dメッシュを参照画像を用いてリファインメントし、高品質なジオメトリを生成するモデル。Hunyuan3D-2.1などで生成された粗いメッシュを入力とし、ボクセルベースの処理を行うことで、詳細でシャープな3Dモデル（GLB）を出力する。"
   training:
     - name: FLUX.2 Trainer (Kamui Code)
       server_name: train-kamui-flux-2-trainer
@@ -1152,6 +1180,14 @@ ai_models:
       server_name: video-analysis-kamui
       release_date: N/A (Utility)
       features: "(Google) Geminiモデルを使用して、アップロードされた動画の内容を分析・理解する機能。"
+    - name: Fal OpenRouter Router Video
+      server_name: video-analysis-kamui-openrouter-router-video
+      release_date: 2025年6月17日
+      features: "(Fal / OpenRouter) OpenRouterを経由してGemini 2.5 FlashなどのLLMを利用し、動画の解析や理解を行う機能。Kamui Codeを通じて、動画入力に対応した複数の最新モデルにアクセス可能。"
+    - name: Kamui Video Analysis (OpenRouter)
+      server_name: video-analysis-kamui-openrouter
+      release_date: 2025年6月17日
+      features: "(Kamui Code) OpenRouterを経由してGemini 2.5 FlashなどのLLMを利用する動画解析ルーター。Gemini 2.5 FlashはGoogleが開発した高速・低遅延なマルチモーダルモデルで、長時間の動画理解に優れる。"
   voice_clone:
     - name: MiniMax Voice Clone
       server_name: voice-clone-kamui-minimax
@@ -1182,3 +1218,15 @@ ai_models:
       server_name: voice-kamui-kling-video-create-voice
       release_date: 2025年12月16日
       features: "(Kuaishou) Kling 2.6 VideoモデルのVoice Control機能で使用するカスタムボイスを作成するモデル。5〜30秒の音声クリップから話者の声質を学習し、動画生成時のキャラクターの発話やリップシンクに適用できる。"
+
+  audio_to_audio:
+    - name: NovaSR
+      server_name: a2a-kamui-nova-sr
+      release_date: 2026年1月13日
+      features: "(Yatharth Sharma) わずか52KBという超軽量かつ高速な音声超解像モデル。16kHzの音声を48kHzにアップサンプリングし、TTSの出力や低品質な音声データの明瞭度を劇的に向上させる。"
+
+  image_audio_to_video:
+    - name: LongCat Avatar (LongCat-Video-Avatar)
+      server_name: ia2v-kamui-fal-longcat-multi-avatar
+      release_date: 2025年12月16日
+      features: "(Meituan) 画像と音声から高品質なリップシンク動画を生成するモデル。複数話者の個別制御や長時間の動画生成に対応しており、13.6BパラメータのDiffusion Transformerアーキテクチャを採用している。"
