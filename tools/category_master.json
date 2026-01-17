@@ -114,6 +114,10 @@
     "voice": {
       "category_key": "voice_cloning",
       "description": "話者の音声サンプルから特徴を学習し、その声を再現するモデルやプロファイルを作成する技術。"
+    },
+    "a2a": {
+      "category_key": "audio_to_audio",
+      "description": "音声を入力とし、音質の改善、スタイル変換、修復などを行った音声を出力するモデル。"
     }
   }
 }
