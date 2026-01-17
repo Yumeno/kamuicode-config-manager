@@ -118,6 +118,10 @@
     "a2a": {
       "category_key": "audio_to_audio",
       "description": "音声を入力とし、音質の改善、スタイル変換、修復などを行った音声を出力するモデル。"
+    },
+    "ia2v": {
+      "category_key": "image_audio_to_video",
+      "description": "画像と音声を入力として、音声に合わせて動く動画（リップシンク、アバター生成など）を出力するAIモデル。"
     }
   }
 }
