@@ -96,7 +96,10 @@ function getConfig() {
     DRIVE_FILE_CONFIGS: driveFileConfigs,
 
     // フォルダ再帰探索設定 (配列)
-    DRIVE_FOLDER_IDS: driveFolderIds
+    DRIVE_FOLDER_IDS: driveFolderIds,
+
+    // Resume用キャッシュフォルダID (状態ファイルの保存先)
+    RESUME_CACHE_FOLDER_ID: props.getProperty('RESUME_CACHE_FOLDER_ID') || null
   };
 }
 
@@ -167,12 +170,28 @@ function isTimeUp(startTime, limitMs) {
  * JSONデータをGoogle Driveの一時ファイルとして保存する
  * @param {string} filename - ファイル名
  * @param {Object} data - 保存するデータ
+ * @param {string|null} folderId - 保存先フォルダID (nullの場合はルートフォルダ)
  * @returns {string} 作成されたファイルのID
  */
-function saveStateToDrive(filename, data) {
+function saveStateToDrive(filename, data, folderId) {
   const blob = Utilities.newBlob(JSON.stringify(data), 'application/json', filename);
-  // ルートフォルダに作成（新規作成してIDを返す）
-  const file = DriveApp.createFile(blob);
+  let file;
+
+  if (folderId) {
+    try {
+      // 指定フォルダにファイルを作成
+      const folder = DriveApp.getFolderById(folderId);
+      file = folder.createFile(blob);
+      console.log(`📁 State saved to folder: ${folder.getName()}`);
+    } catch (e) {
+      console.warn(`⚠️ Failed to access folder ${folderId}: ${e.message}. Falling back to root folder.`);
+      file = DriveApp.createFile(blob);
+    }
+  } else {
+    // フォルダ未指定の場合はルートフォルダに作成
+    file = DriveApp.createFile(blob);
+  }
+
   return file.getId();
 }
 
@@ -427,7 +446,7 @@ function main() {
         // 古い状態ファイルがあれば削除（重複防止）
         if (scanStateId) deleteFileFromDrive(scanStateId);
 
-        const newScanStateId = saveStateToDrive('kamui_scan_state_temp.json', scanState);
+        const newScanStateId = saveStateToDrive('kamui_scan_state_temp.json', scanState, CONFIG.RESUME_CACHE_FOLDER_ID);
         props.setProperty('SCAN_STATE_FILE_ID', newScanStateId);
         setContinuationTrigger();
         return; // 終了、1分後に再開
@@ -445,7 +464,7 @@ function main() {
     }
 
     // 調査フェーズ用にセッションデータを保存
-    const newSessionId = saveStateToDrive('kamui_session_data.json', mcpData);
+    const newSessionId = saveStateToDrive('kamui_session_data.json', mcpData, CONFIG.RESUME_CACHE_FOLDER_ID);
     props.setProperty('SESSION_DATA_FILE_ID', newSessionId);
 
     // --- 差分チェック & キュー作成 ---
