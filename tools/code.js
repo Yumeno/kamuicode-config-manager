@@ -53,8 +53,9 @@ function getConfig() {
   // Drive File IDsのパース処理 (JSON配列形式 or カンマ区切り)
   const driveFileConfigs = parseDriveFileIds(props);
 
-  // フォルダID (再帰探索用)
-  const driveFolderId = (props.getProperty('DRIVE_FOLDER_ID') || '').trim();
+  // フォルダID (再帰探索用) - カンマ区切りで配列化
+  const rawFolderIds = props.getProperty('DRIVE_FOLDER_ID') || '';
+  const driveFolderIds = rawFolderIds.split(',').map(id => id.trim()).filter(id => id);
 
   return {
     // GitHub設定
@@ -82,8 +83,8 @@ function getConfig() {
     // Drive設定 (複数ファイル対応)
     DRIVE_FILE_CONFIGS: driveFileConfigs,
 
-    // フォルダ再帰探索設定 (Issue #30)
-    DRIVE_FOLDER_ID: driveFolderId
+    // フォルダ再帰探索設定 (配列に変更)
+    DRIVE_FOLDER_IDS: driveFolderIds
   };
 }
 
@@ -564,14 +565,14 @@ function main() {
 
   // Drive設定の確認 (複数ファイル対応 + フォルダ探索)
   const fileConfigs = CONFIG.DRIVE_FILE_CONFIGS;
-  const folderId = CONFIG.DRIVE_FOLDER_ID;
+  const folderIds = CONFIG.DRIVE_FOLDER_IDS; // 配列として取得
 
   if (!geminiKey || !githubToken || !geminiModel) {
     console.error('設定不足: スクリプトプロパティ(GEMINI_API_KEY, GITHUB_TOKEN, GEMINI_MODEL_NAME)を確認してください。');
     return;
   }
 
-  if (fileConfigs.length === 0 && !folderId) {
+  if (fileConfigs.length === 0 && folderIds.length === 0) {
     console.error('設定不足: DRIVE_JSON_FILE_IDS、DRIVE_JSON_FILE_ID、または DRIVE_FOLDER_ID のいずれかを設定してください。');
     return;
   }
@@ -595,27 +596,28 @@ function main() {
     }
   }
 
-  // Step 1b: フォルダ再帰探索からの読み込み (Issue #30)
-  if (folderId) {
-    console.log(`📂 Scanning folder recursively: ${folderId}`);
-    try {
-      // ★修正: タイムアウト監視のために startTime と 制限時間を渡す
-      const folderData = fetchAllConfigsRecursive(folderId, DEFAULT_TARGET_DATE, startTime, CONFIG.MAX_EXECUTION_TIME_MS);
-      // フォルダからの設定は後勝ち (上書き)
-      mcpData.mcpServers = { ...mcpData.mcpServers, ...folderData.mcpServers };
+  // Step 1b: フォルダ再帰探索からの読み込み (複数フォルダ対応)
+  if (folderIds.length > 0) {
+    for (const fId of folderIds) {
+      console.log(`📂 Scanning folder recursively: ${fId}`);
+      try {
+        // タイムアウト監視のため startTime を引き継ぐ
+        const folderData = fetchAllConfigsRecursive(fId, DEFAULT_TARGET_DATE, startTime, CONFIG.MAX_EXECUTION_TIME_MS);
+        // フォルダからの設定は後勝ち (上書き)
+        mcpData.mcpServers = { ...mcpData.mcpServers, ...folderData.mcpServers };
 
-      // ★追加: スキャン中にタイムアウトした場合の処理
-      if (folderData.partial) {
-        console.warn('⚠️ Drive scan timed out. Suspending execution to avoid incomplete data processing.');
-        // スキャンすら完了していないので、データが不完全な可能性がある。
-        // 無理に処理を進めず、次回実行を予約して終了する。
-        setContinuationTrigger(); 
-        return;
+        // スキャン中にタイムアウトした場合の処理
+        if (folderData.partial) {
+          console.warn('⚠️ Drive scan timed out. Suspending execution to avoid incomplete data processing.');
+          // スキャンすら完了していないので、データが不完全な可能性がある。
+          // 無理に処理を進めず、次回実行を予約して終了する。
+          setContinuationTrigger();
+          return;
+        }
+      } catch (e) {
+        console.error(`Drive (folder scan) 取得エラー [${fId}]: ${e.message}`);
+        // 1つのフォルダで失敗しても他は続行する場合は return しない
       }
-
-    } catch (e) {
-      console.error(`Drive (folder scan) 取得エラー: ${e.message}`);
-      return;
     }
   }
 
