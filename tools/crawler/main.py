@@ -181,15 +181,17 @@ async def main() -> int:
         if legacy_id:
             file_configs = [{"name": "Default", "id": legacy_id.strip()}]
 
-    # Check for folder scan mode
-    folder_id = os.environ.get("DRIVE_FOLDER_ID", "").strip()
+    # Check for folder scan mode (カンマ区切り対応)
+    folder_ids_str = os.environ.get("DRIVE_FOLDER_ID", "")
+    folder_ids = [fid.strip() for fid in folder_ids_str.split(",") if fid.strip()]
+
     google_api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
 
-    if folder_id and not google_api_key:
+    if folder_ids and not google_api_key:
         logger.error("GOOGLE_API_KEY is required when using DRIVE_FOLDER_ID")
         return 1
 
-    if not file_configs and not folder_id:
+    if not file_configs and not folder_ids:
         logger.error("Either DRIVE_FILE_IDS/DRIVE_FILE_ID or DRIVE_FOLDER_ID must be set")
         return 1
 
@@ -223,21 +225,22 @@ async def main() -> int:
             logger.error(f"Failed to fetch MCP config from explicit files: {e}")
             return 1
 
-    # Step 1b: Fetch from folder scan (if enabled)
-    if folder_id:
-        logger.info(f"Step 1b: Scanning folder recursively: {folder_id}")
-        try:
-            folder_candidates = await drive_client.fetch_mcp_configs_from_folder(
-                folder_id, google_api_key
-            )
-            # Merge into server_candidates (folder configs appended, so they take priority)
-            for server_id, configs in folder_candidates.items():
-                if server_id not in server_candidates:
-                    server_candidates[server_id] = []
-                server_candidates[server_id].extend(configs)
-        except Exception as e:
-            logger.error(f"Failed to scan folder: {e}")
-            return 1
+    # Step 1b: Fetch from folder scan (if enabled) - Loop over folders
+    if folder_ids:
+        for f_id in folder_ids:
+            logger.info(f"Step 1b: Scanning folder recursively: {f_id}")
+            try:
+                folder_candidates = await drive_client.fetch_mcp_configs_from_folder(
+                    f_id, google_api_key
+                )
+                # Merge into server_candidates (folder configs appended, so they take priority)
+                for server_id, configs in folder_candidates.items():
+                    if server_id not in server_candidates:
+                        server_candidates[server_id] = []
+                    server_candidates[server_id].extend(configs)
+            except Exception as e:
+                logger.error(f"Failed to scan folder {f_id}: {e}")
+                return 1
 
     if not server_candidates:
         logger.warning("No MCP servers found in configuration")
