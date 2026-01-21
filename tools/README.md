@@ -86,7 +86,8 @@ GASエディタの「プロジェクトの設定 (歯車アイコン)」 \> 「�
 | GEMINI\_MODEL\_NAME | ✅ | gemini-1.5-pro (使用するGeminiモデル名) |
 | DRIVE\_JSON\_FILE\_IDS | △ | JSON配列形式 (下記参照) - 推奨 |
 | DRIVE\_JSON\_FILE\_ID | △ | 1A2b3C... (単一ファイルID、後方互換用) |
-| DRIVE\_FOLDER\_ID | △ | 1FolderID... (フォルダ再帰探索用 - Issue #30) |
+| DRIVE\_FOLDER\_ID | △ | id1,id2,... (フォルダ再帰探索用 - カンマ区切りで複数指定可) |
+| RESUME\_CACHE\_FOLDER\_ID | | Resumeの状態ファイルを保存するフォルダID |
 
 **△注意**: `DRIVE_JSON_FILE_IDS`、`DRIVE_JSON_FILE_ID`、`DRIVE_FOLDER_ID` のいずれか1つ以上が必須です。
 
@@ -110,9 +111,14 @@ GASエディタの「プロジェクトの設定 (歯車アイコン)」 \> 「�
 #### **フォルダ再帰探索 (DRIVE\_FOLDER\_ID) - Issue #30 新機能**
 
 指定したGoogle Driveフォルダ以下を再帰的に探索し、条件を満たすMCP設定ファイルを自動検出します。
+**カンマ区切りで複数のフォルダIDを指定可能**です。
 
 ```
+# 単一フォルダ
 DRIVE_FOLDER_ID=1FolderID_Here
+
+# 複数フォルダ（カンマ区切り）
+DRIVE_FOLDER_ID=1FolderA,1FolderB,1FolderC
 ```
 
 **フィルタリング条件**:
@@ -133,9 +139,27 @@ DRIVE_FOLDER_ID=1FolderID_Here
 # 個別ファイルとフォルダの併用
 DRIVE_JSON_FILE_IDS=[{"name": "Default", "id": "1ABC..."}]
 DRIVE_FOLDER_ID=1FolderID_Here
+
+# 複数フォルダの併用
+DRIVE_JSON_FILE_IDS=[{"name": "Default", "id": "1ABC..."}]
+DRIVE_FOLDER_ID=1FolderA,1FolderB,1FolderC
 ```
 
-この設定では、まず `1ABC...` のファイルを読み込み、その後 `1FolderID_Here` フォルダ内の有効なJSONファイルを全て探索してマージします。
+この設定では、まず明示的に指定したファイルを読み込み、その後指定した全フォルダ内の有効なJSONファイルを探索してマージします。
+
+#### **Resume用キャッシュフォルダ (RESUME\_CACHE\_FOLDER\_ID)**
+
+GASの実行時間制限（6分）対策のResume機能で使用する状態ファイルの保存先フォルダを指定します。
+
+```
+RESUME_CACHE_FOLDER_ID=1CacheFolderID
+```
+
+* **未設定の場合**: Google Driveのルートフォルダに一時ファイルが保存されます
+* **設定時**: 指定フォルダに `kamui_scan_state_temp.json` や `kamui_session_data.json` が保存されます
+* **フォルダ未アクセス時**: フォールバックとしてルートフォルダに保存
+
+**推奨**: 一時ファイルの整理が容易になるため、専用フォルダを作成して設定することを推奨します。
 
 ### **4.4. 初回実行と権限承認**
 
@@ -237,3 +261,4 @@ DRIVE_FOLDER_ID=1FolderID_Here
 *Updated: 2025-12-02 (Issue #23 対応)*
 *Updated: 2025-12-06 (Issue #26 マルチソースJSON対応)*
 *Updated: 2025-12-17 (Issue #30 フォルダ再帰探索機能追加)*
+*Updated: 2026-01-21 (複数フォルダID対応、RESUME\_CACHE\_FOLDER\_ID追加)*
