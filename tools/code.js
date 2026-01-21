@@ -225,6 +225,12 @@ function deleteFileFromDrive(fileId) {
 function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
   let isInterrupted = false;
 
+  // 処理済みファイルセットの初期化（Resume対応）
+  // scanState.processedFiles: { folderId: Set<fileName> } の形式で管理
+  if (!scanState.processedFiles) {
+    scanState.processedFiles = {};
+  }
+
   // scanQueue: 探索待ちのフォルダIDリスト (FIFO: 幅優先探索)
   while (scanState.scanQueue.length > 0) {
     // 時間チェック (フォルダ単位)
@@ -237,6 +243,9 @@ function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
     // キューから先頭のフォルダを取り出す
     const currentFolderId = scanState.scanQueue.shift();
 
+    // このフォルダの処理済みファイルセットを取得（なければ空セット）
+    const processedInThisFolder = new Set(scanState.processedFiles[currentFolderId] || []);
+
     try {
       const folder = DriveApp.getFolderById(currentFolderId);
 
@@ -245,8 +254,8 @@ function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
       while (files.hasNext()) {
         // 時間チェック (ファイル単位)
         if (isTimeUp(startTime, timeLimit)) {
-          // 時間切れの場合、現在のフォルダをキューの先頭に戻して中断
-          // これにより、次回実行時にこのフォルダから再開できる
+          // 時間切れの場合、処理済みファイル情報を保存してフォルダをキューの先頭に戻す
+          scanState.processedFiles[currentFolderId] = Array.from(processedInThisFolder);
           scanState.scanQueue.unshift(currentFolderId);
           console.warn('⏳ Scan time limit reached (file loop). Suspending...');
           isInterrupted = true;
@@ -255,6 +264,9 @@ function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
 
         const file = files.next();
         const fileName = file.getName();
+
+        // 条件0: すでに処理済みのファイルはスキップ（Resume時の堂々巡り防止）
+        if (processedInThisFolder.has(fileName)) continue;
 
         // 条件1: 拡張子が .json であること
         if (!fileName.endsWith('.json')) continue;
@@ -274,9 +286,15 @@ function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
         } catch (e) {
           // JSONパースエラー等は無視して次のファイルへ
         }
+
+        // 処理済みとしてマーク
+        processedInThisFolder.add(fileName);
       }
 
       if (isInterrupted) break;
+
+      // フォルダ処理完了: 処理済みファイル情報をクリーンアップ（不要になったため）
+      delete scanState.processedFiles[currentFolderId];
 
       // 2. サブフォルダをキューに追加 (幅優先探索)
       const subFolders = folder.getFolders();
@@ -288,6 +306,8 @@ function performIterativeScan(scanState, targetDate, startTime, timeLimit) {
     } catch (e) {
       console.warn(`❌ Error accessing folder ${currentFolderId}: ${e.message}`);
       // アクセス権限がないなどの場合、このフォルダはスキップして次へ
+      // 処理済みファイル情報もクリーンアップ
+      delete scanState.processedFiles[currentFolderId];
     }
   }
 
@@ -343,7 +363,13 @@ function main() {
     if (sessionData) {
       mcpData = sessionData;
     } else {
-      console.error('❌ Failed to load session data. Aborting.');
+      // セッションデータの読み込み失敗: 状態をクリアして新規スキャンからやり直す
+      console.error('❌ Failed to load session data. Clearing state and restarting...');
+      props.deleteProperty('PROCESSING_QUEUE');
+      props.deleteProperty('SESSION_DATA_FILE_ID');
+      props.deleteProperty('COMMITTED_RESULTS');
+      deleteContinuationTriggers();
+      // 次回実行で新規スキャンが開始される
       return;
     }
   }
@@ -352,7 +378,7 @@ function main() {
   // -----------------------------------------------
   else {
     let scanStateId = props.getProperty('SCAN_STATE_FILE_ID');
-    let scanState = { scanQueue: [], foundServers: {} };
+    let scanState = { scanQueue: [], foundServers: {}, processedFiles: {} };
 
     // スキャン中断からの再開チェック
     if (scanStateId) {
@@ -360,8 +386,15 @@ function main() {
       const loaded = loadStateFromDrive(scanStateId);
       if (loaded) {
         scanState = loaded;
+        // processedFilesが古い形式（存在しない）場合は初期化
+        if (!scanState.processedFiles) {
+          scanState.processedFiles = {};
+        }
+        const pendingFilesCount = Object.values(scanState.processedFiles).reduce((sum, arr) => sum + arr.length, 0);
+        console.log(`📊 Resumed state: Queue=${scanState.scanQueue.length}, Found=${Object.keys(scanState.foundServers).length}, PendingFiles=${pendingFilesCount}`);
       } else {
-        console.warn('⚠️ Failed to load scan state. Restarting scan.');
+        console.warn('⚠️ Failed to load scan state. Clearing and restarting scan.');
+        props.deleteProperty('SCAN_STATE_FILE_ID');
         scanStateId = null;
       }
     }
@@ -388,7 +421,8 @@ function main() {
 
       if (result.isInterrupted) {
         // タイムアウト中断: 状態を保存して終了
-        console.log('💾 Saving scan state and suspending...');
+        const pendingFilesCount = Object.values(scanState.processedFiles).reduce((sum, arr) => sum + arr.length, 0);
+        console.log(`💾 Saving scan state: Queue=${scanState.scanQueue.length}, Found=${Object.keys(scanState.foundServers).length}, PendingFiles=${pendingFilesCount}`);
 
         // 古い状態ファイルがあれば削除（重複防止）
         if (scanStateId) deleteFileFromDrive(scanStateId);
