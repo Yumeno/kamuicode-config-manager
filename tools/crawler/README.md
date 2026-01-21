@@ -32,7 +32,7 @@ cp .env.example .env
 | :---- | :---- | :---- |
 | DRIVE\_FILE\_IDS | 任意 | JSON配列形式の個別ファイルID設定（推奨） |
 | DRIVE\_FILE\_ID | 任意 | 単一ファイルID（後方互換用） |
-| DRIVE\_FOLDER\_ID | 任意 | 監視対象のルートフォルダID（再帰探索） |
+| DRIVE\_FOLDER\_ID | 任意 | 監視対象フォルダID（カンマ区切りで複数指定可、再帰探索） |
 | GOOGLE\_API\_KEY | DRIVE\_FOLDER\_ID使用時必須 | Google Drive API キー |
 
 **注意**: `DRIVE_FILE_IDS`/`DRIVE_FILE_ID` と `DRIVE_FOLDER_ID` は併用可能です。両方設定した場合、明示的なファイルIDの設定が先に読み込まれ、フォルダスキャンの結果がマージされます（後勝ち）。
@@ -53,11 +53,16 @@ DRIVE_FILE_IDS=[{"name": "Legacy", "id": "1ABC..."}, {"name": "Latest", "id": "1
 #### **フォルダ再帰探索形式（Issue #30 新機能）**
 
 ```bash
+# 単一フォルダ
 DRIVE_FOLDER_ID=1FolderID_Here
+GOOGLE_API_KEY=AIzaSy...
+
+# 複数フォルダ（カンマ区切り）
+DRIVE_FOLDER_ID=1FolderA,1FolderB,1FolderC
 GOOGLE_API_KEY=AIzaSy...
 ```
 
-指定したフォルダ以下を再帰的に探索し、以下の条件を満たすJSONファイルを自動検出します:
+指定した全フォルダを再帰的に探索し、以下の条件を満たすJSONファイルを自動検出します:
 
 | フィルタ条件 | 説明 |
 | :---- | :---- |
@@ -141,7 +146,7 @@ python main.py \--merge
 | :---- | :---- | :---- |
 | DRIVE\_FILE\_IDS | 任意 | JSON配列形式のファイル設定（推奨） |
 | DRIVE\_FILE\_ID | 任意 | Google DriveファイルのID（後方互換用） |
-| DRIVE\_FOLDER\_ID | 任意 | 監視対象のルートフォルダID |
+| DRIVE\_FOLDER\_ID | 任意 | 監視対象フォルダID（カンマ区切りで複数指定可） |
 | GOOGLE\_API\_KEY | フォルダ探索時必須 | Google Drive API キー |
 | KAMUI\_CODE\_PASS\_KEY | 推奨 | Kamui Code MCPサーバー認証用パスキー |
 
@@ -461,3 +466,4 @@ python main.py \--timeout 120 \--max-concurrent 5
 *Updated: 2025-12-26 (KAMUI\_CODE\_PASS\_KEY パスキー認証対応)*
 *Updated: 2025-12-26 (パスキーローカルテストツール追加)*
 *Updated: 2025-12-26 (Windowsでのテスト手順を追加)*
+*Updated: 2026-01-21 (DRIVE\_FOLDER\_IDの複数フォルダ対応)*
