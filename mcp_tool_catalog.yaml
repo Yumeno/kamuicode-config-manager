@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-17T08:35:29.122002+00:00'
-  total_servers: 273
-  online_servers: 271
+  generated_at: '2026-01-21T15:36:51.456924+00:00'
+  total_servers: 287
+  online_servers: 285
   offline_servers: 0
   error_servers: 2
 servers:
@@ -60,6 +60,107 @@ servers:
       required:
       - model_url
       type: object
+- id: 3d23d-kamui-ultrashape
+  status: online
+  last_checked: '2026-01-21T15:36:46.539679+00:00'
+  tools:
+  - name: ultrashape_result
+    description: Get completed UltraShape mesh refinement results as Fal.ai JSON response. Returns refined 3D model (GLB file).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ultrashape_status
+    description: Check UltraShape processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ultrashape_submit
+    description: Submit Fal.ai UltraShape mesh refinement request to refine a coarse 3D mesh using a reference image.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL of the reference image for mesh refinement
+          type: string
+        model_url:
+          description: URL of the coarse mesh (.glb or .obj) to refine
+          type: string
+        num_inference_steps:
+          default: 50
+          description: 'Diffusion steps (default: 50)'
+          type: number
+        octree_resolution:
+          default: 1024
+          description: 'Marching cubes resolution (default: 1024)'
+          type: number
+        remove_background:
+          default: true
+          description: 'Remove image background (default: true)'
+          type: boolean
+        seed:
+          default: 42
+          description: 'Random seed (default: 42)'
+          type: number
+      required:
+      - image_url
+      - model_url
+      type: object
+- id: a2a-kamui-nova-sr
+  status: online
+  last_checked: '2026-01-21T15:36:46.570486+00:00'
+  tools:
+  - name: nova_sr_result
+    description: Get result of completed Nova SR audio enhancement. Returns JSON response with enhanced audio file URL and
+      metadata including duration, sample_rate, channels, and timings.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nova_sr_status
+    description: Check status of Nova SR audio enhancement processing using request ID. Returns JSON with status information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nova_sr_submit
+    description: Submit Nova SR audio enhancement request. Enhance an audio file using the NovaSR model to improve audio quality.
+    inputSchema:
+      properties:
+        audio_format:
+          default: mp3
+          description: 'The format for the output audio. Options: mp3, aac, m4a, ogg, opus, flac, wav. Default: mp3'
+          type: string
+        audio_url:
+          description: The URL of the audio file to enhance. Supports publicly accessible URLs or Base64 data URIs.
+          type: string
+        bitrate:
+          default: 192k
+          description: 'The bitrate of the output audio. Default: 192k'
+          type: string
+        sync_mode:
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history. Default: false'
+          type: boolean
+      required:
+      - audio_url
+      type: object
 - id: a2t-kamui-audio-understanding
   status: online
   last_checked: '2026-01-17T08:35:11.343511+00:00'
@@ -101,6 +202,43 @@ servers:
       required:
       - audio_url
       - prompt
+      type: object
+- id: a2t-kamui-fal-silero-vad
+  status: online
+  last_checked: '2026-01-21T15:36:47.484047+00:00'
+  tools:
+  - name: silero_vad_result
+    description: Get result of completed Silero VAD speech detection. Returns JSON response with has_speech (boolean) and
+      timestamps array with start/end times in seconds.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: silero_vad_status
+    description: Check status of Silero VAD speech detection processing using request ID. Returns JSON with status information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: silero_vad_submit
+    description: Submit Silero VAD request to detect speech segments in audio. Get speech timestamps from an audio file using
+      Silero VAD.
+    inputSchema:
+      properties:
+        audio_url:
+          description: The URL of the audio file to analyze for speech detection. Supports publicly accessible URLs or Base64
+            data URIs.
+          type: string
+      required:
+      - audio_url
       type: object
 - id: a2v-kamui-creatify-aurora
   status: online
@@ -448,6 +586,71 @@ servers:
         seed:
           description: The seed for the random number generator.
           type: number
+      required:
+      - first_frame_url
+      - last_frame_url
+      - prompt
+      type: object
+- id: flf2v-kamui-veo31-fast
+  status: online
+  last_checked: '2026-01-21T15:36:48.331386+00:00'
+  tools:
+  - name: veo31_fast_flf2v_result
+    description: Get result of completed Veo3.1 Fast first-last-frame-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_fast_flf2v_status
+    description: Check status of Veo3.1 Fast first-last-frame-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_fast_flf2v_submit
+    description: Submit Fal.ai Veo3.1 Fast first-last-frame-to-video generation request and receive request ID for polling.
+      Generate videos by animating between a first and last frame using Google's Veo 3.1 Fast model.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video (auto, 16:9, 9:16, default: auto)'
+          type: string
+        auto_fix:
+          default: false
+          description: Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them.
+          type: boolean
+        duration:
+          default: 8s
+          description: 'Duration of the generated video (4s, 6s, 8s, default: 8s)'
+          type: string
+        first_frame_url:
+          description: URL of the first frame of the video. Images should be up to 8MB in size.
+          type: string
+        generate_audio:
+          default: true
+          description: 'Whether to generate audio for the video. Default value: true'
+          type: boolean
+        last_frame_url:
+          description: URL of the last frame of the video. Images should be up to 8MB in size.
+          type: string
+        prompt:
+          description: 'Text prompt describing how to animate between the first and last frame. Should include: Action (how
+            the frames should be animated), Style (desired animation style), Camera motion (optional), and Ambiance (optional).'
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p, 1080p, default: 720p)'
+          type: string
       required:
       - first_frame_url
       - last_frame_url
@@ -1159,6 +1362,106 @@ servers:
           default: false
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-fal-glm-image-image-to-image
+  status: online
+  last_checked: '2026-01-21T15:36:46.828096+00:00'
+  tools:
+  - name: glm_image_image_to_image_result
+    description: Get result of completed GLM Image Image-to-Image generation. Returns Fal JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: glm_image_image_to_image_status
+    description: Check status of GLM Image Image-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: glm_image_image_to_image_submit
+    description: Submit GLM Image Image-to-Image generation request. Edit or transform images using 1-4 reference images.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          description: If true, the prompt will be enhanced using an LLM for more detailed and higher quality results.
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable NSFW safety checking on the generated images (default: true).'
+          type: boolean
+        guidance_scale:
+          default: 1.5
+          description: 'Classifier-free guidance scale. Higher values make the model follow the prompt more closely (default:
+            1.5).'
+          type: number
+        image_size:
+          description: 'Output image size. Either a preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9, portrait_3_2, landscape_3_2, portrait_hd, landscape_hd) or custom object {width, height}. Default:
+            square_hd.'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            - portrait_3_2
+            - landscape_3_2
+            - portrait_hd
+            - landscape_hd
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+          properties: {}
+          type: object
+        image_urls:
+          description: Reference image URLs for image-to-image generation (1-4 images).
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1).'
+          type: number
+        num_inference_steps:
+          default: 30
+          description: 'Number of diffusion denoising steps. More steps generally produce higher quality images (default:
+            30).'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output image format: jpeg, png (default: jpeg).'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image transformation.
+          type: string
+        seed:
+          description: Random seed for reproducibility. The same seed with the same prompt and images will produce the same
+            image.
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, the image will be returned as a base64 data URI instead of a URL (default: false).'
           type: boolean
       required:
       - prompt
@@ -3209,6 +3512,99 @@ servers:
       required:
       - prompt
       - image_urls
+      type: object
+- id: i2i-kamui-qwen-image-edit-2511-multiple-angles
+  status: online
+  last_checked: '2026-01-21T15:36:46.695793+00:00'
+  tools:
+  - name: qwen_image_edit_2511_multiple_angles_result
+    description: Get result of completed Qwen Image Edit 2511 Multiple Angles editing. Returns Fal response JSON with edited
+      images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_2511_multiple_angles_status
+    description: Check status of Qwen Image Edit 2511 Multiple Angles processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_edit_2511_multiple_angles_submit
+    description: Submit Qwen Image Edit 2511 Multiple Angles request for AI-powered image editing. Generate different camera
+      angles using horizontal_angle, vertical_angle, and zoom sliders.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level: none, regular (default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Enable safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4.5
+          description: 'Guidance scale for image generation (default: 4.5)'
+          type: number
+        horizontal_angle:
+          description: Horizontal rotation angle around the object in degrees. 0°=front view, 90°=right side, 180°=back view,
+            270°=left side, 360°=front view again.
+          type: number
+        image_size:
+          description: 'Size of generated image: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            or use custom {width, height} object. If not provided, the size of the input image will be used.'
+          type: string
+        image_urls:
+          description: List of URLs of input images to adjust camera angle for
+          type: array
+        lora_scale:
+          default: 1
+          description: 'The scale factor for the LoRA model. Controls the strength of the camera control effect. Default:
+            1'
+          type: number
+        negative_prompt:
+          description: 'The negative prompt for image generation (default: empty)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'Number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, webp (default: png)'
+          type: string
+        seed:
+          description: Seed for reproducible generation. Same seed and parameters will output same image.
+          type: number
+        sync_mode:
+          description: If true, media is returned as data URI
+          type: boolean
+        vertical_angle:
+          description: Vertical camera angle in degrees. -30°=low-angle shot (looking up), 0°=eye-level, 30°=elevated, 60°=high-angle,
+            90°=bird's-eye view (looking down).
+          type: number
+        zoom:
+          default: 5
+          description: 'Camera zoom/distance. 0=wide shot (far away), 5=medium shot (normal), 10=close-up (very close). Default:
+            5'
+          type: number
+      required:
+      - image_urls
+      - horizontal_angle
+      - vertical_angle
       type: object
 - id: i2i-kamui-qwen-image-edit-plus
   status: online
@@ -7668,6 +8064,95 @@ servers:
       - prompt
       - image_url
       type: object
+- id: ia2v-kamui-fal-longcat-multi-avatar
+  status: online
+  last_checked: '2026-01-21T15:36:46.753998+00:00'
+  tools:
+  - name: longcat_multi_avatar_result
+    description: Get result of completed LongCat Multi-Avatar video generation. Returns JSON response with video URL and seed.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_multi_avatar_status
+    description: Check status of LongCat Multi-Avatar processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: longcat_multi_avatar_submit
+    description: Submit Fal.ai LongCat Multi-Avatar Image-Audio-to-Video request and receive request ID for polling. Generate
+      a multi-speaker talking avatar video from an image and two audio files. Each speaker can have their own audio track,
+      and their lip movements will be synchronized independently.
+    inputSchema:
+      properties:
+        audio_guidance_scale:
+          default: 4
+          description: 'The audio guidance scale. Higher values may lead to exaggerated mouth movements (default: 4)'
+          type: number
+        audio_type:
+          default: para
+          description: 'How to combine the two audio tracks. ''para'' (parallel) plays both simultaneously, ''add'' (sequential)
+            plays person 1 first then person 2 (default: para)'
+          enum:
+          - para
+          - add
+          type: string
+        audio_url_person1:
+          description: The URL of the audio file for person 1 (left side)
+          type: string
+        audio_url_person2:
+          description: The URL of the audio file for person 2 (right side)
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'Whether to enable safety checker (default: true)'
+          type: boolean
+        image_url:
+          description: The URL of the image containing two speakers
+          type: string
+        negative_prompt:
+          description: The negative prompt to avoid in the video generation
+          type: string
+        num_inference_steps:
+          default: 30
+          description: 'The number of inference steps to use (default: 30)'
+          type: number
+        num_segments:
+          default: 1
+          description: 'Number of video segments to generate. Each segment adds ~5 seconds of video. First segment is ~5.8s,
+            additional segments are 5s each (default: 1)'
+          type: number
+        prompt:
+          description: 'The prompt to guide the video generation (default: ''Two people are having a conversation with natural
+            expressions and movements.'')'
+          type: string
+        resolution:
+          default: 480p
+          description: 'Resolution of the generated video. Billing is per video-second (16 frames): 480p is 1 unit per second
+            and 720p is 4 units per second (default: 480p)'
+          enum:
+          - 480p
+          - 720p
+          type: string
+        seed:
+          description: The seed for the random number generator
+          type: number
+        text_guidance_scale:
+          default: 4
+          description: 'The text guidance scale for classifier-free guidance (default: 4)'
+          type: number
+      required:
+      - image_url
+      type: object
 - id: misc-kamui-bria-fibo-generate-structured-prompt
   status: online
   last_checked: '2026-01-17T08:35:12.057006+00:00'
@@ -9174,6 +9659,78 @@ servers:
           default: false
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-glm-image
+  status: online
+  last_checked: '2026-01-21T15:36:47.479780+00:00'
+  tools:
+  - name: glm_image_result
+    description: Get the result of a completed GLM Image request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: glm_image_status
+    description: Check the status of a GLM Image request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: glm_image_submit
+    description: Submit GLM Image request for text-to-image generation.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          description: If true, the prompt will be enhanced using an LLM for more detailed and higher quality results
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable NSFW safety checking on the generated images (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 1.5
+          description: 'Classifier-free guidance scale. Higher values make the model follow the prompt more closely (default:
+            1.5)'
+          type: number
+        image_size:
+          default: square_hd
+          description: 'Output image size. Possible values: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9, portrait_3_2, landscape_3_2, portrait_hd, landscape_hd. For custom sizes, pass an object with
+            width and height (default: square_hd)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 30
+          description: 'Number of diffusion denoising steps. More steps generally produce higher quality images (default:
+            30)'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output image format: jpeg, png (default: jpeg)'
+          type: string
+        prompt:
+          description: Text prompt for image generation
+          type: string
+        seed:
+          description: Random seed for reproducibility. The same seed with the same prompt will produce the same image
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, the image will be returned as a base64 data URI instead of a URL (default: false)'
           type: boolean
       required:
       - prompt
@@ -11949,6 +12506,67 @@ servers:
   status: error
   last_checked: '2026-01-17T08:35:24.284677+00:00'
   error_message: 'tools/list error: {''code'': -32601, ''message'': ''tools not supported''}'
+- id: t2m-kamui-elevenlabs-music
+  status: online
+  last_checked: '2026-01-21T15:36:48.228509+00:00'
+  tools:
+  - name: elevenlabs_music_result
+    description: Get result of completed ElevenLabs Music. Returns JSON response with generated audio file URL (MP3 format
+      by default) and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_music_status
+    description: Check status of ElevenLabs Music processing using request ID. Returns JSON with status information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_music_submit
+    description: Submit ElevenLabs Music request to generate high-quality music from text descriptions. Supports prompt-based
+      generation and composition plans with detailed section control.
+    inputSchema:
+      properties:
+        composition_plan:
+          description: The composition plan for the music. Either prompt or composition_plan must be provided. Includes positive_global_styles,
+            negative_global_styles, and sections with section_name, positive_local_styles, negative_local_styles, duration_ms,
+            and lines.
+          properties: {}
+          type: object
+        force_instrumental:
+          description: If true, guarantees that the generated song will be instrumental. If false, the song may or may not
+            be instrumental depending on the prompt. Can only be used with prompt.
+          type: boolean
+        music_length_ms:
+          description: The length of the song to generate in milliseconds. Used only with prompt. Must be between 3000ms and
+            600000ms. Optional - if not provided, the model will choose a length based on the prompt.
+          type: number
+        output_format:
+          default: mp3_44100_128
+          description: 'Output format of the generated audio. Formatted as codec_sample_rate_bitrate (e.g., mp3_44100_128).
+            Options: mp3_22050_32, mp3_44100_32, mp3_44100_64, mp3_44100_96, mp3_44100_128, mp3_44100_192, pcm_8000, pcm_16000,
+            pcm_22050, pcm_24000, pcm_44100, pcm_48000, ulaw_8000, alaw_8000, opus_48000_32, opus_48000_64, opus_48000_96,
+            opus_48000_128, opus_48000_192. Default: mp3_44100_128'
+          type: string
+        prompt:
+          description: The text prompt describing the music to generate. Either prompt or composition_plan must be provided.
+          type: string
+        respect_sections_durations:
+          default: true
+          description: 'Controls how strictly section durations in the composition_plan are enforced. When true, the model
+            precisely respects each section''s duration_ms. When false, may adjust individual section durations for better
+            quality. Default: true'
+          type: boolean
+      type: object
 - id: t2m-kamui-lyria
   status: online
   last_checked: '2026-01-17T08:34:53.591363+00:00'
@@ -15904,6 +16522,46 @@ servers:
       - prompt
       - video_url
       type: object
+- id: v2v-kamui-fal-clarityai-crystal-video-upscaler
+  status: online
+  last_checked: '2026-01-21T15:36:48.318857+00:00'
+  tools:
+  - name: clarityai_crystal_video_upscaler_result
+    description: Get result of completed ClarityAI Crystal Video Upscaler generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: clarityai_crystal_video_upscaler_status
+    description: Check status of ClarityAI Crystal Video Upscaler processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: clarityai_crystal_video_upscaler_submit
+    description: Submit Fal.ai ClarityAI Crystal Video Upscaler request and receive request ID for polling. Upscale videos
+      with high-quality results up to 5K resolution.
+    inputSchema:
+      properties:
+        scale_factor:
+          default: 2
+          description: 'Scale factor. The scale factor must be chosen such that the upscaled video does not exceed 5K resolution
+            (default: 2.0)'
+          type: number
+        video_url:
+          description: URL to the input video
+          type: string
+      required:
+      - video_url
+      type: object
 - id: v2v-kamui-fal-editto
   status: online
   last_checked: '2026-01-17T08:35:13.976058+00:00'
@@ -16146,6 +16804,129 @@ servers:
       - prompt
       - video_url
       type: object
+- id: v2v-kamui-fal-ltx-2-19b-distilled-video-to-video
+  status: online
+  last_checked: '2026-01-21T15:36:46.594516+00:00'
+  tools:
+  - name: ltx_2_19b_distilled_video_to_video_result
+    description: Get result of completed LTX-2-19B Distilled Video-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_distilled_video_to_video_status
+    description: Check status of LTX-2-19B Distilled Video-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_distilled_video_to_video_submit
+    description: Submit LTX-2-19B Distilled Video-to-Video request to Fal.ai. Generate a video from a video and text prompt
+      using distilled LoRA.
+    inputSchema:
+      properties:
+        acceleration:
+          description: 'The acceleration level to use. Options: none, regular, high, full. Default: none'
+          type: string
+        camera_lora:
+          description: 'The camera LoRA to use. This allows you to control the camera movement of the generated video more
+            accurately than just prompting the model to move the camera. Options: dolly_in, dolly_out, dolly_left, dolly_right,
+            jib_up, jib_down, static, none. Default: none'
+          type: string
+        camera_lora_scale:
+          description: 'The scale of the camera LoRA to use. This allows you to control the camera movement of the generated
+            video more accurately than just prompting the model to move the camera. Default: 1'
+          type: number
+        enable_prompt_expansion:
+          description: Whether to enable prompt expansion
+          type: boolean
+        enable_safety_checker:
+          description: 'Whether to enable the safety checker. Default: true'
+          type: boolean
+        fps:
+          description: 'The frames per second of the generated video. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio for the video. Default: true'
+          type: boolean
+        ic_lora:
+          description: 'The type of IC-LoRA to load. In-Context LoRA weights are used to condition the video based on edge,
+            depth, or pose videos. Only change this from match_preprocessor if your videos are already preprocessed (or you
+            are using the detailer.) Options: match_preprocessor, canny, depth, pose, detailer, none. Default: match_preprocessor'
+          type: string
+        ic_lora_scale:
+          description: 'The scale of the IC-LoRA to use. This allows you to control the strength of the IC-LoRA. Default:
+            1'
+          type: number
+        image_url:
+          description: An optional URL of an image to use as the first frame of the video
+          type: string
+        match_input_fps:
+          description: 'When true, match the output FPS to the input video''s FPS instead of using the default target FPS.
+            Default: true'
+          type: boolean
+        match_video_length:
+          description: 'When enabled, the number of frames will be calculated based on the video duration and FPS. When disabled,
+            use the specified num_frames. Default: true'
+          type: boolean
+        negative_prompt:
+          description: The negative prompt to generate the video from
+          type: string
+        num_frames:
+          description: 'The number of frames to generate. Default: 121'
+          type: number
+        preprocessor:
+          description: 'The preprocessor to use for the video. When a preprocessor is used and ic_lora_type is set to match_preprocessor,
+            the IC-LoRA will be loaded based on the preprocessor type. Options: depth, canny, pose, none. Default: none'
+          type: string
+        prompt:
+          description: The prompt to generate the video from
+          type: string
+        seed:
+          description: The seed for the random number generator
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+        use_multiscale:
+          description: 'Whether to use multi-scale generation. If True, the model will generate the video at a smaller scale
+            first, then use the smaller video to guide the generation of a video at or above your requested size. This results
+            in better coherence and details. Default: true'
+          type: boolean
+        video_output_type:
+          description: 'The output type of the generated video. Options: X264 (.mp4), VP9 (.webm), PRORES4444 (.mov), GIF
+            (.gif). Default: X264 (.mp4)'
+          type: string
+        video_quality:
+          description: 'The quality of the generated video. Options: low, medium, high, maximum. Default: high'
+          type: string
+        video_size:
+          description: 'The size of the generated video. Options: auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. Default: auto. For custom sizes, pass as object with width and height'
+          type: string
+        video_strength:
+          description: 'Video conditioning strength. Lower values represent more freedom given to the model to change the
+            video content. Default: 1'
+          type: number
+        video_url:
+          description: The URL of the video to generate the video from
+          type: string
+        video_write_mode:
+          description: 'The write mode of the generated video. Options: fast, balanced, small. Default: balanced'
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
 - id: v2v-kamui-fal-ltx-2-19b-extend-video
   status: online
   last_checked: '2026-01-17T08:35:26.780467+00:00'
@@ -16233,6 +17014,134 @@ servers:
           type: string
         video_url:
           description: The URL of the video to extend
+          type: string
+        video_write_mode:
+          description: 'The write mode of the generated video. Options: fast, balanced, small. Default: balanced'
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-fal-ltx-2-19b-video-to-video
+  status: online
+  last_checked: '2026-01-21T15:36:48.474608+00:00'
+  tools:
+  - name: ltx_2_19b_video_to_video_result
+    description: Get result of completed LTX-2-19B Video-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_video_to_video_status
+    description: Check status of LTX-2-19B Video-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_video_to_video_submit
+    description: Submit LTX-2-19B Video-to-Video request to Fal.ai. Generate a video from a video and text prompt.
+    inputSchema:
+      properties:
+        acceleration:
+          description: 'The acceleration level to use. Options: none, regular, high, full. Default: regular'
+          type: string
+        camera_lora:
+          description: 'The camera LoRA to use. This allows you to control the camera movement of the generated video more
+            accurately than just prompting the model to move the camera. Options: dolly_in, dolly_out, dolly_left, dolly_right,
+            jib_up, jib_down, static, none. Default: none'
+          type: string
+        camera_lora_scale:
+          description: 'The scale of the camera LoRA to use. This allows you to control the camera movement of the generated
+            video more accurately than just prompting the model to move the camera. Default: 1'
+          type: number
+        enable_prompt_expansion:
+          description: Whether to enable prompt expansion
+          type: boolean
+        enable_safety_checker:
+          description: 'Whether to enable the safety checker. Default: true'
+          type: boolean
+        fps:
+          description: 'The frames per second of the generated video. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio for the video. Default: true'
+          type: boolean
+        guidance_scale:
+          description: 'The guidance scale to use. Default: 3'
+          type: number
+        ic_lora:
+          description: 'The type of IC-LoRA to load. In-Context LoRA weights are used to condition the video based on edge,
+            depth, or pose videos. Only change this from match_preprocessor if your videos are already preprocessed (or you
+            are using the detailer.) Options: match_preprocessor, canny, depth, pose, detailer, none. Default: match_preprocessor'
+          type: string
+        ic_lora_scale:
+          description: 'The scale of the IC-LoRA to use. This allows you to control the strength of the IC-LoRA. Default:
+            1'
+          type: number
+        image_url:
+          description: An optional URL of an image to use as the first frame of the video
+          type: string
+        match_input_fps:
+          description: 'When true, match the output FPS to the input video''s FPS instead of using the default target FPS.
+            Default: true'
+          type: boolean
+        match_video_length:
+          description: 'When enabled, the number of frames will be calculated based on the video duration and FPS. When disabled,
+            use the specified num_frames. Default: true'
+          type: boolean
+        negative_prompt:
+          description: The negative prompt to generate the video from
+          type: string
+        num_frames:
+          description: 'The number of frames to generate. Default: 121'
+          type: number
+        num_inference_steps:
+          description: 'The number of inference steps to use. Default: 40'
+          type: number
+        preprocessor:
+          description: 'The preprocessor to use for the video. When a preprocessor is used and ic_lora_type is set to match_preprocessor,
+            the IC-LoRA will be loaded based on the preprocessor type. Options: depth, canny, pose, none. Default: none'
+          type: string
+        prompt:
+          description: The prompt to generate the video from
+          type: string
+        seed:
+          description: The seed for the random number generator
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+        use_multiscale:
+          description: 'Whether to use multi-scale generation. If True, the model will generate the video at a smaller scale
+            first, then use the smaller video to guide the generation of a video at or above your requested size. This results
+            in better coherence and details. Default: true'
+          type: boolean
+        video_output_type:
+          description: 'The output type of the generated video. Options: X264 (.mp4), VP9 (.webm), PRORES4444 (.mov), GIF
+            (.gif). Default: X264 (.mp4)'
+          type: string
+        video_quality:
+          description: 'The quality of the generated video. Options: low, medium, high, maximum. Default: high'
+          type: string
+        video_size:
+          description: 'The size of the generated video. Options: auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. Default: auto. For custom sizes, pass as object with width and height'
+          type: string
+        video_strength:
+          description: 'Video conditioning strength. Lower values represent more freedom given to the model to change the
+            video content. Default: 1'
+          type: number
+        video_url:
+          description: The URL of the video to generate the video from
           type: string
         video_write_mode:
           description: 'The write mode of the generated video. Options: fast, balanced, small. Default: balanced'
@@ -17837,6 +18746,117 @@ servers:
           type: boolean
         video_url:
           description: Video URL (HTTP/HTTPS, FAL URL, or YouTube URL)
+          type: string
+      required:
+      - video_url
+      type: object
+- id: video-analysis-kamui-openrouter
+  status: online
+  last_checked: '2026-01-21T15:36:48.335412+00:00'
+  tools:
+  - name: openrouter_router_video_enterprise_result
+    description: Get final result of an OpenRouter Router Video Enterprise request. Returns Fal JSON with output text and
+      usage information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from openrouter_router_video_enterprise_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openrouter_router_video_enterprise_status
+    description: Check queue status of an OpenRouter Router Video Enterprise request using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from openrouter_router_video_enterprise_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openrouter_router_video_enterprise_submit
+    description: Submit a video analysis request to Fal openrouter/router/video/enterprise. This model routes video content
+      to OpenRouter and uses LLMs like Google Gemini 2.5-Flash for detailed understanding and reasoning over video.
+    inputSchema:
+      properties:
+        max_tokens:
+          description: Upper limit for generated tokens. Maximum is context length minus prompt length.
+          type: number
+        model:
+          description: Name of the model to use via OpenRouter (e.g. google/gemini-2.5-flash). Charged based on actual token
+            usage.
+          type: string
+        prompt:
+          description: Prompt to be used for the video processing. Describe what kind of analysis or summary you want.
+          type: string
+        reasoning:
+          description: Whether reasoning steps should be part of the final answer.
+          type: boolean
+        system_prompt:
+          description: System prompt to provide context or instructions to the model. Use this to fix persona, style, or constraints.
+          type: string
+        temperature:
+          description: 'Controls diversity of responses. Lower = more deterministic, higher = more creative. Default: 1.0'
+          type: number
+        video_url:
+          description: 'URL or data URI of the video file to process. Supported formats: mp4, mpeg, mov, webm. For Google
+            Gemini on AI Studio, YouTube links are also supported.'
+          type: string
+      required:
+      - video_url
+      type: object
+- id: video-analysis-kamui-openrouter-router-video
+  status: online
+  last_checked: '2026-01-21T15:36:47.122395+00:00'
+  tools:
+  - name: openrouter_router_video_result
+    description: Get final result of an OpenRouter Router Video request. Returns Fal JSON with output text and usage information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from openrouter_router_video_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openrouter_router_video_status
+    description: Check queue status of an OpenRouter Router Video request using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from openrouter_router_video_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openrouter_router_video_submit
+    description: Submit a video analysis request to Fal openrouter/router/video. This model routes video content to OpenRouter
+      and uses video-capable LLMs (e.g. Google Gemini 2.5-Flash) for detailed understanding and reasoning over video.
+    inputSchema:
+      properties:
+        max_tokens:
+          description: Upper limit for generated tokens. Maximum is context length minus prompt length.
+          type: number
+        model:
+          description: Name of the model to use via OpenRouter (e.g. google/gemini-2.5-flash). Charged based on actual token
+            usage.
+          type: string
+        prompt:
+          description: Prompt to be used for the video processing. Describe what kind of analysis or summary you want.
+          type: string
+        reasoning:
+          description: Whether reasoning steps should be part of the final answer.
+          type: boolean
+        system_prompt:
+          description: System prompt to provide context or instructions to the model. Use this to fix persona, style, or constraints.
+          type: string
+        temperature:
+          description: 'Controls diversity of responses. Lower = more deterministic, higher = more creative. Default: 1.0'
+          type: number
+        video_url:
+          description: 'URL or data URI of the video file to process. Supported formats: mp4, mpeg, mov, webm. For Google
+            Gemini on AI Studio, YouTube links are also supported.'
           type: string
       required:
       - video_url
