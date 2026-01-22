@@ -719,6 +719,11 @@ ai_models:
       server_name: i2v-kamui-fal-ltx-2-19b-image-to-video
       release_date: 2026年1月6日
       features: "(Lightricks) 4K解像度・50fpsでの生成が可能な19Bパラメータのオープンソース動画生成モデル。画像からの動画生成に加え、音声の同期生成にも対応。"
+    - model_name: Wan v2.6 Image-to-Video Flash
+      server_name: i2v-kamui-wan-v26-image-to-video-flash
+      release_date: 2025-12-16
+      developer: Alibaba
+      url: https://kamui-code.ai/i2v/fal/wan/v2.6/image-to-video/flash
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -888,6 +893,11 @@ ai_models:
       server_name: v2v-kamui-fal-clarityai-crystal-video-upscaler
       release_date: 2026年1月13日
       features: "(Clarity AI) 元動画の忠実性を最優先し、顔のディテールや肌の質感を維持する動画アップスケーラー。プロンプト不要で、最大5K解像度までの高画質化が可能。"
+    v2v-kamui-elevenlabs-dubbing:
+      model_name: ElevenLabs Dubbing
+      release_date: 2023-10-10
+      developer: ElevenLabs
+      description: 動画や音声をターゲット言語に翻訳・吹き替えするAIモデル。元の話者の声質や感情、イントネーションを維持したまま、多言語（20言語以上）への吹き替えが可能。2023年10月に正式リリースされた。
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -937,6 +947,10 @@ ai_models:
       server_name: r2v-kamui-kling-video-v26-standard-motion-control
       release_date: 2025年12月3日
       features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに転写するMotion Control機能のv2.6標準モデル。画像と動画の向き（Orientation）を制御可能で、ダンスやジェスチャーの転写に適しており、コストパフォーマンスに優れる。"
+    - model: Vidu Q2 Reference-to-Video Pro
+      server_name: r2v-kamui-vidu-q2-reference-to-video-pro
+      release_date: 2025年10月21日
+      developer: ShengShu Technology
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -1074,6 +1088,11 @@ ai_models:
       server_name: a2t-kamui-fal-silero-vad
       release_date: 2020年12月15日
       features: "(Silero Team) 軽量かつ高精度な音声区間検出（VAD）モデル。6000以上の言語に対応し、CPU単一スレッドでも1ms以下で処理可能な高速性が特徴。音声認識の前処理や無音区間のカットなどに広く利用される。"
+    a2t-kamui-elevenlabs-speech-to-text-scribe-v2:
+      release_date: 2026-01-09
+      publisher: ElevenLabs
+      model_name: ElevenLabs Scribe V2
+      model_type: proprietary_api
   text_to_visual:
     - name: Napkin AI
       server_name: t2visual-kamui-napkin
@@ -1225,6 +1244,11 @@ ai_models:
       release_date: 2026年1月13日
       features: "(Yatharth Sharma) わずか52KBという超軽量かつ高速な音声超解像モデル。16kHzの音声を48kHzにアップサンプリングし、TTSの出力や低品質な音声データの明瞭度を劇的に向上させる。"
 
+    - model_name: ElevenLabs Voice Changer (Speech to Speech)
+      server_name: a2a-kamui-elevenlabs-voice-changer
+      release_date: 2023年11月23日
+      description: ElevenLabsのSpeech to Speech（STS）機能。オーディオファイルの声を別の声に変換する。
+      url: https://elevenlabs.io/voice-changer
   image_audio_to_video:
     - name: LongCat Avatar (LongCat-Video-Avatar)
       server_name: ia2v-kamui-fal-longcat-multi-avatar
