@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-21T15:36:51.456924+00:00'
-  total_servers: 287
-  online_servers: 285
+  generated_at: '2026-01-22T13:57:18.870144+00:00'
+  total_servers: 292
+  online_servers: 290
   offline_servers: 0
   error_servers: 2
 servers:
@@ -114,6 +114,59 @@ servers:
       - image_url
       - model_url
       type: object
+- id: a2a-kamui-elevenlabs-voice-changer
+  status: online
+  last_checked: '2026-01-22T13:57:10.861063+00:00'
+  tools:
+  - name: elevenlabs_voice_changer_result
+    description: Get result of completed ElevenLabs Voice Changer. Returns JSON response with generated audio file URL (MP3
+      format by default) and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_voice_changer_status
+    description: Check status of ElevenLabs Voice Changer processing using request ID. Returns JSON with status information.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_voice_changer_submit
+    description: Submit ElevenLabs Voice Changer request to change the voice in an audio file. Supports various voice options
+      and output formats.
+    inputSchema:
+      properties:
+        audio_url:
+          description: The input audio file URL
+          type: string
+        output_format:
+          default: mp3_44100_128
+          description: 'Output format of the generated audio. Formatted as codec_sample_rate_bitrate (e.g., mp3_44100_128).
+            Options: mp3_22050_32, mp3_44100_32, mp3_44100_64, mp3_44100_96, mp3_44100_128, mp3_44100_192, pcm_8000, pcm_16000,
+            pcm_22050, pcm_24000, pcm_44100, pcm_48000, ulaw_8000, alaw_8000, opus_48000_32, opus_48000_64, opus_48000_96,
+            opus_48000_128, opus_48000_192. Default: mp3_44100_128'
+          type: string
+        remove_background_noise:
+          description: If set, will remove the background noise from your audio input using our audio isolation model.
+          type: boolean
+        seed:
+          description: Random seed for reproducibility.
+          type: number
+        voice:
+          default: Rachel
+          description: 'The voice to use for speech generation. Default: Rachel'
+          type: string
+      required:
+      - audio_url
+      type: object
 - id: a2a-kamui-nova-sr
   status: online
   last_checked: '2026-01-21T15:36:46.570486+00:00'
@@ -202,6 +255,56 @@ servers:
       required:
       - audio_url
       - prompt
+      type: object
+- id: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
+  status: online
+  last_checked: '2026-01-22T13:57:11.223657+00:00'
+  tools:
+  - name: elevenlabs_speech_to_text_scribe_v2_result
+    description: Get result of completed ElevenLabs Speech to Text Scribe V2. Returns Fal JSON with transcribed text, language
+      detection, probabilities, and word-level timestamps.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_speech_to_text_scribe_v2_status
+    description: Check status of ElevenLabs Speech to Text Scribe V2 processing using request ID. Returns Fal JSON status.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_speech_to_text_scribe_v2_submit
+    description: Submit ElevenLabs Speech to Text Scribe V2 request to transcribe audio with improved accuracy, word-level
+      timestamps, and optional speaker diarization.
+    inputSchema:
+      properties:
+        audio_url:
+          description: URL of the audio file to transcribe
+          type: string
+        diarize:
+          default: true
+          description: 'Annotate who is speaking. Default: true'
+          type: boolean
+        keyterms:
+          description: List of keyterms (strings) to bias transcription toward (max 100 items, 50 chars each). Adds 30% premium.
+          type: array
+        language_code:
+          description: Language code of the audio (e.g., 'eng'). If omitted, language will be detected.
+          type: string
+        tag_audio_events:
+          default: true
+          description: 'Tag audio events like laughter or applause. Default: true'
+          type: boolean
+      required:
+      - audio_url
       type: object
 - id: a2t-kamui-fal-silero-vad
   status: online
@@ -8064,6 +8167,78 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-wan-v26-image-to-video-flash
+  status: online
+  last_checked: '2026-01-22T13:57:15.543902+00:00'
+  tools:
+  - name: wan_v2_6_image_to_video_flash_result
+    description: Get result of completed WAN v2.6 Image-to-Video Flash generation. Returns Fal JSON response with video URL,
+      seed, and actual prompt if prompt rewriting was enabled.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_video_flash_status
+    description: Check status of WAN v2.6 Image-to-Video Flash processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_6_image_to_video_flash_submit
+    description: Submit Fal.ai WAN v2.6 Image-to-Video Flash generation request. Generates short videos from a single image
+      with optional audio, 720p or 1080p resolution, 5/10/15 second durations, prompt expansion, and optional multi-shot segmentation.
+    inputSchema:
+      properties:
+        audio_url:
+          description: 'URL of the audio to use as background music. Formats: WAV, MP3. Duration: 3-30s. Max size: 15MB. Audio
+            longer than the video is truncated; shorter audio leaves trailing silence.'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration of the generated video in seconds. Options: 5, 10, 15. Default: 5'
+          type: string
+        enable_prompt_expansion:
+          default: true
+          description: 'Whether to enable prompt rewriting using LLM. Default: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default: true'
+          type: boolean
+        image_url:
+          description: URL of the image to use as the first frame. Must be publicly accessible or base64 data URI. Image dimensions
+            must be between 240 and 7680.
+          type: string
+        multi_shots:
+          description: When true, enables intelligent multi-shot segmentation. Only active when enable_prompt_expansion is
+            true. Set to false for single-shot generation.
+          type: boolean
+        negative_prompt:
+          default: ''
+          description: 'Negative prompt to describe content to avoid. Max 500 characters. Default: '''''
+          type: string
+        prompt:
+          description: Text prompt describing the desired video motion. Max 800 characters.
+          type: string
+        resolution:
+          default: 1080p
+          description: 'Video resolution. Valid values: 720p, 1080p. Default: 1080p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If None, a random seed is chosen.
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: ia2v-kamui-fal-longcat-multi-avatar
   status: online
   last_checked: '2026-01-21T15:36:46.753998+00:00'
@@ -9056,6 +9231,72 @@ servers:
           type: array
       required:
       - reference_image_urls
+      - prompt
+      type: object
+- id: r2v-kamui-vidu-q2-reference-to-video-pro
+  status: online
+  last_checked: '2026-01-22T13:57:02.268889+00:00'
+  tools:
+  - name: vidu_q2_reference_to_video_pro_result
+    description: Get result of completed Vidu Q2 Reference-to-Video Pro generation. Returns Fal JSON response with generated
+      or edited video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_reference_to_video_pro_status
+    description: Check status of Vidu Q2 Reference-to-Video Pro processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q2_reference_to_video_pro_submit
+    description: Submit Fal.ai Vidu Q2 Reference-to-Video Pro request and receive request ID for polling. Generate or edit
+      videos using image and/or video references for subject appearance and motion.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the output video (auto, 16:9, 9:16, 1:1, or W:H). Default: 16:9.'
+          type: string
+        bgm:
+          description: Whether to add background music to the generated video.
+          type: boolean
+        duration:
+          default: 4
+          description: 'Duration of the video in seconds (0 for automatic duration, default: 4).'
+          type: number
+        movement_amplitude:
+          default: auto
+          description: 'The movement amplitude of objects in the frame (auto, small, medium, large). Default: auto.'
+          type: string
+        prompt:
+          description: Text prompt for video generation, max 2000 characters. Describe subject, scene, motion, style, and
+            camera work.
+          type: string
+        reference_image_urls:
+          description: Optional array of image URLs used for subject appearance reference. If only images are provided, up
+            to 7 images are supported.
+          type: array
+        reference_video_urls:
+          description: Optional array of video URLs used for editing or motion reference. Up to 2 videos are supported.
+          type: array
+        resolution:
+          default: 720p
+          description: 'Output video resolution. Possible values: 540p, 720p, 1080p. Default: 720p.'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed is chosen.
+          type: number
+      required:
       - prompt
       type: object
 - id: r2v-kamui-wan-v2.6
@@ -16521,6 +16762,58 @@ servers:
       required:
       - prompt
       - video_url
+      type: object
+- id: v2v-kamui-elevenlabs-dubbing
+  status: online
+  last_checked: '2026-01-22T13:57:11.394531+00:00'
+  tools:
+  - name: elevenlabs_dubbing_result
+    description: Get result of completed ElevenLabs Dubbing. Returns Fal JSON response (e.g., dubbed video file URL when applicable).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_dubbing_status
+    description: Check status of ElevenLabs Dubbing processing using request ID. Returns Fal JSON status.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: elevenlabs_dubbing_submit
+    description: Submit ElevenLabs Dubbing request to dub an audio or video into a target language. Provide either audio_url
+      or video_url (if both are provided, video_url takes priority). Returns Fal JSON response.
+    inputSchema:
+      properties:
+        audio_url:
+          description: URL of the audio file to dub. Either audio_url or video_url must be provided.
+          type: string
+        highest_resolution:
+          default: true
+          description: 'Whether to use the highest resolution for dubbing. Default: true.'
+          type: boolean
+        num_speakers:
+          description: Number of speakers in the audio. If not provided, will be auto-detected.
+          type: number
+        source_lang:
+          description: Source language code. If not provided, will be auto-detected.
+          type: string
+        target_lang:
+          description: Target language code for dubbing (ISO 639-1).
+          type: string
+        video_url:
+          description: URL of the video file to dub. Either audio_url or video_url must be provided. If both are provided,
+            video_url takes priority.
+          type: string
+      required:
+      - target_lang
       type: object
 - id: v2v-kamui-fal-clarityai-crystal-video-upscaler
   status: online
