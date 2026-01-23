@@ -2,6 +2,9 @@
 
 このドキュメントは、Web検索で特定できなかったモデルのリリース日をリストアップするためのものです。
 
+## 調査報告 (2026-01-24 05:25)
+
+---
 ## 調査報告 (2025-12-24 22:12)
 - **モデル名**: Bria Video Eraser (Erase by Prompt) (server_name: v2v-kamui-bria-video-eraser-erase-prompt)
 - **推測される開発元**: Bria AI
