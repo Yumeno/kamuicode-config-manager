@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-22T13:57:18.870144+00:00'
-  total_servers: 292
-  online_servers: 290
+  generated_at: '2026-01-27T13:58:32.153576+00:00'
+  total_servers: 295
+  online_servers: 293
   offline_servers: 0
   error_servers: 2
 servers:
@@ -9516,6 +9516,272 @@ servers:
           type: number
       required:
       - prompt
+      type: object
+- id: t2a-kamui-qwen-3-tts-text-to-speech-06b
+  status: online
+  last_checked: '2026-01-27T13:58:28.409940+00:00'
+  tools:
+  - name: qwen_3_tts_text_to_speech_0_6b_result
+    description: Get result of completed Qwen 3 TTS Text-to-Speech 0.6b. Returns Fal JSON response with generated audio file
+      URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_text_to_speech_0_6b_status
+    description: Check status of Qwen 3 TTS Text-to-Speech 0.6b processing using request ID. Returns Fal JSON status.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_text_to_speech_0_6b_submit
+    description: Submit Fal.ai Qwen 3 TTS Text-to-Speech 0.6b request to convert text to speech. Supports multiple voices,
+      languages, and customizable speech parameters. Returns Fal JSON response.
+    inputSchema:
+      properties:
+        language:
+          default: Auto
+          description: 'The language of the voice. Options: Auto, English, Chinese, Spanish, French, German, Italian, Japanese,
+            Korean, Portuguese, Russian. Default: Auto'
+          type: string
+        max_new_tokens:
+          default: 8192
+          description: 'Maximum number of new codec tokens to generate. Default: 8192'
+          type: number
+        prompt:
+          description: Optional prompt to guide the style of the generated speech. This prompt will be ignored if a speaker
+            embedding is provided.
+          type: string
+        reference_text:
+          description: Optional reference text that was used when creating the speaker embedding. Providing this can improve
+            synthesis quality when using a cloned voice.
+          type: string
+        repetition_penalty:
+          default: 1.05
+          description: 'Penalty to reduce repeated tokens/codes. Default: 1.05'
+          type: number
+        speaker_voice_embedding_file_url:
+          description: URL to a speaker embedding file in safetensors format, from fal-ai/qwen-3-tts/clone-voice/0.6b endpoint.
+            If provided, the TTS model will use the cloned voice for synthesis instead of the predefined voices.
+          type: string
+        subtalker_dosample:
+          default: true
+          description: 'Sampling switch for the sub-talker. Default: true'
+          type: boolean
+        subtalker_temperature:
+          default: 0.9
+          description: 'Temperature for sub-talker sampling. Default: 0.9'
+          type: number
+        subtalker_top_k:
+          default: 50
+          description: 'Top-k for sub-talker sampling. Default: 50'
+          type: number
+        subtalker_top_p:
+          default: 1
+          description: 'Top-p for sub-talker sampling. Default: 1'
+          type: number
+        temperature:
+          default: 0.9
+          description: 'Sampling temperature; higher => more random. Default: 0.9'
+          type: number
+        text:
+          description: The text to be converted to speech (required)
+          type: string
+        top_k:
+          default: 50
+          description: 'Top-k sampling parameter. Default: 50'
+          type: number
+        top_p:
+          default: 1
+          description: 'Top-p sampling parameter. Default: 1'
+          type: number
+        voice:
+          description: 'The voice to be used for speech synthesis. Options: Vivian, Serena, Uncle_Fu, Dylan, Eric, Ryan, Aiden,
+            Ono_Anna, Sohee. Will be ignored if a speaker embedding is provided.'
+          type: string
+      required:
+      - text
+      type: object
+- id: t2a-kamui-qwen-3-tts-text-to-speech-17b
+  status: online
+  last_checked: '2026-01-27T13:58:28.545208+00:00'
+  tools:
+  - name: qwen_3_tts_text_to_speech_1_7b_result
+    description: Get result of completed Qwen 3 TTS Text-to-Speech 1.7b. Returns Fal JSON response with generated audio file
+      URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_text_to_speech_1_7b_status
+    description: Check status of Qwen 3 TTS Text-to-Speech 1.7b processing using request ID. Returns Fal JSON status.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_text_to_speech_1_7b_submit
+    description: Submit Fal.ai Qwen 3 TTS Text-to-Speech 1.7b request to convert text to speech with predefined voices or
+      cloned voice. Returns Fal JSON response.
+    inputSchema:
+      properties:
+        language:
+          default: Auto
+          description: 'The language of the voice. Options: Auto, English, Chinese, Spanish, French, German, Italian, Japanese,
+            Korean, Portuguese, Russian. Default: Auto'
+          type: string
+        max_new_tokens:
+          default: 8192
+          description: 'Maximum number of new codec tokens to generate. Default: 8192'
+          type: number
+        prompt:
+          description: Optional prompt to guide the style of the generated speech. This prompt will be ignored if a speaker
+            embedding is provided.
+          type: string
+        reference_text:
+          description: Optional reference text that was used when creating the speaker embedding. Providing this can improve
+            synthesis quality when using a cloned voice.
+          type: string
+        repetition_penalty:
+          default: 1.05
+          description: 'Penalty to reduce repeated tokens/codes. Default: 1.05'
+          type: number
+        speaker_voice_embedding_file_url:
+          description: URL to a speaker embedding file in safetensors format, from fal-ai/qwen-3-tts/clone-voice endpoint.
+            If provided, the TTS model will use the cloned voice for synthesis instead of the predefined voices.
+          type: string
+        subtalker_dosample:
+          default: true
+          description: 'Sampling switch for the sub-talker. Default: true'
+          type: boolean
+        subtalker_temperature:
+          default: 0.9
+          description: 'Temperature for sub-talker sampling. Default: 0.9'
+          type: number
+        subtalker_top_k:
+          default: 50
+          description: 'Top-k for sub-talker sampling. Default: 50'
+          type: number
+        subtalker_top_p:
+          default: 1
+          description: 'Top-p for sub-talker sampling. Default: 1'
+          type: number
+        temperature:
+          default: 0.9
+          description: 'Sampling temperature; higher => more random. Default: 0.9'
+          type: number
+        text:
+          description: The text to be converted to speech (required)
+          type: string
+        top_k:
+          default: 50
+          description: 'Top-k sampling parameter. Default: 50'
+          type: number
+        top_p:
+          default: 1
+          description: 'Top-p sampling parameter. Default: 1'
+          type: number
+        voice:
+          description: 'The voice to be used for speech synthesis, will be ignored if a speaker embedding is provided. Options:
+            Vivian, Serena, Uncle_Fu, Dylan, Eric, Ryan, Aiden, Ono_Anna, Sohee'
+          type: string
+      required:
+      - text
+      type: object
+- id: t2a-kamui-qwen-3-tts-voice-design-17b
+  status: online
+  last_checked: '2026-01-27T13:58:28.925518+00:00'
+  tools:
+  - name: qwen_3_tts_voice_design_1_7b_result
+    description: Get result of completed Qwen 3 TTS Voice Design 1.7b. Returns Fal JSON response with generated audio file
+      URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_voice_design_1_7b_status
+    description: Check status of Qwen 3 TTS Voice Design 1.7b processing using request ID. Returns Fal JSON status.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_3_tts_voice_design_1_7b_submit
+    description: Submit Fal.ai Qwen 3 TTS Voice Design 1.7b request to convert text to speech with customizable voice design.
+      Uses prompt to guide the style of generated speech. Returns Fal JSON response.
+    inputSchema:
+      properties:
+        language:
+          default: Auto
+          description: 'The language of the voice. Options: Auto, English, Chinese, Spanish, French, German, Italian, Japanese,
+            Korean, Portuguese, Russian. Default: Auto'
+          type: string
+        max_new_tokens:
+          default: 8192
+          description: 'Maximum number of new codec tokens to generate. Default: 8192'
+          type: number
+        prompt:
+          description: Optional prompt to guide the style of the generated speech
+          type: string
+        repetition_penalty:
+          default: 1.05
+          description: 'Penalty to reduce repeated tokens/codes. Default: 1.05'
+          type: number
+        subtalker_dosample:
+          default: true
+          description: 'Sampling switch for the sub-talker. Default: true'
+          type: boolean
+        subtalker_temperature:
+          default: 0.9
+          description: 'Temperature for sub-talker sampling. Default: 0.9'
+          type: number
+        subtalker_top_k:
+          default: 50
+          description: 'Top-k for sub-talker sampling. Default: 50'
+          type: number
+        subtalker_top_p:
+          default: 1
+          description: 'Top-p for sub-talker sampling. Default: 1'
+          type: number
+        temperature:
+          default: 0.9
+          description: 'Sampling temperature; higher => more random. Default: 0.9'
+          type: number
+        text:
+          description: The text to be converted to speech (required)
+          type: string
+        top_k:
+          default: 50
+          description: 'Top-k sampling parameter. Default: 50'
+          type: number
+        top_p:
+          default: 1
+          description: 'Top-p sampling parameter. Default: 1'
+          type: number
+      required:
+      - text
       type: object
 - id: t2a-kamui-stable-audio-v25
   status: online
