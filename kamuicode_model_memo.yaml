@@ -1087,11 +1087,10 @@ ai_models:
       server_name: a2t-kamui-fal-silero-vad
       release_date: 2020年12月15日
       features: "(Silero Team) 軽量かつ高精度な音声区間検出（VAD）モデル。6000以上の言語に対応し、CPU単一スレッドでも1ms以下で処理可能な高速性が特徴。音声認識の前処理や無音区間のカットなどに広く利用される。"
-    a2t-kamui-elevenlabs-speech-to-text-scribe-v2:
+    - name: ElevenLabs Scribe V2
+      server_name: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
       release_date: 2026-01-09
-      publisher: ElevenLabs
-      model_name: ElevenLabs Scribe V2
-      model_type: proprietary_api
+      features: "(ElevenLabs) 99言語対応の高精度音声文字起こしモデル。単語レベルのタイムスタンプ、話者ダイアライゼーション、多言語音声の自動言語検出に対応。"
   text_to_visual:
     - name: Napkin AI
       server_name: t2visual-kamui-napkin
@@ -1254,10 +1253,3 @@ ai_models:
       release_date: 2025年12月16日
       features: "(Meituan) 画像と音声から高品質なリップシンク動画を生成するモデル。複数話者の個別制御や長時間の動画生成に対応しており、13.6BパラメータのDiffusion Transformerアーキテクチャを採用している。"
 
-  Audio to Text:
-    - model_name: Scribe v2
-      server_name: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
-      release_date: 2026-01-09
-      developer: ElevenLabs
-      url: https://kamui-code.ai/a2t/fal/elevenlabs/speech-to-text/scribe-v2
-      description: ElevenLabs Speech to Text Scribe V2 - Transcribe audio with improved accuracy, word-level timestamps, and optional speaker diarization.

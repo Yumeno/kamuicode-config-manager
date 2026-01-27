@@ -512,6 +512,11 @@ function main() {
   let categoryMaster = categoryMasterInfo.data;
   let categoryMasterSha = categoryMasterInfo.sha;
 
+  // 既存カテゴリキー一覧を抽出（重複排除）してGeminiに渡す
+  const existingCategories = [...new Set(
+    Object.values(categoryMaster.prefix_to_category || {}).map(v => v.category_key)
+  )];
+
   // 調査結果の一時保存（Resume時に復元）
   let resultsToCommit = JSON.parse(props.getProperty('COMMITTED_RESULTS') || '{"yamlUpdates":[], "mdUpdates":[]}');
 
@@ -552,11 +557,20 @@ function main() {
       isNewPrefix = true;
     }
 
-    // Gemini調査 (カテゴリ情報を渡す)
-    const result = researchModelWithGemini(modelKey, modelInfo, rulesContent, geminiKey, geminiModel, categoryInfo);
+    // Gemini調査 (カテゴリ情報と既存カテゴリ一覧を渡す)
+    const result = researchModelWithGemini(modelKey, modelInfo, rulesContent, geminiKey, geminiModel, categoryInfo, existingCategories);
 
     if (result) {
-      if (result.is_found) {
+      // Gemini結果のバリデーション
+      const validation = validateGeminiResult(result, modelKey);
+      if (!validation.valid) {
+        console.warn(`⚠️ Gemini result validation failed for ${modelKey}:`);
+        validation.errors.forEach(err => console.warn(`  - ${err}`));
+        console.warn('Skipping this entry to prevent YAML corruption.');
+        // 不正な結果は不明扱いとしてMarkdownに記録
+        const errorDetail = `### ${modelKey}\n- 自動調査結果がフォーマット不正のためスキップ\n- エラー: ${validation.errors.join(', ')}`;
+        resultsToCommit.mdUpdates.push(errorDetail);
+      } else if (result.is_found) {
         // 未知の接頭辞の場合、Geminiの推論結果でマスタを更新
         if (isNewPrefix && result.category) {
           const description = result.category_description || `${prefix}から始まるモデルのカテゴリ (自動生成)`;
@@ -1146,6 +1160,62 @@ function updateGithubFile(owner, repo, path, newContent, sha, message, token, br
 // ==========================================
 
 /**
+ * Geminiの調査結果を検証する
+ * yaml_entryが正しい書式か、categoryがsnake_caseかをチェック
+ * @param {Object} result - Geminiの調査結果
+ * @param {string} serverName - 期待されるserver_name
+ * @returns {{valid: boolean, errors: string[]}} 検証結果
+ */
+function validateGeminiResult(result, serverName) {
+  const errors = [];
+
+  if (!result || typeof result !== 'object') {
+    return { valid: false, errors: ['Result is null or not an object'] };
+  }
+
+  // is_found が false の場合、yaml_entry の検証はスキップ
+  if (!result.is_found) {
+    return { valid: true, errors: [] };
+  }
+
+  // category の検証: snake_case であること
+  if (!result.category || !/^[a-z0-9_]+$/.test(result.category)) {
+    errors.push(`Invalid category format: "${result.category}" (must be snake_case)`);
+  }
+
+  // yaml_entry の検証
+  const entry = result.yaml_entry;
+  if (!entry || typeof entry !== 'string') {
+    errors.push('yaml_entry is missing or not a string');
+  } else {
+    const trimmed = entry.trim();
+
+    // "- name: " で始まること
+    if (!trimmed.startsWith('- name: ')) {
+      errors.push(`yaml_entry must start with "- name: ", got: "${trimmed.substring(0, 30)}..."`);
+    }
+
+    // 必須4フィールドが含まれていること
+    if (!trimmed.includes('server_name: ')) {
+      errors.push('yaml_entry missing "server_name" field');
+    }
+    if (!trimmed.includes('release_date: ')) {
+      errors.push('yaml_entry missing "release_date" field');
+    }
+    if (!trimmed.includes('features: ')) {
+      errors.push('yaml_entry missing "features" field');
+    }
+
+    // server_name が正しいこと
+    if (trimmed.includes('server_name: ') && !trimmed.includes(`server_name: ${serverName}`)) {
+      errors.push(`yaml_entry has wrong server_name (expected: ${serverName})`);
+    }
+  }
+
+  return { valid: errors.length === 0, errors };
+}
+
+/**
  * Gemini APIを使用してモデル情報を調査する
  * @param {string} serverName - server_name
  * @param {Object} modelInfo - モデル情報 (description, url等)
@@ -1153,28 +1223,71 @@ function updateGithubFile(owner, repo, path, newContent, sha, message, token, br
  * @param {string} apiKey - Gemini APIキー
  * @param {string} modelName - 使用するGeminiモデル名
  * @param {Object|null} categoryInfo - カテゴリマスタからの情報 (null の場合はGeminiに推論させる)
+ * @param {string[]} existingCategories - 既存のカテゴリキー一覧 (snake_case)
  * @returns {Object|null} 調査結果
  */
-function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, modelName, categoryInfo) {
+function researchModelWithGemini(serverName, modelInfo, rulesText, apiKey, modelName, categoryInfo, existingCategories) {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
 
   // カテゴリが事前に決まっているかどうかでプロンプトを変える
   let categoryInstruction;
   if (categoryInfo && categoryInfo.category_key) {
-    categoryInstruction = `Category known: ${categoryInfo.category_key}. Use it.`;
+    categoryInstruction = `The category for this model is already determined: "${categoryInfo.category_key}". You MUST use this exact string as the "category" value.`;
   } else {
-    categoryInstruction = `Infer category from description. Use existing categories if possible.`;
+    categoryInstruction = `The category is unknown. Choose from the existing categories listed below if one fits. Only create a new snake_case category key if none of the existing ones are appropriate.`;
   }
 
-  const prompt = `
-  Research AI model:
-  - server_name: ${serverName}
-  - description: ${modelInfo.description || 'N/A'}
-  - url: ${modelInfo.url || 'N/A'}
-  Rules: ${rulesText}
-  ${categoryInstruction}
-  Output JSON schema: { thought_process, category, category_description, yaml_entry, is_found, unknown_reason_markdown }
-  `;
+  // 既存カテゴリ一覧を文字列化
+  const categoryList = (existingCategories || []).map(c => `  - ${c}`).join('\n');
+
+  const prompt = `You are a research assistant that investigates AI model information and outputs structured YAML data.
+
+## Task
+Research the following AI model and return a JSON object with the results.
+
+## Model Information
+- server_name: ${serverName}
+- description: ${modelInfo.description || 'N/A'}
+- url: ${modelInfo.url || 'N/A'}
+
+## Research Rules
+${rulesText}
+
+## Category Instructions
+${categoryInstruction}
+
+Existing category keys (snake_case, use one of these if applicable):
+${categoryList}
+
+IMPORTANT: The "category" field MUST be a snake_case string (e.g. "audio_to_text", "text_to_image"). NEVER use human-readable names like "Audio to Text".
+
+## YAML Entry Format (CRITICAL)
+The "yaml_entry" field MUST follow this EXACT template with NO indentation:
+\`\`\`
+- name: {human-readable model name}
+  server_name: ${serverName}
+  release_date: {YYYY年MM月DD日 format, e.g. 2025年10月15日, or 2025年10月頃 if day unknown}
+  features: "({developer name}) {description of model features in Japanese}"
+\`\`\`
+
+Rules for yaml_entry:
+- MUST start with "- name: "
+- MUST contain exactly 4 fields: name, server_name, release_date, features
+- server_name MUST be exactly: ${serverName}
+- release_date MUST use Japanese date format: YYYY年MM月DD日 (or YYYY年MM月頃 / YYYY年中頃 if partially unknown)
+- features MUST be a double-quoted string starting with "({developer name}) " followed by a Japanese description
+- Do NOT add any extra fields (publisher, model_name, model_type, url, description, etc.)
+
+## Output JSON Schema
+{
+  "thought_process": "string - your research reasoning",
+  "category": "string - snake_case category key",
+  "category_description": "string - Japanese description of category (only needed for new categories)",
+  "yaml_entry": "string - YAML entry following the EXACT template above",
+  "is_found": "boolean - true if release date was found",
+  "unknown_reason_markdown": "string - markdown explanation if is_found is false"
+}
+`;
 
   try {
     const response = UrlFetchApp.fetch(endpoint, {
