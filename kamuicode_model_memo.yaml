@@ -1023,6 +1023,18 @@ ai_models:
       server_name: t2a-kamui-beatoven-sound-effect-generation
       release_date: 2025年10月21日 #[修正] (ソース24, 40, 86, 112)
       features: "(Beatoven AI / fal.ai) テキスト記述から高解像度（44.1kHzステレオ）の効果音（SFX）を生成。"
+    - name: Qwen 3 TTS (0.6B)
+      server_name: t2a-kamui-qwen-3-tts-text-to-speech-06b
+      release_date: 2026年01月21日
+      features: "(Alibaba Cloud) 0.6Bパラメータの軽量音声合成モデル。3秒の音声からのボイスクローニング、自然言語による声質デザイン（Voice Design）、10言語対応、および低遅延ストリーミング生成を特徴とする。"
+    - name: Qwen 3 TTS 1.7B
+      server_name: t2a-kamui-qwen-3-tts-text-to-speech-17b
+      release_date: 2026年1月22日
+      features: "(Alibaba Cloud) わずか3秒の参照音声から高品質な音声クローンを作成する機能や、テキストプロンプトで声質・感情・話速などを詳細に設計できる「Voice Design」機能を備えた1.7BパラメータのTTSモデル。日本語を含む10言語に対応し、低遅延なストリーミング生成も可能。"
+    - name: Qwen3-TTS Voice Design 1.7B
+      server_name: t2a-kamui-qwen-3-tts-voice-design-17b
+      release_date: 2026年01月21日
+      features: "(Alibaba Cloud) テキストプロンプトで声質やスタイルを詳細に指定できるVoice Design機能を搭載したTTSモデル。1.7Bパラメータで、わずか3秒の音声からのクローン生成や、日本語を含む10言語への対応、低遅延な生成が可能。"
   text_to_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
