@@ -721,7 +721,7 @@ ai_models:
       features: "(Lightricks) 4K解像度・50fpsでの生成が可能な19Bパラメータのオープンソース動画生成モデル。画像からの動画生成に加え、音声の同期生成にも対応。"
     - model_name: Wan v2.6 Image-to-Video Flash
       server_name: i2v-kamui-wan-v26-image-to-video-flash
-      release_date: 2025-12-16
+      release_date: 2025年12月16日
       developer: Alibaba
       url: https://kamui-code.ai/i2v/fal/wan/v2.6/image-to-video/flash
   video_to_video:
@@ -1089,7 +1089,7 @@ ai_models:
       features: "(Silero Team) 軽量かつ高精度な音声区間検出（VAD）モデル。6000以上の言語に対応し、CPU単一スレッドでも1ms以下で処理可能な高速性が特徴。音声認識の前処理や無音区間のカットなどに広く利用される。"
     - name: ElevenLabs Scribe V2
       server_name: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
-      release_date: 2026-01-09
+      release_date: 2026年1月9日
       features: "(ElevenLabs) 99言語対応の高精度音声文字起こしモデル。単語レベルのタイムスタンプ、話者ダイアライゼーション、多言語音声の自動言語検出に対応。"
   text_to_visual:
     - name: Napkin AI
