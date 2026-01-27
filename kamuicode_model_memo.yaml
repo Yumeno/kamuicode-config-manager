@@ -896,7 +896,7 @@ ai_models:
     - name: ElevenLabs Dubbing
       server_name: v2v-kamui-elevenlabs-dubbing
       release_date: 2023年10月10日
-      features: "(ElevenLabs) 動画や音声をターゲット言語に翻訳・吹き替えするAIモデル。元の話者の声質や感情、イントネーションを維持したまま、多言語（20言語以上）への吹き替えが可能。2023年10月に正式リリースされた。"
+      features: "(ElevenLabs)ElevenLabsがリリースしたAI吹き替え（Dubbing）モデル。2023年10月に一般公開され、元の話者の声質や感情、イントネーションを保ったまま、ビデオやオーディオを多言語（20言語以上）に翻訳・吹き替えすることが可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
