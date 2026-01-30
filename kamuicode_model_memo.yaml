@@ -172,6 +172,18 @@ ai_models:
       server_name: t2i-kamui-fal-glm-image
       release_date: 2026年1月14日
       features: "(Zhipu AI) 高度なテキストレンダリング能力を持つ画像生成モデル。9Bの自己回帰モデルでレイアウトを計画し、7Bの拡散モデルで描画するハイブリッドアーキテクチャを採用しており、複雑なテキストや知識集約的な画像の生成に優れる。"
+    - name: Grok Imagine Image
+      server_name: t2i-kamui-fal-xai-grok-imagine-image
+      release_date: 2025年7月28日
+      features: "(xAI) xAIが開発した画像生成モデル。高い美的品質とシネマティックな表現力を特徴とし、照明や被写界深度を自然に描写する。当初はGrokアプリ内で提供され、後にfal.ai等を通じてAPIとして一般公開された。"
+    - name: FLUX.2 [klein] 9B
+      server_name: t2i-kamui-fal-flux-2-klein-9b
+      release_date: 2026年1月15日
+      features: "(Black Forest Labs) 9Bパラメータの蒸留モデルにより4ステップの高速生成を実現したFLUX.2 [klein]モデル。テキストからの画像生成と画像編集を単一のアーキテクチャで統合し、短時間での高品質な出力を提供します。"
+    - name: ImagineArt 1.5 Pro Preview
+      server_name: t2i-kamui-fal-imagineart-1-5-pro-preview
+      release_date: 2026年1月13日
+      features: "(ImagineArt) ネイティブ4K対応の高品質フォトリアル画像生成モデル。正確なテキストレンダリング、高いプロンプト忠実度、商用利用に適したプロフェッショナルな美学を特徴とし、広告やデザイン制作に最適化されている。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -405,6 +417,14 @@ ai_models:
       server_name: i2i-kamui-fal-glm-image-image-to-image
       release_date: 2026年1月14日
       features: "(Zhipu AI) 9Bの自己回帰型モデルと7Bの拡散モデルを統合したハイブリッドアーキテクチャを持つオープンソース画像生成モデル。テキストレンダリングの精度が非常に高く、Image-to-Image機能では参照画像を用いた高度な編集やスタイル変換が可能。"
+    - name: Grok Imagine Image Edit
+      server_name: i2i-kamui-fal-xai-grok-imagine-image-edit
+      release_date: 2026年01月29日
+      features: "(xAI) テキスト指示に基づいて画像を編集できるxAIのGrok Imagineモデル。既存の画像を正確に編集し、シネマティックな美学や精密な変更をサポートします。"
+    - name: FLUX.2 [klein] 9B Edit
+      server_name: i2i-kamui-fal-flux-2-klein-9b-edit
+      release_date: 2026年01月15日
+      features: "(Black Forest Labs) FLUX.2シリーズの軽量蒸留モデル「klein」（9B）を使用した高速画像編集モデル。わずか4ステップで推論を行い、テキストプロンプトと最大4枚の参照画像（image_urls）を組み合わせた高度な編集が可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -546,6 +566,14 @@ ai_models:
       server_name: t2v-kamui-fal-ltx-2-19b-text-to-video
       release_date: 2026年1月6日
       features: "(Lightricks) ネイティブ4K解像度と同期オーディオ生成に対応した19Bパラメータの動画生成モデル。高品質な動画と音声を同時に生成可能なオープンウェイトモデル。"
+    - name: Grok Imagine Video (Text-to-Video)
+      server_name: t2v-kamui-fal-xai-grok-imagine-video-text-to-video
+      release_date: 2026年01月29日
+      features: "(xAI) Grok Imagine Videoモデルを使用したテキスト動画生成。プロンプトから高品質な動画を生成し、ネイティブオーディオ（音声・効果音）も同時に生成可能。シネマティックな表現や編集機能に対応。"
+    - name: PixVerse V5.6
+      server_name: t2v-kamui-fal-pixverse-v5_6
+      release_date: 2026年1月28日
+      features: "(PixVerse) 物理演算エンジン2.0とマルチ被写体融合機能を搭載した最新動画生成モデル。ネイティブ4K級の内部生成能力により、複雑な物理挙動やキャラクター間の相互作用を自然に描画。深度認識モーション制御や、BGM・効果音・台詞を含むオーディオ生成にも対応する。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -897,6 +925,10 @@ ai_models:
       server_name: v2v-kamui-elevenlabs-dubbing
       release_date: 2023年10月10日
       features: "(ElevenLabs)ElevenLabsがリリースしたAI吹き替え（Dubbing）モデル。2023年10月に一般公開され、元の話者の声質や感情、イントネーションを保ったまま、ビデオやオーディオを多言語（20言語以上）に翻訳・吹き替えすることが可能。"
+    - name: Grok Imagine Video Edit Video
+      server_name: v2v-kamui-fal-xai-grok-imagine-video-edit-video
+      release_date: 2026年1月29日
+      features: "(xAI) テキスト指示に基づいて動画を編集（Video-to-Video）できるxAIの生成モデル。映画のような高品質な映像美と物理的な整合性を維持しながら、スタイル変換やオブジェクトの変更が可能。Fal.ai APIを通じて提供され、最大8秒、480p/720pの解像度に対応する。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
