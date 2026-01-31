@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-30T14:07:02.355287+00:00'
-  total_servers: 303
-  online_servers: 301
+  generated_at: '2026-01-31T13:53:20.183204+00:00'
+  total_servers: 305
+  online_servers: 303
   offline_servers: 0
   error_servers: 2
 servers:
@@ -6314,6 +6314,59 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-fal-xai-grok-imagine-video-image-to-video
+  status: online
+  last_checked: '2026-01-31T13:53:16.665812+00:00'
+  tools:
+  - name: grok_imagine_video_image_to_video_result
+    description: Get result of completed Grok Imagine Video Image-to-Video generation. Returns JSON response with video URL
+      and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_image_to_video_status
+    description: Check status of Grok Imagine Video Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_image_to_video_submit
+    description: Submit Fal.ai XAI Grok Imagine Video Image-to-Video request and receive request ID for polling. Generate
+      videos from images using Grok Imagine.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video. Possible values: auto, 16:9, 4:3, 3:2, 1:1, 2:3, 3:4, 9:16 (default:
+            auto)'
+          type: string
+        duration:
+          default: 6
+          description: 'Video duration in seconds (default: 6)'
+          type: number
+        image_url:
+          description: URL of the input image for video generation
+          type: string
+        prompt:
+          description: Text description of desired changes or motion in the video
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the output video. Possible values: 480p, 720p (default: 720p)'
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-hailuo-02-fast
   status: online
   last_checked: '2026-01-17T08:34:48.146925+00:00'
@@ -7435,6 +7488,67 @@ servers:
           type: number
         style:
           description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-pixverse-v5-6-transition
+  status: online
+  last_checked: '2026-01-31T13:52:50.065378+00:00'
+  tools:
+  - name: pixverse_v56_image_to_video_result
+    description: Get result of completed Pixverse V5.6 image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_image_to_video_status
+    description: Check status of Pixverse V5.6 image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_image_to_video_submit
+    description: Submit Fal.ai Pixverse V5.6 image-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (1080p limited to 5 or 8 seconds)'
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
           type: string
       required:
       - prompt
