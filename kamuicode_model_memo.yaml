@@ -752,6 +752,14 @@ ai_models:
       release_date: 2025年12月16日
       developer: Alibaba
       url: https://kamui-code.ai/i2v/fal/wan/v2.6/image-to-video/flash
+    - name: Pixverse V5.6 Transition
+      server_name: i2v-kamui-pixverse-v5-6-transition
+      release_date: 2026年1月28日
+      features: "(PixVerse) Pixverse V5.6モデルを使用して、2つの画像間のスムーズなトランジション動画を生成します。V5.6ではネイティブ4Kレンダリングや物理演算エンジンの刷新により、画質と動きの一貫性が飛躍的に向上しています。"
+    - name: Grok Imagine Video Image-to-Video
+      server_name: i2v-kamui-fal-xai-grok-imagine-video-image-to-video
+      release_date: 2025年8月2日
+      features: "(xAI) xAIが開発した動画生成モデルGrok Imagine Videoを使用したImage-to-Video機能。画像とテキストプロンプトから動画を生成可能。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
