@@ -184,6 +184,18 @@ ai_models:
       server_name: t2i-kamui-fal-imagineart-1-5-pro-preview
       release_date: 2026年1月13日
       features: "(ImagineArt) ネイティブ4K対応の高品質フォトリアル画像生成モデル。正確なテキストレンダリング、高いプロンプト忠実度、商用利用に適したプロフェッショナルな美学を特徴とし、広告やデザイン制作に最適化されている。"
+    - name: Qwen Image Max
+      server_name: t2i-kamui-qwen-image-max
+      release_date: 2025年12月31日
+      features: "(Alibaba Cloud) 200億パラメータのMMDiTアーキテクチャを採用したQwenシリーズの最上位画像生成モデル。中国語・英語のバイリンガルプロンプトに対応し、写真のようなリアリズム、複雑なテキストのレンダリング、構図の正確性に優れています。"
+    - name: Hunyuan Image V3 Instruct
+      server_name: t2i-kamui-hunyuan-image-v3-instruct
+      release_date: 2026年01月26日
+      features: "(Tencent Hunyuan) テキストと画像を統合した自己回帰型フレームワークを採用する80Bパラメータ（MoE）のマルチモーダルモデル。Instruct版は視覚的推論やプロンプト拡張機能を備え、複雑な指示に従った画像生成が可能。"
+    - name: Z-Image Base
+      server_name: t2i-kamui-fal-z-image-base
+      release_date: 2026年01月27日
+      features: "(Alibaba Tongyi-MAI) 60億パラメータのS3-DiTアーキテクチャを採用したテキスト・画像生成モデル。Turbo版の基盤となる非蒸留モデルで、高い画質と多様性を持ち、CFGスケール調整や追加学習に適した設計となっている。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -425,6 +437,14 @@ ai_models:
       server_name: i2i-kamui-fal-flux-2-klein-9b-edit
       release_date: 2026年01月15日
       features: "(Black Forest Labs) FLUX.2シリーズの軽量蒸留モデル「klein」（9B）を使用した高速画像編集モデル。わずか4ステップで推論を行い、テキストプロンプトと最大4枚の参照画像（image_urls）を組み合わせた高度な編集が可能。"
+    - name: Qwen Image Max Edit
+      server_name: i2i-kamui-qwen-image-max-edit
+      release_date: 2026年1月7日
+      features: "(Alibaba Cloud) Qwen Image Max (20B MMDiT) をベースにした最上位の画像編集モデル。日本語・英語プロンプトに対応し、インペインティング、スタイル変換、画像内のテキスト置換などを高精度に実行可能。従来モデルと比較してリアリズムと自然さが大幅に向上している。"
+    - name: Hunyuan Image V3 Instruct Edit
+      server_name: i2i-kamui-hunyuan-image-v3-instruct-edit
+      release_date: 2026年1月26日
+      features: "(Tencent) 80Bパラメータを持つHunyuan Image V3 Instructモデルを使用した画像編集機能。推論能力（Reasoning）を活用し、テキストプロンプトに従って画像の編集やスタイル変換を高精度に実行可能。MoEアーキテクチャを採用。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -760,6 +780,14 @@ ai_models:
       server_name: i2v-kamui-fal-xai-grok-imagine-video-image-to-video
       release_date: 2025年8月2日
       features: "(xAI) xAIが開発した動画生成モデルGrok Imagine Videoを使用したImage-to-Video機能。画像とテキストプロンプトから動画を生成可能。"
+    - name: PixVerse V5.6
+      server_name: i2v-kamui-pixverse-v5-6
+      release_date: 2026年1月27日
+      features: "(PixVerse) 物理演算とキャラクターの一貫性が大幅に向上したV5.6モデル。最大1080p・最長10秒の動画生成（1080pは最大8秒）、音声生成、プロンプト最適化（Thinking Type）に対応し、Anime/3D/Clay等のスタイル指定が可能。"
+    - name: PixVerse V5.6 Transition
+      server_name: start-end-kamui-pixverse-v5-6-transition
+      release_date: 2026年1月26日
+      features: "(PixVerse) 2枚の画像（開始・終了フレーム）間を滑らかに繋ぐ遷移動画を生成するV5.6モデル。最大1080p・8秒の生成、Thinking Typeによるプロンプト最適化、BGM/SFX生成に対応。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1021,6 +1049,14 @@ ai_models:
       server_name: a2v-kamui-fal-veed-fabric-1-0-text
       release_date: 2025年9月25日
       features: "(VEED.IO) 静止画と音声/テキストから、自然な口の動きや表情を持つトーキングヘッド動画を生成するモデル。fal.ai API経由で提供。"
+    - name: LTX-2 19B Distilled Audio-to-Video
+      server_name: a2v-kamui-fal-ltx-2-19b-distilled-audio-to-video
+      release_date: 2026年1月27日
+      features: "(Lightricks) LTX-2の蒸留モデル（19B）を使用し、音声入力に基づいて同期した動画を生成するAudio-to-Videoモデル。音声が動画の動きや展開を制御し、プロンプト、開始/終了画像、カメラワーク制御（LoRA）もサポートする。"
+    - name: LTX-2 19B Audio-to-Video
+      server_name: a2v-kamui-fal-ltx-2-19b-audio-to-video
+      release_date: 2026年01月06日
+      features: "(Lightricks) 映像(14B)と音声(5B)を統合した19Bパラメータの基盤モデル。音声を主導入力として、テキストや画像を補助に4K解像度・50fpsの同期された音声付き動画を生成可能。"
   text_to_speech:
     - name: Minimax Speech-02 Turbo
       server_name: t2s-kamui-minimax-speech-02-turbo
