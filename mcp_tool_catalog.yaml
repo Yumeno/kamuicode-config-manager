@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-01-31T13:53:20.183204+00:00'
-  total_servers: 305
-  online_servers: 303
+  generated_at: '2026-02-02T14:16:04.039163+00:00'
+  total_servers: 314
+  online_servers: 312
   offline_servers: 0
   error_servers: 2
 servers:
@@ -395,6 +395,238 @@ servers:
           type: string
       required:
       - image_url
+      - audio_url
+      type: object
+- id: a2v-kamui-fal-ltx-2-19b-audio-to-video
+  status: online
+  last_checked: '2026-02-02T14:15:59.804529+00:00'
+  tools:
+  - name: ltx_2_19b_audio_to_video_result
+    description: Get result of completed LTX-2-19B Audio-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_audio_to_video_status
+    description: Check status of LTX-2-19B Audio-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_audio_to_video_submit
+    description: Submit LTX-2-19B Audio-to-Video request to Fal.ai. Generate a video from audio and an optional text/image
+      prompt.
+    inputSchema:
+      properties:
+        acceleration:
+          description: 'The acceleration level to use. Options: none, regular, high, full. Default: regular'
+          type: string
+        audio_strength:
+          description: 'Audio conditioning strength. Values below 1.0 will allow the model to change the audio, while a value
+            of exactly 1.0 will use the input audio without modification. Default: 1'
+          type: number
+        audio_url:
+          description: The URL of the audio to generate the video from
+          type: string
+        camera_lora:
+          description: 'The camera LoRA to use. Options: dolly_in, dolly_out, dolly_left, dolly_right, jib_up, jib_down, static,
+            none. Default: none'
+          type: string
+        camera_lora_scale:
+          description: 'The scale of the camera LoRA to use. Default: 1'
+          type: number
+        enable_prompt_expansion:
+          description: 'Whether to enable prompt expansion. Default: true'
+          type: boolean
+        enable_safety_checker:
+          description: 'Whether to enable the safety checker. Default: true'
+          type: boolean
+        end_image_strength:
+          description: 'The strength of the end image to use for the video generation. Default: 1'
+          type: number
+        end_image_url:
+          description: The URL of the image to use as the end of the video
+          type: string
+        fps:
+          description: 'The frames per second of the generated video. Default: 25'
+          type: number
+        guidance_scale:
+          description: 'The guidance scale to use. Default: 3'
+          type: number
+        image_strength:
+          description: 'The strength of the image to use for the video generation. Default: 1'
+          type: number
+        image_url:
+          description: Optional URL of an image to use as the first frame of the video
+          type: string
+        match_audio_length:
+          description: 'When enabled, the number of frames will be calculated based on the audio duration and FPS. When disabled,
+            use the specified num_frames. Default: true'
+          type: boolean
+        negative_prompt:
+          description: The negative prompt to generate the video from
+          type: string
+        num_frames:
+          description: 'The number of frames to generate. Default: 121'
+          type: number
+        num_inference_steps:
+          description: 'The number of inference steps to use. Default: 40'
+          type: number
+        preprocess_audio:
+          description: 'Whether to preprocess the audio before using it as conditioning. Default: true'
+          type: boolean
+        prompt:
+          description: The prompt to generate the video from
+          type: string
+        seed:
+          description: The seed for the random number generator
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+        use_multiscale:
+          description: 'Whether to use multi-scale generation. If True, the model will generate the video at a smaller scale
+            first, then use the smaller video to guide the generation of a video at or above your requested size. This results
+            in better coherence and details. Default: true'
+          type: boolean
+        video_output_type:
+          description: 'The output type of the generated video. Options: X264 (.mp4), VP9 (.webm), PRORES4444 (.mov), GIF
+            (.gif). Default: X264 (.mp4)'
+          type: string
+        video_quality:
+          description: 'The quality of the generated video. Options: low, medium, high, maximum. Default: high'
+          type: string
+        video_size:
+          description: 'The size of the generated video. Options: auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. Default: landscape_4_3. For custom sizes, pass as object with width and height'
+          type: string
+        video_write_mode:
+          description: 'The write mode of the generated video. Options: fast, balanced, small. Default: balanced'
+          type: string
+      required:
+      - prompt
+      - audio_url
+      type: object
+- id: a2v-kamui-fal-ltx-2-19b-distilled-audio-to-video
+  status: online
+  last_checked: '2026-02-02T14:15:56.021636+00:00'
+  tools:
+  - name: ltx_2_19b_distilled_audio_to_video_result
+    description: Get result of completed LTX-2-19B Distilled Audio-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_distilled_audio_to_video_status
+    description: Check status of LTX-2-19B Distilled Audio-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_19b_distilled_audio_to_video_submit
+    description: Submit LTX-2-19B Distilled Audio-to-Video request to Fal.ai. Generate a video from audio and an optional
+      text/image prompt using distilled LoRA.
+    inputSchema:
+      properties:
+        acceleration:
+          description: 'The acceleration level to use. Options: none, regular, high, full. Default: none'
+          type: string
+        audio_strength:
+          description: 'Audio conditioning strength. Values below 1.0 will allow the model to change the audio, while a value
+            of exactly 1.0 will use the input audio without modification. Default: 1'
+          type: number
+        audio_url:
+          description: The URL of the audio to generate the video from
+          type: string
+        camera_lora:
+          description: 'The camera LoRA to use. Options: dolly_in, dolly_out, dolly_left, dolly_right, jib_up, jib_down, static,
+            none. Default: none'
+          type: string
+        camera_lora_scale:
+          description: 'The scale of the camera LoRA to use. Default: 1'
+          type: number
+        enable_prompt_expansion:
+          description: 'Whether to enable prompt expansion. Default: true'
+          type: boolean
+        enable_safety_checker:
+          description: 'Whether to enable the safety checker. Default: true'
+          type: boolean
+        end_image_strength:
+          description: 'The strength of the end image to use for the video generation. Default: 1'
+          type: number
+        end_image_url:
+          description: The URL of the image to use as the end of the video
+          type: string
+        fps:
+          description: 'The frames per second of the generated video. Default: 25'
+          type: number
+        image_strength:
+          description: 'The strength of the image to use for the video generation. Default: 1'
+          type: number
+        image_url:
+          description: Optional URL of an image to use as the first frame of the video
+          type: string
+        match_audio_length:
+          description: 'When enabled, the number of frames will be calculated based on the audio duration and FPS. When disabled,
+            use the specified num_frames. Default: true'
+          type: boolean
+        negative_prompt:
+          description: The negative prompt to generate the video from
+          type: string
+        num_frames:
+          description: 'The number of frames to generate. Default: 121'
+          type: number
+        preprocess_audio:
+          description: 'Whether to preprocess the audio before using it as conditioning. Default: true'
+          type: boolean
+        prompt:
+          description: The prompt to generate the video from
+          type: string
+        seed:
+          description: The seed for the random number generator
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+        use_multiscale:
+          description: 'Whether to use multi-scale generation. If True, the model will generate the video at a smaller scale
+            first, then use the smaller video to guide the generation of a video at or above your requested size. This results
+            in better coherence and details. Default: true'
+          type: boolean
+        video_output_type:
+          description: 'The output type of the generated video. Options: X264 (.mp4), VP9 (.webm), PRORES4444 (.mov), GIF
+            (.gif). Default: X264 (.mp4)'
+          type: string
+        video_quality:
+          description: 'The quality of the generated video. Options: low, medium, high, maximum. Default: high'
+          type: string
+        video_size:
+          description: 'The size of the generated video. Options: auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3,
+            landscape_16_9. Default: landscape_4_3. For custom sizes, pass as object with width and height'
+          type: string
+        video_write_mode:
+          description: 'The write mode of the generated video. Options: fast, balanced, small. Default: balanced'
+          type: string
+      required:
+      - prompt
       - audio_url
       type: object
 - id: a2v-kamui-fal-veed-fabric-1-0-text
@@ -3119,6 +3351,89 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-hunyuan-image-v3-instruct-edit
+  status: online
+  last_checked: '2026-02-02T14:15:27.990578+00:00'
+  tools:
+  - name: hunyuan_image_v3_instruct_edit_result
+    description: Get result of completed Hunyuan Image V3 Instruct Edit generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_image_v3_instruct_edit_status
+    description: Check status of Hunyuan Image V3 Instruct Edit processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_image_v3_instruct_edit_submit
+    description: Submit Hunyuan Image V3 Instruct Edit generation request and receive request ID for polling. Edit images
+      from text using Hunyuan Image V3 Instruct model.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 3.5
+          description: 'Controls how much the model adheres to the prompt. Higher values mean stricter adherence (default:
+            3.5)'
+          type: number
+        image_size:
+          description: 'The desired size of the generated image. If auto, image size will be determined by the model. Can
+            be a preset (''auto'', ''square_hd'', ''square'', ''portrait_4_3'', ''portrait_16_9'', ''landscape_4_3'', ''landscape_16_9'')
+            or a custom object {width: number, height: number} (default: auto)'
+          oneOf:
+          - enum:
+            - auto
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            type: object
+          properties: {}
+          type: object
+        image_urls:
+          description: The URLs of the images to use as a reference for the generation. A maximum of 2 images are supported.
+          type: array
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          description: 'The format of the generated image. Possible values: ''jpeg'', ''png'' (default: ''png'')'
+          type: string
+        prompt:
+          description: The text prompt to edit the image from.
+          type: string
+        seed:
+          description: Random seed for reproducible results. If None, a random seed is used.
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history.
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-ideogram-character-remix
   status: online
   last_checked: '2026-01-17T08:34:46.381259+00:00'
@@ -4510,6 +4825,101 @@ servers:
           type: boolean
       required:
       - image_url
+      type: object
+- id: i2i-kamui-qwen-image-max-edit
+  status: online
+  last_checked: '2026-02-02T14:15:11.759303+00:00'
+  tools:
+  - name: qwen_image_max_edit_result
+    description: Get result of completed Qwen Image Max Edit image editing generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_max_edit_status
+    description: Check status of Qwen Image Max Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_max_edit_submit
+    description: Submit Fal.ai Qwen Image Max Edit image editing request and receive request ID for polling. Edit images using
+      Qwen Image Max with support for 1-3 reference images.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM prompt optimization for better results. Default value: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default value: true'
+          type: boolean
+        image_size:
+          description: 'The size of the generated image. If not provided, the size of the final input image will be used.
+            Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom
+            object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_urls:
+          description: 'Reference images for editing (1-3 images required). Order matters: reference as ''image 1'', ''image
+            2'', ''image 3'' in prompt. Resolution: 384-5000px each dimension. Max size: 10MB each. Formats: JPEG, JPG, PNG
+            (no alpha), WEBP.'
+          items:
+            type: string
+          maxItems: 3
+          minItems: 1
+          type: array
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default value: empty string'
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp). Default value: png'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image. Supports Chinese and English. Max 800 characters.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647)
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+      required:
+      - prompt
+      - image_urls
       type: object
 - id: i2i-kamui-qwen-lighting-restore
   status: online
@@ -7493,9 +7903,9 @@ servers:
       - prompt
       - image_url
       type: object
-- id: i2v-kamui-pixverse-v5-6-transition
+- id: i2v-kamui-pixverse-v5-6
   status: online
-  last_checked: '2026-01-31T13:52:50.065378+00:00'
+  last_checked: '2026-02-02T14:15:34.183851+00:00'
   tools:
   - name: pixverse_v56_image_to_video_result
     description: Get result of completed Pixverse V5.6 image-to-video generation.
@@ -7553,6 +7963,74 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2v-kamui-pixverse-v5-6-transition
+  status: online
+  last_checked: '2026-02-02T14:16:00.203427+00:00'
+  tools:
+  - name: pixverse_v56_transition_result
+    description: Get result of completed Pixverse V5.6 transition generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_transition_status
+    description: Check status of Pixverse V5.6 transition processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_transition_submit
+    description: Submit Fal.ai Pixverse V5.6 transition request (two images to video) and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (1080p limited to 5 or 8 seconds)'
+          type: string
+        end_image_url:
+          description: URL of the image to use as the last frame (or base64 data URI).
+          type: string
+        first_image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing how the scene should transition between the two images.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - first_image_url
       type: object
 - id: i2v-kamui-pixverse-v5-transition
   status: online
@@ -9696,6 +10174,74 @@ servers:
       - image_url
       - audio_url
       type: object
+- id: start-end-kamui-pixverse-v5-6-transition
+  status: online
+  last_checked: '2026-02-02T14:15:34.294920+00:00'
+  tools:
+  - name: pixverse_v56_transition_result
+    description: Get result of completed Pixverse V5.6 transition generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_transition_status
+    description: Check status of Pixverse V5.6 transition processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v56_transition_submit
+    description: Submit Fal.ai Pixverse V5.6 transition request (two images to video) and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 5, 8, or 10 (1080p limited to 5 or 8 seconds)'
+          type: string
+        end_image_url:
+          description: URL of the image to use as the last frame (or base64 data URI).
+          type: string
+        first_image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing how the scene should transition between the two images.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (1080p limited to 5 or 8 seconds)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - first_image_url
+      type: object
 - id: t2a-kamui-beatoven-sound-effect-generation
   status: online
   last_checked: '2026-01-17T08:35:09.363368+00:00'
@@ -10876,6 +11422,100 @@ servers:
         sync_mode:
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history. Default: false'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-z-image-base
+  status: online
+  last_checked: '2026-02-02T14:15:42.945149+00:00'
+  tools:
+  - name: z_image_base_result
+    description: Get result of completed Z-Image Base text-to-image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_base_status
+    description: Check status of Z-Image Base text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: z_image_base_submit
+    description: Submit Fal.ai Z-Image Base text-to-image generation request and receive request ID for polling. Generate
+      images using Z-Image Base model for text-to-image.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'The acceleration level to use (none, regular, high, default: regular)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 4
+          description: 'The guidance scale to use for the image generation (default: 4)'
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'The size of the generated image. Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9) or custom object {width: number, height: number} (default: landscape_4_3)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        negative_prompt:
+          default: ''
+          description: 'The negative prompt to use for the image generation (default: empty string)'
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 28
+          description: 'The number of inference steps to perform (default: 28)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp, default: png)'
+          type: string
+        prompt:
+          description: The prompt to generate an image from
+          type: string
+        seed:
+          description: The same seed and the same prompt given to the same version of the model will output the same image
+            every time
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
           type: boolean
       required:
       - prompt
@@ -12107,6 +12747,86 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-hunyuan-image-v3-instruct
+  status: online
+  last_checked: '2026-02-02T14:15:27.976500+00:00'
+  tools:
+  - name: hunyuan_image_v3_instruct_text_to_image_result
+    description: Get result of completed Hunyuan Image V3 Instruct Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_image_v3_instruct_text_to_image_status
+    description: Check status of Hunyuan Image V3 Instruct Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan_image_v3_instruct_text_to_image_submit
+    description: Submit Hunyuan Image V3 Instruct Text-to-Image generation request and receive request ID for polling. Generate
+      images from text using Hunyuan Image V3 Instruct model.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        guidance_scale:
+          description: 'Controls how much the model adheres to the prompt. Higher values mean stricter adherence (default:
+            3.5)'
+          type: number
+        image_size:
+          default: auto
+          description: 'The desired size of the generated image. If auto, image size will be determined by the model. Can
+            be a preset (''auto'', ''square_hd'', ''square'', ''portrait_4_3'', ''portrait_16_9'', ''landscape_4_3'', ''landscape_16_9'')
+            or a custom object {width: number, height: number} (default: auto)'
+          oneOf:
+          - enum:
+            - auto
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        num_images:
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          description: 'The format of the generated image. Possible values: jpeg, png (default: png)'
+          type: string
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+        seed:
+          description: Random seed for reproducible results. If not provided, a random seed is used.
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history.
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-ideogram-character-base
   status: online
   last_checked: '2026-01-17T08:34:42.981812+00:00'
@@ -12814,6 +13534,90 @@ servers:
           type: number
         sync_mode:
           description: 'Wait for image generation before returning response (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-qwen-image-max
+  status: online
+  last_checked: '2026-02-02T14:15:11.906588+00:00'
+  tools:
+  - name: qwen_image_max_text_to_image_result
+    description: Get result of completed Qwen Image Max Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_max_text_to_image_status
+    description: Check status of Qwen Image Max Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_max_text_to_image_submit
+    description: Submit Fal.ai Qwen Image Max Text-to-Image generation request and receive request ID for polling. Generate
+      images from text using Qwen Image Max.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM prompt optimization for better results. Default value: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default value: true'
+          type: boolean
+        image_size:
+          description: 'The size of the generated image. Default value: square_hd. Can be a preset string (square_hd, square,
+            portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default value: empty string'
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp). Default value: png'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image. Supports Chinese and English. Max 800 characters.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647)
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
           type: boolean
       required:
       - prompt
