@@ -122,6 +122,10 @@
     "ia2v": {
       "category_key": "image_audio_to_video",
       "description": "画像と音声を入力として、音声に合わせて動く動画（リップシンク、アバター生成など）を出力するAIモデル。"
+    },
+    "start-end": {
+      "category_key": "image_to_video",
+      "description": "start-endから始まるモデルのカテゴリ (自動生成)"
     }
   }
 }
