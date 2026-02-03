@@ -594,6 +594,10 @@ ai_models:
       server_name: t2v-kamui-fal-pixverse-v5_6
       release_date: 2026年1月28日
       features: "(PixVerse) 物理演算エンジン2.0とマルチ被写体融合機能を搭載した最新動画生成モデル。ネイティブ4K級の内部生成能力により、複雑な物理挙動やキャラクター間の相互作用を自然に描画。深度認識モーション制御や、BGM・効果音・台詞を含むオーディオ生成にも対応する。"
+    - name: Vidu Q3
+      server_name: t2v-kamui-fal-vidu-q3
+      release_date: 2026年1月30日
+      features: "(ShengShu Technology) 映像と音声を同時にネイティブ生成できる最新モデル。最大16秒の長尺動画に対応し、マルチショットや複数主体の整合性を維持した映画的なストーリーテリングが可能。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -788,6 +792,10 @@ ai_models:
       server_name: start-end-kamui-pixverse-v5-6-transition
       release_date: 2026年1月26日
       features: "(PixVerse) 2枚の画像（開始・終了フレーム）間を滑らかに繋ぐ遷移動画を生成するV5.6モデル。最大1080p・8秒の生成、Thinking Typeによるプロンプト最適化、BGM/SFX生成に対応。"
+    - name: Vidu Q3
+      server_name: i2v-kamui-fal-vidu-q3
+      release_date: 2026年01月30日
+      features: "(ShengShu Technology) 単一画像から最大16秒の動画を生成するViduの最新モデル。ネイティブな音声同期生成、カメラワーク制御、1080p解像度に対応し、高い一貫性と動作の忠実度を実現。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
