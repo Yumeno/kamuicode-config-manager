@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-02T14:16:04.039163+00:00'
-  total_servers: 314
-  online_servers: 312
+  generated_at: '2026-02-04T14:16:58.567852+00:00'
+  total_servers: 316
+  online_servers: 314
   offline_servers: 0
   error_servers: 2
 servers:
@@ -6720,6 +6720,60 @@ servers:
           - 720p
           - 1080p
           type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-fal-vidu-q3
+  status: online
+  last_checked: '2026-02-04T14:16:54.931364+00:00'
+  tools:
+  - name: vidu_q3_image_to_video_result
+    description: Get result of completed Vidu Q3 Image-to-Video generation. Returns Fal JSON response with generated video
+      file URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q3_image_to_video_status
+    description: Check status of Vidu Q3 Image-to-Video processing using request ID. Returns Fal JSON status response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q3_image_to_video_submit
+    description: Submit Fal.ai Vidu Q3 Image-to-Video request and receive Fal JSON response (includes request_id) for polling.
+    inputSchema:
+      properties:
+        audio:
+          default: true
+          description: 'Whether to use direct audio-video generation. When true, outputs video with sound. Default: true'
+          type: boolean
+        duration:
+          default: 5
+          description: 'Duration of the video in seconds. Default: 5'
+          type: number
+        image_url:
+          description: URL or base64 image to use as the starting frame.
+          type: string
+        prompt:
+          description: Text prompt for video generation (max 2000 characters).
+          type: string
+        resolution:
+          default: 720p
+          description: 'Output video resolution. Possible values: 360p, 540p, 720p, 1080p. Default: 720p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed is chosen.
+          type: number
       required:
       - prompt
       - image_url
@@ -15579,6 +15633,60 @@ servers:
           - 720p
           - 1080p
           type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-vidu-q3
+  status: online
+  last_checked: '2026-02-04T14:16:54.869742+00:00'
+  tools:
+  - name: vidu_q3_text_to_video_result
+    description: Get result of completed Vidu Q3 Text-to-Video generation. Returns Fal JSON response with generated video
+      file URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q3_text_to_video_status
+    description: Check status of Vidu Q3 Text-to-Video processing using request ID. Returns Fal JSON status response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: vidu_q3_text_to_video_submit
+    description: Submit Fal.ai Vidu Q3 Text-to-Video request and receive Fal JSON response (includes request_id) for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the output video. Possible values: 16:9, 9:16, 4:3, 3:4, 1:1. Default: 16:9'
+          type: string
+        audio:
+          default: true
+          description: 'Whether to use direct audio-video generation. When true, outputs video with sound. Default: true'
+          type: boolean
+        duration:
+          default: 5
+          description: 'Duration of the video in seconds. Default: 5'
+          type: number
+        prompt:
+          description: Text prompt for video generation (max 2000 characters).
+          type: string
+        resolution:
+          default: 720p
+          description: 'Output video resolution. Possible values: 360p, 540p, 720p, 1080p. Default: 720p'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed is chosen.
+          type: number
       required:
       - prompt
       type: object
