@@ -196,6 +196,10 @@ ai_models:
       server_name: t2i-kamui-fal-z-image-base
       release_date: 2026年01月27日
       features: "(Alibaba Tongyi-MAI) 60億パラメータのS3-DiTアーキテクチャを採用したテキスト・画像生成モデル。Turbo版の基盤となる非蒸留モデルで、高い画質と多様性を持ち、CFGスケール調整や追加学習に適した設計となっている。"
+    - name: Kling Image V3
+      server_name: t2i-kamui-kling-image-v3
+      release_date: 2026年02月04日
+      features: "(Kuaishou) Kling V3 Standardモデルを使用したテキストからの画像生成。オプションの要素制御（顔）、最大2K解像度、複数のアスペクト比をサポート。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -445,6 +449,10 @@ ai_models:
       server_name: i2i-kamui-hunyuan-image-v3-instruct-edit
       release_date: 2026年1月26日
       features: "(Tencent) 80Bパラメータを持つHunyuan Image V3 Instructモデルを使用した画像編集機能。推論能力（Reasoning）を活用し、テキストプロンプトに従って画像の編集やスタイル変換を高精度に実行可能。MoEアーキテクチャを採用。"
+    - name: Kling Image V3
+      server_name: i2i-kamui-kling-image-v3
+      release_date: 2026年02月05日
+      features: "(Kuaishou) 快手の最新画像生成モデルKling V3を使用したImage-to-Image。最大2K解像度に対応し、Elements機能により参照画像の顔の整合性を維持した生成が可能。多様なアスペクト比と高いプロンプト忠実度を特徴とする。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -598,6 +606,14 @@ ai_models:
       server_name: t2v-kamui-fal-vidu-q3
       release_date: 2026年1月30日
       features: "(ShengShu Technology) 映像と音声を同時にネイティブ生成できる最新モデル。最大16秒の長尺動画に対応し、マルチショットや複数主体の整合性を維持した映画的なストーリーテリングが可能。"
+    - name: Kling Video V3 Standard
+      server_name: t2v-kamui-kling-video-v3-standard
+      release_date: 2026年02月04日
+      features: "(Kuaishou) 動画品質と動きの一貫性が向上した最新のテキスト動画生成モデル。ネイティブ音声生成、最大15秒の動画生成、マルチショット機能、Voice IDによる音声制御に対応し、ストーリー性のある動画制作が可能。"
+    - name: Kling Video V3 Pro
+      server_name: t2v-kamui-kling-video-v3-pro
+      release_date: 2026年2月4日
+      features: "(Kuaishou) 最新のテキスト動画生成モデル。ネイティブ音声生成、最大6ショットのマルチショット機能、キャラクターや音声の一貫性を維持するVoice ID、3〜15秒の長尺生成に対応し、映像品質と動きの整合性が大幅に向上。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -796,6 +812,14 @@ ai_models:
       server_name: i2v-kamui-fal-vidu-q3
       release_date: 2026年01月30日
       features: "(ShengShu Technology) 単一画像から最大16秒の動画を生成するViduの最新モデル。ネイティブな音声同期生成、カメラワーク制御、1080p解像度に対応し、高い一貫性と動作の忠実度を実現。"
+    - name: Kling Video V3 Standard
+      server_name: i2v-kamui-kling-video-v3-standard
+      release_date: 2026年2月4日
+      features: "(Kuaishou) 映像品質と動きの一貫性が向上した最新のI2Vモデル。ネイティブオーディオ生成、マルチショット機能、要素制御（Element Control）をサポートし、3〜15秒の高品質な動画生成が可能。"
+    - name: Kling Video V3 Pro
+      server_name: i2v-kamui-kling-video-v3-pro
+      release_date: 2026年1月31日
+      features: "(Kuaishou) ネイティブ音声生成、マルチショット動画生成（AI Director）、最大15秒の長尺動画生成に対応。Element ControlやボイスIDをサポートし、視覚品質とモーションの一貫性が大幅に向上。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
