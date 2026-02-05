@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-04T14:16:58.567852+00:00'
-  total_servers: 316
-  online_servers: 314
+  generated_at: '2026-02-05T14:18:33.542998+00:00'
+  total_servers: 322
+  online_servers: 320
   offline_servers: 0
   error_servers: 2
 servers:
@@ -3755,6 +3755,70 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-kling-image-v3
+  status: online
+  last_checked: '2026-02-05T14:18:30.076277+00:00'
+  tools:
+  - name: kling_image_v3_image_to_image_result
+    description: Get result of completed Kling Image V3 Image-to-Image generation. Returns Fal response JSON with generated
+      images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_v3_image_to_image_status
+    description: Check status of Kling Image V3 Image-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_v3_image_to_image_submit
+    description: Submit Fal.ai Kling Image V3 Standard image-to-image generation request and receive request ID for polling.
+      Generate images from a reference image with optional element control (face). Resolution up to 2K with multiple aspect
+      ratio options.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of generated images. Default value: 16:9. Possible values: 16:9, 9:16, 1:1, 4:3, 3:4,
+            3:2, 2:3, 21:9'
+          type: string
+        elements:
+          description: 'Optional: Elements (characters/objects) to include in the image for face control.'
+          type: array
+        image_url:
+          description: Reference image for image-to-image generation.
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (1-9). Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Default value: png. Possible values: jpeg, png, webp'
+          type: string
+        prompt:
+          description: Text prompt for image generation. Max 2500 characters.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Image generation resolution. 1K: standard, 2K: high-res. Default value: 1K'
+          type: string
+        sync_mode:
+          description: If True, the media will be returned as a data URI.
+          type: boolean
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2i-kamui-lucidflux
   status: online
   last_checked: '2026-01-17T08:35:05.700344+00:00'
@@ -7333,6 +7397,140 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2v-kamui-kling-video-v3-pro
+  status: online
+  last_checked: '2026-02-05T14:17:56.986318+00:00'
+  tools:
+  - name: kling_video_v3_pro_image_to_video_result
+    description: Kling Video V3 Pro Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_image_to_video_status
+    description: Kling Video V3 Pro Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_image_to_video_submit
+    description: Kling Video V3 Pro Image-to-Videoを使用して画像から動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        cfg_scale:
+          description: 'CFG（Classifier Free Guidance）スケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        elements:
+          description: 動画に含める要素（キャラクター/オブジェクト）。各要素は画像セット（正面+参照画像）または動画。プロンプト内で@Element1、@Element2などで参照
+          type: array
+        end_image_url:
+          description: 動画の終了画像URL
+          type: string
+        generate_audio:
+          description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ（multi_prompt使用時必須）。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        start_image_url:
+          description: 動画に使用する画像のURL（必須）
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
+      required:
+      - start_image_url
+      type: object
+- id: i2v-kamui-kling-video-v3-standard
+  status: online
+  last_checked: '2026-02-05T14:17:56.824105+00:00'
+  tools:
+  - name: kling_video_v3_standard_image_to_video_result
+    description: Kling Video V3 Standard Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_image_to_video_status
+    description: Kling Video V3 Standard Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_image_to_video_submit
+    description: Kling Video V3 Standard Image-to-Videoを使用して画像から動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        cfg_scale:
+          description: 'CFG（Classifier Free Guidance）スケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        elements:
+          description: 動画に含める要素（キャラクター/オブジェクト）。各要素は画像セット（正面+参照画像）または動画。プロンプト内で@Element1、@Element2などで参照
+          type: array
+        end_image_url:
+          description: 動画の終了画像URL
+          type: string
+        generate_audio:
+          description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ（multi_prompt使用時必須）。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        start_image_url:
+          description: 動画に使用する画像のURL（必須）
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
+      required:
+      - start_image_url
       type: object
 - id: i2v-kamui-longcat-video-480p
   status: online
@@ -13166,6 +13364,70 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-kling-image-v3
+  status: online
+  last_checked: '2026-02-05T14:18:15.556223+00:00'
+  tools:
+  - name: kling_image_v3_text_to_image_result
+    description: Get result of completed Kling Image V3 Text-to-Image generation. Returns Fal response JSON with generated
+      images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_v3_text_to_image_status
+    description: Check status of Kling Image V3 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_v3_text_to_image_submit
+    description: Submit Fal.ai Kling Image V3 Standard text-to-image generation request and receive request ID for polling.
+      Resolution up to 2K with multiple aspect ratio options.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of generated images. Default value: 16:9. Possible values: 16:9, 9:16, 1:1, 4:3, 3:4,
+            3:2, 2:3, 21:9'
+          type: string
+        elements:
+          description: 'Optional: Elements (characters/objects) to include in the image for face control. Each element can
+            have a frontal image and optionally reference images.'
+          type: array
+        negative_prompt:
+          description: Negative text prompt. It is recommended to supplement negative prompt information through negative
+            sentences directly within positive prompts.
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (1-9). Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Default value: png. Possible values: jpeg, png, webp'
+          type: string
+        prompt:
+          description: Text prompt for image generation. Max 2500 characters.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Image generation resolution. 1K: standard, 2K: high-res. Default value: 1K'
+          type: string
+        sync_mode:
+          description: If True, the media will be returned as a data URI.
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-nano-banana
   status: online
   last_checked: '2026-01-17T08:34:55.069151+00:00'
@@ -16121,6 +16383,118 @@ servers:
           type: array
       required:
       - prompt
+      type: object
+- id: t2v-kamui-kling-video-v3-pro
+  status: online
+  last_checked: '2026-02-05T14:18:30.264214+00:00'
+  tools:
+  - name: kling_video_v3_pro_text_to_video_result
+    description: Kling Video V3 Pro Text-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_text_to_video_status
+    description: Kling Video V3 Pro Text-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_text_to_video_submit
+    description: Kling Video V3 Pro Text-to-Videoを使用してテキストから動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        cfg_scale:
+          description: 'CFG（Classifier Free Guidance）スケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize, intelligent (デフォルト: customize)'
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
+      type: object
+- id: t2v-kamui-kling-video-v3-standard
+  status: online
+  last_checked: '2026-02-05T14:18:30.178342+00:00'
+  tools:
+  - name: kling_video_v3_standard_text_to_video_result
+    description: Kling Video V3 Standard Text-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_text_to_video_status
+    description: Kling Video V3 Standard Text-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_text_to_video_submit
+    description: Kling Video V3 Standard Text-to-Videoを使用してテキストから動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        cfg_scale:
+          description: 'CFG（Classifier Free Guidance）スケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize, intelligent (デフォルト: customize)'
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
       type: object
 - id: t2v-kamui-krea-wan-14b
   status: online
