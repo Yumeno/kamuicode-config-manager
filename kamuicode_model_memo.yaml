@@ -200,6 +200,10 @@ ai_models:
       server_name: t2i-kamui-kling-image-v3
       release_date: 2026年02月04日
       features: "(Kuaishou) Kling V3 Standardモデルを使用したテキストからの画像生成。オプションの要素制御（顔）、最大2K解像度、複数のアスペクト比をサポート。"
+    - name: Kling Image O3
+      server_name: t2i-kamui-kling-image-o3
+      release_date: 2026年02月05日
+      features: "(Kuaishou) Kling 3.0世代のOmni画像生成モデル。4K解像度対応、2〜9枚の一貫性のあるシリーズ画像生成、アスペクト比の自動検出、@Element構文による特定の要素（顔など）の制御が可能。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -453,6 +457,10 @@ ai_models:
       server_name: i2i-kamui-kling-image-v3
       release_date: 2026年02月05日
       features: "(Kuaishou) 快手の最新画像生成モデルKling V3を使用したImage-to-Image。最大2K解像度に対応し、Elements機能により参照画像の顔の整合性を維持した生成が可能。多様なアスペクト比と高いプロンプト忠実度を特徴とする。"
+    - name: Kling Image O3
+      server_name: i2i-kamui-kling-image-o3
+      release_date: 2026年2月5日
+      features: "(Kuaishou) Kling O3 Omni-Image技術を使用したImage-to-Imageモデル。4K解像度、シリーズ画像生成（2〜9枚）、インテリジェントなアスペクト比検出、@Image構文による複数参照画像、およびフェイス要素制御（@Element構文）をサポート。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -614,6 +622,14 @@ ai_models:
       server_name: t2v-kamui-kling-video-v3-pro
       release_date: 2026年2月4日
       features: "(Kuaishou) 最新のテキスト動画生成モデル。ネイティブ音声生成、最大6ショットのマルチショット機能、キャラクターや音声の一貫性を維持するVoice ID、3〜15秒の長尺生成に対応し、映像品質と動きの整合性が大幅に向上。"
+    - name: Kling Video O3 Pro
+      server_name: t2v-kamui-kling-video-o3-pro
+      release_date: 2026年2月5日
+      features: "(Kuaishou) Kling AIの最新モデル「O3」。3〜15秒の動画生成、1080pプロフェッショナルモード、ネイティブオーディオ生成、マルチショット（ストーリーボード）機能、ボイスID（音声の一貫性）をサポート。"
+    - name: Kling Video O3 Standard
+      server_name: t2v-kamui-kling-video-o3-standard
+      release_date: 2026年2月5日
+      features: "(Kuaishou) Kling 3.0（O3）世代の標準テキスト動画生成モデル。3〜15秒の長尺生成、ネイティブオーディオ、マルチショット、Voice IDによる音声制御に対応。アスペクト比16:9/9:16/1:1をサポート。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -820,6 +836,14 @@ ai_models:
       server_name: i2v-kamui-kling-video-v3-pro
       release_date: 2026年1月31日
       features: "(Kuaishou) ネイティブ音声生成、マルチショット動画生成（AI Director）、最大15秒の長尺動画生成に対応。Element ControlやボイスIDをサポートし、視覚品質とモーションの一貫性が大幅に向上。"
+    - name: Kling Video O3 Pro
+      server_name: i2v-kamui-kling-video-o3-pro
+      release_date: 2026年02月04日
+      features: "(Kuaishou) Kling AIの第3世代最上位モデル「O3」を使用したImage-to-Video生成。プロフェッショナルモードによる1080P高画質、3〜15秒の可変長生成、開始・終了フレーム指定、ネイティブオーディオ生成に対応。"
+    - name: Kling Video O3 Standard
+      server_name: i2v-kamui-kling-video-o3-standard
+      release_date: 2026年02月05日
+      features: "(Kuaishou) Kling 3.0世代の「O3」モデルを使用した動画生成。3〜15秒の長尺生成、開始/終了フレーム指定、ネイティブオーディオ生成に対応し、Standardモードでは高品質と効率を両立。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -997,6 +1021,10 @@ ai_models:
       server_name: v2v-kamui-fal-xai-grok-imagine-video-edit-video
       release_date: 2026年1月29日
       features: "(xAI) テキスト指示に基づいて動画を編集（Video-to-Video）できるxAIの生成モデル。映画のような高品質な映像美と物理的な整合性を維持しながら、スタイル変換やオブジェクトの変更が可能。Fal.ai APIを通じて提供され、最大8秒、480p/720pの解像度に対応する。"
+    - name: Kling Video O3 Pro Reference
+      server_name: v2v-kamui-kling-video-o3-pro-reference
+      release_date: 2026年2月4日
+      features: "(Kuaishou) Kling AIの最新「O3」モデルを使用した動画生成（Video-to-Video）。参照動画（Reference Video）を入力として、キャラクターやオブジェクトの一貫性を保ちながら高品質な動画を生成。プロフェッショナルモードにより1080pの高解像度出力が可能で、3〜15秒の長尺生成、音声の保持や生成にも対応。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1050,6 +1078,14 @@ ai_models:
       server_name: r2v-kamui-vidu-q2-reference-to-video-pro
       release_date: 2025年10月21日
       developer: ShengShu Technology
+    - name: Kling Video O3 Pro
+      server_name: r2v-kamui-kling-video-o3-pro-reference-to-video
+      release_date: 2026年2月4日
+      features: "(Kuaishou) Kling 3.0世代の最上位モデル。リファレンス画像を使用してキャラクターやオブジェクトの一貫性を保った動画生成が可能。最大15秒の長尺生成、開始・終了フレーム制御、ネイティブオーディオ生成、1080P高画質出力に対応。"
+    - name: Kling Video O3 Standard Reference-to-Video
+      server_name: r2v-kamui-kling-video-o3-standard-reference-to-video
+      release_date: 2026年02月04日
+      features: "(Kuaishou) Kling AIの最新O3モデルを使用した動画生成（Standardモード）。参照画像をもとに、3〜15秒の動画を生成可能。開始・終了フレームの指定、Elements機能によるキャラクター固定、スタイル参照、ネイティブオーディオ生成に対応し、品質とコストのバランスに優れる。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
