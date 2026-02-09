@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-05T14:18:33.542998+00:00'
-  total_servers: 322
-  online_servers: 320
+  generated_at: '2026-02-09T14:30:04.689866+00:00'
+  total_servers: 331
+  online_servers: 329
   offline_servers: 0
   error_servers: 2
 servers:
@@ -3755,6 +3755,80 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-kling-image-o3
+  status: online
+  last_checked: '2026-02-09T14:29:44.458909+00:00'
+  tools:
+  - name: kling_image_o3_image_to_image_result
+    description: Get result of completed Kling Image O3 Image-to-Image generation. Returns Fal response JSON with generated
+      images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o3_image_to_image_status
+    description: Check status of Kling Image O3 Image-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o3_image_to_image_submit
+    description: Submit Fal.ai Kling Image O3 image-to-image generation request. Supports 4K resolution, series image generation
+      (2-9 related images), intelligent aspect ratio detection, reference images using @Image1, @Image2, etc. syntax, and
+      optional element control (face).
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of generated images. ''auto'' intelligently determines based on input content. Default
+            value: auto. Possible values: 16:9, 9:16, 1:1, 4:3, 3:4, 3:2, 2:3, 21:9, auto'
+          type: string
+        elements:
+          description: 'Optional: Elements (characters/objects) for face control. Reference in prompt as @Element1, @Element2,
+            etc.'
+          type: array
+        image_urls:
+          description: List of reference images. Reference images in prompt using @Image1, @Image2, etc. (1-indexed). Max
+            10 images.
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (1-9). Only used when result_type is ''single''. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Default value: png. Possible values: jpeg, png, webp'
+          type: string
+        prompt:
+          description: Text prompt for image generation. Reference images using @Image1, @Image2, etc. (or @Image if only
+            one image). Max 2500 characters.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Image generation resolution. 1K: standard, 2K: high-res, 4K: ultra high-res. Default value: 1K'
+          type: string
+        result_type:
+          default: single
+          description: 'Result type. ''single'' for one image, ''series'' for a series of related images. Default value: single'
+          type: string
+        series_amount:
+          description: Number of images in series (2-9). Only used when result_type is 'series'.
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI.
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-kling-image-v3
   status: online
   last_checked: '2026-02-05T14:18:30.076277+00:00'
@@ -7253,6 +7327,110 @@ servers:
       - start_image_url
       - end_image_url
       type: object
+- id: i2v-kamui-kling-video-o3-pro
+  status: online
+  last_checked: '2026-02-09T14:29:59.799583+00:00'
+  tools:
+  - name: kling_video_o3_pro_image_to_video_result
+    description: Kling Video O3 Pro Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_image_to_video_status
+    description: Kling Video O3 Pro Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_image_to_video_submit
+    description: Kling Video O3 Pro Image-to-Videoを使用して画像から動画を生成します。O3モデルは拡張された動画長（3-15秒）、開始/終了フレーム、ネイティブ音声をサポートします。プロフェッショナルモードは1080P動画を生成します。
+    inputSchema:
+      properties:
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        end_image_url:
+          description: 終了フレーム画像のURL（オプション）
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        image_url:
+          description: 開始フレーム画像のURL
+          type: string
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+      required:
+      - image_url
+      type: object
+- id: i2v-kamui-kling-video-o3-standard
+  status: online
+  last_checked: '2026-02-09T14:30:00.139904+00:00'
+  tools:
+  - name: kling_video_o3_standard_image_to_video_result
+    description: Kling Video O3 Standard Image-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_image_to_video_status
+    description: Kling Video O3 Standard Image-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_image_to_video_submit
+    description: Kling Video O3 Standard Image-to-Videoを使用して画像から動画を生成します。O3モデルは拡張された動画長（3-15秒）、開始/終了フレーム、ネイティブ音声をサポートします。
+    inputSchema:
+      properties:
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        end_image_url:
+          description: 終了フレーム画像のURL（オプション）
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        image_url:
+          description: 開始フレーム画像のURL
+          type: string
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+      required:
+      - image_url
+      type: object
 - id: i2v-kamui-kling-video-v25-turbo-pro
   status: online
   last_checked: '2026-01-17T08:34:58.575318+00:00'
@@ -9925,6 +10103,128 @@ servers:
           type: string
       required:
       - prompt
+      type: object
+- id: r2v-kamui-kling-video-o3-pro-reference-to-video
+  status: online
+  last_checked: '2026-02-09T14:30:00.360842+00:00'
+  tools:
+  - name: kling_video_o3_pro_reference_to_video_result
+    description: Kling Video O3 Pro Reference-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_reference_to_video_status
+    description: Kling Video O3 Pro Reference-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_reference_to_video_submit
+    description: Kling Video O3 Pro Reference-to-Videoを使用して参照画像から動画を生成します。O3モデルは拡張された動画長（3-15秒）、開始/終了フレーム、要素（キャラクター/オブジェクト）、スタイル参照画像、ネイティブ音声をサポートします。プロフェッショナルモードは1080P動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画のアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        elements:
+          description: 動画に含める要素（キャラクター/オブジェクト）のリスト。各要素はreference_image_urlsとfrontal_image_urlを含む。プロンプトで@Element1, @Element2などで参照
+          type: array
+        end_image_url:
+          description: 最後のフレーム画像のURL（オプション）
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        image_urls:
+          description: スタイル/外観のための参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大4つ（elements + reference images）
+          type: array
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）。@Element1, @Element2で要素を参照、@Image1, @Image2で画像を参照
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        start_image_url:
+          description: 最初のフレーム画像のURL
+          type: string
+      required:
+      - start_image_url
+      type: object
+- id: r2v-kamui-kling-video-o3-standard-reference-to-video
+  status: online
+  last_checked: '2026-02-09T14:30:00.387987+00:00'
+  tools:
+  - name: kling_video_o3_standard_reference_to_video_result
+    description: Kling Video O3 Standard Reference-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_reference_to_video_status
+    description: Kling Video O3 Standard Reference-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_reference_to_video_submit
+    description: Kling Video O3 Standard Reference-to-Videoを使用して参照画像から動画を生成します。O3モデルは拡張された動画長（3-15秒）、開始/終了フレーム、要素（キャラクター/オブジェクト）、スタイル参照画像、ネイティブ音声をサポートします。スタンダードモードは良好な品質の動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画のアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        elements:
+          description: 動画に含める要素（キャラクター/オブジェクト）のリスト。各要素はreference_image_urlsとfrontal_image_urlを含む。プロンプトで@Element1, @Element2などで参照
+          type: array
+        end_image_url:
+          description: 最後のフレーム画像のURL（オプション）
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        image_urls:
+          description: スタイル/外観のための参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大4つ（elements + reference images）
+          type: array
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）。@Element1, @Element2で要素を参照、@Image1, @Image2で画像を参照
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        start_image_url:
+          description: 最初のフレーム画像のURL
+          type: string
+      required:
+      - start_image_url
       type: object
 - id: r2v-kamui-kling-video-v26-pro-motion-control
   status: online
@@ -13364,6 +13664,73 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-kling-image-o3
+  status: online
+  last_checked: '2026-02-09T14:29:44.438064+00:00'
+  tools:
+  - name: kling_image_o3_text_to_image_result
+    description: Get result of completed Kling Image O3 Text-to-Image generation. Returns Fal response JSON with generated
+      images.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o3_text_to_image_status
+    description: Check status of Kling Image O3 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_image_o3_text_to_image_submit
+    description: Submit Fal.ai Kling Image O3 text-to-image generation request. Supports 4K resolution, series image generation
+      (2-9 related images), intelligent aspect ratio detection, and optional element control (face).
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of generated images. Default value: 16:9. Possible values: 16:9, 9:16, 1:1, 4:3, 3:4,
+            3:2, 2:3, 21:9'
+          type: string
+        elements:
+          description: 'Optional: Elements (characters/objects) for face control. Reference in prompt as @Element1, @Element2,
+            etc.'
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (1-9). Only used when result_type is ''single''. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image. Default value: png. Possible values: jpeg, png, webp'
+          type: string
+        prompt:
+          description: Text prompt for image generation. Max 2500 characters.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Image generation resolution. 1K: standard, 2K: high-res, 4K: ultra high-res. Default value: 1K'
+          type: string
+        result_type:
+          default: single
+          description: 'Result type. ''single'' for one image, ''series'' for a series of related images. Default value: single'
+          type: string
+        series_amount:
+          description: Number of images in series (2-9). Only used when result_type is 'series'.
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI.
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-kling-image-v3
   status: online
   last_checked: '2026-02-05T14:18:15.556223+00:00'
@@ -16284,6 +16651,106 @@ servers:
           type: string
       required:
       - prompt
+      type: object
+- id: t2v-kamui-kling-video-o3-pro
+  status: online
+  last_checked: '2026-02-09T14:29:59.638862+00:00'
+  tools:
+  - name: kling_video_o3_pro_text_to_video_result
+    description: Kling Video O3 Pro Text-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_text_to_video_status
+    description: Kling Video O3 Pro Text-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_text_to_video_submit
+    description: Kling Video O3 Pro Text-to-Videoを使用してテキストから動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
+      type: object
+- id: t2v-kamui-kling-video-o3-standard
+  status: online
+  last_checked: '2026-02-09T14:29:59.669193+00:00'
+  tools:
+  - name: kling_video_o3_standard_text_to_video_result
+    description: Kling Video O3 Standard Text-to-Videoリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_text_to_video_status
+    description: Kling Video O3 Standard Text-to-Videoリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_standard_text_to_video_submit
+    description: Kling Video O3 Standard Text-to-Videoを使用してテキストから動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画フレームのアスペクト比。指定可能な値: 16:9, 9:16, 1:1 (デフォルト: 16:9)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
+          type: string
+        generate_audio:
+          description: 動画のネイティブ音声を生成するかどうか
+          type: boolean
+        multi_prompt:
+          description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        voice_ids:
+          description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
+          type: array
       type: object
 - id: t2v-kamui-kling-video-v25-turbo-pro
   status: online
@@ -20134,6 +20601,63 @@ servers:
           type: string
         video_url:
           description: 参照動画のURL（必須）。.mp4/.mov形式のみ対応、3-10秒、720-2160px解像度、最大200MB
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-kling-video-o3-pro-reference
+  status: online
+  last_checked: '2026-02-09T14:30:00.438742+00:00'
+  tools:
+  - name: kling_video_o3_pro_video_to_video_reference_result
+    description: Kling Video O3 Pro Video-to-Video Referenceリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_video_to_video_reference_status
+    description: Kling Video O3 Pro Video-to-Video Referenceリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_pro_video_to_video_reference_submit
+    description: Kling Video O3 Pro Video-to-Video Referenceを使用して参照動画から動画を生成します。参照動画を@Video1として参照し、プロンプトに基づいて動画を生成します。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '生成動画のアスペクト比。指定可能な値: auto, 16:9, 9:16, 1:1 (デフォルト: auto)'
+          type: string
+        duration:
+          description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15'
+          type: string
+        elements:
+          description: '動画に含める要素（キャラクター/オブジェクト）のJSON配列文字列。例: [{"reference_image_urls": ["url1", "url2"], "frontal_image_url":
+            "url"}]. プロンプトで@Element1, @Element2などで参照'
+          type: string
+        image_urls:
+          description: スタイル/外観のための参照画像のURLリスト。プロンプトで@Image1, @Image2などで参照。最大4つ（elements + reference images）
+          type: array
+        keep_audio:
+          description: '参照動画の元の音声を保持するかどうか（デフォルト: true）'
+          type: boolean
+        prompt:
+          description: 動画生成のためのテキストプロンプト（必須）。参照動画を@Video1として参照。@Element1, @Element2で要素を参照、@Image1, @Image2で画像を参照
+          type: string
+        shot_type:
+          description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）。.mp4/.mov形式のみ、3-10秒、720-2160px解像度、最大200MB
           type: string
       required:
       - prompt
