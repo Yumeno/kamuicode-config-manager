@@ -1,5 +1,5 @@
 metadata:
-  generated_at: '2026-02-09T14:30:04.689866+00:00'
+  generated_at: '2026-02-12T14:24:55.180500+00:00'
   total_servers: 331
   online_servers: 329
   offline_servers: 0
@@ -8464,10 +8464,10 @@ servers:
       type: object
 - id: i2v-kamui-pixverse-v5-transition
   status: online
-  last_checked: '2026-01-17T08:35:07.117047+00:00'
+  last_checked: '2026-02-12T14:24:16.142842+00:00'
   tools:
-  - name: pixverse_v5_image_to_video_result
-    description: Get result of completed Pixverse V5 image-to-video generation.
+  - name: pixverse_v5_transition_result
+    description: Get result of completed Pixverse V5 transition generation.
     inputSchema:
       properties:
         request_id:
@@ -8476,8 +8476,8 @@ servers:
       required:
       - request_id
       type: object
-  - name: pixverse_v5_image_to_video_status
-    description: Check status of Pixverse V5 image-to-video processing using request ID.
+  - name: pixverse_v5_transition_status
+    description: Check status of Pixverse V5 transition processing using request ID.
     inputSchema:
       properties:
         request_id:
@@ -8486,8 +8486,8 @@ servers:
       required:
       - request_id
       type: object
-  - name: pixverse_v5_image_to_video_submit
-    description: Submit Fal.ai Pixverse V5 image-to-video request and receive request ID for polling.
+  - name: pixverse_v5_transition_submit
+    description: Submit Fal.ai Pixverse V5 transition request (two images to video) and receive request ID for polling.
     inputSchema:
       properties:
         aspect_ratio:
@@ -8498,14 +8498,17 @@ servers:
           default: '5'
           description: 'Duration in seconds: 5 or 8 (8s costs double, 1080p limited to 5)'
           type: string
-        image_url:
+        first_image_url:
           description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        last_image_url:
+          description: URL of the image to use as the last frame (or base64 data URI).
           type: string
         negative_prompt:
           description: Negative prompt to avoid undesired artifacts.
           type: string
         prompt:
-          description: Prompt describing the video to generate.
+          description: Prompt describing how the scene should transition between the two images.
           type: string
         resolution:
           default: 720p
@@ -8519,7 +8522,8 @@ servers:
           type: string
       required:
       - prompt
-      - image_url
+      - first_image_url
+      - last_image_url
       type: object
 - id: i2v-kamui-pixverse-v5.5-effects
   status: online
