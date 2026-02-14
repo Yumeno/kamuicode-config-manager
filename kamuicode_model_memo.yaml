@@ -1086,6 +1086,10 @@ ai_models:
       server_name: r2v-kamui-kling-video-o3-standard-reference-to-video
       release_date: 2026年02月04日
       features: "(Kuaishou) Kling AIの最新O3モデルを使用した動画生成（Standardモード）。参照画像をもとに、3〜15秒の動画を生成可能。開始・終了フレームの指定、Elements機能によるキャラクター固定、スタイル参照、ネイティブオーディオ生成に対応し、品質とコストのバランスに優れる。"
+    - name: DreamActor V2
+      server_name: r2v-kamui-bytedance-dreamactor-v2
+      release_date: 2026年01月24日
+      features: "(ByteDance) 1枚の人物画像と動きの参照動画（ドライビングビデオ）を入力し、画像のキャラクターが参照動画の通りに動く動画を生成するMotion Transferモデル。DreamActor M-2とも呼ばれ、従来のモデルよりも顔の表情や全身の動作の追従性が向上しており、実写からアニメまで幅広いスタイルに対応する。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
