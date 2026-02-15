@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-12T14:24:55.180500+00:00'
-  total_servers: 331
-  online_servers: 329
+  generated_at: '2026-02-15T13:55:01.689342+00:00'
+  total_servers: 332
+  online_servers: 330
   offline_servers: 0
   error_servers: 2
 servers:
@@ -9696,6 +9696,54 @@ servers:
       required:
       - prompt
       - reference_image_urls
+      type: object
+- id: r2v-kamui-bytedance-dreamactor-v2
+  status: online
+  last_checked: '2026-02-15T13:54:19.098589+00:00'
+  tools:
+  - name: bytedance_dreamactor_v2_result
+    description: Get result and download completed ByteDance DreamActor V2 video to local directory.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_dreamactor_v2_status
+    description: Check status of ByteDance DreamActor V2 processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_dreamactor_v2_submit
+    description: Submit Fal.ai ByteDance DreamActor V2 generation request. Generate videos by animating a reference image
+      using motion from a driving video.
+    inputSchema:
+      properties:
+        image_url:
+          description: 'The URL of the reference image to animate. Supports real people, animation, pets, etc. Format: jpeg,
+            jpg or png. Max size: 4.7 MB. Resolution: between 480x480 and 1920x1080 (larger images will be proportionally
+            reduced).'
+          type: string
+        trim_first_second:
+          default: true
+          description: 'Whether to crop the first second of the output video. The output has a 1-second transition at the
+            beginning; enable this to remove it. Default value: true'
+          type: boolean
+        video_url:
+          description: 'The URL of the driving template video providing motion, facial expressions, and lip movement reference.
+            Max duration: 30 seconds. Format: mp4, mov or webm. Resolution: between 200x200 and 2048x1440. Supports full face
+            and body driving.'
+          type: string
+      required:
+      - image_url
+      - video_url
       type: object
 - id: r2v-kamui-bytedance-seedance-v1-lite
   status: online
