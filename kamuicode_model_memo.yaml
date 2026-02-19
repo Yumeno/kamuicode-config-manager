@@ -204,6 +204,22 @@ ai_models:
       server_name: t2i-kamui-kling-image-o3
       release_date: 2026年02月05日
       features: "(Kuaishou) Kling 3.0世代のOmni画像生成モデル。4K解像度対応、2〜9枚の一貫性のあるシリーズ画像生成、アスペクト比の自動検出、@Element構文による特定の要素（顔など）の制御が可能。"
+    - name: Recraft V4 Pro
+      server_name: t2i-kamui-recraft-v4-pro
+      release_date: 2026年2月17日
+      features: "(Recraft) デザインの美的感覚、プロンプトの正確性、出力品質を重視してゼロから再構築された最新の画像生成モデル。V3と比べて構成、照明、色彩、質感のリアリズムが大幅に向上しており、Pro版は標準版より高解像度（2048x2048）で、印刷物や大規模な商用利用に適した詳細な画像を生成可能。"
+    - name: Recraft V4
+      server_name: t2i-kamui-recraft-v4
+      release_date: 2026年2月17日
+      features: "(Recraft) プロフェッショナルな「デザインテイスト」を重視したテキスト対画像モデル。構図、照明、色彩の整合性に優れ、正確なタイポグラフィのレンダリングや、編集可能な高品質SVGベクターの生成も可能な点が特徴。"
+    - name: Recraft V4 Vector
+      server_name: t2i-kamui-recraft-v4-vector
+      release_date: 2026年2月17日
+      features: "(Recraft) テキストからスケーラブルなベクター画像（SVG）を生成するRecraft V4モデル。従来よりも「デザインセンス」を重視して再構築されており、構図・照明・配色のバランスが取れたプロ品質のアートディレクション済みのような出力を実現する。ロゴやアイコン、イラスト制作に最適化されている。"
+    - name: Recraft V4 Pro Vector
+      server_name: t2i-kamui-recraft-v4-pro-vector
+      release_date: 2026年2月17日
+      features: "(Recraft) テキストから編集可能な高品質ベクター画像（SVG）を直接生成するV4 Proモデル。トレースではなくクリーンなパスとレイヤー構造を持つSVGを出力し、プロのデザインや印刷用途に適した高解像度・高精細な生成が可能。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
