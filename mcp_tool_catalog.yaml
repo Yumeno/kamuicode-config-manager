@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-15T13:55:01.689342+00:00'
-  total_servers: 332
-  online_servers: 330
+  generated_at: '2026-02-19T14:22:44.930041+00:00'
+  total_servers: 336
+  online_servers: 334
   offline_servers: 0
   error_servers: 2
 servers:
@@ -14354,6 +14354,286 @@ servers:
           description: If True, the media will be returned as a data URI and the output data won't be available in the request
             history
           type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v4
+  status: online
+  last_checked: '2026-02-19T14:22:22.390558+00:00'
+  tools:
+  - name: recraft_v4_text_to_image_result
+    description: Get result of completed Recraft V4 text-to-image generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_text_to_image_status
+    description: Check status of Recraft V4 text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_text_to_image_submit
+    description: Submit Fal.ai Recraft V4 text-to-image generation request and receive request ID for polling. Generate images
+      from text using Recraft V4 model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v4-pro
+  status: online
+  last_checked: '2026-02-19T14:22:22.382712+00:00'
+  tools:
+  - name: recraft_v4_pro_text_to_image_result
+    description: Get result of completed Recraft V4 Pro text-to-image generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_pro_text_to_image_status
+    description: Check status of Recraft V4 Pro text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_pro_text_to_image_submit
+    description: Submit Fal.ai Recraft V4 Pro text-to-image generation request and receive request ID for polling. Generate
+      images from text using Recraft V4 Pro model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v4-pro-vector
+  status: online
+  last_checked: '2026-02-19T14:22:23.124343+00:00'
+  tools:
+  - name: recraft_v4_pro_text_to_vector_result
+    description: Get result of completed Recraft V4 Pro text-to-vector generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_pro_text_to_vector_status
+    description: Check status of Recraft V4 Pro text-to-vector processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_pro_text_to_vector_submit
+    description: Submit Fal.ai Recraft V4 Pro text-to-vector generation request and receive request ID for polling. Generate
+      vector images from text using Recraft V4 Pro model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate a vector image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v4-vector
+  status: online
+  last_checked: '2026-02-19T14:22:22.681013+00:00'
+  tools:
+  - name: recraft_v4_text_to_vector_result
+    description: Get result of completed Recraft V4 text-to-vector generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_text_to_vector_status
+    description: Check status of Recraft V4 text-to-vector processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_text_to_vector_submit
+    description: Submit Fal.ai Recraft V4 text-to-vector generation request and receive request ID for polling. Generate vector
+      images from text using Recraft V4 model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate a vector image from.
+          type: string
       required:
       - prompt
       type: object
