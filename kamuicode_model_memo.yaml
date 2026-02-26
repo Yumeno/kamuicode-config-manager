@@ -220,6 +220,14 @@ ai_models:
       server_name: t2i-kamui-recraft-v4-pro-vector
       release_date: 2026年2月17日
       features: "(Recraft) テキストから編集可能な高品質ベクター画像（SVG）を直接生成するV4 Proモデル。トレースではなくクリーンなパスとレイヤー構造を持つSVGを出力し、プロのデザインや印刷用途に適した高解像度・高精細な生成が可能。"
+    - name: BitDance
+      server_name: t2i-kamui-bitdance
+      release_date: 2026年2月15日
+      features: "(ByteDance) バイナリトークンとNext-Patch Diffusionを採用した14Bパラメータの自己回帰型モデル。従来のARモデルや拡散モデルよりも高速かつ高品質な生成が可能。"
+    - name: Seedream V5 Lite
+      server_name: t2i-kamui-fal-bytedance-seedream-v5-lite
+      release_date: 2026年2月24日
+      features: "(ByteDance) ByteDanceの最新画像生成モデル「Seedream 5.0 Lite」。高速な推論速度と高品質な生成を両立し、優れたテキストレンダリング能力、空間理解、プロンプト忠実度を備える。Web検索機能を統合した推論も特徴とする。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -477,6 +485,14 @@ ai_models:
       server_name: i2i-kamui-kling-image-o3
       release_date: 2026年2月5日
       features: "(Kuaishou) Kling O3 Omni-Image技術を使用したImage-to-Imageモデル。4K解像度、シリーズ画像生成（2〜9枚）、インテリジェントなアスペクト比検出、@Image構文による複数参照画像、およびフェイス要素制御（@Element構文）をサポート。"
+    - name: ByteDance Seedream 5.0 Lite Edit
+      server_name: i2i-kamui-seedream-v5-lite-edit
+      release_date: 2026年2月25日
+      features: "(ByteDance) ByteDanceの最新モデルSeedream 5.0 Liteを使用した画像編集モデル。テキスト指示による編集、スタイル転送、被写体の詳細・照明・色調の保持、最大10枚の参照画像入力をサポートし、高速かつ高品質な編集が可能。"
+    - name: Bria Aesthetics Upscaler
+      server_name: i2i-kamui-bria-aesthetics-upscaler
+      release_date: 2025年12月頃
+      features: "(BRIA AI) 解像度を向上させつつ、照明・カラーバランス・シャープネスを自動調整して視覚的な魅力を高めるアップスケーラー。4MPの固定解像度で出力し、自然なディテールとスタイル、およびアルファチャンネルを保持します。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -1106,6 +1122,10 @@ ai_models:
       server_name: r2v-kamui-bytedance-dreamactor-v2
       release_date: 2026年01月24日
       features: "(ByteDance) 1枚の人物画像と動きの参照動画（ドライビングビデオ）を入力し、画像のキャラクターが参照動画の通りに動く動画を生成するMotion Transferモデル。DreamActor M-2とも呼ばれ、従来のモデルよりも顔の表情や全身の動作の追従性が向上しており、実写からアニメまで幅広いスタイルに対応する。"
+    - name: Fal.ai Wan Motion
+      server_name: r2v-kamui-fal-ai-wan-motion
+      release_date: 2025年11月13日
+      features: "(Fal.ai) ドライビング動画の動きをキャラクター画像に適用するモーション転送モデル。Wan-Animateをベースにポーズリターゲット機能を実装し、体格の異なるキャラクター間でも自然なアニメーションを生成可能。Fluxを使用したID保持機能も搭載。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
