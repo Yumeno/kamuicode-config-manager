@@ -493,6 +493,10 @@ ai_models:
       server_name: i2i-kamui-bria-aesthetics-upscaler
       release_date: 2025年12月頃
       features: "(BRIA AI) 解像度を向上させつつ、照明・カラーバランス・シャープネスを自動調整して視覚的な魅力を高めるアップスケーラー。4MPの固定解像度で出力し、自然なディテールとスタイル、およびアルファチャンネルを保持します。"
+    - name: Nano Banana 2 (Gemini 3.1 Flash Image) Edit
+      server_name: i2i-kamui-fal-nano-banana-2-edit
+      release_date: 2026年02月26日
+      features: "(Google) Gemini 3.1 Flash Imageをベースにした画像編集モデル。テキストプロンプトによる自然言語での画像編集、複数画像の入力、Web検索によるグラウンディング、高精度なテキストレンダリング、キャラクターの一貫性保持などを高速に実行可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
