@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-19T14:22:44.930041+00:00'
-  total_servers: 336
-  online_servers: 334
+  generated_at: '2026-02-27T14:20:50.048643+00:00'
+  total_servers: 343
+  online_servers: 341
   offline_servers: 0
   error_servers: 2
 servers:
@@ -1044,6 +1044,52 @@ servers:
       required:
       - image_url
       type: object
+- id: i2i-kamui-bria-aesthetics-upscaler
+  status: online
+  last_checked: '2026-02-27T14:20:44.984473+00:00'
+  tools:
+  - name: bria_aesthetics_upscaler_result
+    description: Get the result of a completed Bria Aesthetics Upscaler request. Returns Fal.ai JSON response including the
+      upscaled image URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_aesthetics_upscaler_status
+    description: Check the status of a Bria Aesthetics Upscaler processing request using its request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bria_aesthetics_upscaler_submit
+    description: Submit a Bria Aesthetics Upscaler request. Upscale images using Bria's aesthetics-preserving upscaling model
+      via Fal.ai.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL to the input image to upscale
+          type: string
+        preserve_alpha:
+          description: 'Preserve alpha channel from input image (default: true)'
+          type: boolean
+        seed:
+          default: 5555
+          description: 'Random seed for reproducibility (default: 5555)'
+          type: number
+        sync_mode:
+          description: 'If true, returns the image directly in the response (increases latency, default: false)'
+          type: boolean
+      required:
+      - image_url
+      type: object
 - id: i2i-kamui-chrono-edit
   status: online
   last_checked: '2026-01-17T08:35:05.205321+00:00'
@@ -2006,6 +2052,109 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2i-kamui-fal-nano-banana-2-edit
+  status: online
+  last_checked: '2026-02-27T14:20:45.187081+00:00'
+  tools:
+  - name: nano_banana_2_edit_result
+    description: Get the result and download completed Nano Banana 2 edited images with AI-generated descriptions.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nano_banana_2_edit_status
+    description: Check the status of a Nano Banana 2 Image Edit processing request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nano_banana_2_edit_submit
+    description: Submit Nano Banana 2 (Gemini 3.1 Flash Image) Image Edit request. Edit images from text prompts with multiple
+      input images.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'The aspect ratio of the generated image (default: auto)'
+          enum:
+          - auto
+          - '21:9'
+          - '16:9'
+          - '3:2'
+          - '4:3'
+          - '5:4'
+          - '1:1'
+          - '4:5'
+          - '3:4'
+          - '2:3'
+          - '9:16'
+          type: string
+        enable_web_search:
+          default: false
+          description: 'Enable web search for the image generation task (default: false)'
+          type: boolean
+        image_urls:
+          description: The URLs of the images to use for image-to-image generation or image editing
+          type: array
+        limit_generations:
+          default: true
+          description: 'Limit the number of generations from each round of prompting to 1 (default: true)'
+          type: boolean
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (default: png)'
+          enum:
+          - jpeg
+          - png
+          - webp
+          type: string
+        prompt:
+          description: The prompt for image editing
+          type: string
+        resolution:
+          default: 1K
+          description: 'The resolution of the image to generate (default: 1K)'
+          enum:
+          - 0.5K
+          - 1K
+          - 2K
+          - 4K
+          type: string
+        safety_tolerance:
+          default: '4'
+          description: 'The safety tolerance level for content moderation. 1 is most strict, 6 is least strict (default: 4)'
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+          type: string
+        seed:
+          description: The seed for the random number generator (optional)
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
       type: object
 - id: i2i-kamui-fal-nano-banana-pro-edit
   status: online
@@ -5364,6 +5513,71 @@ servers:
           default: false
           description: 'If true, wait for image generation and upload before returning response (increases latency but allows
             direct access without CDN, default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-seedream-v5-lite-edit
+  status: online
+  last_checked: '2026-02-27T14:20:21.882529+00:00'
+  tools:
+  - name: bytedance_seedream_v5_lite_edit_result
+    description: Get result of completed ByteDance Seedream V5 Lite Edit generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v5_lite_edit_status
+    description: Check status of ByteDance Seedream V5 Lite Edit processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v5_lite_edit_submit
+    description: Submit ByteDance Seedream V5 Lite Edit request using the Seedream 5.0 Lite model for high-quality multi-image
+      editing.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        image_size:
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            auto_2K, auto_3K) or custom object {width: number, height: number}. Total pixels must be between 2560x1440 and
+            3072x3072; if outside this range, the image size will be automatically adjusted by scaling.'
+          properties: {}
+          type: object
+        image_urls:
+          description: List of URLs of input images for editing. Up to 10 image inputs are allowed; if more than 10 images
+            are provided, only the last 10 will be used.
+          type: array
+        max_images:
+          default: 1
+          description: 'If set to a number greater than one, enables multi-image generation. The model will potentially return
+            up to max_images images every generation, and in total, num_images generations will be carried out. In total,
+            the number of images generated will be between num_images and max_images*num_images (default: 1)'
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of separate model generations to be run with the prompt (default: 1)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image edits
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
           type: boolean
       required:
       - prompt
@@ -10109,6 +10323,70 @@ servers:
       - image_url
       - video_url
       type: object
+- id: r2v-kamui-fal-ai-wan-motion
+  status: online
+  last_checked: '2026-02-27T14:20:45.060196+00:00'
+  tools:
+  - name: wan_motion_result
+    description: Get result of completed Fal.ai Wan Motion video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_motion_status
+    description: Check status of Fal.ai Wan Motion processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_motion_submit
+    description: Submit Fal.ai Wan Motion request to transfer motion from a driving video to a reference character image with
+      retargeted pose.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration level to use. ''regular'' enables caching for faster generation, ''none'' disables it.
+            Possible values: none, regular. Default: regular.'
+          type: string
+        adapt_motion:
+          default: true
+          description: 'Adapts the driving video''s motion to match the reference image''s body proportions. Recommended when
+            body shapes or sizes differ. Default: true.'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, input and output will be checked for safety. Default: true.'
+          type: boolean
+        enhance_identity:
+          description: Enhances identity preservation using Flux Kontext Edit before animation. Improves face and appearance
+            fidelity at the cost of slightly longer processing time.
+          type: boolean
+        image_url:
+          description: URL of the reference image (provides the character appearance). Must be publicly accessible or a Base64
+            data URI.
+          type: string
+        prompt:
+          description: 'Optional text prompt to guide the generation. Default: empty string.'
+          type: string
+        seed:
+          description: Random seed for reproducibility. If not provided, a random seed will be chosen.
+          type: number
+        video_url:
+          description: URL of the driving video (provides the motion). Must be publicly accessible or a Base64 data URI.
+          type: string
+      required:
+      - video_url
+      - image_url
+      type: object
 - id: r2v-kamui-kling-video-o1
   status: online
   last_checked: '2026-01-17T08:34:58.779338+00:00'
@@ -11218,6 +11496,91 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-bitdance
+  status: online
+  last_checked: '2026-02-27T14:19:49.619163+00:00'
+  tools:
+  - name: fal_ai_bitdance_result
+    description: Get result of completed Fal.ai Bitdance Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_bitdance_status
+    description: Check status of Fal.ai Bitdance Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_bitdance_submit
+    description: Submit Fal.ai Bitdance Text-to-Image generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Enable the safety checker (default: true)'
+          type: boolean
+        guidance_scale:
+          default: 7.5
+          description: 'Classifier-free guidance scale. Higher values follow the prompt more closely (default: 7.5)'
+          type: number
+        image_size:
+          default: square_hd
+          description: 'The size of the generated image. Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9,
+            landscape_4_3, landscape_16_9) or a custom object {width: number, height: number}. Default: square_hd'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 25
+          description: 'Number of diffusion sampling steps per decoding step. Higher values improve quality at the cost of
+            speed (default: 25)'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'The format of the generated image: jpeg or png (default: jpeg)'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image to generate
+          type: string
+        seed:
+          description: Random seed for reproducibility. The same seed and prompt will produce the same image.
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, the media will be returned as a data URI (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-bria-fibo-generate
   status: online
   last_checked: '2026-01-17T08:34:44.645149+00:00'
@@ -11471,6 +11834,66 @@ servers:
         seed:
           description: Random seed to control the stochasticity of image generation
           type: number
+        sync_mode:
+          default: false
+          description: 'If true, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-bytedance-seedream-v5-lite
+  status: online
+  last_checked: '2026-02-27T14:20:21.844224+00:00'
+  tools:
+  - name: bytedance_seedream_v5_lite_text_to_image_result
+    description: Get result of completed ByteDance Seedream V5 Lite Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v5_lite_text_to_image_status
+    description: Check status of ByteDance Seedream V5 Lite Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedream_v5_lite_text_to_image_submit
+    description: Submit ByteDance Seedream V5 Lite Text-to-Image request using the Seedream 5.0 Lite model for high-quality
+      image generation.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled (default: true)'
+          type: boolean
+        image_size:
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9,
+            auto_2K, auto_3K) or custom object {width: number, height: number}. Total pixels must be between 2560x1440 and
+            3072x3072; if outside this range, the image size will be automatically adjusted by scaling.'
+          properties: {}
+          type: object
+        max_images:
+          default: 1
+          description: 'If set to a number greater than one, enables multi-image generation. The model will potentially return
+            up to max_images images every generation, and in total, num_images generations will be carried out. In total,
+            the number of images generated will be between num_images and max_images*num_images (default: 1)'
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of separate model generations to be run with the prompt (default: 1)'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image
+          type: string
         sync_mode:
           default: false
           description: 'If true, the media will be returned as a data URI and the output data won''t be available in the request
@@ -11888,6 +12311,104 @@ servers:
         sync_mode:
           default: false
           description: 'If True, media is returned as data URI and not stored in request history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-nano-banana-2
+  status: online
+  last_checked: '2026-02-27T14:20:45.157786+00:00'
+  tools:
+  - name: nano_banana_2_t2i_result
+    description: Get the result and download completed Nano Banana 2 generated images with AI-generated descriptions.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nano_banana_2_t2i_status
+    description: Check the status of a Nano Banana 2 Text-to-Image processing request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: nano_banana_2_t2i_submit
+    description: Submit Nano Banana 2 (Gemini 3.1 Flash Image) Text-to-Image request. Generates images from text descriptions.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'The aspect ratio of the generated image. Use ''auto'' to let the model decide (default: auto)'
+          enum:
+          - auto
+          - '21:9'
+          - '16:9'
+          - '3:2'
+          - '4:3'
+          - '5:4'
+          - '1:1'
+          - '4:5'
+          - '3:4'
+          - '2:3'
+          - '9:16'
+          type: string
+        enable_web_search:
+          default: false
+          description: 'Enable web search for the image generation task (default: false)'
+          type: boolean
+        limit_generations:
+          default: true
+          description: 'Limit the number of generations from each round of prompting to 1 (default: true)'
+          type: boolean
+        num_images:
+          default: 1
+          description: 'The number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (default: png)'
+          enum:
+          - jpeg
+          - png
+          - webp
+          type: string
+        prompt:
+          description: The text prompt to generate an image from
+          type: string
+        resolution:
+          default: 1K
+          description: 'The resolution of the image to generate (default: 1K)'
+          enum:
+          - 0.5K
+          - 1K
+          - 2K
+          - 4K
+          type: string
+        safety_tolerance:
+          default: '4'
+          description: 'The safety tolerance level for content moderation. 1 is most strict, 6 is least strict (default: 4)'
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+          type: string
+        seed:
+          description: The seed for the random number generator (optional)
+          type: number
+        sync_mode:
+          default: false
+          description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
+            history (default: false)'
           type: boolean
       required:
       - prompt
