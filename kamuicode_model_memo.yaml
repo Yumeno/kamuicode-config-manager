@@ -228,6 +228,10 @@ ai_models:
       server_name: t2i-kamui-fal-bytedance-seedream-v5-lite
       release_date: 2026年2月24日
       features: "(ByteDance) ByteDanceの最新画像生成モデル「Seedream 5.0 Lite」。高速な推論速度と高品質な生成を両立し、優れたテキストレンダリング能力、空間理解、プロンプト忠実度を備える。Web検索機能を統合した推論も特徴とする。"
+    - name: Nano Banana 2
+      server_name: t2i-kamui-fal-nano-banana-2
+      release_date: 2026年02月26日
+      features: "(Google) Gemini 3.1 Flash Imageアーキテクチャを採用した高速画像生成モデル。推論に基づく生成プロセスにより、正確なテキスト描画、キャラクターの一貫性（最大5人）、Web検索グラウンディング、最大4K解像度に対応。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
