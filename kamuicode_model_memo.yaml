@@ -232,6 +232,14 @@ ai_models:
       server_name: t2i-kamui-fal-nano-banana-2
       release_date: 2026年02月26日
       features: "(Google) Gemini 3.1 Flash Imageアーキテクチャを採用した高速画像生成モデル。推論に基づく生成プロセスにより、正確なテキスト描画、キャラクターの一貫性（最大5人）、Web検索グラウンディング、最大4K解像度に対応。"
+    - name: Qwen Image 2
+      server_name: t2i-kamui-qwen-image-2-text-to-image
+      release_date: 2026年2月10日
+      features: "(Alibaba Cloud) 生成と編集を単一の7Bモデルで実現する画像生成モデル。ネイティブ2K解像度に対応し、画像内のテキスト（中・英）描画能力が高く、ポスターやインフォグラフィック作成に強みを持つ。"
+    - name: Qwen Image 2 Pro
+      server_name: t2i-kamui-qwen-image-2-pro
+      release_date: 2026年2月10日
+      features: "(Qwen) ネイティブ2K解像度での生成が可能な7Bパラメータの画像生成モデル。高度なタイポグラフィレンダリング機能を持ち、画像内への正確な文字入れやインフォグラフィック作成が可能で、複雑なプロンプトの理解力に優れるプロフェッショナル版。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -501,6 +509,14 @@ ai_models:
       server_name: i2i-kamui-fal-nano-banana-2-edit
       release_date: 2026年02月26日
       features: "(Google) Gemini 3.1 Flash Imageをベースにした画像編集モデル。テキストプロンプトによる自然言語での画像編集、複数画像の入力、Web検索によるグラウンディング、高精度なテキストレンダリング、キャラクターの一貫性保持などを高速に実行可能。"
+    - name: Qwen Image 2 Edit
+      server_name: i2i-kamui-qwen-image-2-edit
+      release_date: 2026年2月10日
+      features: "(Alibaba Cloud) 画像生成と編集を統合した7Bモデル「Qwen Image 2.0」の編集機能。2K解像度に対応し、プロンプトによるオブジェクト操作やスタイル変換、特に画像内の中国語・英語テキストの正確な描画・編集に強みを持つ。"
+    - name: Qwen Image 2 Pro Edit
+      server_name: i2i-kamui-qwen-image-2-pro-edit
+      release_date: 2026年02月10日
+      features: "(Alibaba Cloud) 自然言語の指示により画像の編集を行うQwen-Image-2.0ベースのモデル。最大2048x2048のネイティブ解像度に対応し、オブジェクトの追加・削除・置換やスタイル変換、画像内のテキストレンダリングなど、高精度な編集機能を備える。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -670,6 +686,14 @@ ai_models:
       server_name: t2v-kamui-kling-video-o3-standard
       release_date: 2026年2月5日
       features: "(Kuaishou) Kling 3.0（O3）世代の標準テキスト動画生成モデル。3〜15秒の長尺生成、ネイティブオーディオ、マルチショット、Voice IDによる音声制御に対応。アスペクト比16:9/9:16/1:1をサポート。"
+    - name: HeyGen Avatar 4 Digital Twin
+      server_name: t2v-kamui-fal-heygen-avatar4-digital-twin
+      release_date: 2025年4月28日
+      features: "(HeyGen) Avatar 4エンジンを搭載した高品質なデジタルツイン動画生成モデル。事前定義されたアバターキャラクターを使用し、テキスト入力から自然な発話、表情、動作を含むトーキングヘッド動画を生成可能。アバターのスタイル（通常・円形・接写）、最大5000文字のスクリプト、音声速度調整、最大1080pの解像度に対応。"
+    - name: HeyGen v2 Video Agent
+      server_name: t2v-kamui-fal-heygen-v2-video-agent
+      release_date: 2026年1月頃
+      features: "(HeyGen) 自然言語プロンプトから解説動画やトーキングヘッド動画を生成するVideo Agentのv2モデル。生成前に動画の構成案（ブループリント）を提示・修正する『Agentic Workflow』を備え、アバター選択、縦横比、再生時間、解像度（最大1080p）の指定や字幕生成に対応。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -884,6 +908,10 @@ ai_models:
       server_name: i2v-kamui-kling-video-o3-standard
       release_date: 2026年02月05日
       features: "(Kuaishou) Kling 3.0世代の「O3」モデルを使用した動画生成。3〜15秒の長尺生成、開始/終了フレーム指定、ネイティブオーディオ生成に対応し、Standardモードでは高品質と効率を両立。"
+    - name: HeyGen Avatar 4 Image-to-Video
+      server_name: i2v-kamui-fal-heygen-avatar4-image-to-video
+      release_date: 2026年03月02日
+      features: "(HeyGen) 1枚の顔画像から自然な発話動画を生成するAvatar 4モデル。Fal.ai経由で利用可能。テキスト入力による発話生成、豊富な音声・表情・スタイル（安定/表現豊か）の選択、背景カスタマイズ（色/画像/動画）、最大1080pの解像度、字幕生成に対応。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1065,6 +1093,14 @@ ai_models:
       server_name: v2v-kamui-kling-video-o3-pro-reference
       release_date: 2026年2月4日
       features: "(Kuaishou) Kling AIの最新「O3」モデルを使用した動画生成（Video-to-Video）。参照動画（Reference Video）を入力として、キャラクターやオブジェクトの一貫性を保ちながら高品質な動画を生成。プロフェッショナルモードにより1080pの高解像度出力が可能で、3〜15秒の長尺生成、音声の保持や生成にも対応。"
+    - name: HeyGen Video Translate v2 (Speed)
+      server_name: v2v-kamui-fal-heygen-v2-translate-speed
+      release_date: 2026年03月02日
+      features: "(HeyGen) 動画の音声を多言語に翻訳し、元の声色を維持しつつ口の動き（リップシンク）を同期させる動画翻訳モデル。v2のSpeedモードは処理速度を優先した設計。Fal.ai経由で利用可能で、動的な時間調整による自然な発話タイミングや複数話者設定に対応。"
+    - name: Video Depth Anything
+      server_name: v2v-kamui-fal-ai-depth-anything-video
+      release_date: 2025年1月21日
+      features: "(Depth Anything Team) 動画から深度マップを推定し、可視化動画を生成するモデル。Depth Anything V2をベースに、時間的一貫性を保ったまま長尺動画の処理が可能。モデルサイズ（Small/Base/Large）やカラーマップの変更に対応。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
