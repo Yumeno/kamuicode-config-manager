@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-02-27T14:20:50.048643+00:00'
-  total_servers: 343
-  online_servers: 341
+  generated_at: '2026-03-05T14:14:41.555405+00:00'
+  total_servers: 352
+  online_servers: 350
   offline_servers: 0
   error_servers: 2
 servers:
@@ -4171,6 +4171,196 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-qwen-image-2-edit
+  status: online
+  last_checked: '2026-03-05T14:13:47.336550+00:00'
+  tools:
+  - name: qwen_image_2_edit_result
+    description: Get result of completed Qwen Image 2 Edit image editing generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_edit_status
+    description: Check status of Qwen Image 2 Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_edit_submit
+    description: Submit Fal.ai Qwen Image 2 Edit image editing request and receive request ID for polling. Edit images using
+      Qwen Image 2 with support for 1-6 reference images.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM prompt optimization for better results. Default value: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default value: true'
+          type: boolean
+        image_size:
+          description: 'The size of the generated image. If not provided, the size of the final input image will be used.
+            Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom
+            object {width: number, height: number} with total pixels between 512x512 and 2048x2048.'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_urls:
+          description: 'Reference images for editing (1-6 images required). Order matters: reference as ''image 1'', ''image
+            2'', etc. in prompt. Resolution: 384-5000px each dimension. Max size: 10MB each. Formats: JPEG, JPG, PNG (no alpha),
+            WEBP.'
+          items:
+            type: string
+          maxItems: 6
+          minItems: 1
+          type: array
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default value: empty string'
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp). Default value: png'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image. Supports Chinese and English. Max 800 characters.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647)
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-qwen-image-2-pro-edit
+  status: online
+  last_checked: '2026-03-05T14:14:37.899445+00:00'
+  tools:
+  - name: qwen_image_2_pro_edit_result
+    description: Get result of completed Qwen Image 2 Pro Edit image editing generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_pro_edit_status
+    description: Check status of Qwen Image 2 Pro Edit image editing processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_pro_edit_submit
+    description: Submit Fal.ai Qwen Image 2 Pro Edit image editing request and receive request ID for polling. Edit images
+      using Qwen Image 2 Pro with support for 1-6 reference images and improved quality.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM prompt optimization for better results. Default value: true'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default value: true'
+          type: boolean
+        image_size:
+          description: 'The size of the generated image. If not provided, the size of the final input image will be used.
+            Can be a preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom
+            object {width: number, height: number} with total pixels between 512x512 and 2048x2048.'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        image_urls:
+          description: 'Reference images for editing (1-6 images required). Order matters: reference as ''image 1'', ''image
+            2'', etc. in prompt. Resolution: 384-5000px each dimension. Max size: 10MB each. Formats: JPEG, JPG, PNG (no alpha),
+            WEBP.'
+          items:
+            type: string
+          maxItems: 6
+          minItems: 1
+          type: array
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default value: empty string'
+          type: string
+        num_images:
+          default: 1
+          description: 'The number of images to generate. Default value: 1'
+          type: number
+        output_format:
+          default: png
+          description: 'The format of the generated image (jpeg, png, webp). Default value: png'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image. Supports Chinese and English. Max 800 characters.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647)
+          type: number
+        sync_mode:
+          description: If True, the media will be returned as a data URI and the output data won't be available in the request
+            history
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: i2i-kamui-qwen-image-edit
   status: online
   last_checked: '2026-01-17T08:34:46.384734+00:00'
@@ -6777,6 +6967,95 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2v-kamui-fal-heygen-avatar4-image-to-video
+  status: online
+  last_checked: '2026-03-05T14:14:13.516317+00:00'
+  tools:
+  - name: heygen_avatar4_image_to_video_result
+    description: Get result of completed Fal.ai HeyGen Avatar 4 Image-to-Video request.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_avatar4_image_to_video_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar4_image_to_video_status
+    description: Check status of Fal.ai HeyGen Avatar 4 Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_avatar4_image_to_video_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar4_image_to_video_submit
+    description: Submit Fal.ai HeyGen Avatar 4 Image-to-Video request to animate a single portrait image into a talking video
+      with a selected voice.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        background_type:
+          default: color
+          description: 'Background type. Possible values: color, image, video. Mapped to AvatarIVBackground.type. Default:
+            color.'
+          type: string
+        background_value:
+          description: Background value. Hex color when background_type is color, or URL when background_type is image or
+            video. Mapped to AvatarIVBackground.value.
+          type: string
+        caption:
+          description: Whether to add captions to the video.
+          type: boolean
+        expression:
+          description: Optional facial expression hint for the avatar.
+          type: string
+        image_url:
+          description: URL of the image to animate. The image should contain a clear face and be publicly accessible or a
+            Base64 data URI.
+          type: string
+        prompt:
+          description: Text that the avatar will speak in the generated video.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Video resolution preset. Possible values: 360p, 480p, 540p, 720p, 1080p. Default: 720p.'
+          type: string
+        talking_style:
+          default: stable
+          description: 'Talking style. Possible values: stable (minimal movement), expressive (more animation). Default: stable.'
+          type: string
+        voice:
+          description: 'Voice name to use for speech synthesis. Must be one of the supported HeyGen voices. Possible values
+            include (Fal VoiceEnum): Warm Pro Narrator, Chill Brian, Ivy, John Doe, Monika Sogam, Hope, Archer, Brittney,
+            Patrick, David Castlemore, Michael C, Adam Stone, Juniper, Cassidy, Jessica Anne Bogart, Arabella, Andrew, Spuds
+            Oxley, Grace Elder, Helen, Canyon Rivers, Derya - Lifelike - Excited 🤩, Mellow Marcus, Jack Sterling - Broadcaster
+            🎙️, Brenda - UGC - 1.mp4, Reid, Reagan, Terry, Jenny, Radio Rick, Denise, Tim in car - Excited 🤩, Iskander, Thompson,
+            Delicate Daisy - Excited 🤩, Kingston, George UGC 1, Bold Blake, Jane, Expressive Evan, Marianne - IA, Aaron, Modern
+            Recipe Host - Voice 1, Willow, Cute Chloe - Friendly 😊, Rafael, June - Lifelike, Crisp Chloe, Slick Simon, Nassim
+            - Informative, Baritone Ben, Maxwell, Ellie Faye - Excited 🤩, Milani, Feisty Fiona - Excited 🤩, Professor Dean,
+            Rose - UGC - 1.mp4, Shona, Hudson Wilder, Ann - IA, Alastair Kensington, Oxley, Christina, Andrew Rizz, Peyton,
+            Gerardo - Outdoor, Chloe - Lifelike, Stephanie, Anthony - IA, Signal - Voice 1, Luca, Lisa - Voice 1, T.W.Tucker,
+            Jack Sullivan - Serious 😐, Winter, Mireia - Lifelike, Georgia, Stella, Masha - Lifelike, Charming Charles - Friendly
+            😊, Serenity, Annie - Excited, Ralph, Bethany, Dominic, Mason Finn, Leena, Veteran Victor, Tamara, Nik Public,
+            Calm Chloe, Sevik, Reilly, Raul, Imposing Ian, Relaxed Ray, Dexter - Professional, Relaxed Rick, Edwin, Rupert
+            Blackwood, Ginny, Hope.'
+          type: string
+      required:
+      - image_url
+      - prompt
+      - voice
       type: object
 - id: i2v-kamui-fal-ltx-2-19b-distilled-image-to-video
   status: online
@@ -14704,6 +14983,174 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-qwen-image-2-pro
+  status: online
+  last_checked: '2026-03-05T14:14:37.749068+00:00'
+  tools:
+  - name: qwen_image_2_pro_text_to_image_result
+    description: Get Fal JSON result of completed Qwen Image 2 Pro Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_pro_text_to_image_status
+    description: Check status of Qwen Image 2 Pro Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_pro_text_to_image_submit
+    description: Submit Qwen Image 2 Pro Text-to-Image generation request. Generate images from text using Qwen Image 2 Pro
+      with improved quality and support for Chinese and English prompts. Returns Fal JSON response with request ID via Kamui
+      Code ⭐⭐⭐
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM-based prompt optimization for better results (default: true)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output (default: true)'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9)
+            or custom object {width: number, height: number} with total pixels between 512x512 and 2048x2048 (default: square_hd)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        negative_prompt:
+          description: 'Negative prompt describing content to avoid (max 500 characters, default: empty)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image to generate (supports Chinese and English)
+          type: string
+        seed:
+          description: Random seed for reproducible results (0-2147483647)
+          type: number
+        sync_mode:
+          description: If true, media is returned as data URI and output is not stored in request history
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-qwen-image-2-text-to-image
+  status: online
+  last_checked: '2026-03-05T14:13:44.028168+00:00'
+  tools:
+  - name: qwen_image_2_text_to_image_result
+    description: Get Fal JSON result of completed Qwen Image 2 Text-to-Image generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_text_to_image_status
+    description: Check status of Qwen Image 2 Text-to-Image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: qwen_image_2_text_to_image_submit
+    description: Submit Qwen Image 2 Text-to-Image generation request. Generate images from text using Qwen Image 2 with improved
+      text rendering and support for Chinese and English prompts. Returns Fal JSON response with request ID via Kamui Code
+      ⭐⭐⭐
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          default: true
+          description: 'Enable LLM-based prompt optimization for better results (default: true)'
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output (default: true)'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'Image size as preset string (square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9)
+            or custom object {width: number, height: number} with total pixels between 512x512 and 2048x2048 (default: square_hd)'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        negative_prompt:
+          description: 'Negative prompt describing content to avoid (max 500 characters, default: empty)'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, webp (default: png)'
+          type: string
+        prompt:
+          description: Text prompt describing the desired image to generate (supports Chinese and English)
+          type: string
+        seed:
+          description: Random seed for reproducible results (0-2147483647)
+          type: number
+        sync_mode:
+          description: If true, media is returned as data URI and output is not stored in request history
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-qwen-image-2512
   status: online
   last_checked: '2026-01-17T08:34:44.552173+00:00'
@@ -16637,6 +17084,245 @@ servers:
         seed:
           description: Random seed for video generation. -1 for random.
           type: number
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-heygen-avatar4-digital-twin
+  status: online
+  last_checked: '2026-03-05T14:14:13.409872+00:00'
+  tools:
+  - name: heygen_avatar4_digital_twin_result
+    description: Get result of completed Fal.ai HeyGen Avatar 4 Digital Twin video generation.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_avatar4_digital_twin_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar4_digital_twin_status
+    description: Check status of Fal.ai HeyGen Avatar 4 Digital Twin video generation using request ID.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_avatar4_digital_twin_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar4_digital_twin_submit
+    description: Submit Fal.ai HeyGen Avatar 4 Digital Twin text-to-video generation request using a predefined avatar and
+      voice.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        caption:
+          description: Whether to add captions to the video.
+          type: boolean
+        character_avatar:
+          description: 'Avatar name to use for the digital twin video. Must be one of the supported HeyGen Avatar 4 characters.
+            Possible values include (Fal AvatarEnum): Abigail (Upper Body), Abigail Office Front, Abigail Office Side, Abigail
+            Sofa Front, Abigail Sofa Side, Aditya in Brown blazer, Aditya in Blue blazer, Aditya in Blue shirt, Aditya in
+            Blue t-shirt, Aditya in Beige blazer, Adrian in Blue Shirt, Adrian in Blue Suit, Adrian in Blue Sweater, Adriana
+            BizTalk Front, Adriana BizTalk Side, Adriana Business Front 2, Adriana Business Front, Adriana Business Side,
+            Adriana Nurse Front 2, Adriana Nurse Front, Adriana Nurse Side 2, Adriana Nurse Side, Adriana Nurse Sitting Side,
+            Adriana SuitSofa Front, Aiko, Albert in Blue Polo shirt, Albert in Blue blazer, Albert in Blue shirt, Albert in
+            Blue suit, Albert in Khaki blazer, Albert in White shirt, Amanda in Blue Shirt (Front), Amanda in Blue Shirt (Left),
+            Amanda in Blue Shirt (Right), Amanda in Grey Shirt (Front), Amanda in Grey Shirt (Left), Amanda in Grey Shirt
+            (Right), Amanda in Maintenance (Front), Amanda in Maintenance (Left), Amanda in Maintenance (Right), Amelia Business
+            Training Front 2, Amelia Business Training Front, Amelia Business Training Side 2, Amelia Business Training Side,
+            Amelia Lounge Front 2, Amelia Lounge Front, Amelia Lounge Side 2, Amelia Lounge Side, Amelia Yoga Front 2, Amelia
+            Yoga Front, Amelia Yoga Side 2, Amelia Yoga Side, Alex in Black Suit, Alex in Jacket, Alex in White Coat, Alex
+            in Yellow Sweater, Anja Office Front, Anja Office Side, Anja Sofa Front, Anja Sofa Side, Ann Business Front, Ann
+            Business Sitting, Ann Casual Front, Ann Casual Lying, Ann Casual Sitting 2, Ann Casual Sitting, Ann Doctor Sitting,
+            Ann Doctor Standing, Ann Sweater Front, Ann Sweater Side, Ann Therapist, Anna in White T-shirt, Anna in Turtleneck
+            T-shirt, Anna in Brown T-shirt, Annelise in Dark blue dress, Annelise in Off white dress, Annelise in Sky blue
+            dress, Annelise in White dress, Annelore in Blue blazer, Annelore in Blue dress, Annelore in Red blazer, Annelore
+            in Red sweater, Annelore in White shirt, Annie in Grey Jacket, Annie in White Shirt, Annie in Tan Jacket, Annie
+            in Blue Casual, Annie in Light Blue, Annie in Brown Shirt, Annie in Black Shirt, Annie in Pink Suit, Annie in
+            Grey Dress, Annie in Blue Vest, Annie in Black V-neck Shirt, Annie in Blue Suit, Annie Bar Sitting Front, Annie
+            Bar Sitting Side, Annie Bar Standing Front 2, Annie Bar Standing Front 3, Annie Bar Standing Front, Annie Bar
+            Standing Side 2, Annie Bar Standing Side 3, Annie Bar Standing Side, Annie Business Casual Standing Front 2, Annie
+            Business Casual Standing Front, Annie Business Casual Standing Side 2, Annie Business Casual Standing Side, Annie
+            Casual Sitting Front 2, Annie Casual Sitting Front, Annie Casual Sitting Side 2, Annie Casual Sitting Side, Annie
+            Casual Standing Front 2, Annie Casual Standing Front, Annie Casual Standing Side 2, Annie Casual Standing Side,
+            Annie Desk Sitting Front 2, Annie Desk Sitting Front, Annie Desk Sitting Side 2, Annie Desk Sitting Side, Annie
+            Lounge Standing Front, Annie Lounge Standing Side, Annie Office Sitting Front 2, Annie Office Sitting Front, Annie
+            Office Sitting Side 2, Annie Office Sitting Side, Annie Office Standing Front, Annie Office Standing Side, Annie
+            Sofa Sitting Front 3, Annie Sofa Sitting Front, Annie Sofa Sitting Side 2, Annie Sofa Sitting Side 3, Annie Sofa
+            Sitting Side, Annie Sofa Sitting Front 2, Annie Studio Pink Sitting Front, Annie Studio Pink Sitting Side, Annie
+            Studio Pink Standing Front, Annie Studio Pink Standing Side, Armando Casual Front, Armando Casual Side, Armando
+            Suit Front, Armando Suit Side, Armando Sweater Front 2, Armando Sweater Front, Armando Sweater Side 2, Armando
+            Sweater Side, Artur Office Front 2, Artur Office Front, Artur Office Side 2, Artur Office Side, Artur Sofa Casual
+            Front 2, Artur Sofa Casual Front, Artur Sofa Casual Side 2, Artur Sofa Causal Side, Aubrey Sofa Side, Aubrey (Upper
+            Body), Aubrey Night Scene Front, Aubrey Outdoor Sport Front, Aubrey Outdoor Sport Side, Aubrey Sofa Front, August
+            Casual Front 2, August Casual Front, August Cool Sitting, August Cool Style, August Employee Front, August Hoodies
+            Front 2, August Hoodies Front, Bahar (Upper Body), Bahar Business Front, Bahar Business Side, Bahar Business Sitting
+            Front, Bahar Business Sitting Side, Bahar Casual Sitting Front 2, Bahar Casual Sitting Front, Bahar Casual Sitting
+            Side 2, Bahar Casual Sitting Side, Bahar Denim Casual Front, Bahar Denim Casual Side, Bahar Denim Front, Bahar
+            Denim Side, Bahar Jacket Casual Front, Bahar Jacket Casual Side, Bahar Jacket Front, Bahar Jacket Side, Bahar
+            Suit Front, Bahar Suit Side, Bastien in Blue T-shirt, Bastien in Blue blazer, Bastien in Blue shirt, Bastien in
+            White shirt, Blanka Lounge Front, Blanka Lounge Side, Blanka Outdoor Business Front, Blanka Outdoor Business Side,
+            Blanka Outdoor Reading Front, Blanka Outdoor Reading Side, Blanka Picnic Front, Blanka Picnic Side, Bojan Business
+            Training Front 2, Bojan Business Training Front, Bojan Business Training Side 2, Bojan Business Training Side,
+            Bojan Lounge Front 2, Bojan Lounge Front, Bojan Lounge Side 2, Bojan Lounge Side, Bojan Sport Front 2, Bojan Sport
+            Front, Bojan Sport Side 2, Bojan Sport Side, Bradley in Blue Polo (Front), Bradley in Blue Polo (Left), Bradley
+            in Blue Polo (Right), Bradley in Blue Shirt (Front), Bradley in Blue Shirt (Left), Bradley in Blue Shirt (Right),
+            Bradley in Doctor (Front), Bradley in Doctor (Left), Bradley in Doctor (Right) and many more as defined in the
+            Fal HeyGen Avatar 4 Digital Twin documentation.'
+          type: string
+        character_avatar_style:
+          default: closeUp
+          description: 'Avatar display style. Possible values: normal, circle, closeUp. Default: closeUp.'
+          type: string
+        resolution:
+          default: 720p
+          description: 'Video resolution preset. Possible values: 360p, 480p, 540p, 720p, 1080p. Default: 720p.'
+          type: string
+        voice_prompt:
+          description: Text that the avatar will speak in the generated video.
+          type: string
+        voice_speed:
+          default: 1
+          description: Speech speed multiplier. 1.0 is normal speed (range 0.5–2.0).
+          type: number
+        voice_voice:
+          description: 'Voice name to use for speech synthesis. Must be one of the supported HeyGen voices. Possible values
+            include (Fal VoiceEnum): Warm Pro Narrator, Chill Brian, Ivy, John Doe, Monika Sogam, Hope, Archer, Brittney,
+            Patrick, David Castlemore, Michael C, Adam Stone, Juniper, Cassidy, Jessica Anne Bogart, Arabella, Andrew, Spuds
+            Oxley, Grace Elder, Helen, Canyon Rivers, Derya - Lifelike - Excited 🤩, Mellow Marcus, Jack Sterling - Broadcaster
+            🎙️, Brenda - UGC - 1.mp4, Reid, Reagan, Terry, Jenny, Radio Rick, Denise, Tim in car - Excited 🤩, Iskander, Thompson,
+            Delicate Daisy - Excited 🤩, Kingston, George UGC 1, Bold Blake, Jane, Expressive Evan, Marianne - IA, Aaron, Modern
+            Recipe Host - Voice 1, Willow, Cute Chloe - Friendly 😊, Rafael, June - Lifelike, Crisp Chloe, Slick Simon, Nassim
+            - Informative, Baritone Ben, Maxwell, Ellie Faye - Excited 🤩, Milani, Feisty Fiona - Excited 🤩, Professor Dean,
+            Rose - UGC - 1.mp4, Shona, Hudson Wilder, Ann - IA, Alastair Kensington, Oxley, Christina, Andrew Rizz, Peyton,
+            Gerardo - Outdoor, Chloe - Lifelike, Stephanie, Anthony - IA, Signal - Voice 1, Luca, Lisa - Voice 1, T.W.Tucker,
+            Jack Sullivan - Serious 😐, Winter, Mireia - Lifelike, Georgia, Stella, Masha - Lifelike, Charming Charles - Friendly
+            😊, Serenity, Annie - Excited, Ralph, Bethany, Dominic, Mason Finn, Leena, Veteran Victor, Tamara, Nik Public,
+            Calm Chloe, Sevik, Reilly, Raul, Imposing Ian, Relaxed Ray, Dexter - Professional, Relaxed Rick, Edwin, Rupert
+            Blackwood, Ginny, Hope.'
+          type: string
+      required:
+      - character_avatar
+      - voice_prompt
+      - voice_voice
+      type: object
+- id: t2v-kamui-fal-heygen-v2-video-agent
+  status: online
+  last_checked: '2026-03-05T14:14:13.578448+00:00'
+  tools:
+  - name: heygen_v2_video_agent_result
+    description: Get result of completed Fal.ai HeyGen v2 Video Agent video generation.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v2_video_agent_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v2_video_agent_status
+    description: Check status of Fal.ai HeyGen v2 Video Agent video generation using request ID.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v2_video_agent_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v2_video_agent_submit
+    description: Submit Fal.ai HeyGen v2 Video Agent text-to-video generation request from a natural language prompt.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        avatar:
+          description: 'Optional avatar name to use in the video. Must be one of the supported HeyGen avatars. Possible values
+            include (Fal AvatarEnum): Abigail (Upper Body), Abigail Office Front, Abigail Office Side, Abigail Sofa Front,
+            Abigail Sofa Side, Aditya in Brown blazer, Aditya in Blue blazer, Aditya in Blue shirt, Aditya in Blue t-shirt,
+            Aditya in Beige blazer, Adrian in Blue Shirt, Adrian in Blue Suit, Adrian in Blue Sweater, Adriana BizTalk Front,
+            Adriana BizTalk Side, Adriana Business Front 2, Adriana Business Front, Adriana Business Side, Adriana Nurse Front
+            2, Adriana Nurse Front, Adriana Nurse Side 2, Adriana Nurse Side, Adriana Nurse Sitting Side, Adriana SuitSofa
+            Front, Aiko, Albert in Blue Polo shirt, Albert in Blue blazer, Albert in Blue shirt, Albert in Blue suit, Albert
+            in Khaki blazer, Albert in White shirt, Amanda in Blue Shirt (Front), Amanda in Blue Shirt (Left), Amanda in Blue
+            Shirt (Right), Amanda in Grey Shirt (Front), Amanda in Grey Shirt (Left), Amanda in Grey Shirt (Right), Amanda
+            in Maintenance (Front), Amanda in Maintenance (Left), Amanda in Maintenance (Right), Amelia Business Training
+            Front 2, Amelia Business Training Front, Amelia Business Training Side 2, Amelia Business Training Side, Amelia
+            Lounge Front 2, Amelia Lounge Front, Amelia Lounge Side 2, Amelia Lounge Side, Amelia Yoga Front 2, Amelia Yoga
+            Front, Amelia Yoga Side 2, Amelia Yoga Side, Alex in Black Suit, Alex in Jacket, Alex in White Coat, Alex in Yellow
+            Sweater, Anja Office Front, Anja Office Side, Anja Sofa Front, Anja Sofa Side, Ann Business Front, Ann Business
+            Sitting, Ann Casual Front, Ann Casual Lying, Ann Casual Sitting 2, Ann Casual Sitting, Ann Doctor Sitting, Ann
+            Doctor Standing, Ann Sweater Front, Ann Sweater Side, Ann Therapist, Anna in White T-shirt, Anna in Turtleneck
+            T-shirt, Anna in Brown T-shirt, Annelise in Dark blue dress, Annelise in Off white dress, Annelise in Sky blue
+            dress, Annelise in White dress, Annelore in Blue blazer, Annelore in Blue dress, Annelore in Red blazer, Annelore
+            in Red sweater, Annelore in White shirt, Annie in Grey Jacket, Annie in White Shirt, Annie in Tan Jacket, Annie
+            in Blue Casual, Annie in Light Blue, Annie in Brown Shirt, Annie in Black Shirt, Annie in Pink Suit, Annie in
+            Grey Dress, Annie in Blue Vest, Annie in Black V-neck Shirt, Annie in Blue Suit, Annie Bar Sitting Front, Annie
+            Bar Sitting Side, Annie Bar Standing Front 2, Annie Bar Standing Front 3, Annie Bar Standing Front, Annie Bar
+            Standing Side 2, Annie Bar Standing Side 3, Annie Bar Standing Side, Annie Business Casual Standing Front 2, Annie
+            Business Casual Standing Front, Annie Business Casual Standing Side 2, Annie Business Casual Standing Side, Annie
+            Casual Sitting Front 2, Annie Casual Sitting Front, Annie Casual Sitting Side 2, Annie Casual Sitting Side, Annie
+            Casual Standing Front 2, Annie Casual Standing Front, Annie Casual Standing Side 2, Annie Casual Standing Side,
+            Annie Desk Sitting Front 2, Annie Desk Sitting Front, Annie Desk Sitting Side 2, Annie Desk Sitting Side, Annie
+            Lounge Standing Front, Annie Lounge Standing Side, Annie Office Sitting Front 2, Annie Office Sitting Front, Annie
+            Office Sitting Side 2, Annie Office Sitting Side, Annie Office Standing Front, Annie Office Standing Side, Annie
+            Sofa Sitting Front 3, Annie Sofa Sitting Front, Annie Sofa Sitting Side 2, Annie Sofa Sitting Side 3, Annie Sofa
+            Sitting Side, Annie Sofa Sitting Front 2, Annie Studio Pink Sitting Front, Annie Studio Pink Sitting Side, Annie
+            Studio Pink Standing Front, Annie Studio Pink Standing Side, Armando Casual Front, Armando Casual Side, Armando
+            Suit Front, Armando Suit Side, Armando Sweater Front 2, Armando Sweater Front, Armando Sweater Side 2, Armando
+            Sweater Side, Artur Office Front 2, Artur Office Front, Artur Office Side 2, Artur Office Side, Artur Sofa Casual
+            Front 2, Artur Sofa Casual Front, Artur Sofa Casual Side 2, Artur Sofa Causal Side, Aubrey Sofa Side, Aubrey (Upper
+            Body), Aubrey Night Scene Front, Aubrey Outdoor Sport Front, Aubrey Outdoor Sport Side, Aubrey Sofa Front, August
+            Casual Front 2, August Casual Front, August Cool Sitting, August Cool Style, August Employee Front, August Hoodies
+            Front 2, August Hoodies Front, Bahar (Upper Body), Bahar Business Front, Bahar Business Side, Bahar Business Sitting
+            Front, Bahar Business Sitting Side, Bahar Casual Sitting Front 2, Bahar Casual Sitting Front, Bahar Casual Sitting
+            Side 2, Bahar Casual Sitting Side, Bahar Denim Casual Front, Bahar Denim Casual Side, Bahar Denim Front, Bahar
+            Denim Side, Bahar Jacket Casual Front, Bahar Jacket Casual Side, Bahar Jacket Front, Bahar Jacket Side, Bahar
+            Suit Front, Bahar Suit Side, Bastien in Blue T-shirt, Bastien in Blue blazer, Bastien in Blue shirt, Bastien in
+            White shirt, Blanka Lounge Front, Blanka Lounge Side, Blanka Outdoor Business Front, Blanka Outdoor Business Side,
+            Blanka Outdoor Reading Front, Blanka Outdoor Reading Side, Blanka Picnic Front, Blanka Picnic Side, Bojan Business
+            Training Front 2, Bojan Business Training Front, Bojan Business Training Side 2, Bojan Business Training Side,
+            Bojan Lounge Front 2, Bojan Lounge Front, Bojan Lounge Side 2, Bojan Lounge Side, Bojan Sport Front 2, Bojan Sport
+            Front, Bojan Sport Side 2, Bojan Sport Side, Bradley in Blue Polo (Front), Bradley in Blue Polo (Left), Bradley
+            in Blue Polo (Right), Bradley in Blue Shirt (Front), Bradley in Blue Shirt (Left), Bradley in Blue Shirt (Right),
+            Bradley in Doctor (Front), Bradley in Doctor (Left), Bradley in Doctor (Right) and many more as defined in the
+            Fal HeyGen v2 Video Agent documentation.'
+          type: string
+        caption:
+          description: Whether to add captions to the video.
+          type: boolean
+        duration:
+          description: 'Approximate duration in seconds (minimum 5). Suggested presets: 30, 60, 90.'
+          type: number
+        orientation:
+          default: portrait
+          description: 'Video orientation. Possible values: portrait, landscape. Default: portrait.'
+          type: string
+        prompt:
+          description: Natural language prompt describing the video to generate. Include style, visual elements, and desired
+            length for best results.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Video resolution preset. Possible values: 360p, 480p, 540p, 720p, 1080p. Default: 720p.'
+          type: string
       required:
       - prompt
       type: object
@@ -20200,6 +20886,62 @@ servers:
       required:
       - target_lang
       type: object
+- id: v2v-kamui-fal-ai-depth-anything-video
+  status: online
+  last_checked: '2026-03-05T14:14:26.190732+00:00'
+  tools:
+  - name: depth_anything_video_result
+    description: Get result of completed Fal.ai Depth Anything Video request.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: depth_anything_video_status
+    description: Check status of Fal.ai Depth Anything Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: depth_anything_video_submit
+    description: Submit Fal.ai Depth Anything Video request to estimate depth from an input video and generate a depth visualization
+      video.
+    inputSchema:
+      properties:
+        colormap:
+          description: 'Colormap for depth visualization. One of: grayscale, turbo, inferno, magma, viridis. Default: grayscale.'
+          type: string
+        include_raw_depths:
+          description: Whether to also export raw float32 depths as a .npz file containing depths and metadata.
+          type: boolean
+        max_frames:
+          description: Maximum number of frames to process. If omitted, all frames are processed.
+          type: number
+        model:
+          description: 'Depth estimation model size. One of: VDA-Small, VDA-Base, VDA-Large. Default: VDA-Large.'
+          type: string
+        output_fps:
+          description: Output video frames per second. If omitted, uses the input video's FPS.
+          type: number
+        resolution:
+          description: 'Output resolution. One of: auto, 360p, 480p, 720p, 1080p. Default: auto.'
+          type: string
+        side_by_side:
+          description: Whether to output a side-by-side comparison video of original and depth visualization.
+          type: boolean
+        video_url:
+          description: URL of the input video to estimate depth for.
+          type: string
+      required:
+      - video_url
+      type: object
 - id: v2v-kamui-fal-clarityai-crystal-video-upscaler
   status: online
   last_checked: '2026-01-21T15:36:48.318857+00:00'
@@ -20391,6 +21133,94 @@ servers:
       required:
       - prompt
       - video_url
+      type: object
+- id: v2v-kamui-fal-heygen-v2-translate-speed
+  status: online
+  last_checked: '2026-03-05T14:14:14.032006+00:00'
+  tools:
+  - name: heygen_v2_translate_speed_result
+    description: Get result of completed Fal.ai HeyGen v2 Translate Speed request.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v2_translate_speed_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v2_translate_speed_status
+    description: Check status of Fal.ai HeyGen v2 Translate Speed processing using request ID.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v2_translate_speed_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v2_translate_speed_submit
+    description: Submit Fal.ai HeyGen v2 Translate Speed request to translate an input video into another language with fast
+      turnaround.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        enable_dynamic_duration:
+          description: 'Whether to enable dynamic duration adaptation for more natural pacing between languages with different
+            speaking rates. Default: true.'
+          type: boolean
+        output_language:
+          description: 'Target language for translation. Must be one of the supported languages in the HeyGen Translate Speed
+            API (Fal OutputLanguageEnum). Possible values include: English, Spanish, French, Hindi, Italian, German, Polish,
+            Portuguese, Chinese, Japanese, Dutch, Turkish, Korean, Danish, Arabic, Romanian, Mandarin, Filipino, Swedish,
+            Indonesian, Ukrainian, Greek, Czech, Bulgarian, Malay, Slovak, Croatian, Tamil, Finnish, Russian, Afrikaans (South
+            Africa), Albanian (Albania), Amharic (Ethiopia), Arabic (Algeria), Arabic (Bahrain), Arabic (Egypt), Arabic (Iraq),
+            Arabic (Jordan), Arabic (Kuwait), Arabic (Lebanon), Arabic (Libya), Arabic (Morocco), Arabic (Oman), Arabic (Qatar),
+            Arabic (Saudi Arabia), Arabic (Syria), Arabic (Tunisia), Arabic (United Arab Emirates), Arabic (Yemen), Armenian
+            (Armenia), Azerbaijani (Latin, Azerbaijan), Bangla (Bangladesh), Basque, Bengali (India), Bosnian (Bosnia and
+            Herzegovina), Burmese (Myanmar), Catalan, Chinese (Cantonese, Traditional), Chinese (Jilu Mandarin, Simplified),
+            Chinese (Mandarin, Simplified), Chinese (Northeastern Mandarin, Simplified), Chinese (Southwestern Mandarin, Simplified),
+            Chinese (Taiwanese Mandarin, Traditional), Chinese (Wu, Simplified), Chinese (Zhongyuan Mandarin Henan, Simplified),
+            Chinese (Zhongyuan Mandarin Shaanxi, Simplified), Croatian (Croatia), Czech (Czechia), Danish (Denmark), Dutch
+            (Belgium), Dutch (Netherlands), English (Australia), English (Canada), English (Hong Kong SAR), English (India),
+            English (Ireland), English (Kenya), English (New Zealand), English (Nigeria), English (Philippines), English (Singapore),
+            English (South Africa), English (Tanzania), English (UK), English (United States), Estonian (Estonia), Filipino
+            (Philippines), Finnish (Finland), French (Belgium), French (Canada), French (France), French (Switzerland), Galician,
+            Georgian (Georgia), German (Austria), German (Germany), German (Switzerland), Greek (Greece), Gujarati (India),
+            Hebrew (Israel), Hindi (India), Hungarian (Hungary), Icelandic (Iceland), Indonesian (Indonesia), Irish (Ireland),
+            Italian (Italy), Japanese (Japan), Javanese (Latin, Indonesia), Kannada (India), Kazakh (Kazakhstan), Khmer (Cambodia),
+            Korean (Korea), Lao (Laos), Latvian (Latvia), Lithuanian (Lithuania), Macedonian (North Macedonia), Malay (Malaysia),
+            Malayalam (India), Maltese (Malta), Marathi (India), Mongolian (Mongolia), Nepali (Nepal), Norwegian Bokmål (Norway),
+            Pashto (Afghanistan), Persian (Iran), Polish (Poland), Portuguese (Brazil), Portuguese (Portugal), Romanian (Romania),
+            Russian (Russia), Serbian (Latin, Serbia), Sinhala (Sri Lanka), Slovak (Slovakia), Slovenian (Slovenia), Somali
+            (Somalia), Spanish (Argentina), Spanish (Bolivia), Spanish (Chile), Spanish (Colombia), Spanish (Costa Rica),
+            Spanish (Cuba), Spanish (Dominican Republic), Spanish (Ecuador), Spanish (El Salvador), Spanish (Equatorial Guinea),
+            Spanish (Guatemala), Spanish (Honduras), Spanish (Mexico), Spanish (Nicaragua), Spanish (Panama), Spanish (Paraguay),
+            Spanish (Peru), Spanish (Puerto Rico), Spanish (Spain), Spanish (United States), Spanish (Uruguay), Spanish (Venezuela),
+            Sundanese (Indonesia), Swahili (Kenya), Swahili (Tanzania), Swedish (Sweden), Tamil (India), Tamil (Malaysia),
+            Tamil (Singapore), Tamil (Sri Lanka), Telugu (India), Thai (Thailand), Turkish (Türkiye), Ukrainian (Ukraine),
+            Urdu (India), Urdu (Pakistan), Uzbek (Latin, Uzbekistan), Vietnamese (Vietnam), Welsh (United Kingdom), Zulu (South
+            Africa), English - Your Accent, English - American Accent.'
+          type: string
+        speaker_num:
+          description: Number of speakers in the video.
+          type: number
+        translate_audio_only:
+          description: If true, only translate the audio track without modifying faces/lip-sync.
+          type: boolean
+        video_url:
+          description: URL of the source video to translate.
+          type: string
+      required:
+      - video_url
+      - output_language
       type: object
 - id: v2v-kamui-fal-ltx-2-19b-distilled-extend-video
   status: online
