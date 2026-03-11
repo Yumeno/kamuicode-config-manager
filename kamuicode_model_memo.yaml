@@ -1170,6 +1170,14 @@ ai_models:
       server_name: r2v-kamui-fal-ai-wan-motion
       release_date: 2025年11月13日
       features: "(Fal.ai) ドライビング動画の動きをキャラクター画像に適用するモーション転送モデル。Wan-Animateをベースにポーズリターゲット機能を実装し、体格の異なるキャラクター間でも自然なアニメーションを生成可能。Fluxを使用したID保持機能も搭載。"
+    - name: Kling Video V3 Pro Motion Control
+      server_name: r2v-kamui-kling-video-v3-pro-motion-control
+      release_date: 2026年2月4日
+      features: "(Kuaishou) 参照ビデオの動きをキャラクター画像に正確に転写して動画を生成する、Kling 3.0 Proのモーションコントロールモデル。キャラクターの向きの基準設定により最大30秒（動画）または10秒（画像）の生成に対応し、元音声の保持や顔の同一性を固定する要素指定など高度な制御が可能です。"
+    - name: Kling Video V3 Standard Motion Control
+      server_name: r2v-kamui-kling-video-v3-standard-motion-control
+      release_date: 2026年01月31日
+      features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに反映させる、コストパフォーマンスに優れたモーションコントロール動画生成モデル。画像および動画URLの指定が必須で、元の音声の維持をサポート。基準メディアに応じた生成時間上限（画像は最大10秒、動画は最大30秒）の制御や、顔のアイデンティティを固定するオプション要素の指定に対応する。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
