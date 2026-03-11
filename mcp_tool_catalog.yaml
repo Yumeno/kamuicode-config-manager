@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-05T14:14:41.555405+00:00'
-  total_servers: 352
-  online_servers: 350
+  generated_at: '2026-03-11T14:18:17.872237+00:00'
+  total_servers: 354
+  online_servers: 352
   offline_servers: 0
   error_servers: 2
 servers:
@@ -10928,6 +10928,108 @@ servers:
       required:
       - image_url
       - video_url
+      type: object
+- id: r2v-kamui-kling-video-v3-pro-motion-control
+  status: online
+  last_checked: '2026-03-11T14:18:11.785671+00:00'
+  tools:
+  - name: kling_video_v3_pro_motion_control_result
+    description: Kling Video v3 Pro Motion Controlリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_motion_control_status
+    description: Kling Video v3 Pro Motion Controlリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_pro_motion_control_submit
+    description: Kling Video v3 Pro Motion Controlを使用して参照動画の動きを参照画像のキャラクターに転写します。要素バインディングによる顔の一貫性強化に対応します。
+    inputSchema:
+      properties:
+        character_orientation:
+          description: 出力キャラクターの向き。image または video（必須）。video指定時は複雑なモーションに最適で、最大30秒まで、image指定時はカメラワーク重視で最大10秒まで。
+          type: string
+        elements:
+          description: 顔の一貫性を高めるための要素（KlingV3ImageElementInput）のリスト。プロンプト内では@Element1として参照します（最大1要素）。
+          type: array
+        image_url:
+          description: 参照画像のURL（必須）
+          type: string
+        keep_original_sound:
+          description: '参照動画の音声を保持するかどうか（デフォルト: true）'
+          type: boolean
+        prompt:
+          description: 生成動画のプロンプト（任意）
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）
+          type: string
+      required:
+      - image_url
+      - video_url
+      - character_orientation
+      type: object
+- id: r2v-kamui-kling-video-v3-standard-motion-control
+  status: online
+  last_checked: '2026-03-11T14:18:11.914796+00:00'
+  tools:
+  - name: kling_video_v3_standard_motion_control_result
+    description: Kling Video v3 Standard Motion Controlリクエストの結果を取得します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_motion_control_status
+    description: Kling Video v3 Standard Motion Controlリクエストのステータスを確認します。
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_standard_motion_control_submit
+    description: Kling Video v3 Standard Motion Controlを使用して、参照動画の動きを参照画像のキャラクターに転写します。Standardモードはコスト効率に優れています。
+    inputSchema:
+      properties:
+        character_orientation:
+          description: 出力キャラクターの向き。image または video（必須）。video指定時は複雑なモーションに最適で、最大30秒まで、image指定時はカメラワーク重視で最大10秒まで。
+          type: string
+        elements:
+          description: 顔の一貫性を高めるための要素（KlingV3ImageElementInput）のリスト。プロンプト内では@Element1として参照します（最大1要素）。character_orientation='video'時のみ有効です。
+          type: array
+        image_url:
+          description: 参照画像のURL（必須）
+          type: string
+        keep_original_sound:
+          description: '参照動画の音声を保持するかどうか（デフォルト: true）'
+          type: boolean
+        prompt:
+          description: 生成動画のプロンプト（任意）
+          type: string
+        video_url:
+          description: 参照動画のURL（必須）
+          type: string
+      required:
+      - image_url
+      - video_url
+      - character_orientation
       type: object
 - id: r2v-kamui-ltx-2
   status: online
