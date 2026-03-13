@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-11T14:18:17.872237+00:00'
-  total_servers: 354
-  online_servers: 352
+  generated_at: '2026-03-13T14:14:40.257040+00:00'
+  total_servers: 361
+  online_servers: 359
   offline_servers: 0
   error_servers: 2
 servers:
@@ -627,6 +627,52 @@ servers:
           type: string
       required:
       - prompt
+      - audio_url
+      type: object
+- id: a2v-kamui-fal-ltx-23-audio-to-video
+  status: online
+  last_checked: '2026-03-13T14:14:27.414894+00:00'
+  tools:
+  - name: ltx_2_3_audio_to_video_result
+    description: Get result of completed LTX 2.3 Audio-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_audio_to_video_status
+    description: Check status of LTX 2.3 Audio-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_audio_to_video_submit
+    description: Submit LTX 2.3 Audio-to-Video request to Fal.ai. Generate a video from an audio file. Duration must be between
+      2 and 20 seconds.
+    inputSchema:
+      properties:
+        audio_url:
+          description: URL of the audio file to generate a video from. Must be publicly accessible or base64 data URI.
+          type: string
+        guidance_scale:
+          description: Guidance scale for video generation. Higher values make the output more closely follow the prompt.
+            Defaults to 5 for text-to-video, or 9 when providing an image.
+          type: number
+        image_url:
+          description: URL of an image to use as the first frame of the video. If not provided, prompt is required.
+          type: string
+        prompt:
+          description: Text description of how the video should be generated. Required if image_url is not provided. When
+            image_url is provided, this describes how the image should be animated.
+          type: string
+      required:
       - audio_url
       type: object
 - id: a2v-kamui-fal-veed-fabric-1-0-text
@@ -7230,9 +7276,122 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-fal-ltx-23-image-to-video
+  status: online
+  last_checked: '2026-03-13T14:14:26.820687+00:00'
+  tools:
+  - name: ltx_2_3_image_to_video_result
+    description: Get result of completed LTX 2.3 Image-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_image_to_video_status
+    description: Check status of LTX 2.3 Image-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_image_to_video_submit
+    description: Submit LTX 2.3 Image-to-Video request to Fal.ai. Generate a video from an image. Duration 6, 8, or 10 seconds.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: auto, 16:9, 9:16. Default: auto'
+          type: string
+        duration:
+          description: 'Duration in seconds: 6, 8, 10. Default: 6'
+          type: number
+        end_image_url:
+          description: URL of the end image. When provided, generates a transition video between start and end frames.
+          type: string
+        fps:
+          description: 'FPS: 24, 25, 48, 50. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio. Default: true'
+          type: boolean
+        image_url:
+          description: URL of the start image. Must be publicly accessible or base64 data URI.
+          type: string
+        prompt:
+          description: The prompt to use for the generated video
+          type: string
+        resolution:
+          description: 'Resolution: 1080p, 1440p, 2160p. Default: 1080p'
+          type: string
+      required:
+      - image_url
+      - prompt
+      type: object
+- id: i2v-kamui-fal-ltx-23-image-to-video-fast
+  status: online
+  last_checked: '2026-03-13T14:14:27.057649+00:00'
+  tools:
+  - name: ltx_2_3_image_to_video_fast_result
+    description: Get result of completed LTX 2.3 Image-to-Video Fast generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_image_to_video_fast_status
+    description: Check status of LTX 2.3 Image-to-Video Fast processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_image_to_video_fast_submit
+    description: Submit LTX 2.3 Image-to-Video Fast request to Fal.ai. Generate a video from an image. Supports 6-20 seconds
+      duration.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: auto, 16:9, 9:16. Default: auto'
+          type: string
+        duration:
+          description: 'Duration in seconds (6-20). Default: 6. Note: 12-20 only with 25 FPS and 1080p.'
+          type: number
+        end_image_url:
+          description: The URL of the end image. When provided, generates a transition video between start and end frames.
+          type: string
+        fps:
+          description: 'FPS: 24, 25, 48, 50. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio. Default: true'
+          type: boolean
+        image_url:
+          description: URL of the image to generate the video from. Must be publicly accessible or base64 data URI.
+          type: string
+        prompt:
+          description: The prompt to generate the video from
+          type: string
+        resolution:
+          description: 'Resolution: 1080p, 1440p, 2160p. Default: 1080p'
+          type: string
+      required:
+      - image_url
+      - prompt
+      type: object
 - id: i2v-kamui-fal-sora-2
   status: online
-  last_checked: '2026-01-17T08:35:19.888651+00:00'
+  last_checked: '2026-03-13T14:14:11.401482+00:00'
   tools:
   - name: sora2_image_to_video_result
     description: Get result of completed Fal.ai Sora 2 Image-to-Video generation. Returns Fal JSON with video and metadata.
@@ -7267,16 +7426,30 @@ servers:
           - '9:16'
           - '16:9'
           type: string
+        character_ids:
+          description: Up to two character IDs from create-character to use in the video (optional)
+          type: array
         delete_video:
           default: true
           description: 'Whether to delete the video after generation (default: true)'
           type: boolean
+        detect_and_block_ip:
+          description: If enabled, prompt and image will be checked for known IP references (optional)
+          type: boolean
         duration:
           default: 4
-          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12, 16, 20 (default: 4)'
           type: number
         image_url:
           description: URL of the image to use as the first frame
+          type: string
+        model:
+          default: sora-2
+          description: 'Model snapshot. Options: sora-2, sora-2-2025-12-08, sora-2-2025-10-06 (default: sora-2)'
+          enum:
+          - sora-2
+          - sora-2-2025-12-08
+          - sora-2-2025-10-06
           type: string
         prompt:
           description: Text prompt describing the desired video
@@ -7294,7 +7467,7 @@ servers:
       type: object
 - id: i2v-kamui-fal-sora-2-pro
   status: online
-  last_checked: '2026-01-17T08:35:19.472750+00:00'
+  last_checked: '2026-03-13T14:14:10.883085+00:00'
   tools:
   - name: sora2_image_to_video_pro_result
     description: Get result of completed Fal.ai Sora 2 Image-to-Video Pro generation. Returns Fal JSON with video and metadata.
@@ -7329,13 +7502,19 @@ servers:
           - '9:16'
           - '16:9'
           type: string
+        character_ids:
+          description: Up to two character IDs from create-character to use in the video (optional)
+          type: array
         delete_video:
           default: true
           description: 'Whether to delete the video after generation (default: true)'
           type: boolean
+        detect_and_block_ip:
+          description: If enabled, prompt and image will be checked for known IP references (optional)
+          type: boolean
         duration:
           default: 4
-          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12, 16, 20 (default: 4)'
           type: number
         image_url:
           description: URL of the image to use as the first frame
@@ -7345,11 +7524,12 @@ servers:
           type: string
         resolution:
           default: auto
-          description: 'Resolution of the generated video. Options: auto, 720p, 1080p (default: auto)'
+          description: 'Resolution of the generated video. Options: auto, 720p, 1080p, true_1080p (default: auto)'
           enum:
           - auto
           - 720p
           - 1080p
+          - true_1080p
           type: string
       required:
       - prompt
@@ -10665,6 +10845,53 @@ servers:
       required:
       - video_url
       - image_url
+      type: object
+- id: r2v-kamui-fal-ltx-23-retake-video
+  status: online
+  last_checked: '2026-03-13T14:14:26.820666+00:00'
+  tools:
+  - name: ltx_2_3_retake_video_result
+    description: Get result of completed LTX 2.3 Retake Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_retake_video_status
+    description: Check status of LTX 2.3 Retake Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_retake_video_submit
+    description: Submit LTX 2.3 Retake Video request to Fal.ai. Retake a video section with a new prompt.
+    inputSchema:
+      properties:
+        duration:
+          description: 'The duration of the video to retake in seconds. Default: 5'
+          type: number
+        prompt:
+          description: The prompt to retake the video with
+          type: string
+        retake_mode:
+          description: 'Retake mode: replace_audio, replace_video, replace_audio_and_video. Default: replace_audio_and_video'
+          type: string
+        start_time:
+          description: The start time of the video to retake in seconds
+          type: number
+        video_url:
+          description: The URL of the video to retake
+          type: string
+      required:
+      - video_url
+      - prompt
       type: object
 - id: r2v-kamui-kling-video-o1
   status: online
@@ -17663,6 +17890,106 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-fal-ltx-23-text-to-video
+  status: online
+  last_checked: '2026-03-13T14:14:26.034815+00:00'
+  tools:
+  - name: ltx_2_3_text_to_video_result
+    description: Get result of completed LTX 2.3 Text-to-Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_text_to_video_status
+    description: Check status of LTX 2.3 Text-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_text_to_video_submit
+    description: Submit LTX 2.3 Text-to-Video request to Fal.ai. Generate a video from a text prompt. Duration 6, 8, or 10
+      seconds.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: 16:9, 9:16. Default: 16:9'
+          type: string
+        duration:
+          description: 'Duration in seconds: 6, 8, 10. Default: 6'
+          type: number
+        fps:
+          description: 'FPS: 24, 25, 48, 50. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio. Default: true'
+          type: boolean
+        prompt:
+          description: The prompt to use for the generated video
+          type: string
+        resolution:
+          description: 'Resolution: 1080p, 1440p, 2160p. Default: 1080p'
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-ltx-23-text-to-video-fast
+  status: online
+  last_checked: '2026-03-13T14:14:26.820622+00:00'
+  tools:
+  - name: ltx_2_3_text_to_video_fast_result
+    description: Get result of completed LTX 2.3 Text-to-Video Fast generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_text_to_video_fast_status
+    description: Check status of LTX 2.3 Text-to-Video Fast processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_text_to_video_fast_submit
+    description: Submit LTX 2.3 Text-to-Video Fast request to Fal.ai. Generate a video from a text prompt. Supports 6-20 seconds
+      duration.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: 16:9, 9:16. Default: 16:9'
+          type: string
+        duration:
+          description: 'Duration in seconds (6-20). Default: 6. Note: 12-20 only with 25 FPS and 1080p.'
+          type: number
+        fps:
+          description: 'FPS: 24, 25, 48, 50. Default: 25'
+          type: number
+        generate_audio:
+          description: 'Whether to generate audio. Default: true'
+          type: boolean
+        prompt:
+          description: The prompt to use for the generated video
+          type: string
+        resolution:
+          description: 'Resolution: 1080p, 1440p, 2160p. Default: 1080p'
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-fal-pixverse-v5_6
   status: online
   last_checked: '2026-01-30T14:06:58.998705+00:00'
@@ -17795,7 +18122,7 @@ servers:
       type: object
 - id: t2v-kamui-fal-sora-2
   status: online
-  last_checked: '2026-01-17T08:35:20.204864+00:00'
+  last_checked: '2026-03-13T14:14:11.410830+00:00'
   tools:
   - name: sora2_text_to_video_result
     description: Get result of completed Fal.ai Sora 2 Text-to-Video generation. Returns Fal JSON with video and metadata.
@@ -17829,14 +18156,28 @@ servers:
           - '9:16'
           - '16:9'
           type: string
+        character_ids:
+          description: Up to two character IDs from create-character to use in the video (optional)
+          type: array
         delete_video:
           default: true
           description: 'Whether to delete the video after generation (default: true)'
           type: boolean
+        detect_and_block_ip:
+          description: If enabled, prompt will be checked for known IP references (optional)
+          type: boolean
         duration:
           default: 4
-          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12, 16, 20 (default: 4)'
           type: number
+        model:
+          default: sora-2
+          description: 'Model snapshot. Options: sora-2, sora-2-2025-12-08, sora-2-2025-10-06 (default: sora-2)'
+          enum:
+          - sora-2
+          - sora-2-2025-12-08
+          - sora-2-2025-10-06
+          type: string
         prompt:
           description: Text prompt describing the desired video
           type: string
@@ -17851,7 +18192,7 @@ servers:
       type: object
 - id: t2v-kamui-fal-sora-2-pro
   status: online
-  last_checked: '2026-01-17T08:35:19.846672+00:00'
+  last_checked: '2026-03-13T14:14:11.376431+00:00'
   tools:
   - name: sora2_text_to_video_pro_result
     description: Get result of completed Fal.ai Sora 2 Text-to-Video Pro generation. Returns Fal JSON with video and metadata.
@@ -17885,23 +18226,30 @@ servers:
           - '9:16'
           - '16:9'
           type: string
+        character_ids:
+          description: Up to two character IDs from create-character to use in the video (optional)
+          type: array
         delete_video:
           default: true
           description: 'Whether to delete the video after generation (default: true)'
           type: boolean
+        detect_and_block_ip:
+          description: If enabled, prompt will be checked for known IP references (optional)
+          type: boolean
         duration:
           default: 4
-          description: 'Duration of the generated video in seconds. Options: 4, 8, 12 (default: 4)'
+          description: 'Duration of the generated video in seconds. Options: 4, 8, 12, 16, 20 (default: 4)'
           type: number
         prompt:
           description: Text prompt describing the desired video
           type: string
         resolution:
           default: 1080p
-          description: 'Resolution of the generated video. Options: 720p, 1080p (default: 1080p)'
+          description: 'Resolution of the generated video. Options: 720p, 1080p, true_1080p (default: 1080p)'
           enum:
           - 720p
           - 1080p
+          - true_1080p
           type: string
       required:
       - prompt
@@ -21758,6 +22106,55 @@ servers:
           type: string
       required:
       - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-fal-ltx-23-extend-video
+  status: online
+  last_checked: '2026-03-13T14:14:27.395439+00:00'
+  tools:
+  - name: ltx_2_3_extend_video_result
+    description: Get result of completed LTX 2.3 Extend Video generation. Returns JSON response with video URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_extend_video_status
+    description: Check status of LTX 2.3 Extend Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: ltx_2_3_extend_video_submit
+    description: Submit LTX 2.3 Extend Video request to Fal.ai. Extend a video by generating additional frames at the beginning
+      or end.
+    inputSchema:
+      properties:
+        context:
+          description: Number of seconds from the input video to use as context for the extension (minimum 1 second, maximum
+            20 seconds)
+          type: number
+        duration:
+          description: 'Duration in seconds to extend the video. Maximum 20 seconds. Default: 5'
+          type: number
+        mode:
+          description: 'Where to extend the video: ''end'' extends at the end, ''start'' extends at the beginning. Default:
+            end'
+          type: string
+        prompt:
+          description: Description of what should happen in the extended portion of the video
+          type: string
+        video_url:
+          description: The URL of the video to extend
+          type: string
+      required:
       - video_url
       type: object
 - id: v2v-kamui-fal-sam-3-video
