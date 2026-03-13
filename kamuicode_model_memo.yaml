@@ -694,6 +694,14 @@ ai_models:
       server_name: t2v-kamui-fal-heygen-v2-video-agent
       release_date: 2026年1月頃
       features: "(HeyGen) 自然言語プロンプトから解説動画やトーキングヘッド動画を生成するVideo Agentのv2モデル。生成前に動画の構成案（ブループリント）を提示・修正する『Agentic Workflow』を備え、アバター選択、縦横比、再生時間、解像度（最大1080p）の指定や字幕生成に対応。"
+    - name: LTX 2.3 Text-to-Video
+      server_name: t2v-kamui-fal-ltx-23-text-to-video
+      release_date: 2026年3月5日
+      features: "(Lightricks) テキストから動画と音声を同時に生成できるオープンソースの動画生成モデル。LTX-2からVAEが刷新され細部の描写が向上したほか、クリアな音声生成、複雑なプロンプトの理解力向上、縦長（9:16）動画のネイティブ生成を実現している。"
+    - name: LTX 2.3 Text-to-Video Fast
+      server_name: t2v-kamui-fal-ltx-23-text-to-video-fast
+      release_date: 2026年3月5日
+      features: "(Lightricks) テキストから動画を高速に生成するAIモデル。6〜20秒の動画生成に対応し、最大4K解像度や24/48fps、縦長（9:16）フォーマットをサポート。新しいVAEによるディテールの向上や、動画と同期した音声のネイティブ生成が可能。Apache 2.0ライセンスでオープンソース公開されている。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -912,6 +920,14 @@ ai_models:
       server_name: i2v-kamui-fal-heygen-avatar4-image-to-video
       release_date: 2026年03月02日
       features: "(HeyGen) 1枚の顔画像から自然な発話動画を生成するAvatar 4モデル。Fal.ai経由で利用可能。テキスト入力による発話生成、豊富な音声・表情・スタイル（安定/表現豊か）の選択、背景カスタマイズ（色/画像/動画）、最大1080pの解像度、字幕生成に対応。"
+    - name: LTX 2.3 Image-to-Video
+      server_name: i2v-kamui-fal-ltx-23-image-to-video
+      release_date: 2026年03月05日
+      features: "(Lightricks) Lightricksによって開発されたオープンソースの動画生成モデル「LTX-2.3」の画像からの動画生成機能。静止画から最大4K解像度で、同期したネイティブ音声を含む高品質な動画を生成できる。新しいVAEアーキテクチャによるディテールの鮮明化、プロンプト理解力の向上、ネイティブな縦型（9:16）動画フォーマットのサポートが特徴。"
+    - name: LTX 2.3 Image-to-Video Fast
+      server_name: i2v-kamui-fal-ltx-23-image-to-video-fast
+      release_date: 2026年3月5日
+      features: "(Lightricks) 画像から動画を高速に生成するモデル。6〜20秒の生成に対応し、開始画像と終了画像（オプション）を指定可能。解像度（最大2160p）、アスペクト比、FPSの指定や音声生成にも対応する。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1101,6 +1117,10 @@ ai_models:
       server_name: v2v-kamui-fal-ai-depth-anything-video
       release_date: 2025年1月21日
       features: "(Depth Anything Team) 動画から深度マップを推定し、可視化動画を生成するモデル。Depth Anything V2をベースに、時間的一貫性を保ったまま長尺動画の処理が可能。モデルサイズ（Small/Base/Large）やカラーマップの変更に対応。"
+    - name: LTX 2.3 Extend Video
+      server_name: v2v-kamui-fal-ltx-23-extend-video
+      release_date: 2026年03月05日
+      features: "(Lightricks) 動画の最初または最後にフレームを追加生成し、既存の動画を自然に延長できるAIモデル。最大20秒までの延長、開始・終了モードの選択、プロンプトによる延長内容の制御などが可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1178,6 +1198,10 @@ ai_models:
       server_name: r2v-kamui-kling-video-v3-standard-motion-control
       release_date: 2026年01月31日
       features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに反映させる、コストパフォーマンスに優れたモーションコントロール動画生成モデル。画像および動画URLの指定が必須で、元の音声の維持をサポート。基準メディアに応じた生成時間上限（画像は最大10秒、動画は最大30秒）の制御や、顔のアイデンティティを固定するオプション要素の指定に対応する。"
+    - name: LTX 2.3 Retake Video
+      server_name: r2v-kamui-fal-ltx-23-retake-video
+      release_date: 2026年03月05日
+      features: "(Lightricks) 動画の一部を新しいプロンプトで再生成（Retake）できる動画編集AIモデル。指定した区間の音声のみ、映像のみ、または両方の置き換えに対応し、高精細なディテールとクリアなネイティブ音声の生成が可能。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -1217,6 +1241,10 @@ ai_models:
       server_name: a2v-kamui-fal-ltx-2-19b-audio-to-video
       release_date: 2026年01月06日
       features: "(Lightricks) 映像(14B)と音声(5B)を統合した19Bパラメータの基盤モデル。音声を主導入力として、テキストや画像を補助に4K解像度・50fpsの同期された音声付き動画を生成可能。"
+    - name: LTX 2.3 Audio-to-Video
+      server_name: a2v-kamui-fal-ltx-23-audio-to-video
+      release_date: 2026年3月5日
+      features: "(Lightricks) 音声ファイルを入力とし、それに同期した動画を生成するAIモデル。2〜20秒の動画生成が可能で、最初のフレームの画像入力やプロンプトによる詳細なシーン指示にも対応している。"
   text_to_speech:
     - name: Minimax Speech-02 Turbo
       server_name: t2s-kamui-minimax-speech-02-turbo
