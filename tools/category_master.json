@@ -126,6 +126,10 @@
     "start-end": {
       "category_key": "image_to_video",
       "description": "start-endから始まるモデルのカテゴリ (自動生成)"
+    },
+    "v2char": {
+      "category_key": "utility_and_analysis",
+      "description": "v2charから始まるモデルのカテゴリ (自動生成)"
     }
   }
 }
