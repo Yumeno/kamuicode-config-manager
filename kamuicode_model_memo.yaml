@@ -1481,6 +1481,10 @@ ai_models:
       server_name: video-analysis-kamui-openrouter
       release_date: 2025年6月17日
       features: "(Kamui Code) OpenRouterを経由してGemini 2.5 FlashなどのLLMを利用する動画解析ルーター。Gemini 2.5 FlashはGoogleが開発した高速・低遅延なマルチモーダルモデルで、長時間の動画理解に優れる。"
+    - name: Sora 2 Characters
+      server_name: v2char-kamui-fal-sora-2-characters
+      release_date: 2025年10月29日
+      features: "(OpenAI) 短いビデオクリップからSora 2の動画生成で使用するためのキャラクターを作成するユーティリティAPI。MP4形式（最小720p、最大4秒）の動画URLとキャラクター名を入力として受け取り、t2vやi2vの生成時にキャラクターを固定・一貫させるためのキャラクターID（char_...）を返す。"
   voice_clone:
     - name: MiniMax Voice Clone
       server_name: voice-clone-kamui-minimax
