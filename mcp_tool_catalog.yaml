@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-13T14:14:40.257040+00:00'
-  total_servers: 361
-  online_servers: 359
+  generated_at: '2026-03-15T13:36:43.671654+00:00'
+  total_servers: 362
+  online_servers: 360
   offline_servers: 0
   error_servers: 2
 servers:
@@ -20726,6 +20726,46 @@ servers:
           type: string
       required:
       - video_url
+      type: object
+- id: v2char-kamui-fal-sora-2-characters
+  status: online
+  last_checked: '2026-03-15T13:36:22.142967+00:00'
+  tools:
+  - name: sora2_characters_result
+    description: Get result of completed Sora 2 Characters creation. Returns character id (char_...) and name for use in character_ids.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_characters_status
+    description: Check status of Fal.ai Sora 2 Characters request using the request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sora2_characters_submit
+    description: Create a Sora 2 character from a short video clip. Returns the character ID for use in video generation (character_ids
+      parameter).
+    inputSchema:
+      properties:
+        name:
+          description: Name for the character (1-80 characters). Refer to this name in prompts when using the character.
+          type: string
+        video_url:
+          description: URL of an MP4 video (minimum 720p, max ~2.67:1 aspect ratio) to define the character. 4 seconds max,
+            will be trimmed.
+          type: string
+      required:
+      - video_url
+      - name
       type: object
 - id: v2sfx-kamui-mirelo-video-to-sfx
   status: online
