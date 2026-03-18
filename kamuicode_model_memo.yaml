@@ -517,6 +517,10 @@ ai_models:
       server_name: i2i-kamui-qwen-image-2-pro-edit
       release_date: 2026年02月10日
       features: "(Alibaba Cloud) 自然言語の指示により画像の編集を行うQwen-Image-2.0ベースのモデル。最大2048x2048のネイティブ解像度に対応し、オブジェクトの追加・削除・置換やスタイル変換、画像内のテキストレンダリングなど、高精度な編集機能を備える。"
+    - name: FireRed Image Edit v1.1
+      server_name: i2i-kamui-firered-image-edit-v1.1
+      release_date: 2026年3月3日
+      features: "(Xiaohongshu) 小紅書（Xiaohongshu）のAIチームが開発したオープンソースの画像編集モデル。自然言語によるプロンプトと参照画像を用いて、ポートレートのメイクアップ、スタイル転送、複数要素の融合などの高度な編集が可能。前バージョンからキャラクターの同一性保持やテキスト描画精度が大幅に向上している。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -1425,6 +1429,14 @@ ai_models:
       server_name: i2i3d-kamui-trellis-2
       release_date: 2025年12月17日
       features: "(Microsoft) 高忠実度なImage-to-3D生成モデル。40億パラメータを持ち、独自のO-Voxel構造とFlow-Matching Transformerにより、複雑なトポロジーやPBRマテリアル（透明度含む）を持つ高品質な3Dアセットを高速に生成可能。"
+    - name: Hunyuan3D v3.1 Pro Image-to-3D
+      server_name: i2i3d-kamui-hunyuan3d-v31-pro-image-to-3d
+      release_date: 2026年1月頃
+      features: "(Tencent) 画像から高品質な3Dモデルを生成するプロフェッショナル向けモデル。最大8方向からのマルチビュー画像入力に対応し、正確なジオメトリを再構築する。PBRマテリアルの生成、生成タイプ（Normal/Geometry）の指定、ポリゴン数の調整（4万〜150万）をサポートし、ゲーム開発や3Dプリントなどの制作フローに適している。"
+    - name: Hunyuan 3D v3.1 Rapid (Image to 3D)
+      server_name: i2i3d-kamui-hunyuan3d-v31-rapid-image-to-3d
+      release_date: 2026年1月26日
+      features: "(Tencent) 画像から高速に3Dモデルを生成するAIモデル。PBRマテリアルの生成やポリゴン数の指定に対応し、高品質な3Dアセットを短時間で出力する。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
@@ -1434,6 +1446,14 @@ ai_models:
       server_name: t2i3d-kamui-hunyuan3d-v3-text-to-3d
       release_date: 2025年9月16日
       features: "(Tencent) テキストや画像から高品質な3Dモデルを生成する最新AIモデル。前バージョンからモデリング精度が3倍に向上し、最大150万ポリゴンの詳細なメッシュ生成やPBRマテリアルに対応。商用利用可能なAPIとしても提供されている。"
+    - name: Hunyuan3D v3.1 Pro Text-to-3D
+      server_name: t2i3d-kamui-hunyuan3d-v31-pro-text-to-3d
+      release_date: 2026年1月26日
+      features: "(Tencent) テキストプロンプトから高精細な3Dモデルを生成するAIモデル。生成タイプ（Normal/Geometry）の選択、PBRの有効化、ポリゴン数（4万〜150万）の指定に対応している。"
+    - name: Hunyuan3D v3.1 Rapid Text-to-3D
+      server_name: t2i3d-kamui-hunyuan3d-v31-rapid-text-to-3d
+      release_date: 2026年1月頃
+      features: "(Tencent) テキストプロンプトから高速に3Dモデルを生成するモデル。生成タイプの指定、PBRマテリアルの有効化、ポリゴン数の制御をサポートしています。"
   3d_to_3d:
     - name: Meshy V5 Remesh
       server_name: 3d23d-kamui-meshy-v5-remesh
@@ -1504,6 +1524,18 @@ ai_models:
       release_date: 2025年11月3日
       features: "(Bria AI / fal.ai) テキストプロンプトからJSON形式の構造化プロンプトを生成するユーティリティ。"
 
+    - name: Hunyuan3D v3.1 Part
+      server_name: misc-kamui-hunyuan3d-v31-part
+      release_date: 2026年1月頃
+      features: "(Tencent) FBX形式の3Dモデルを入力として受け取り、構成パーツごとに分割して複数のFBXファイルとして出力するユーティリティモデル。最大100MB、ポリゴン数3万以下のFBXファイルに対応している。"
+    - name: Hunyuan3D v3.1 Smart Topology
+      server_name: misc-kamui-hunyuan3d-v31-smart-topology
+      release_date: 2026年1月頃
+      features: "(Tencent) 3Dモデルのトポロジーを最適化するユーティリティモデル。glbやobj形式の3Dファイル（URL）を入力とし、ポリゴンの種類（三角形/四角形）やフェースレベルを指定して、既存の3Dメッシュをよりクリーンで効率的な構造に再構築・軽量化することが可能。"
+    - name: Trellis 2 Retexture
+      server_name: misc-kamui-trellis-2-retexture
+      release_date: 2025年12月16日
+      features: "(Microsoft) 参照画像から既存の3Dメッシュにテクスチャを適用するモデル。GLB、OBJ、PLY、STL形式のメッシュ入力に対応し、Trellis 2の技術を活用して高品質なテクスチャを生成・マッピングします。"
   reference_to_image:
     - name: Vidu Q2 Reference to Image
       server_name: r2i-kamui-vidu-q2-reference-to-image
