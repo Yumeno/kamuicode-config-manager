@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-15T13:36:43.671654+00:00'
-  total_servers: 362
-  online_servers: 360
+  generated_at: '2026-03-18T13:49:42.562445+00:00'
+  total_servers: 371
+  online_servers: 369
   offline_servers: 0
   error_servers: 2
 servers:
@@ -2617,6 +2617,75 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2i-kamui-firered-image-edit-v1.1
+  status: online
+  last_checked: '2026-03-18T13:49:22.731892+00:00'
+  tools:
+  - name: firered_image_edit_v11_result
+    description: Get FireRed Image Edit v1.1 generation results (edited images) as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: firered_image_edit_v11_status
+    description: Check FireRed Image Edit v1.1 processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: firered_image_edit_v11_submit
+    description: Submit Fal.ai FireRed Image Edit v1.1 request for portrait makeup, style transfer, and multi-element fusion.
+      Supports English and Chinese instructions.
+    inputSchema:
+      properties:
+        acceleration:
+          default: regular
+          description: 'Acceleration: none, regular, or high (default: regular)'
+          type: string
+        guidance_scale:
+          default: 4
+          description: 'Classifier-free guidance scale (default: 4)'
+          type: number
+        image_url:
+          description: URL of the image to edit
+          type: string
+        image_urls:
+          description: 'Optional: for multi-image reference (e.g. virtual try-on), pass array of URLs. If provided, overrides
+            image_url.'
+          type: string
+        negative_prompt:
+          description: Negative prompt for generation
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        num_inference_steps:
+          default: 30
+          description: 'Number of inference steps (default: 30)'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: png or jpeg (default: png)'
+          type: string
+        prompt:
+          description: Editing instruction describing what changes to make (supports English and Chinese)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2i-kamui-flux-2-edit
   status: online
   last_checked: '2026-01-17T08:35:17.899674+00:00'
@@ -4216,6 +4285,49 @@ servers:
       required:
       - prompt
       - image_urls
+      type: object
+- id: i2i-kamui-pixelcut-background-removal
+  status: online
+  last_checked: '2026-03-18T13:49:22.704507+00:00'
+  tools:
+  - name: pixelcut_background_removal_result
+    description: Get completed Pixelcut Background Removal results as Fal.ai JSON response (image or file metadata).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the pixelcut_background_removal_submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixelcut_background_removal_status
+    description: Check the processing status of a Pixelcut Background Removal request using its request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from the pixelcut_background_removal_submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixelcut_background_removal_submit
+    description: Submit Pixelcut Background Removal request to remove background from an input image using Fal.ai. Supports
+      JPEG and PNG input and returns RGBA, alpha mask, or ZIP output depending on configuration.
+    inputSchema:
+      properties:
+        image_url:
+          description: Public URL of the input image (JPEG or PNG) whose background should be removed.
+          type: string
+        output_format:
+          default: rgba
+          description: 'Output format: ''rgba'' for RGBA image, ''alpha'' for alpha mask only, or ''zip'' for a ZIP file.'
+          type: string
+        sync_mode:
+          default: true
+          description: If true, returns the result as a data URL instead of uploading to storage.
+          type: boolean
+      required:
+      - image_url
       type: object
 - id: i2i-kamui-qwen-image-2-edit
   status: online
@@ -6250,6 +6362,119 @@ servers:
       required:
       - input_image_url
       - prompt
+      type: object
+- id: i2i3d-kamui-hunyuan3d-v31-pro-image-to-3d
+  status: online
+  last_checked: '2026-03-18T13:49:23.007749+00:00'
+  tools:
+  - name: hunyuan3d_v31_pro_image_to_3d_result
+    description: Get Hunyuan-3D v3.1 Pro Image-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_pro_image_to_3d_status
+    description: Check Hunyuan-3D v3.1 Pro Image-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_pro_image_to_3d_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Pro Image-to-3D request to generate high-fidelity 3D models from input images.
+    inputSchema:
+      properties:
+        back_image_url:
+          description: Optional back/rear view image URL
+          type: string
+        bottom_image_url:
+          description: Optional bottom view image URL (v3.1 exclusive)
+          type: string
+        enable_pbr:
+          description: Whether to enable PBR material generation
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal (textured) or Geometry (white geometry only, default: Normal)'
+          type: string
+        input_image_url:
+          description: URL of the front view input image (128-5000px, JPG/PNG/WEBP)
+          type: string
+        left_front_image_url:
+          description: Optional left-front 45 degree view image URL (v3.1 exclusive)
+          type: string
+        left_image_url:
+          description: Optional left side view image URL
+          type: string
+        right_front_image_url:
+          description: Optional right-front 45 degree view image URL (v3.1 exclusive)
+          type: string
+        right_image_url:
+          description: Optional right side view image URL
+          type: string
+        top_image_url:
+          description: Optional top view image URL (v3.1 exclusive)
+          type: string
+      required:
+      - input_image_url
+      type: object
+- id: i2i3d-kamui-hunyuan3d-v31-rapid-image-to-3d
+  status: online
+  last_checked: '2026-03-18T13:49:23.040247+00:00'
+  tools:
+  - name: hunyuan3d_v31_rapid_image_to_3d_result
+    description: Get Hunyuan-3D v3.1 Rapid Image-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_rapid_image_to_3d_status
+    description: Check Hunyuan-3D v3.1 Rapid Image-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_rapid_image_to_3d_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Rapid Image-to-3D request to generate 3D models from input images (faster than
+      Pro).
+    inputSchema:
+      properties:
+        enable_pbr:
+          description: Whether to enable PBR material generation
+          type: boolean
+        face_count:
+          description: Target face count (40000-1500000, validated but Rapid API may not support)
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal (textured) or Geometry (white geometry only, default: Normal)'
+          type: string
+        input_image_url:
+          description: URL of the front view input image (128-5000px, JPG/PNG/WEBP)
+          type: string
+      required:
+      - input_image_url
       type: object
 - id: i2i3d-kamui-hyper3d-rodin-v2
   status: online
@@ -10322,6 +10547,140 @@ servers:
           type: boolean
       required:
       - model_file_url
+      type: object
+- id: misc-kamui-hunyuan3d-v31-part
+  status: online
+  last_checked: '2026-03-18T13:49:23.504717+00:00'
+  tools:
+  - name: hunyuan3d_v31_part_result
+    description: Get Hunyuan-3D v3.1 Part generation results (list of FBX part files) as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_part_status
+    description: Check Hunyuan-3D v3.1 Part processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_part_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Part request to split FBX file into parts. Only FBX format supported, max 100MB,
+      face count ≤30,000.
+    inputSchema:
+      properties:
+        input_file_url:
+          description: URL of the FBX file to split into parts
+          type: string
+      required:
+      - input_file_url
+      type: object
+- id: misc-kamui-hunyuan3d-v31-smart-topology
+  status: online
+  last_checked: '2026-03-18T13:49:23.697018+00:00'
+  tools:
+  - name: hunyuan3d_v31_smart_topology_result
+    description: Get Hunyuan-3D v3.1 Smart Topology generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_smart_topology_status
+    description: Check Hunyuan-3D v3.1 Smart Topology processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_smart_topology_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Smart Topology request to optimize 3D model topology.
+    inputSchema:
+      properties:
+        face_level:
+          description: 'Face level: high, medium, or low'
+          type: string
+        input_file_type:
+          description: 'Input file type: glb or obj'
+          type: string
+        input_file_url:
+          description: Optional URL of the input 3D file (GLB/OBJ)
+          type: string
+        polygon_type:
+          description: 'Polygon type: triangle or quadrilateral'
+          type: string
+      type: object
+- id: misc-kamui-trellis-2-retexture
+  status: online
+  last_checked: '2026-03-18T13:49:24.135780+00:00'
+  tools:
+  - name: trellis_2_retexture_result
+    description: Get Trellis 2 Retexture generation results (textured GLB) as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: trellis_2_retexture_status
+    description: Check Trellis 2 Retexture processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: trellis_2_retexture_submit
+    description: Submit Fal.ai Trellis 2 Retexture request to apply texture from reference image to 3D mesh. Supports GLB,
+      OBJ, PLY, STL.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL of the reference image for texturing
+          type: string
+        mesh_url:
+          description: URL of the untextured 3D mesh (GLB, OBJ, PLY, or STL)
+          type: string
+        resolution:
+          default: 1024
+          description: 'Internal resolution for texture generation (512 or 1024, default: 1024)'
+          type: number
+        seed:
+          description: Random seed for reproducibility
+          type: number
+        tex_slat_guidance_strength:
+          default: 1
+          description: 'How closely texture follows input image colors (default: 1)'
+          type: number
+        tex_slat_sampling_steps:
+          default: 12
+          description: 'Denoising steps for texture generation (default: 12)'
+          type: number
+        texture_size:
+          default: 2048
+          description: 'Texture resolution (1024, 2048, or 4096, default: 2048)'
+          type: number
+      required:
+      - image_url
+      - mesh_url
       type: object
 - id: r2i-kamui-vidu-q2-reference-to-image
   status: online
@@ -16385,6 +16744,101 @@ servers:
           type: string
         prompt:
           description: Text description of the 3D content to generate (up to 1024 UTF-8 characters)
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i3d-kamui-hunyuan3d-v31-pro-text-to-3d
+  status: online
+  last_checked: '2026-03-18T13:49:23.008055+00:00'
+  tools:
+  - name: hunyuan3d_v31_pro_text_to_3d_result
+    description: Get Hunyuan-3D v3.1 Pro Text-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_pro_text_to_3d_status
+    description: Check Hunyuan-3D v3.1 Pro Text-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_pro_text_to_3d_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Pro Text-to-3D request to generate high-fidelity 3D models from text prompts.
+    inputSchema:
+      properties:
+        enable_pbr:
+          description: Whether to enable PBR material generation (ignored when generate_type is Geometry)
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal (textured) or Geometry (white geometry only, default: Normal)'
+          type: string
+        prompt:
+          description: Text description of the 3D content to generate (max 1024 UTF-8 characters)
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i3d-kamui-hunyuan3d-v31-rapid-text-to-3d
+  status: online
+  last_checked: '2026-03-18T13:49:23.051671+00:00'
+  tools:
+  - name: hunyuan3d_v31_rapid_text_to_3d_result
+    description: Get Hunyuan-3D v3.1 Rapid Text-to-3D generation results as Fal.ai JSON response.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_rapid_text_to_3d_status
+    description: Check Hunyuan-3D v3.1 Rapid Text-to-3D processing status using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from the submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: hunyuan3d_v31_rapid_text_to_3d_submit
+    description: Submit Fal.ai Hunyuan-3D v3.1 Rapid Text-to-3D request to generate 3D models from text prompts (faster than
+      Pro).
+    inputSchema:
+      properties:
+        enable_pbr:
+          description: Whether to enable PBR material generation
+          type: boolean
+        face_count:
+          default: 500000
+          description: 'Target face count (40000-1500000, default: 500000)'
+          maximum: 1500000
+          minimum: 40000
+          type: number
+        generate_type:
+          default: Normal
+          description: 'Generation type: Normal (textured) or Geometry (white geometry only, default: Normal)'
+          type: string
+        prompt:
+          description: Text description of the 3D content to generate (max 1024 UTF-8 characters)
           type: string
       required:
       - prompt
