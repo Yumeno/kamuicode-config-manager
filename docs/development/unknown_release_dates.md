@@ -2,6 +2,12 @@
 
 このドキュメントは、Web検索で特定できなかったモデルのリリース日をリストアップするためのものです。
 
+## 調査報告 (2026-03-19 05:30)
+Pixelcutアプリ自体は2020年11月にリリースされていますが、fal.ai上で `pixelcut/background-removal` として提供開始された正確な日付、またはPixelcut社がAPIの提供を正式に開始した日付を、公式ブログやX（Twitter）、Changelogから特定できませんでした。Grok等での追加調査をお願いします。
+
+- 推測される開発元: Pixelcut / fal.ai
+- 調査した情報源: fal.ai公式ブログ、fal.ai Changelog、X (Twitter) の @fal_ai_ アカウント、Pixelcut公式サイト
+---
 ## 調査報告 (2026-01-24 05:25)
 
 ---
