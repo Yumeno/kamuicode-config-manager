@@ -521,6 +521,10 @@ ai_models:
       server_name: i2i-kamui-firered-image-edit-v1.1
       release_date: 2026年3月3日
       features: "(Xiaohongshu) 小紅書（Xiaohongshu）のAIチームが開発したオープンソースの画像編集モデル。自然言語によるプロンプトと参照画像を用いて、ポートレートのメイクアップ、スタイル転送、複数要素の融合などの高度な編集が可能。前バージョンからキャラクターの同一性保持やテキスト描画精度が大幅に向上している。"
+    - name: Pixelcut Background Removal
+      server_name: i2i-kamui-pixelcut-background-removal
+      release_date: 2026年初頭頃
+      features: "(Pixelcut) fal.ai上で提供される、高品質な画像背景透過用エンドポイント。JPEGおよびPNG画像から背景を高速に削除し、rgba、alpha、zipなどの形式で出力可能。髪の毛やガラスなどの複雑な境界も高精度に処理でき、Eコマースや画像編集ワークフローに最適化されている。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
