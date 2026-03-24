@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-18T13:49:42.562445+00:00'
-  total_servers: 371
-  online_servers: 369
+  generated_at: '2026-03-24T13:48:22.109993+00:00'
+  total_servers: 372
+  online_servers: 370
   offline_servers: 0
   error_servers: 2
 servers:
@@ -17754,6 +17754,56 @@ servers:
           type: number
       required:
       - prompt
+      type: object
+- id: t2s-kamui-xai-tts-v1
+  status: online
+  last_checked: '2026-03-24T13:48:16.536637+00:00'
+  tools:
+  - name: xai_tts_v1_result
+    description: Fetch completed xAI TTS v1 result on Fal. Returns JSON including audio.url for the generated file.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: xai_tts_v1_status
+    description: Check xAI TTS v1 queue request status on Fal. Returns Fal JSON (HTTP 202 means still processing, not an error).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: xai_tts_v1_submit
+    description: Submit xAI TTS v1 text-to-speech request on Fal. Up to 15,000 characters; supports tags like [laugh], [pause],
+      <whisper>text</whisper>. Returns Fal queue JSON (request_id).
+    inputSchema:
+      properties:
+        language:
+          description: 'BCP-47 code or auto. Examples: auto, en, ja, zh, fr, de, ko, pt-BR, es-MX, ar-EG, ...'
+          type: string
+        output_format:
+          description: Optional output format settings (e.g. format, bitrate, sample_rate per Fal schema). Defaults to MP3
+            24kHz / 128kbps when omitted.
+          properties: {}
+          type: object
+        text:
+          description: Text to synthesize (max 15,000 characters). Supports inline tags [laugh], [pause], [sigh] and wrappers
+            <whisper>, <slow>, etc.
+          type: string
+        voice:
+          description: 'Voice preset: eve (energetic, default), ara (warm), rex (confident), sal (smooth), leo (authoritative).'
+          type: string
+        webhook_url:
+          description: Optional webhook URL for async completion notification (Fal webhookUrl).
+          type: string
+      required:
+      - text
       type: object
 - id: t2v-kamui-bytedance-seedance-v1-pro-fast
   status: online
