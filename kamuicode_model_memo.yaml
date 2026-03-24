@@ -1286,6 +1286,10 @@ ai_models:
       server_name: t2s-kamui-fal-ai-vibevoice-0-5b
       release_date: 2025年12月3日
       features: "(Microsoft) 0.5Bパラメータの軽量かつ高速なリアルタイム音声合成モデル。ストリーミング入力に対応し、長時間の音声生成も安定して行える。fal.aiでは複数のスピーカープリセットと共に提供。"
+    - name: xAI TTS v1
+      server_name: t2s-kamui-xai-tts-v1
+      release_date: 2026年3月16日
+      features: "(xAI) xAIが開発したテキスト音声合成モデル。5種類の音声（eve, ara, rex, sal, leo）をサポートし、1リクエストあたり最大1万5000文字の入力が可能。20言語以上の自動検出に対応するほか、インライン音声タグを使用して一時停止、笑い声、ささやき声、強調などの細やかな表現・感情コントロールを行える。"
   text_to_audio:
     - name: Stability AI Stable Audio 2.5
       server_name: t2a-kamui-stable-audio-v25
