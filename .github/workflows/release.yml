@@ -1,11 +1,13 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v*'
   release:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag name (e.g. v1.5.0)'
+        required: true
 
 jobs:
   release:
@@ -22,13 +24,15 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             echo "VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "VERSION=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
           else
             echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           fi
 
       - name: Checkout release tag
-        if: github.event_name == 'release'
-        run: git checkout ${{ github.event.release.tag_name }}
+        if: github.event_name != 'push'
+        run: git checkout ${{ steps.version.outputs.VERSION }}
 
       - name: Create Release ZIP
         run: |
@@ -43,6 +47,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
           files: kamuicode-config-manager-${{ steps.version.outputs.VERSION }}.zip
           generate_release_notes: true
           draft: false

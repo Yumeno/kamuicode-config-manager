@@ -190,19 +190,19 @@ ai_models:
       features: "(Alibaba Cloud) 200億パラメータのMMDiTアーキテクチャを採用したQwenシリーズの最上位画像生成モデル。中国語・英語のバイリンガルプロンプトに対応し、写真のようなリアリズム、複雑なテキストのレンダリング、構図の正確性に優れています。"
     - name: Hunyuan Image V3 Instruct
       server_name: t2i-kamui-hunyuan-image-v3-instruct
-      release_date: 2026年01月26日
+      release_date: 2026年1月26日
       features: "(Tencent Hunyuan) テキストと画像を統合した自己回帰型フレームワークを採用する80Bパラメータ（MoE）のマルチモーダルモデル。Instruct版は視覚的推論やプロンプト拡張機能を備え、複雑な指示に従った画像生成が可能。"
     - name: Z-Image Base
       server_name: t2i-kamui-fal-z-image-base
-      release_date: 2026年01月27日
+      release_date: 2026年1月27日
       features: "(Alibaba Tongyi-MAI) 60億パラメータのS3-DiTアーキテクチャを採用したテキスト・画像生成モデル。Turbo版の基盤となる非蒸留モデルで、高い画質と多様性を持ち、CFGスケール調整や追加学習に適した設計となっている。"
     - name: Kling Image V3
       server_name: t2i-kamui-kling-image-v3
-      release_date: 2026年02月04日
+      release_date: 2026年2月4日
       features: "(Kuaishou) Kling V3 Standardモデルを使用したテキストからの画像生成。オプションの要素制御（顔）、最大2K解像度、複数のアスペクト比をサポート。"
     - name: Kling Image O3
       server_name: t2i-kamui-kling-image-o3
-      release_date: 2026年02月05日
+      release_date: 2026年2月5日
       features: "(Kuaishou) Kling 3.0世代のOmni画像生成モデル。4K解像度対応、2〜9枚の一貫性のあるシリーズ画像生成、アスペクト比の自動検出、@Element構文による特定の要素（顔など）の制御が可能。"
     - name: Recraft V4 Pro
       server_name: t2i-kamui-recraft-v4-pro
@@ -230,7 +230,7 @@ ai_models:
       features: "(ByteDance) ByteDanceの最新画像生成モデル「Seedream 5.0 Lite」。高速な推論速度と高品質な生成を両立し、優れたテキストレンダリング能力、空間理解、プロンプト忠実度を備える。Web検索機能を統合した推論も特徴とする。"
     - name: Nano Banana 2
       server_name: t2i-kamui-fal-nano-banana-2
-      release_date: 2026年02月26日
+      release_date: 2026年2月26日
       features: "(Google) Gemini 3.1 Flash Imageアーキテクチャを採用した高速画像生成モデル。推論に基づく生成プロセスにより、正確なテキスト描画、キャラクターの一貫性（最大5人）、Web検索グラウンディング、最大4K解像度に対応。"
     - name: Qwen Image 2
       server_name: t2i-kamui-qwen-image-2-text-to-image
@@ -475,11 +475,11 @@ ai_models:
       features: "(Zhipu AI) 9Bの自己回帰型モデルと7Bの拡散モデルを統合したハイブリッドアーキテクチャを持つオープンソース画像生成モデル。テキストレンダリングの精度が非常に高く、Image-to-Image機能では参照画像を用いた高度な編集やスタイル変換が可能。"
     - name: Grok Imagine Image Edit
       server_name: i2i-kamui-fal-xai-grok-imagine-image-edit
-      release_date: 2026年01月29日
+      release_date: 2026年1月29日
       features: "(xAI) テキスト指示に基づいて画像を編集できるxAIのGrok Imagineモデル。既存の画像を正確に編集し、シネマティックな美学や精密な変更をサポートします。"
     - name: FLUX.2 [klein] 9B Edit
       server_name: i2i-kamui-fal-flux-2-klein-9b-edit
-      release_date: 2026年01月15日
+      release_date: 2026年1月15日
       features: "(Black Forest Labs) FLUX.2シリーズの軽量蒸留モデル「klein」（9B）を使用した高速画像編集モデル。わずか4ステップで推論を行い、テキストプロンプトと最大4枚の参照画像（image_urls）を組み合わせた高度な編集が可能。"
     - name: Qwen Image Max Edit
       server_name: i2i-kamui-qwen-image-max-edit
@@ -491,7 +491,7 @@ ai_models:
       features: "(Tencent) 80Bパラメータを持つHunyuan Image V3 Instructモデルを使用した画像編集機能。推論能力（Reasoning）を活用し、テキストプロンプトに従って画像の編集やスタイル変換を高精度に実行可能。MoEアーキテクチャを採用。"
     - name: Kling Image V3
       server_name: i2i-kamui-kling-image-v3
-      release_date: 2026年02月05日
+      release_date: 2026年2月5日
       features: "(Kuaishou) 快手の最新画像生成モデルKling V3を使用したImage-to-Image。最大2K解像度に対応し、Elements機能により参照画像の顔の整合性を維持した生成が可能。多様なアスペクト比と高いプロンプト忠実度を特徴とする。"
     - name: Kling Image O3
       server_name: i2i-kamui-kling-image-o3
@@ -507,7 +507,7 @@ ai_models:
       features: "(BRIA AI) 解像度を向上させつつ、照明・カラーバランス・シャープネスを自動調整して視覚的な魅力を高めるアップスケーラー。4MPの固定解像度で出力し、自然なディテールとスタイル、およびアルファチャンネルを保持します。"
     - name: Nano Banana 2 (Gemini 3.1 Flash Image) Edit
       server_name: i2i-kamui-fal-nano-banana-2-edit
-      release_date: 2026年02月26日
+      release_date: 2026年2月26日
       features: "(Google) Gemini 3.1 Flash Imageをベースにした画像編集モデル。テキストプロンプトによる自然言語での画像編集、複数画像の入力、Web検索によるグラウンディング、高精度なテキストレンダリング、キャラクターの一貫性保持などを高速に実行可能。"
     - name: Qwen Image 2 Edit
       server_name: i2i-kamui-qwen-image-2-edit
@@ -515,7 +515,7 @@ ai_models:
       features: "(Alibaba Cloud) 画像生成と編集を統合した7Bモデル「Qwen Image 2.0」の編集機能。2K解像度に対応し、プロンプトによるオブジェクト操作やスタイル変換、特に画像内の中国語・英語テキストの正確な描画・編集に強みを持つ。"
     - name: Qwen Image 2 Pro Edit
       server_name: i2i-kamui-qwen-image-2-pro-edit
-      release_date: 2026年02月10日
+      release_date: 2026年2月10日
       features: "(Alibaba Cloud) 自然言語の指示により画像の編集を行うQwen-Image-2.0ベースのモデル。最大2048x2048のネイティブ解像度に対応し、オブジェクトの追加・削除・置換やスタイル変換、画像内のテキストレンダリングなど、高精度な編集機能を備える。"
     - name: FireRed Image Edit v1.1
       server_name: i2i-kamui-firered-image-edit-v1.1
@@ -668,7 +668,7 @@ ai_models:
       features: "(Lightricks) ネイティブ4K解像度と同期オーディオ生成に対応した19Bパラメータの動画生成モデル。高品質な動画と音声を同時に生成可能なオープンウェイトモデル。"
     - name: Grok Imagine Video (Text-to-Video)
       server_name: t2v-kamui-fal-xai-grok-imagine-video-text-to-video
-      release_date: 2026年01月29日
+      release_date: 2026年1月29日
       features: "(xAI) Grok Imagine Videoモデルを使用したテキスト動画生成。プロンプトから高品質な動画を生成し、ネイティブオーディオ（音声・効果音）も同時に生成可能。シネマティックな表現や編集機能に対応。"
     - name: PixVerse V5.6
       server_name: t2v-kamui-fal-pixverse-v5_6
@@ -680,7 +680,7 @@ ai_models:
       features: "(ShengShu Technology) 映像と音声を同時にネイティブ生成できる最新モデル。最大16秒の長尺動画に対応し、マルチショットや複数主体の整合性を維持した映画的なストーリーテリングが可能。"
     - name: Kling Video V3 Standard
       server_name: t2v-kamui-kling-video-v3-standard
-      release_date: 2026年02月04日
+      release_date: 2026年2月4日
       features: "(Kuaishou) 動画品質と動きの一貫性が向上した最新のテキスト動画生成モデル。ネイティブ音声生成、最大15秒の動画生成、マルチショット機能、Voice IDによる音声制御に対応し、ストーリー性のある動画制作が可能。"
     - name: Kling Video V3 Pro
       server_name: t2v-kamui-kling-video-v3-pro
@@ -906,7 +906,7 @@ ai_models:
       features: "(PixVerse) 2枚の画像（開始・終了フレーム）間を滑らかに繋ぐ遷移動画を生成するV5.6モデル。最大1080p・8秒の生成、Thinking Typeによるプロンプト最適化、BGM/SFX生成に対応。"
     - name: Vidu Q3
       server_name: i2v-kamui-fal-vidu-q3
-      release_date: 2026年01月30日
+      release_date: 2026年1月30日
       features: "(ShengShu Technology) 単一画像から最大16秒の動画を生成するViduの最新モデル。ネイティブな音声同期生成、カメラワーク制御、1080p解像度に対応し、高い一貫性と動作の忠実度を実現。"
     - name: Kling Video V3 Standard
       server_name: i2v-kamui-kling-video-v3-standard
@@ -918,19 +918,19 @@ ai_models:
       features: "(Kuaishou) ネイティブ音声生成、マルチショット動画生成（AI Director）、最大15秒の長尺動画生成に対応。Element ControlやボイスIDをサポートし、視覚品質とモーションの一貫性が大幅に向上。"
     - name: Kling Video O3 Pro
       server_name: i2v-kamui-kling-video-o3-pro
-      release_date: 2026年02月04日
+      release_date: 2026年2月4日
       features: "(Kuaishou) Kling AIの第3世代最上位モデル「O3」を使用したImage-to-Video生成。プロフェッショナルモードによる1080P高画質、3〜15秒の可変長生成、開始・終了フレーム指定、ネイティブオーディオ生成に対応。"
     - name: Kling Video O3 Standard
       server_name: i2v-kamui-kling-video-o3-standard
-      release_date: 2026年02月05日
+      release_date: 2026年2月5日
       features: "(Kuaishou) Kling 3.0世代の「O3」モデルを使用した動画生成。3〜15秒の長尺生成、開始/終了フレーム指定、ネイティブオーディオ生成に対応し、Standardモードでは高品質と効率を両立。"
     - name: HeyGen Avatar 4 Image-to-Video
       server_name: i2v-kamui-fal-heygen-avatar4-image-to-video
-      release_date: 2026年03月02日
+      release_date: 2026年3月2日
       features: "(HeyGen) 1枚の顔画像から自然な発話動画を生成するAvatar 4モデル。Fal.ai経由で利用可能。テキスト入力による発話生成、豊富な音声・表情・スタイル（安定/表現豊か）の選択、背景カスタマイズ（色/画像/動画）、最大1080pの解像度、字幕生成に対応。"
     - name: LTX 2.3 Image-to-Video
       server_name: i2v-kamui-fal-ltx-23-image-to-video
-      release_date: 2026年03月05日
+      release_date: 2026年3月5日
       features: "(Lightricks) Lightricksによって開発されたオープンソースの動画生成モデル「LTX-2.3」の画像からの動画生成機能。静止画から最大4K解像度で、同期したネイティブ音声を含む高品質な動画を生成できる。新しいVAEアーキテクチャによるディテールの鮮明化、プロンプト理解力の向上、ネイティブな縦型（9:16）動画フォーマットのサポートが特徴。"
     - name: LTX 2.3 Image-to-Video Fast
       server_name: i2v-kamui-fal-ltx-23-image-to-video-fast
@@ -1119,7 +1119,7 @@ ai_models:
       features: "(Kuaishou) Kling AIの最新「O3」モデルを使用した動画生成（Video-to-Video）。参照動画（Reference Video）を入力として、キャラクターやオブジェクトの一貫性を保ちながら高品質な動画を生成。プロフェッショナルモードにより1080pの高解像度出力が可能で、3〜15秒の長尺生成、音声の保持や生成にも対応。"
     - name: HeyGen Video Translate v2 (Speed)
       server_name: v2v-kamui-fal-heygen-v2-translate-speed
-      release_date: 2026年03月02日
+      release_date: 2026年3月2日
       features: "(HeyGen) 動画の音声を多言語に翻訳し、元の声色を維持しつつ口の動き（リップシンク）を同期させる動画翻訳モデル。v2のSpeedモードは処理速度を優先した設計。Fal.ai経由で利用可能で、動的な時間調整による自然な発話タイミングや複数話者設定に対応。"
     - name: Video Depth Anything
       server_name: v2v-kamui-fal-ai-depth-anything-video
@@ -1127,7 +1127,7 @@ ai_models:
       features: "(Depth Anything Team) 動画から深度マップを推定し、可視化動画を生成するモデル。Depth Anything V2をベースに、時間的一貫性を保ったまま長尺動画の処理が可能。モデルサイズ（Small/Base/Large）やカラーマップの変更に対応。"
     - name: LTX 2.3 Extend Video
       server_name: v2v-kamui-fal-ltx-23-extend-video
-      release_date: 2026年03月05日
+      release_date: 2026年3月5日
       features: "(Lightricks) 動画の最初または最後にフレームを追加生成し、既存の動画を自然に延長できるAIモデル。最大20秒までの延長、開始・終了モードの選択、プロンプトによる延長内容の制御などが可能。"
   reference_to_video:
     - name: Kling Video O1
@@ -1188,11 +1188,11 @@ ai_models:
       features: "(Kuaishou) Kling 3.0世代の最上位モデル。リファレンス画像を使用してキャラクターやオブジェクトの一貫性を保った動画生成が可能。最大15秒の長尺生成、開始・終了フレーム制御、ネイティブオーディオ生成、1080P高画質出力に対応。"
     - name: Kling Video O3 Standard Reference-to-Video
       server_name: r2v-kamui-kling-video-o3-standard-reference-to-video
-      release_date: 2026年02月04日
+      release_date: 2026年2月4日
       features: "(Kuaishou) Kling AIの最新O3モデルを使用した動画生成（Standardモード）。参照画像をもとに、3〜15秒の動画を生成可能。開始・終了フレームの指定、Elements機能によるキャラクター固定、スタイル参照、ネイティブオーディオ生成に対応し、品質とコストのバランスに優れる。"
     - name: DreamActor V2
       server_name: r2v-kamui-bytedance-dreamactor-v2
-      release_date: 2026年01月24日
+      release_date: 2026年1月24日
       features: "(ByteDance) 1枚の人物画像と動きの参照動画（ドライビングビデオ）を入力し、画像のキャラクターが参照動画の通りに動く動画を生成するMotion Transferモデル。DreamActor M-2とも呼ばれ、従来のモデルよりも顔の表情や全身の動作の追従性が向上しており、実写からアニメまで幅広いスタイルに対応する。"
     - name: Fal.ai Wan Motion
       server_name: r2v-kamui-fal-ai-wan-motion
@@ -1204,11 +1204,11 @@ ai_models:
       features: "(Kuaishou) 参照ビデオの動きをキャラクター画像に正確に転写して動画を生成する、Kling 3.0 Proのモーションコントロールモデル。キャラクターの向きの基準設定により最大30秒（動画）または10秒（画像）の生成に対応し、元音声の保持や顔の同一性を固定する要素指定など高度な制御が可能です。"
     - name: Kling Video V3 Standard Motion Control
       server_name: r2v-kamui-kling-video-v3-standard-motion-control
-      release_date: 2026年01月31日
+      release_date: 2026年1月31日
       features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに反映させる、コストパフォーマンスに優れたモーションコントロール動画生成モデル。画像および動画URLの指定が必須で、元の音声の維持をサポート。基準メディアに応じた生成時間上限（画像は最大10秒、動画は最大30秒）の制御や、顔のアイデンティティを固定するオプション要素の指定に対応する。"
     - name: LTX 2.3 Retake Video
       server_name: r2v-kamui-fal-ltx-23-retake-video
-      release_date: 2026年03月05日
+      release_date: 2026年3月5日
       features: "(Lightricks) 動画の一部を新しいプロンプトで再生成（Retake）できる動画編集AIモデル。指定した区間の音声のみ、映像のみ、または両方の置き換えに対応し、高精細なディテールとクリアなネイティブ音声の生成が可能。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
@@ -1247,7 +1247,7 @@ ai_models:
       features: "(Lightricks) LTX-2の蒸留モデル（19B）を使用し、音声入力に基づいて同期した動画を生成するAudio-to-Videoモデル。音声が動画の動きや展開を制御し、プロンプト、開始/終了画像、カメラワーク制御（LoRA）もサポートする。"
     - name: LTX-2 19B Audio-to-Video
       server_name: a2v-kamui-fal-ltx-2-19b-audio-to-video
-      release_date: 2026年01月06日
+      release_date: 2026年1月6日
       features: "(Lightricks) 映像(14B)と音声(5B)を統合した19Bパラメータの基盤モデル。音声を主導入力として、テキストや画像を補助に4K解像度・50fpsの同期された音声付き動画を生成可能。"
     - name: LTX 2.3 Audio-to-Video
       server_name: a2v-kamui-fal-ltx-23-audio-to-video
@@ -1301,7 +1301,7 @@ ai_models:
       features: "(Beatoven AI / fal.ai) テキスト記述から高解像度（44.1kHzステレオ）の効果音（SFX）を生成。"
     - name: Qwen 3 TTS (0.6B)
       server_name: t2a-kamui-qwen-3-tts-text-to-speech-06b
-      release_date: 2026年01月21日
+      release_date: 2026年1月21日
       features: "(Alibaba Cloud) 0.6Bパラメータの軽量音声合成モデル。3秒の音声からのボイスクローニング、自然言語による声質デザイン（Voice Design）、10言語対応、および低遅延ストリーミング生成を特徴とする。"
     - name: Qwen 3 TTS 1.7B
       server_name: t2a-kamui-qwen-3-tts-text-to-speech-17b
@@ -1309,7 +1309,7 @@ ai_models:
       features: "(Alibaba Cloud) わずか3秒の参照音声から高品質な音声クローンを作成する機能や、テキストプロンプトで声質・感情・話速などを詳細に設計できる「Voice Design」機能を備えた1.7BパラメータのTTSモデル。日本語を含む10言語に対応し、低遅延なストリーミング生成も可能。"
     - name: Qwen3-TTS Voice Design 1.7B
       server_name: t2a-kamui-qwen-3-tts-voice-design-17b
-      release_date: 2026年01月21日
+      release_date: 2026年1月21日
       features: "(Alibaba Cloud) テキストプロンプトで声質やスタイルを詳細に指定できるVoice Design機能を搭載したTTSモデル。1.7Bパラメータで、わずか3秒の音声からのクローン生成や、日本語を含む10言語への対応、低遅延な生成が可能。"
   text_to_music:
     - name: Google Lyria
