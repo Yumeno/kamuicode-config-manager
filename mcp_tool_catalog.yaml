@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-24T13:48:22.109993+00:00'
-  total_servers: 372
-  online_servers: 370
+  generated_at: '2026-03-25T13:50:31.871436+00:00'
+  total_servers: 376
+  online_servers: 374
   offline_servers: 0
   error_servers: 2
 servers:
@@ -11252,6 +11252,60 @@ servers:
       - video_url
       - prompt
       type: object
+- id: r2v-kamui-fal-xai-grok-imagine-video-reference-to-video
+  status: online
+  last_checked: '2026-03-25T13:49:58.704471+00:00'
+  tools:
+  - name: grok_imagine_video_reference_to_video_result
+    description: Get result of completed Grok Imagine Video Reference-to-Video generation. Returns Fal JSON response with
+      generated video URL and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_reference_to_video_status
+    description: Check status of Grok Imagine Video Reference-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_reference_to_video_submit
+    description: Submit Fal.ai XAI Grok Imagine Video Reference-to-Video request and receive request ID for polling. Generate
+      a video guided by one or more reference images. Use @Image1, @Image2, etc. in the prompt to reference images in order.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video. Possible values: 16:9, 4:3, 3:2, 1:1, 2:3, 3:4, 9:16 (default:
+            16:9).'
+          type: string
+        duration:
+          default: 8
+          description: 'Video duration in seconds (default: 8).'
+          type: number
+        prompt:
+          description: Text prompt describing the video to generate. Use @Image1, @Image2, etc. to reference specific images
+            from reference_image_urls in order.
+          type: string
+        reference_image_urls:
+          description: 'Required: one or more reference image URLs (public URL or Fal storage). Maximum 7 images. Referenced
+            in prompt as @Image1, @Image2, etc.'
+          type: array
+        resolution:
+          default: 480p
+          description: 'Resolution of the output video. Possible values: 480p, 720p (default: 480p).'
+          type: string
+      required:
+      - prompt
+      type: object
 - id: r2v-kamui-kling-video-o1
   status: online
   last_checked: '2026-01-17T08:34:58.779338+00:00'
@@ -17174,6 +17228,52 @@ servers:
   status: error
   last_checked: '2026-01-17T08:35:24.348055+00:00'
   error_message: 'tools/list error: {''code'': -32601, ''message'': ''tools not supported''}'
+- id: t2s-kamui-fal-ai-inworld-tts
+  status: online
+  last_checked: '2026-03-25T13:49:58.307101+00:00'
+  tools:
+  - name: fal_ai_inworld_tts_result
+    description: Get result of completed fal-ai/inworld-tts request. Returns Fal JSON with generated audio file URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from fal_ai_inworld_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_inworld_tts_status
+    description: Check status of fal-ai/inworld-tts request by request_id. Returns Fal JSON (HTTP 202 while queued is normal).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from fal_ai_inworld_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_inworld_tts_submit
+    description: Submit Fal.ai Inworld TTS (fal-ai/inworld-tts) request to synthesize speech from text. Supports text (required),
+      voice, sample_rate_hertz, and optional webhook_url. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        sample_rate_hertz:
+          default: 48000
+          description: 'Output sample rate in Hz. Supported: 8000, 16000, 24000, 32000, 40000, 48000. Default: 48000.'
+          type: number
+        text:
+          description: Text to synthesize into speech.
+          type: string
+        voice:
+          default: Craig (en)
+          description: 'Voice preset. Default: Craig (en).'
+          type: string
+        webhook_url:
+          description: Optional webhook URL for async completion notifications (Fal webhookUrl).
+          type: string
+      required:
+      - text
+      type: object
 - id: t2s-kamui-fal-ai-vibevoice-0-5b
   status: online
   last_checked: '2026-01-17T08:35:23.759955+00:00'
@@ -17224,6 +17324,73 @@ servers:
       required:
       - script
       - speaker
+      type: object
+- id: t2s-kamui-fal-gemini-tts
+  status: online
+  last_checked: '2026-03-25T13:50:28.366860+00:00'
+  tools:
+  - name: gemini_tts_result
+    description: Get result of completed fal-ai/gemini-tts request. Returns Fal JSON with audio file URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from gemini_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gemini_tts_status
+    description: Check status of fal-ai/gemini-tts request by request_id. Returns Fal JSON (HTTP 202 while queued is normal).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from gemini_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gemini_tts_submit
+    description: Submit Fal.ai Google Gemini TTS (fal-ai/gemini-tts) to synthesize speech from text. Supports 30 voice presets,
+      style_instructions, model (gemini-2.5-flash-tts, gemini-2.5-pro-tts), language_code, multi-speaker speakers array, temperature,
+      output_format (wav, mp3, ogg_opus), optional webhook_url. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        language_code:
+          description: Optional language for multilingual synthesis (e.g. English (US), Japanese (Japan)). Omit for auto-detection.
+          type: string
+        model:
+          default: gemini-2.5-flash-tts
+          description: gemini-2.5-flash-tts (low latency) or gemini-2.5-pro-tts (highest quality).
+          type: string
+        output_format:
+          default: mp3
+          description: 'Audio format: mp3, wav, or ogg_opus.'
+          type: string
+        prompt:
+          description: Text to convert to speech. Supports natural-language delivery instructions and multi-speaker lines
+            with speaker_id prefixes when speakers is set.
+          type: string
+        speakers:
+          description: 'Optional JSON array string for multi-speaker mode: [{"voice":"Charon","speaker_id":"Host"},{"voice":"Kore","speaker_id":"DrChen"}].
+            Clients may also pass a native JSON array when supported.'
+          type: string
+        style_instructions:
+          description: Optional style and delivery instructions prepended to the prompt (accent, pace, tone, emotion).
+          type: string
+        temperature:
+          default: 1
+          description: Randomness of delivery; default 1 per API.
+          type: number
+        voice:
+          default: Kore
+          description: 'Voice preset for single-speaker mode (ignored when speakers is set). Examples: Kore, Puck, Charon,
+            Zephyr, Aoede, and other API VoiceEnum values.'
+          type: string
+        webhook_url:
+          description: Optional webhook URL for async completion notifications.
+          type: string
+      required:
+      - prompt
       type: object
 - id: t2s-kamui-index-tts-2-text-to-speech
   status: online
@@ -23134,6 +23301,50 @@ servers:
         video_url:
           description: URL of the input video to edit. The video will be resized to a maximum area of 854x480 pixels and truncated
             to 8 seconds
+          type: string
+      required:
+      - prompt
+      - video_url
+      type: object
+- id: v2v-kamui-fal-xai-grok-imagine-video-extend-video
+  status: online
+  last_checked: '2026-03-25T13:49:47.671427+00:00'
+  tools:
+  - name: grok_imagine_video_extend_video_result
+    description: Get result of completed Grok Imagine Video Extend Video generation. Returns Fal JSON with extended video
+      (original + extension stitched) and metadata.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_extend_video_status
+    description: Check status of Grok Imagine Video Extend Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_video_extend_video_submit
+    description: Submit Fal.ai XAI Grok Imagine Video Extend Video request and receive request ID for polling. Seamlessly
+      extend a video with a continuation based on the prompt.
+    inputSchema:
+      properties:
+        duration:
+          default: 6
+          description: 'Length of the extension in seconds (default: 6)'
+          type: number
+        prompt:
+          description: Text description of what should happen next in the video
+          type: string
+        video_url:
+          description: URL of the source video to extend. Must be MP4 (H.264, H.265, or AV1), 2–15 seconds long
           type: string
       required:
       - prompt
