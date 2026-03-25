@@ -119,7 +119,7 @@ Kamui Code MCPサーバーに接続するためのパスキーを設定します
 **ソース列**: 副JSONを読み込むと、テーブルに「ソース」列が表示され、各モデルがどのファイルから来たかが色分けバッジで表示されます（青：主、緑：副）。
 
 **JSON形式の例：**
-
+’’’
 {
   "mcpServers": {
     "file-upload-kamui-fal": {
@@ -134,6 +134,7 @@ Kamui Code MCPサーバーに接続するためのパスキーを設定します
     }
   }
 }
+’’’
 
 ### **ステップ2: モデル情報の読み込み（推奨）**
 
@@ -157,13 +158,14 @@ GitHubリポジトリから最新のモデル定義を直接取得します。
 3. 選択したファイルの内容が適用されます
 
 **YAML形式の例：**
-
+’’’
 ai\_models:  
   text\_to\_image:  
     \- name: ByteDance Dreamina v3.1  
       server\_name: t2i-kamui-dreamina-v31  
       release\_date: 2024年12月  
       features: "(ByteDance) 高品質なテキストからの画像生成。"
+’’’
 
 **注意**: features にコロン（:）が含まれる場合は、文字列全体をダブルクォーテーション（"）で囲んでください。
 
