@@ -346,9 +346,9 @@
 
                             let period = '';
                             if (item.release_date) {
-                                const match = item.release_date.match(/(\d{4}年\d{1,2}月)/);
+                                const match = item.release_date.match(/(\d{4})年0?(\d{1,2})月/);
                                 if (match) {
-                                    period = match[1];
+                                    period = match[1] + '年' + match[2] + '月';
                                     periodSet.add(period);
                                 } else if (item.release_date.match(/(\d{4}年)/)) {
                                     period = item.release_date.match(/(\d{4}年)/)[1];
