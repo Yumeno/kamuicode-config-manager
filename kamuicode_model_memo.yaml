@@ -1129,6 +1129,10 @@ ai_models:
       server_name: v2v-kamui-fal-ltx-23-extend-video
       release_date: 2026年3月5日
       features: "(Lightricks) 動画の最初または最後にフレームを追加生成し、既存の動画を自然に延長できるAIモデル。最大20秒までの延長、開始・終了モードの選択、プロンプトによる延長内容の制御などが可能。"
+    - name: Grok Imagine Video Extend Video
+      server_name: v2v-kamui-fal-xai-grok-imagine-video-extend-video
+      release_date: 2026年1月28日
+      features: "(xAI) 入力された元の動画をベースに、テキストプロンプトの指示に従って自然な動画の続きを生成・拡張するAIモデル。元の動画と生成された拡張部分をシームレスに結合して出力する。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1210,6 +1214,10 @@ ai_models:
       server_name: r2v-kamui-fal-ltx-23-retake-video
       release_date: 2026年3月5日
       features: "(Lightricks) 動画の一部を新しいプロンプトで再生成（Retake）できる動画編集AIモデル。指定した区間の音声のみ、映像のみ、または両方の置き換えに対応し、高精細なディテールとクリアなネイティブ音声の生成が可能。"
+    - name: Grok Imagine Video Reference-to-Video
+      server_name: r2v-kamui-fal-xai-grok-imagine-video-reference-to-video
+      release_date: 2026年1月29日
+      features: "(xAI) テキストプロンプトと複数の参照画像（最大7枚）を組み合わせて動画を生成するモデル。特定の人物やオブジェクト、視覚スタイルなどをガイドとして映像に反映させることが可能で、キャラクターの一貫性保持や製品プレイスメント等に適している。解像度（480p/720p）や各種アスペクト比の指定に対応し、映像と完全に同期した音声やBGMもネイティブに自動生成される。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -1290,6 +1298,14 @@ ai_models:
       server_name: t2s-kamui-xai-tts-v1
       release_date: 2026年3月16日
       features: "(xAI) xAIが開発したテキスト音声合成モデル。5種類の音声（eve, ara, rex, sal, leo）をサポートし、1リクエストあたり最大1万5000文字の入力が可能。20言語以上の自動検出に対応するほか、インライン音声タグを使用して一時停止、笑い声、ささやき声、強調などの細やかな表現・感情コントロールを行える。"
+    - name: Google Gemini TTS (Fal)
+      server_name: t2s-kamui-fal-gemini-tts
+      release_date: 2025年5月20日
+      features: "(Google) 30種類の音声プリセットと、gemini-2.5-flash-ttsおよびgemini-2.5-pro-ttsを利用可能なテキスト読み上げモデル。自然言語によるスタイル指示や感情表現の調整、複数話者の指定による対話形式の音声生成に対応している。"
+    - name: Inworld TTS
+      server_name: t2s-kamui-fal-ai-inworld-tts
+      release_date: 2026年1月21日
+      features: "(Inworld AI) fal.ai経由で提供されるInworld AIのテキスト読み上げ（TTS）モデル。指定したテキストから表現豊かな音声を低遅延で生成する。複数のサンプリングレート（最大48000Hz）に対応し、デフォルトの英語音声（Craig）などを用いた高品質な音声合成が可能。"
   text_to_audio:
     - name: Stability AI Stable Audio 2.5
       server_name: t2a-kamui-stable-audio-v25
