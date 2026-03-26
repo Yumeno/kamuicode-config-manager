@@ -36,11 +36,12 @@ jobs:
 
       - name: Create Release ZIP
         run: |
-          mkdir release
+          mkdir -p release/assets
           cp kamuicode-config-manager.html release/
           cp kamuicode_model_memo.yaml release/
           cp mcp_tool_catalog.yaml release/
           cp README.md release/
+          cp assets/*.js assets/LICENSES.md release/assets/
           cd release
           zip -r ../kamuicode-config-manager-${{ steps.version.outputs.VERSION }}.zip .
 
