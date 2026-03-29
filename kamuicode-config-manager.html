@@ -613,9 +613,9 @@
                     this.filteredList = this.masterList.filter(model => {
                         const categoryMatch = !category || model.category === category;
                         const textMatch = !text ||
-                                          model.name.toLowerCase().includes(text) ||
-                                          (model.features && model.features.toLowerCase().includes(text)) || // featuresがnullでないかチェック
-                                          model.server_name.toLowerCase().includes(text);
+                                          (model.name && model.name.toLowerCase().includes(text)) ||
+                                          (model.features && model.features.toLowerCase().includes(text)) ||
+                                          (model.server_name && model.server_name.toLowerCase().includes(text));
                         return categoryMatch && textMatch;
                     });
 
