@@ -240,6 +240,10 @@ ai_models:
       server_name: t2i-kamui-qwen-image-2-pro
       release_date: 2026年2月10日
       features: "(Qwen) ネイティブ2K解像度での生成が可能な7Bパラメータの画像生成モデル。高度なタイポグラフィレンダリング機能を持ち、画像内への正確な文字入れやインフォグラフィック作成が可能で、複雑なプロンプトの理解力に優れるプロフェッショナル版。"
+    - name: Phota
+      server_name: t2i-kamui-fal-ai-phota
+      release_date: 2026年3月26日
+      features: "(PhotaLabs) 人物のアイデンティティ（顔立ちや個人の特徴）の保持に特化した写真向け画像生成・編集モデル。テキストプロンプトからの画像生成に加え、被写体の特徴を維持したまま背景変更や構図の再構築、スタイル変換などの編集が可能。1Kや4Kの高解像度出力、多様なアスペクト比に対応しており、高品質なポートレート生成などに適している。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -525,6 +529,14 @@ ai_models:
       server_name: i2i-kamui-pixelcut-background-removal
       release_date: 2026年初頭頃
       features: "(Pixelcut) fal.ai上で提供される、高品質な画像背景透過用エンドポイント。JPEGおよびPNG画像から背景を高速に削除し、rgba、alpha、zipなどの形式で出力可能。髪の毛やガラスなどの複雑な境界も高精度に処理でき、Eコマースや画像編集ワークフローに最適化されている。"
+    - name: Fal.ai HY-Wu Edit
+      server_name: i2i-kamui-fal-ai-hy-wu-edit
+      release_date: 2026年3月6日
+      features: "(Tencent) テキストプロンプトと最大3枚の参照画像を用いて、追加の学習なしで衣装の転送や顔の入れ替え、テクスチャのブレンドなどを高精度に行う画像編集モデル。"
+    - name: Phota Edit
+      server_name: i2i-kamui-fal-ai-phota-edit
+      release_date: 2026年3月頃
+      features: "(PhotaLabs) テキストプロンプトと画像URLをベースに画像編集を行うモデル。対象の人物の顔の特徴やアイデンティティを保持したまま、不要なオブジェクトの除去や背景の整理といった編集を実行できる。プロファイルIDを利用した特定人物の反映や、1K/4K解像度、複数のアスペクト比に対応している。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -710,6 +722,14 @@ ai_models:
       server_name: t2v-kamui-fal-ltx-23-text-to-video-fast
       release_date: 2026年3月5日
       features: "(Lightricks) テキストから動画を高速に生成するAIモデル。6〜20秒の動画生成に対応し、最大4K解像度や24/48fps、縦長（9:16）フォーマットをサポート。新しいVAEによるディテールの向上や、動画と同期した音声のネイティブ生成が可能。Apache 2.0ライセンスでオープンソース公開されている。"
+    - name: Pixverse V6 Text-to-Video
+      server_name: t2v-kamui-pixverse-v6
+      release_date: 2026年3月30日
+      features: "(Pixverse) テキストプロンプトから最大15秒の動画を生成するPixverseの第6世代モデル。1080pの高解像度出力に対応し、ネイティブオーディオ（BGM・効果音・セリフ）の同時生成機能や、複数カットの遷移や動的なカメラワークが可能なマルチショット生成機能などを備える。"
+    - name: Veo 3.1 Lite
+      server_name: t2v-kamui-veo31-lite
+      release_date: 2026年3月31日
+      features: "(Google) 軽量かつコスト効率に優れた動画生成モデル「Veo 3.1 Lite」を使用。Veo 3.1 Fastと同等の生成速度を維持しつつ低コストで、ネイティブに同期された音声付きの動画を生成できます。720pおよび1080pの解像度、16:9および9:16のアスペクト比、4/6/8秒の動画長に対応し、Kamui Codeによるプロンプト自動修正機能もサポートしています。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -936,6 +956,22 @@ ai_models:
       server_name: i2v-kamui-fal-ltx-23-image-to-video-fast
       release_date: 2026年3月5日
       features: "(Lightricks) 画像から動画を高速に生成するモデル。6〜20秒の生成に対応し、開始画像と終了画像（オプション）を指定可能。解像度（最大2160p）、アスペクト比、FPSの指定や音声生成にも対応する。"
+    - name: Veo 3.1 Lite Image-to-Video
+      server_name: i2v-kamui-veo31-lite
+      release_date: 2026年3月31日
+      features: "(Google) GoogleのVeo 3.1 Liteモデルを使用して入力画像をアニメーション化し動画を生成するモデル。音声は常に生成されます。720p/1080p解像度、4/6/8秒の動画長、16:9/9:16のアスペクト比をサポート。Kamui Code経由のパラメータ: prompt(必須), image_url(必須), aspect_ratio, duration, negative_prompt, resolution, seed, auto_fix ⭐⭐⭐"
+    - name: Pixverse V6 Transition
+      server_name: start-end-kamui-pixverse-v6-transition
+      release_date: 2026年3月30日
+      features: "(PixVerse) 2枚の画像間のスムーズなトランジション動画を生成するPixverse V6モデル。プロンプトによる指示、アスペクト比や解像度（最大1080p）の指定、最大15秒の動画長、BGM・SFXの音声生成、マルチクリップ生成、思考型プロンプト最適化機能に対応。"
+    - name: PixVerse V6 Image-to-Video
+      server_name: i2v-kamui-pixverse-v6
+      release_date: 2026年3月30日
+      features: "(PixVerse) 画像から動画を生成するPixVerse V6モデル。画像とプロンプトから最長15秒、最大1080pの動画を出力可能。BGMや効果音などのオーディオ同時生成、ダイナミックなカメラワークを行うマルチクリップ生成、アニメやサイバーパンクといったスタイル指定、自動プロンプト最適化（Thinking）機能に対応している。"
+    - name: Pixverse V6 Transition
+      server_name: i2v-kamui-pixverse-v6-transition
+      release_date: 2026年3月30日
+      features: "(PixVerse) 2つの画像（開始・終了）間で滑らかなトランジション動画を生成するPixverse V6モデル。最大15秒・1080pの高画質出力に対応し、ネイティブ音声（BGM・効果音・台詞）の同時生成やマルチクリップ生成機能を搭載。アニメやサイバーパンクなどのスタイル指定、プロンプト最適化機能もサポートする。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1133,6 +1169,10 @@ ai_models:
       server_name: v2v-kamui-fal-xai-grok-imagine-video-extend-video
       release_date: 2026年1月28日
       features: "(xAI) 入力された元の動画をベースに、テキストプロンプトの指示に従って自然な動画の続きを生成・拡張するAIモデル。元の動画と生成された拡張部分をシームレスに結合して出力する。"
+    - name: PixVerse V6 Extend
+      server_name: v2v-kamui-pixverse-v6-extend
+      release_date: 2026年3月30日
+      features: "(PixVerse) PixVerse V6を使用して動画の結末から新しいコンテンツを生成し、動画を延長するAIモデル。動画URLとプロンプトが必須で、スタイル（アニメ、3Dアニメーション、クレイ等）の指定が可能です。解像度（最大1080p）や長さ（1〜15秒）の調整ができ、音声生成オプションにも対応しています。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1227,6 +1267,10 @@ ai_models:
       server_name: flf2v-kamui-veo31-fast
       release_date: 2025年10月15日
       features: "(Google DeepMind) 始点と終点の2枚の画像をキーフレームとして指定し、その間を滑らかに補間する動画生成モデル。Veo 3.1 Fastを使用しており、720p/1080pの解像度、最大8秒の動画生成、音声生成に対応。fal.aiを通じて提供される。"
+    - name: Google Veo 3.1 Lite First-Last-Frame-to-Video
+      server_name: flf2v-kamui-veo31-lite
+      release_date: 2026年3月31日
+      features: "(Google) 最初と最後のフレーム画像を指定してその間を補間する動画を生成するVeo 3.1 Liteモデル。常に音声も生成され、720p・1080pの解像度、8秒の動画長、自動・16:9・9:16のアスペクト比に対応。各最大8MBの入力画像を受け付け、Kamui Codeのセーフティフィルターが適用される。"
   speech_to_video:
     - name: WAN v2.2-14b (Speech-to-Video) (fal.ai)
       server_name: s2v-kamui-wan-v2-2-14b
