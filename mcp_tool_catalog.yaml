@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-03-25T13:50:31.871436+00:00'
-  total_servers: 376
-  online_servers: 374
+  generated_at: '2026-04-03T13:45:39.614993+00:00'
+  total_servers: 387
+  online_servers: 385
   offline_servers: 0
   error_servers: 2
 servers:
@@ -1037,6 +1037,64 @@ servers:
       - last_frame_url
       - prompt
       type: object
+- id: flf2v-kamui-veo31-lite
+  status: online
+  last_checked: '2026-04-03T13:45:36.004703+00:00'
+  tools:
+  - name: veo31_lite_flf2v_result
+    description: Get result of completed Veo3.1 Lite first-last-frame-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_flf2v_status
+    description: Check status of Veo3.1 Lite first-last-frame-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_flf2v_submit
+    description: Submit Fal.ai Veo3.1 Lite first-last-frame-to-video generation request and receive request ID for polling.
+      Generate videos by animating between a first and last frame using Google's Veo 3.1 Lite model. Audio is always generated.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video (auto, 16:9, 9:16, default: auto)'
+          type: string
+        auto_fix:
+          description: Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them.
+          type: boolean
+        first_frame_url:
+          description: URL of the first frame of the video (input images should be up to 8MB).
+          type: string
+        last_frame_url:
+          description: URL of the last frame of the video (input images should be up to 8MB).
+          type: string
+        prompt:
+          description: Text prompt describing the video you want to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p, 1080p, default: 720p)'
+          type: string
+        seed:
+          description: The seed for the random number generator.
+          type: number
+      required:
+      - first_frame_url
+      - last_frame_url
+      - prompt
+      type: object
 - id: i2i-kamui-aura-sr
   status: online
   last_checked: '2026-01-17T08:34:46.256961+00:00'
@@ -1386,6 +1444,140 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2i-kamui-fal-ai-hy-wu-edit
+  status: online
+  last_checked: '2026-04-03T13:45:34.628885+00:00'
+  tools:
+  - name: fal_ai_hy_wu_edit_result
+    description: Get result of completed Fal.ai HY-Wu Edit request as Fal response JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_hy_wu_edit_status
+    description: Check status of Fal.ai HY-Wu Edit processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_hy_wu_edit_submit
+    description: Submit Fal.ai HY-Wu Edit image-to-image request. Use multiple reference images and a prompt to edit the base
+      image.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Enable Fal.ai safety checker (default: true).'
+          type: boolean
+        enable_thinking:
+          default: true
+          description: 'Enable model reasoning before generation for higher quality (default: true).'
+          type: boolean
+        image_size:
+          default: auto
+          description: 'Image size preset: auto, square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9
+            (default: auto).'
+          type: string
+        image_urls:
+          description: URLs of input images for editing. Typically 2 images (base + reference), supports up to 3.
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1).'
+          type: number
+        num_inference_steps:
+          default: 30
+          description: 'Number of diffusion denoising steps (default: 30).'
+          type: number
+        output_format:
+          default: png
+          description: 'Output format: jpeg or png (default: png).'
+          type: string
+        prompt:
+          description: Text prompt describing the desired edit (supports English and Chinese).
+          type: string
+        seed:
+          description: Optional random seed for reproducible results.
+          type: number
+        sync_mode:
+          default: false
+          description: 'If true, media may be returned as data URI (default: false).'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-fal-ai-phota-edit
+  status: online
+  last_checked: '2026-04-03T13:45:34.666033+00:00'
+  tools:
+  - name: fal_ai_phota_edit_result
+    description: Get result of completed Fal.ai Phota Edit request as Fal response JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_phota_edit_status
+    description: Check status of Fal.ai Phota Edit processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_phota_edit_submit
+    description: Submit Fal.ai Phota Edit image editing request. Edit an image based on a text description using up to 10
+      input images.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio: auto, 1:1, 16:9, 4:3, 3:4, 9:16 (default: auto).'
+          type: string
+        image_urls:
+          description: List of URLs / Base64 data URIs of the images to edit. Maximum of 10 images are supported.
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1).'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output format: jpeg, png, webp (default: jpeg).'
+          type: string
+        profile_ids:
+          description: Optional list of profile IDs to use for image generation.
+          type: array
+        prompt:
+          description: Text description of the desired image.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Resolution: 1K or 4K (default: 1K).'
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, the media is returned as a data URI and the output data won''t be available in request history
+            (default: false).'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
       type: object
 - id: i2i-kamui-fal-chrono-edit-lora
   status: online
@@ -9559,6 +9751,140 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-pixverse-v6
+  status: online
+  last_checked: '2026-04-03T13:45:35.417955+00:00'
+  tools:
+  - name: pixverse_v6_image_to_video_result
+    description: Get result of completed Pixverse V6 image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_image_to_video_status
+    description: Check status of Pixverse V6 image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_image_to_video_submit
+    description: Submit Fal.ai Pixverse V6 image-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        duration:
+          description: 'Duration in seconds: 1 to 15 (default: 5)'
+          type: number
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (default: 720p)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-pixverse-v6-transition
+  status: online
+  last_checked: '2026-04-03T13:45:36.249948+00:00'
+  tools:
+  - name: pixverse_v6_transition_result
+    description: Get result of completed Pixverse V6 transition generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_transition_status
+    description: Check status of Pixverse V6 transition processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_transition_submit
+    description: Submit Fal.ai Pixverse V6 transition request (two images to video) and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16, 2:3, 3:2, 21:9 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 1 to 15 (default: 5)'
+          type: string
+        end_image_url:
+          description: URL of the image to use as the last frame (or base64 data URI).
+          type: string
+        first_image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing how the scene should transition between the two images.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (default: 720p)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - first_image_url
+      type: object
 - id: i2v-kamui-seedance-v1-lite
   status: online
   last_checked: '2026-01-17T08:34:49.870739+00:00'
@@ -9874,6 +10200,68 @@ servers:
           default: 720p
           description: 'Resolution of the generated video (720p, 1080p, default: 720p)'
           type: string
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-veo31-lite
+  status: online
+  last_checked: '2026-04-03T13:44:43.040573+00:00'
+  tools:
+  - name: veo31_lite_i2v_result
+    description: Get result of completed Veo3.1 Lite image-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_i2v_status
+    description: Check status of Veo3.1 Lite image-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_i2v_submit
+    description: Submit Fal.ai Veo3.1 Lite image-to-video generation request and receive request ID for polling. Animate an
+      input image using Google's Veo 3.1 Lite model. Audio is always generated.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the generated video (auto, 16:9, 9:16, default: auto)'
+          type: string
+        auto_fix:
+          description: Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them.
+          type: boolean
+        duration:
+          default: 8s
+          description: 'Duration of the generated video in seconds (4s, 6s, 8s, default: 8s). Note: 1080p requires 8s.'
+          type: string
+        image_url:
+          description: URL of the input image to animate. Should be 720p or higher resolution in 16:9 or 9:16 aspect ratio,
+            up to 8MB in size.
+          type: string
+        negative_prompt:
+          description: A negative prompt to guide the video generation.
+          type: string
+        prompt:
+          description: Text prompt describing how the image should be animated.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p, 1080p, default: 720p). Note: 1080p requires 8s.'
+          type: string
+        seed:
+          description: The seed for the random number generator.
+          type: number
       required:
       - prompt
       - image_url
@@ -12145,6 +12533,77 @@ servers:
       - prompt
       - first_image_url
       type: object
+- id: start-end-kamui-pixverse-v6-transition
+  status: online
+  last_checked: '2026-04-03T13:45:34.923588+00:00'
+  tools:
+  - name: pixverse_v6_transition_result
+    description: Get result of completed Pixverse V6 transition generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_transition_status
+    description: Check status of Pixverse V6 transition processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_transition_submit
+    description: Submit Fal.ai Pixverse V6 transition request (two images to video) and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16, 2:3, 3:2, 21:9 (default: 16:9)'
+          type: string
+        duration:
+          default: '5'
+          description: 'Duration in seconds: 1 to 15 (default: 5)'
+          type: string
+        end_image_url:
+          description: URL of the image to use as the last frame (or base64 data URI).
+          type: string
+        first_image_url:
+          description: URL of the image to use as the first frame (or base64 data URI).
+          type: string
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing how the scene should transition between the two images.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (default: 720p)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      - first_image_url
+      type: object
 - id: t2a-kamui-beatoven-sound-effect-generation
   status: online
   last_checked: '2026-01-17T08:35:09.363368+00:00'
@@ -12800,6 +13259,61 @@ servers:
           type: number
         sync_mode:
           description: Whether to return the image in sync mode
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-ai-phota
+  status: online
+  last_checked: '2026-04-03T13:45:34.734485+00:00'
+  tools:
+  - name: fal_ai_phota_result
+    description: Get result of completed Fal.ai Phota request as Fal response JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_phota_status
+    description: Check status of Fal.ai Phota processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_phota_submit
+    description: Submit Fal.ai Phota text-to-image request. Generate an image from a text prompt.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio: auto, 1:1, 16:9, 4:3, 3:4, 9:16 (default: auto).'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1).'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output format: jpeg, png, webp (default: jpeg).'
+          type: string
+        prompt:
+          description: Text description of the desired image.
+          type: string
+        resolution:
+          default: 1K
+          description: 'Resolution: 1K or 4K (default: 1K).'
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, the media is returned as a data URI and the output data won''t be available in request history
+            (default: false).'
           type: boolean
       required:
       - prompt
@@ -20160,6 +20674,69 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-pixverse-v6
+  status: online
+  last_checked: '2026-04-03T13:45:35.555418+00:00'
+  tools:
+  - name: pixverse_v6_text_to_video_result
+    description: Get result of completed Pixverse V6 text-to-video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_text_to_video_status
+    description: Check status of Pixverse V6 text-to-video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_text_to_video_submit
+    description: Submit Fal.ai Pixverse V6 text-to-video request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio: 16:9, 4:3, 1:1, 3:4, 9:16, 2:3, 3:2, 21:9 (default: 16:9)'
+          type: string
+        duration:
+          description: 'Duration in seconds: 1 to 15 (default: 5)'
+          type: number
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        generate_multi_clip_switch:
+          description: Enable multi-clip generation with dynamic camera changes.
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing the video to generate.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (default: 720p)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        thinking_type:
+          description: 'Prompt optimization mode: ''enabled'' to optimize, ''disabled'' to turn off, ''auto'' for model decision'
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-veo3
   status: online
   last_checked: '2026-01-17T08:34:56.905530+00:00'
@@ -20418,6 +20995,63 @@ servers:
           type: string
         seed:
           description: A seed to use for the video generation
+          type: number
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-veo31-lite
+  status: online
+  last_checked: '2026-04-03T13:45:35.773183+00:00'
+  tools:
+  - name: veo31_lite_result
+    description: Get result of completed Veo3.1 Lite video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_status
+    description: Check status of Veo3.1 Lite video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: veo31_lite_submit
+    description: Submit Fal.ai Veo3.1 Lite text-to-video generation request and receive request ID for polling.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '16:9'
+          description: 'Aspect ratio of the generated video (16:9 or 9:16, default: 16:9)'
+          type: string
+        auto_fix:
+          default: true
+          description: 'Whether to automatically attempt to fix prompts that fail content policy or other validation checks
+            by rewriting them (default: true)'
+          type: boolean
+        duration:
+          default: 8s
+          description: 'Duration of the generated video in seconds (4s, 6s, 8s, default: 8s)'
+          type: string
+        negative_prompt:
+          description: A negative prompt to guide the video generation
+          type: string
+        prompt:
+          description: Text prompt describing the video you want to generate
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution of the generated video (720p or 1080p, default: 720p)'
+          type: string
+        seed:
+          description: The seed for the random number generator
           type: number
       required:
       - prompt
@@ -23944,6 +24578,63 @@ servers:
       required:
       - video_url
       - image_url
+      type: object
+- id: v2v-kamui-pixverse-v6-extend
+  status: online
+  last_checked: '2026-04-03T13:45:35.271468+00:00'
+  tools:
+  - name: pixverse_v6_extend_result
+    description: Get result of completed Pixverse V6 extend generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_extend_status
+    description: Check status of Pixverse V6 extend processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixverse_v6_extend_submit
+    description: Submit Fal.ai Pixverse V6 extend request and receive request ID for polling.
+    inputSchema:
+      properties:
+        duration:
+          description: 'Duration in seconds: 1 to 15 (default: 5)'
+          type: number
+        generate_audio_switch:
+          description: Enable audio generation (BGM, SFX, dialogue).
+          type: boolean
+        negative_prompt:
+          description: Negative prompt to avoid undesired artifacts.
+          type: string
+        prompt:
+          description: Prompt describing how to extend the video.
+          type: string
+        resolution:
+          default: 720p
+          description: 'Resolution: 360p, 540p, 720p, 1080p (default: 720p)'
+          type: string
+        seed:
+          description: Optional seed for reproducibility.
+          type: number
+        style:
+          description: 'Style: anime, 3d_animation, clay, comic, cyberpunk'
+          type: string
+        video_url:
+          description: URL of the input video to extend (or base64 data URI).
+          type: string
+      required:
+      - video_url
+      - prompt
       type: object
 - id: v2v-kamui-runway-aleph
   status: online
