@@ -730,6 +730,14 @@ ai_models:
       server_name: t2v-kamui-veo31-lite
       release_date: 2026年3月31日
       features: "(Google) 軽量かつコスト効率に優れた動画生成モデル「Veo 3.1 Lite」を使用。Veo 3.1 Fastと同等の生成速度を維持しつつ低コストで、ネイティブに同期された音声付きの動画を生成できます。720pおよび1080pの解像度、16:9および9:16のアスペクト比、4/6/8秒の動画長に対応し、Kamui Codeによるプロンプト自動修正機能もサポートしています。"
+    - name: ByteDance Seedance 2.0 Text-to-Video
+      server_name: t2v-kamui-bytedance-seedance-v20
+      release_date: 2026年2月12日
+      features: "(ByteDance) テキストプロンプトからシネマティックな高品質動画をネイティブな音声付きで生成できる、統合マルチモーダル動画生成モデル。高度な物理法則の再現やカメラコントロール機能を備え、最大15秒の動画生成に対応する。"
+    - name: Seedance 2.0 Fast
+      server_name: t2v-kamui-bytedance-seedance-v20-fast
+      release_date: 2026年2月12日
+      features: "(ByteDance) テキストプロンプトから最大15秒のシネマティックな動画を高速で生成するモデル。物理法則に基づくリアルな動きの再現や、映像と同期したネイティブな音声の生成に対応している。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -972,6 +980,14 @@ ai_models:
       server_name: i2v-kamui-pixverse-v6-transition
       release_date: 2026年3月30日
       features: "(PixVerse) 2つの画像（開始・終了）間で滑らかなトランジション動画を生成するPixverse V6モデル。最大15秒・1080pの高画質出力に対応し、ネイティブ音声（BGM・効果音・台詞）の同時生成やマルチクリップ生成機能を搭載。アニメやサイバーパンクなどのスタイル指定、プロンプト最適化機能もサポートする。"
+    - name: ByteDance Seedance 2.0 Fast Image-to-Video
+      server_name: i2v-kamui-bytedance-seedance-v20-fast
+      release_date: 2026年2月12日
+      features: "(ByteDance) ByteDanceによるSeedance 2.0の高速な画像生成ビデオ（Image-to-Video）モデル。元画像とプロンプトから、実世界の物理法則を反映したシネマティックで高品質な動画をネイティブな音声付きで生成可能。解像度は480p/720p、生成時間は4〜15秒に対応。"
+    - name: Seedance 2.0 Image-to-Video
+      server_name: i2v-kamui-bytedance-seedance-v20
+      release_date: 2026年2月12日
+      features: "(ByteDance) ByteDanceが開発した動画生成AI「Seedance 2.0」のImage-to-Videoモデル。参照画像とプロンプトから、物理法則に準拠した自然な動きやネイティブな音声同期を伴う最大15秒の高品質なシネマティック動画を生成できる。開始・終了画像の指定、解像度（480p/720p）の選択、アスペクト比の調整など、高度なコントロール機能を備える。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1258,6 +1274,14 @@ ai_models:
       server_name: r2v-kamui-fal-xai-grok-imagine-video-reference-to-video
       release_date: 2026年1月29日
       features: "(xAI) テキストプロンプトと複数の参照画像（最大7枚）を組み合わせて動画を生成するモデル。特定の人物やオブジェクト、視覚スタイルなどをガイドとして映像に反映させることが可能で、キャラクターの一貫性保持や製品プレイスメント等に適している。解像度（480p/720p）や各種アスペクト比の指定に対応し、映像と完全に同期した音声やBGMもネイティブに自動生成される。"
+    - name: Seedance 2.0 Reference-to-Video
+      server_name: r2v-kamui-bytedance-seedance-v20-reference
+      release_date: 2026年2月12日
+      features: "(ByteDance) 最大9枚の画像、3つの動画、3つの音声を参照用入力として組み合わせ、指定した構図や動き、カメラワークなどを反映させた動画を生成できるReference-to-Videoモデル。物理法則に忠実な動きとネイティブオーディオの同時生成が可能で、高い映像制御能力を持ちます。"
+    - name: ByteDance Seedance 2.0 Fast Reference-to-Video
+      server_name: r2v-kamui-bytedance-seedance-v20-fast-reference
+      release_date: 2026年2月12日
+      features: "(ByteDance) 最大9枚の画像、3つの動画、3つの音声とテキストを組み合わせて入力でき、ネイティブ音声と同期したシネマティックな動画を最大15秒まで高速生成するReference-to-Videoモデル。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
