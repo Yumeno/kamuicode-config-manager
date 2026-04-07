@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-04-06T09:32:17.806959+00:00'
-  total_servers: 387
-  online_servers: 385
+  generated_at: '2026-04-07T13:48:40.717244+00:00'
+  total_servers: 393
+  online_servers: 391
   offline_servers: 0
   error_servers: 2
 servers:
@@ -7339,6 +7339,128 @@ servers:
       - prompt
       - image_url
       type: object
+- id: i2v-kamui-bytedance-seedance-v20
+  status: online
+  last_checked: '2026-04-07T13:48:37.010614+00:00'
+  tools:
+  - name: bytedance_seedance_v20_i2v_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 Image-to-Video (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_i2v_status
+    description: Check status of ByteDance Seedance 2.0 Image-to-Video by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_i2v_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Image-to-Video (bytedance/seedance-2.0/image-to-video). prompt and image_url
+      required; optional end_image_url; resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio; generate_audio
+      (default true per API); seed; end_user_id. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
+          type: string
+        duration:
+          description: auto, or 4-15 as string (e.g. "8")
+          type: string
+        end_image_url:
+          description: Optional last-frame image URL for transition to ending image
+          type: string
+        end_user_id:
+          description: End-user identifier for your integration
+          type: string
+        generate_audio:
+          description: Generate synchronized audio (default true per API)
+          type: boolean
+        image_url:
+          description: URL of the starting frame image (JPEG, PNG, WebP; public URL or data URI)
+          type: string
+        prompt:
+          description: Text prompt describing desired motion and action
+          type: string
+        resolution:
+          description: 480p or 720p (API default 720p)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
+- id: i2v-kamui-bytedance-seedance-v20-fast
+  status: online
+  last_checked: '2026-04-07T13:48:36.959519+00:00'
+  tools:
+  - name: bytedance_seedance_v20_fast_i2v_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 Fast Image-to-Video (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_i2v_status
+    description: Check status of ByteDance Seedance 2.0 Fast Image-to-Video by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_i2v_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Image-to-Video (bytedance/seedance-2.0/fast/image-to-video). prompt
+      and image_url required; optional end_image_url; resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio;
+      generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
+          type: string
+        duration:
+          description: auto, or 4-15 as string (e.g. "8")
+          type: string
+        end_image_url:
+          description: Optional last-frame image URL for transition to ending image
+          type: string
+        end_user_id:
+          description: End-user identifier for your integration
+          type: string
+        generate_audio:
+          description: Generate synchronized audio (default true per API)
+          type: boolean
+        image_url:
+          description: URL of the starting frame image (JPEG, PNG, WebP; public URL or data URI)
+          type: string
+        prompt:
+          description: Text prompt describing desired motion and action
+          type: string
+        resolution:
+          description: 480p or 720p (API default 720p)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - prompt
+      - image_url
+      type: object
 - id: i2v-kamui-decart-lucy-14b
   status: online
   last_checked: '2026-04-06T09:31:30.050833+00:00'
@@ -11240,6 +11362,134 @@ servers:
       required:
       - prompt
       - reference_image_urls
+      type: object
+- id: r2v-kamui-bytedance-seedance-v20-fast-reference
+  status: online
+  last_checked: '2026-04-07T13:48:37.602864+00:00'
+  tools:
+  - name: bytedance_seedance_v20_fast_reference_to_video_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 Fast Reference-to-Video (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_reference_to_video_status
+    description: Check status of ByteDance Seedance 2.0 Fast Reference-to-Video by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_reference_to_video_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Reference-to-Video (bytedance/seedance-2.0/fast/reference-to-video).
+      prompt required; optional image_urls (up to 9, @Image1.. in prompt), video_urls (up to 3, @Video1..), audio_urls (up
+      to 3, @Audio1..; requires image or video); resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio auto,
+      21:9, 16:9, 4:3, 1:1, 3:4, 9:16; generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
+          type: string
+        audio_urls:
+          description: Optional reference audio URLs (MP3/WAV, up to 3; if set, at least one image_urls or video_urls required)
+          type: array
+        duration:
+          description: auto, or 4-15 as string (e.g. "8")
+          type: string
+        end_user_id:
+          description: End-user identifier for your integration
+          type: string
+        generate_audio:
+          description: Generate synchronized audio (default true per API)
+          type: boolean
+        image_urls:
+          description: Optional reference image URLs (JPEG/PNG/WebP, up to 9)
+          type: array
+        prompt:
+          description: Text prompt; reference assets as @Image1, @Video1, @Audio1, etc.
+          type: string
+        resolution:
+          description: 480p or 720p (API default 720p)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+        video_urls:
+          description: Optional reference video URLs (MP4/MOV, up to 3)
+          type: array
+      required:
+      - prompt
+      type: object
+- id: r2v-kamui-bytedance-seedance-v20-reference
+  status: online
+  last_checked: '2026-04-07T13:48:37.489994+00:00'
+  tools:
+  - name: bytedance_seedance_v20_reference_to_video_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 Reference-to-Video (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_reference_to_video_status
+    description: Check status of ByteDance Seedance 2.0 Reference-to-Video by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_reference_to_video_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Reference-to-Video (bytedance/seedance-2.0/reference-to-video). prompt
+      required; optional image_urls (up to 9, @Image1.. in prompt), video_urls (up to 3, @Video1..), audio_urls (up to 3,
+      @Audio1..; requires image or video); resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio auto, 21:9,
+      16:9, 4:3, 1:1, 3:4, 9:16; generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
+          type: string
+        audio_urls:
+          description: Optional reference audio URLs (MP3/WAV, up to 3; if set, at least one image_urls or video_urls required)
+          type: array
+        duration:
+          description: auto, or 4-15 as string (e.g. "8")
+          type: string
+        end_user_id:
+          description: End-user identifier for your integration
+          type: string
+        generate_audio:
+          description: Generate synchronized audio (default true per API)
+          type: boolean
+        image_urls:
+          description: Optional reference image URLs (JPEG/PNG/WebP, up to 9)
+          type: array
+        prompt:
+          description: Text prompt; reference assets as @Image1, @Video1, @Audio1, etc.
+          type: string
+        resolution:
+          description: 480p or 720p (API default 720p)
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+        video_urls:
+          description: Optional reference video URLs (MP4/MOV, up to 3)
+          type: array
+      required:
+      - prompt
       type: object
 - id: r2v-kamui-fal-ai-one-to-all-animation-13b
   status: online
@@ -18601,6 +18851,114 @@ servers:
           type: string
         seed:
           description: Random seed for video generation. -1 for random.
+          type: number
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-bytedance-seedance-v20
+  status: online
+  last_checked: '2026-04-07T13:48:36.531116+00:00'
+  tools:
+  - name: bytedance_seedance_v20_t2v_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 T2V (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_t2v_status
+    description: Check status of ByteDance Seedance 2.0 T2V request by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_t2v_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Text-to-Video. Supports prompt (required), resolution (480p, 720p, default
+      API 720p), duration (auto or 4-15 seconds as string), aspect_ratio (auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16), generate_audio
+      (default true), seed, end_user_id. Returns Fal JSON (request_id).
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16'
+          type: string
+        duration:
+          description: 'Duration: auto, or 4-15 (seconds as string, e.g. "8")'
+          type: string
+        end_user_id:
+          description: Unique end-user identifier when required by your integration
+          type: string
+        generate_audio:
+          description: Whether to generate synchronized audio (default true per API)
+          type: boolean
+        prompt:
+          description: Text prompt for video generation
+          type: string
+        resolution:
+          description: 'Video resolution: 480p (faster) or 720p (default per API)'
+          type: string
+        seed:
+          description: Random seed for reproducibility
+          type: number
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-bytedance-seedance-v20-fast
+  status: online
+  last_checked: '2026-04-07T13:48:36.954879+00:00'
+  tools:
+  - name: bytedance_seedance_v20_fast_t2v_result
+    description: Get result JSON for completed ByteDance Seedance 2.0 Fast T2V (video URL, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_t2v_status
+    description: Check status of ByteDance Seedance 2.0 Fast T2V request by request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: bytedance_seedance_v20_fast_t2v_submit
+    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Text-to-Video. Supports prompt (required), resolution (480p, 720p,
+      default API 720p), duration (auto or 4-15 seconds as string), aspect_ratio (auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16),
+      generate_audio (default true), seed, end_user_id. Returns Fal JSON (request_id).
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'Aspect ratio: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16'
+          type: string
+        duration:
+          description: 'Duration: auto, or 4-15 (seconds as string, e.g. "8")'
+          type: string
+        end_user_id:
+          description: Unique end-user identifier when required by your integration
+          type: string
+        generate_audio:
+          description: Whether to generate synchronized audio (default true per API)
+          type: boolean
+        prompt:
+          description: Text prompt for video generation
+          type: string
+        resolution:
+          description: 'Video resolution: 480p (faster) or 720p (default per API)'
+          type: string
+        seed:
+          description: Random seed for reproducibility
           type: number
       required:
       - prompt
