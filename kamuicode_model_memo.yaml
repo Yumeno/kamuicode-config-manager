@@ -244,6 +244,14 @@ ai_models:
       server_name: t2i-kamui-fal-ai-phota
       release_date: 2026年3月26日
       features: "(PhotaLabs) 人物のアイデンティティ（顔立ちや個人の特徴）の保持に特化した写真向け画像生成・編集モデル。テキストプロンプトからの画像生成に加え、被写体の特徴を維持したまま背景変更や構図の再構築、スタイル変換などの編集が可能。1Kや4Kの高解像度出力、多様なアスペクト比に対応しており、高品質なポートレート生成などに適している。"
+    - name: Wan v2.7 Pro Text-to-Image
+      server_name: t2i-kamui-wan-v27-pro-image
+      release_date: 2026年4月頃
+      features: "(Alibaba / fal.ai) AlibabaのWan 2.7アーキテクチャをベースにした高品質なテキスト対画像生成モデルのPro版。複雑なプロンプトを正確に理解し、英語と中国語のバイリンガル入力に対応する。標準版に比べてさらに微細なディテールや優れた構図を再現可能で、プロフェッショナル向けのプレミアムな画像生成を実現する。"
+    - name: Wan v2.7 Text-to-Image
+      server_name: t2i-kamui-wan-v27-text-to-image
+      release_date: 2026年4月頃
+      features: "(Alibaba) Alibaba（Tongyi Lab）が開発した「Wan 2.7」ベースの高精度な画像生成モデル。空間論理やプロンプトの意図を理解してからレンダリングを行う「Thinking Mode」を搭載し、高品質で一貫性のある描写を実現します。中国語と英語のバイリンガル入力に対応し、ネガティブプロンプト、柔軟なアスペクト比の指定、最大5枚の複数枚同時生成が可能です。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -537,6 +545,14 @@ ai_models:
       server_name: i2i-kamui-fal-ai-phota-edit
       release_date: 2026年3月頃
       features: "(PhotaLabs) テキストプロンプトと画像URLをベースに画像編集を行うモデル。対象の人物の顔の特徴やアイデンティティを保持したまま、不要なオブジェクトの除去や背景の整理といった編集を実行できる。プロファイルIDを利用した特定人物の反映や、1K/4K解像度、複数のアスペクト比に対応している。"
+    - name: Wan v2.7 Image Edit
+      server_name: i2i-kamui-wan-v27-edit
+      release_date: 2026年4月頃
+      features: "(Alibaba) テキストプロンプトと1〜4枚の参照画像を入力として、画像の編集やスタイル変換、要素の変更などを実行できる高精度な画像編集モデル。"
+    - name: Wan v2.7 Pro Image Edit
+      server_name: i2i-kamui-wan-v27-pro-edit
+      release_date: 2026年3月頃
+      features: "(Alibaba) テキスト指示による高精細な画像編集が可能なプロフェッショナル向けモデル。最大4枚の参照画像やネガティブプロンプトをサポートし、元画像のディテールを保持したまま商用レベルの高度な編集を行います。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -1189,6 +1205,10 @@ ai_models:
       server_name: v2v-kamui-pixverse-v6-extend
       release_date: 2026年3月30日
       features: "(PixVerse) PixVerse V6を使用して動画の結末から新しいコンテンツを生成し、動画を延長するAIモデル。動画URLとプロンプトが必須で、スタイル（アニメ、3Dアニメーション、クレイ等）の指定が可能です。解像度（最大1080p）や長さ（1〜15秒）の調整ができ、音声生成オプションにも対応しています。"
+    - name: Fal SAM 3.1 Video
+      server_name: v2v-kamui-fal-sam-3-1-video
+      release_date: 2026年3月27日
+      features: "(Meta / fal.ai) Metaのセグメンテーションモデル「SAM 3.1」を利用した動画処理API。テキスト、座標（ポイント）、バウンディングボックスを用いて動画内のオブジェクトを指定し、高精度なセグメンテーションとトラッキングを行う。Object Multiplex技術による複数オブジェクトの高速な同時処理に対応している。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1432,6 +1452,14 @@ ai_models:
       server_name: t2m-kamui-elevenlabs-music
       release_date: 2025年8月5日
       features: "(ElevenLabs) テキストプロンプトから高品質な楽曲を生成するAIモデル。ボーカル入り・インストゥルメンタルの選択、詳細な楽曲構成（イントロ、Aメロ、サビ等）の指定が可能で、日本語を含む多言語ボーカルに対応。権利クリアなデータで学習されており商用利用に適している。"
+    - name: MiniMax Music V2.5
+      server_name: t2m-kamui-minimax-music-v25
+      release_date: 2026年2月13日
+      features: "(MiniMax) テキストや歌詞からボーカルと伴奏を含むスタジオ品質の楽曲を生成するモデル。[Intro]や[Chorus]などの構造タグによる楽曲展開の精密な制御、インストゥルメンタル生成、歌詞の自動生成機能に対応し、サンプルレートやオーディオ形式の細かな設定も可能。"
+    - name: MiniMax Music V2.6
+      server_name: t2m-kamui-minimax-music-v26
+      release_date: 2026年4月10日
+      features: "(MiniMax) テキストプロンプトと歌詞からボーカルや伴奏を含む高品質な楽曲を生成するAI音楽モデル。ジャンルやムードの指定に加え、[Intro]や[Chorus]などのタグを用いた曲構成の制御が可能です。V2.6では低・中低音域の音質が大幅に改善され、BPMやキーの指定精度も向上しました。さらに、既存の楽曲を別のスタイルに再構築する「カバー」機能が新搭載され、生成レイテンシも20秒以下に短縮されています。"
   video_to_audio:
     - name: ThinkSound (fal.ai)
       server_name: v2a-kamui-thinksound
