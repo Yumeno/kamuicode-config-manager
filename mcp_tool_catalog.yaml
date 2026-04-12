@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-04-07T13:48:40.717244+00:00'
-  total_servers: 393
-  online_servers: 391
+  generated_at: '2026-04-12T13:42:57.101188+00:00'
+  total_servers: 400
+  online_servers: 398
   offline_servers: 0
   error_servers: 2
 servers:
@@ -6242,6 +6242,126 @@ servers:
           type: string
         seed:
           description: Random seed for reproducibility (0-2147483647). Same seed produces more consistent results.
+          type: number
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-wan-v27-edit
+  status: online
+  last_checked: '2026-04-12T13:42:52.512976+00:00'
+  tools:
+  - name: wan_v2_7_edit_result
+    description: Fetch Wan v2.7 Image Edit result by request_id. Returns Fal JSON (e.g. images, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_edit_status
+    description: Check Wan v2.7 Image Edit queue status by request_id. Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_edit_submit
+    description: Submit Fal.ai Wan v2.7 Image Edit request (standard, fal-ai/wan/v2.7/edit). Image editing with 1–4 reference
+      images; reference as image 1–image 4 in prompt (Chinese and English). Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          description: 'Enable DashScope prompt expansion (image edit mode). Default: true'
+          type: boolean
+        enable_safety_checker:
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output size: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9; or omit
+            for API default (square_hd). Custom: pass JSON object with width and height in request if your client supports
+            it.'
+          type: string
+        image_urls:
+          description: Reference image URLs for editing (1–4 required). Order matters for prompt references.
+          type: array
+        negative_prompt:
+          description: 'Content to avoid in the generated image. Max 500 characters. Default: empty string.'
+          type: string
+        num_images:
+          description: 'Number of images to generate (1–4). Default: 1'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image edit. Order matches image_urls (image 1, image 2, …). Supports
+            Chinese and English.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0–2147483647).
+          type: number
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-wan-v27-pro-edit
+  status: online
+  last_checked: '2026-04-12T13:42:51.359655+00:00'
+  tools:
+  - name: wan_v2_7_pro_edit_result
+    description: Fetch Wan v2.7 Pro Image Edit result by request_id. Returns Fal JSON (e.g. images, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_pro_edit_status
+    description: Check Wan v2.7 Pro Image Edit queue status by request_id. Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_pro_edit_submit
+    description: Submit Fal.ai Wan v2.7 Pro Image Edit request. Pro image editing with 1-4 reference images; reference as
+      image 1–image 4 in prompt (Chinese and English). Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        enable_prompt_expansion:
+          description: 'Enable DashScope prompt expansion (image edit mode). Default: true'
+          type: boolean
+        enable_safety_checker:
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output size: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9; or omit
+            for API default (square_hd). Custom: pass JSON object with width and height in request if your client supports
+            it.'
+          type: string
+        image_urls:
+          description: Reference image URLs for editing (1–4 required). Order matters for prompt references.
+          type: array
+        negative_prompt:
+          description: 'Content to avoid in the generated image. Max 500 characters. Default: empty string.'
+          type: string
+        num_images:
+          description: 'Number of images to generate (1–4). Default: 1'
+          type: number
+        prompt:
+          description: Text prompt describing the desired image edit. Order matches image_urls (image 1, image 2, …). Supports
+            Chinese and English.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0–2147483647).
           type: number
       required:
       - prompt
@@ -17519,6 +17639,118 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-wan-v27-pro-image
+  status: online
+  last_checked: '2026-04-12T13:42:52.876233+00:00'
+  tools:
+  - name: wan_v2_7_pro_text_to_image_result
+    description: Fetch Wan v2.7 Pro Text-to-Image result by request_id. Returns Fal JSON (e.g. images, generated_text, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_pro_text_to_image_status
+    description: Check Wan v2.7 Pro Text-to-Image queue status by request_id. Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_pro_text_to_image_submit
+    description: Submit Fal.ai Wan v2.7 Pro Text-to-Image request (fal-ai/wan/v2.7/pro/text-to-image). Text-to-image; supports
+      Chinese and English. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output image size: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9 (default
+            square_hd). Or custom JSON object with width and height if the client supports it.'
+          type: string
+        max_images:
+          default: 1
+          description: 'Maximum number of images to generate (1-5). Default: 1'
+          maximum: 5
+          minimum: 1
+          type: number
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default: empty'
+          type: string
+        prompt:
+          description: Text prompt describing the desired output. Supports Chinese and English.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647).
+          type: number
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-wan-v27-text-to-image
+  status: online
+  last_checked: '2026-04-12T13:42:52.338660+00:00'
+  tools:
+  - name: wan_v2_7_text_to_image_result
+    description: Fetch Wan v2.7 Text-to-Image result by request_id. Returns Fal JSON (e.g. images, generated_text, seed).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_text_to_image_status
+    description: Check Wan v2.7 Text-to-Image queue status by request_id. Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: wan_v2_7_text_to_image_submit
+    description: Submit Fal.ai Wan v2.7 Text-to-Image request (fal-ai/wan/v2.7/text-to-image). Text-to-image; supports Chinese
+      and English. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        enable_safety_checker:
+          default: true
+          description: 'Enable content moderation for input and output. Default: true'
+          type: boolean
+        image_size:
+          description: 'Output image size: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9 (default
+            square_hd). Or custom JSON object with width and height if the client supports it.'
+          type: string
+        max_images:
+          default: 1
+          description: 'Maximum number of images to generate (1-5). Default: 1'
+          maximum: 5
+          minimum: 1
+          type: number
+        negative_prompt:
+          default: ''
+          description: 'Content to avoid in the generated image. Max 500 characters. Default: empty'
+          type: string
+        prompt:
+          description: Text prompt describing the desired output. Supports Chinese and English.
+          type: string
+        seed:
+          description: Random seed for reproducibility (0-2147483647).
+          type: number
+      required:
+      - prompt
+      type: object
 - id: t2i3d-kamui-hunyuan3d-v3-text-to-3d
   status: online
   last_checked: '2026-04-06T09:31:33.847633+00:00'
@@ -17991,6 +18223,105 @@ servers:
       required:
       - prompt
       - lyrics_prompt
+      type: object
+- id: t2m-kamui-minimax-music-v25
+  status: online
+  last_checked: '2026-04-12T13:42:52.471805+00:00'
+  tools:
+  - name: minimax_music_v25_result
+    description: Get result JSON for completed Minimax Music V2.5 generation (audio URL in Fal response).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: minimax_music_v25_status
+    description: Check status of Minimax Music V2.5 processing using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: minimax_music_v25_submit
+    description: Submit Fal.ai Minimax Music V2.5 text-to-music request (fal-ai/minimax-music/v2.5) and receive request_id
+      for polling.
+    inputSchema:
+      properties:
+        audio_setting:
+          description: 'Optional audio settings: sample_rate (16000, 24000, 32000, 44100, default 44100), bitrate (32000,
+            64000, 128000, 256000, default 256000), format (mp3, wav, pcm, default mp3)'
+          properties: {}
+          type: object
+        is_instrumental:
+          description: When true, generates vocal-free instrumental music
+          type: boolean
+        lyrics:
+          description: 'Song lyrics; use newlines between lines. Structure tags: [Intro], [Verse], [Pre Chorus], [Chorus],
+            [Bridge], [Outro], [Interlude], [Hook], [Break], [Solo], [Inst] (max 3500 characters). Required when is_instrumental
+            and lyrics_optimizer are both false.'
+          type: string
+        lyrics_optimizer:
+          description: When true and lyrics is empty, auto-generates lyrics from the prompt
+          type: boolean
+        prompt:
+          description: Music style, mood, genre, and scenario (required, max 2000 characters)
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2m-kamui-minimax-music-v26
+  status: online
+  last_checked: '2026-04-12T13:42:52.929298+00:00'
+  tools:
+  - name: minimax_music_v26_result
+    description: Get result JSON for completed Minimax Music V2.6 generation (audio URL in Fal response).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: minimax_music_v26_status
+    description: Check status of Minimax Music V2.6 processing using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: minimax_music_v26_submit
+    description: Submit Fal.ai Minimax Music V2.6 text-to-music request (fal-ai/minimax-music/v2.6) and receive request_id
+      for polling.
+    inputSchema:
+      properties:
+        audio_setting:
+          description: 'Optional audio settings: sample_rate (16000, 24000, 32000, 44100, default 44100), bitrate (32000,
+            64000, 128000, 256000, default 256000), format (mp3, wav, pcm, default mp3)'
+          properties: {}
+          type: object
+        is_instrumental:
+          description: When true, generates vocal-free instrumental music
+          type: boolean
+        lyrics:
+          description: 'Song lyrics; use newlines between lines. Structure tags: [Intro], [Verse], [Pre Chorus], [Chorus],
+            [Post Chorus], [Hook], [Bridge], [Interlude], [Transition], [Build Up], [Break], [Inst], [Solo], [Outro] (max
+            1000 characters). Required when is_instrumental is false.'
+          type: string
+        prompt:
+          description: Music style, mood, genre, and scenario (required, 10-300 characters)
+          type: string
+      required:
+      - prompt
       type: object
 - id: t2m-kamui-sonauto-v2-text-to-music
   status: error
@@ -23860,6 +24191,68 @@ servers:
           type: string
         video_url:
           description: The URL of the video to extend
+          type: string
+      required:
+      - video_url
+      type: object
+- id: v2v-kamui-fal-sam-3-1-video
+  status: online
+  last_checked: '2026-04-12T13:42:52.824921+00:00'
+  tools:
+  - name: sam_3_1_video_result
+    description: Get result JSON for completed SAM 3.1 Video (video URL, boundingbox_frames_zip, etc.).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_1_video_status
+    description: Check status of SAM 3.1 Video job using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: sam_3_1_video_submit
+    description: Submit Fal.ai SAM 3.1 Video segmentation (fal-ai/sam-3-1/video). Returns request_id for polling. Uses prompt
+      (default empty), point_prompts, box_prompts, apply_mask, video_output_type, detection_threshold, max_num_objects per
+      API schema.
+    inputSchema:
+      properties:
+        apply_mask:
+          default: true
+          description: 'Apply the mask on the video (API default: true)'
+          type: boolean
+        box_prompts:
+          description: 'List of box prompts: x_min, y_min, x_max, y_max (int), optional object_id'
+          type: array
+        detection_threshold:
+          default: 0.5
+          description: 'Detection confidence 0.0–1.0; lower = more detections, less precise (default: 0.5)'
+          type: number
+        max_num_objects:
+          default: 16
+          description: 'Maximum objects to track (API default: 16)'
+          type: number
+        point_prompts:
+          description: 'List of point prompts: x, y (int), label 0 or 1 (background/foreground), optional object_id'
+          type: array
+        prompt:
+          default: ''
+          description: 'Text prompt for segmentation; comma-separated for multiple objects (API default: empty string)'
+          type: string
+        video_output_type:
+          default: X264 (.mp4)
+          description: 'Output container: ''X264 (.mp4)'' or ''VP9 (.webm)'' (API default: X264 (.mp4))'
+          type: string
+        video_url:
+          description: The URL of the video to be segmented
           type: string
       required:
       - video_url
