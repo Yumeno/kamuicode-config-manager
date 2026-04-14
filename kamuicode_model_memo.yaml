@@ -252,6 +252,10 @@ ai_models:
       server_name: t2i-kamui-wan-v27-text-to-image
       release_date: 2026年4月頃
       features: "(Alibaba) Alibaba（Tongyi Lab）が開発した「Wan 2.7」ベースの高精度な画像生成モデル。空間論理やプロンプトの意図を理解してからレンダリングを行う「Thinking Mode」を搭載し、高品質で一貫性のある描写を実現します。中国語と英語のバイリンガル入力に対応し、ネガティブプロンプト、柔軟なアスペクト比の指定、最大5枚の複数枚同時生成が可能です。"
+    - name: Fal.ai Patina Material
+      server_name: t2i-kamui-fal-patina-material
+      release_date: 2026年4月10日
+      features: "(fal.ai) テキストや画像からシームレスにタイリング可能なPBRマテリアル（ベースカラー、ノーマル、ラフネス、メタルネス、ハイトマップ）を最大8K解像度で生成できるモデル。画像からのバリエーション生成やインペイントにも対応している。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -553,6 +557,18 @@ ai_models:
       server_name: i2i-kamui-wan-v27-pro-edit
       release_date: 2026年3月頃
       features: "(Alibaba) テキスト指示による高精細な画像編集が可能なプロフェッショナル向けモデル。最大4枚の参照画像やネガティブプロンプトをサポートし、元画像のディテールを保持したまま商用レベルの高度な編集を行います。"
+    - name: Fal.ai Patina
+      server_name: i2i-kamui-fal-ai-patina
+      release_date: 2026年4月10日
+      features: "(fal.ai) 単一の入力画像から高解像度なPBRマテリアルマップ（ベースカラー、ノーマル、ラフネス、メタルネス、ハイト）を予測・生成するAIモデル。元の画像を変更せずに物理ベースのプロパティを抽出し、3Dレンダリング等に直接利用可能なシームレスなテクスチャを出力する。"
+    - name: Fal.ai Patina Material Extract
+      server_name: i2i-kamui-fal-patina-material-extract
+      release_date: 2026年4月10日
+      features: "(fal.ai) 写真などの画像から指定した領域のマテリアルを抽出し、タイリング可能なシームレスなテクスチャと5種類のPBRマテリアルマップ（Base Color、Normal、Roughness、Metalness、Height）を生成するモデル。プロンプトで対象を指定すると、パースの歪みや環境光の陰影を除去し、3Dレンダリングにそのまま使える高品質なPBRテクスチャセットを出力する。"
+    - name: Ideogram V3 Layerize Text
+      server_name: i2i-kamui-ideogram-v3-layerize-text
+      release_date: 2026年4月7日
+      features: "(Ideogram) 画像内のテキストを背景から分離し、編集可能なテキストレイヤーとして抽出するモデル。テキストを除去した背景画像と、フォントや配置情報を含む構造化データ（JSONやHTML）を出力し、画像を再生成することなくテキストの編集や翻訳、フォントの変更等が可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -754,6 +770,10 @@ ai_models:
       server_name: t2v-kamui-bytedance-seedance-v20-fast
       release_date: 2026年2月12日
       features: "(ByteDance) テキストプロンプトから最大15秒のシネマティックな動画を高速で生成するモデル。物理法則に基づくリアルな動きの再現や、映像と同期したネイティブな音声の生成に対応している。"
+    - name: PixVerse C1 Text-to-Video
+      server_name: t2v-kamui-pixverse-c1
+      release_date: 2026年4月7日
+      features: "(PixVerse) 映画制作や高度な映像表現向けに特化したテキストからの動画生成モデル。1080p解像度で最大15秒の動画を音声（BGM/SFX/台詞）付きで生成可能。物理法則を考慮したアクションや複雑なVFX表現、プロンプトによる自動ショット分割に最適化されており、多彩なアスペクト比で出力できる。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -1004,6 +1024,14 @@ ai_models:
       server_name: i2v-kamui-bytedance-seedance-v20
       release_date: 2026年2月12日
       features: "(ByteDance) ByteDanceが開発した動画生成AI「Seedance 2.0」のImage-to-Videoモデル。参照画像とプロンプトから、物理法則に準拠した自然な動きやネイティブな音声同期を伴う最大15秒の高品質なシネマティック動画を生成できる。開始・終了画像の指定、解像度（480p/720p）の選択、アスペクト比の調整など、高度なコントロール機能を備える。"
+    - name: PixVerse C1 Transition
+      server_name: start-end-kamui-pixverse-c1-transition
+      release_date: 2026年4月7日
+      features: "(PixVerse) 最初の画像と（任意で）最後の画像を指定し、その間をシームレスに繋ぐシネマティックなトランジション動画を生成するモデル。テキストプロンプトによる動きの指定が可能で、最大1080pの解像度や動画に合わせたネイティブ音声（BGM・SFX・セリフ）の同時生成にも対応している。"
+    - name: PixVerse C1 Image to Video
+      server_name: i2v-kamui-pixverse-c1
+      release_date: 2026年4月7日
+      features: "(PixVerse) 映画やプロの映像制作向けに特化して構築されたAI動画生成モデル。物理法則に基づいたアクションシミュレーションや高度なVFXを強みとし、1080p解像度で最長15秒の動画をネイティブ音声（BGMや効果音など）付きで生成可能。画像を初期フレームとして、複雑なアクションやダイナミックなカメラワークを伴う高品質な映像を作成できます。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1209,6 +1237,14 @@ ai_models:
       server_name: v2v-kamui-fal-sam-3-1-video
       release_date: 2026年3月27日
       features: "(Meta / fal.ai) Metaのセグメンテーションモデル「SAM 3.1」を利用した動画処理API。テキスト、座標（ポイント）、バウンディングボックスを用いて動画内のオブジェクトを指定し、高精度なセグメンテーションとトラッキングを行う。Object Multiplex技術による複数オブジェクトの高速な同時処理に対応している。"
+    - name: Kling Video O3 Standard Video-to-Video Edit
+      server_name: v2v-kamui-kling-video-o3-standard-edit
+      release_date: 2026年2月4日
+      features: "(Kuaishou) Kling Video O3 Standardモデルを利用したVideo-to-Video動画編集モデル。fal.ai経由で提供され、参照動画に対してプロンプト指示による編集やスタイル変換を行います。画像URLの追加指定、音声の保持、画像要素（KlingV3ImageElementInput）の適用などが可能で、柔軟な動画編集をサポートします。"
+    - name: Kling Video O3 Pro Video-to-Video Edit
+      server_name: v2v-kamui-kling-video-o3-pro-edit
+      release_date: 2026年2月9日
+      features: "(Kuaishou) Kling O3（Omni）アーキテクチャを採用した高性能なVideo-to-Video編集モデル。元動画のモーションや被写体の一貫性を保ちながら、テキストプロンプトや参照画像を用いた高度なスタイル変換、オブジェクトの変更、シーン全体の再構築などが可能。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1302,6 +1338,14 @@ ai_models:
       server_name: r2v-kamui-bytedance-seedance-v20-fast-reference
       release_date: 2026年2月12日
       features: "(ByteDance) 最大9枚の画像、3つの動画、3つの音声とテキストを組み合わせて入力でき、ネイティブ音声と同期したシネマティックな動画を最大15秒まで高速生成するReference-to-Videoモデル。"
+    - name: Pixverse C1 Reference-to-Video
+      server_name: r2v-kamui-pixverse-c1
+      release_date: 2026年4月7日
+      features: "(PixVerse) キャラクターや背景の参照画像を用いて一貫性を保ちながら高品質な動画を生成できるモデル。最大1080p解像度で最長15秒の動画生成に対応し、音声の同時生成オプションも備える。"
+    - name: Vidu Q3 Mix Reference-to-Video
+      server_name: r2v-kamui-vidu-q3-reference-to-video-mix
+      release_date: 2026年4月13日
+      features: "(ShengShu Technology) 1〜4枚の参照画像とテキストプロンプトから、複数キャラクターの一貫性を保ったシネマティックな動画を生成するモデル。解像度最大1080p、最長16秒の出力に対応し、環境音やセリフなどの音声も同時に生成可能。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -1557,6 +1601,10 @@ ai_models:
       server_name: i2i3d-kamui-hunyuan3d-v31-rapid-image-to-3d
       release_date: 2026年1月26日
       features: "(Tencent) 画像から高速に3Dモデルを生成するAIモデル。PBRマテリアルの生成やポリゴン数の指定に対応し、高品質な3Dアセットを短時間で出力する。"
+    - name: ReconViaGen 0.5
+      server_name: i2i3d-kamui-reconviagen-0-5
+      release_date: 2025年9月頃
+      features: "(GAP-LAB) 複数視点（マルチビュー）の画像から高精度なテクスチャ付き3Dモデル（GLB形式）を生成するモデル。拡散モデルを用いて見えない部分の形状を自然に補完し、全体構造や細部のテクスチャの一貫性を保った3D再構築を実現する。解像度やテクスチャサイズなどの詳細な制御が可能。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
