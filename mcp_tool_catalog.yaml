@@ -1,5 +1,5 @@
 metadata:
-  generated_at: '2026-04-15T13:52:12.996472+00:00'
+  generated_at: '2026-04-19T13:44:54.466529+00:00'
   total_servers: 412
   online_servers: 410
   offline_servers: 0
@@ -4520,7 +4520,7 @@ servers:
       type: object
 - id: i2i-kamui-kling-image-v3
   status: online
-  last_checked: '2026-04-06T09:32:09.834600+00:00'
+  last_checked: '2026-04-19T13:44:40.769797+00:00'
   tools:
   - name: kling_image_v3_image_to_image_result
     description: Get result of completed Kling Image V3 Image-to-Image generation. Returns Fal response JSON with generated
@@ -4545,21 +4545,28 @@ servers:
       type: object
   - name: kling_image_v3_image_to_image_submit
     description: Submit Fal.ai Kling Image V3 Standard image-to-image generation request and receive request ID for polling.
-      Generate images from a reference image with optional element control (face). Resolution up to 2K with multiple aspect
-      ratio options.
+      Supports image_url and/or reference_image_urls (max 10 in the array; image_url counts toward Fal element+reference limits
+      with elements). Use @Image1, @Image2 in the prompt for multi-ref. Optional element control (face). Resolution up to
+      2K.
     inputSchema:
       properties:
         aspect_ratio:
           default: '16:9'
-          description: 'Aspect ratio of generated images. Default value: 16:9. Possible values: 16:9, 9:16, 1:1, 4:3, 3:4,
-            3:2, 2:3, 21:9'
+          description: 'Aspect ratio of generated images. Default: 16:9 for image_url; use auto for multi-image. Possible
+            values: auto, 16:9, 9:16, 1:1, 4:3, 3:4, 3:2, 2:3, 21:9'
           type: string
         elements:
-          description: 'Optional: Elements (characters/objects) to include in the image for face control.'
+          description: 'Optional: Elements for face/character control; reference in prompt as @Element1, @Element2, etc. With
+            reference_image_urls, Fal allows at most 10 total (elements + reference images).'
           type: array
         image_url:
-          description: Reference image for image-to-image generation.
+          description: Optional primary reference image URL. Can be combined with reference_image_urls (and/or legacy image_urls
+            merged into reference_image_urls).
           type: string
+        image_urls:
+          description: 'Legacy alias: merged into reference_image_urls after reference_image_urls (same cap 10 total in the
+            array). Can be combined with image_url.'
+          type: array
         num_images:
           default: 1
           description: 'Number of images to generate (1-9). Default value: 1'
@@ -4569,8 +4576,13 @@ servers:
           description: 'The format of the generated image. Default value: png. Possible values: jpeg, png, webp'
           type: string
         prompt:
-          description: Text prompt for image generation. Max 2500 characters.
+          description: Text prompt for image generation. With reference_image_urls, reference images using @Image1, @Image2,
+            etc. Max 2500 characters.
           type: string
+        reference_image_urls:
+          description: Reference image URLs (max 10); sent to Fal as reference_image_urls. Use @Image1, @Image2 in the prompt.
+            Can be combined with image_url. If legacy image_urls is also set, values are appended after this list.
+          type: array
         resolution:
           default: 1K
           description: 'Image generation resolution. 1K: standard, 2K: high-res. Default value: 1K'
@@ -4580,7 +4592,6 @@ servers:
           type: boolean
       required:
       - prompt
-      - image_url
       type: object
 - id: i2i-kamui-lucidflux
   status: online
@@ -9000,7 +9011,7 @@ servers:
       type: object
 - id: i2v-kamui-kling-video-o3-pro
   status: online
-  last_checked: '2026-04-06T09:32:10.611169+00:00'
+  last_checked: '2026-04-19T13:44:41.520125+00:00'
   tools:
   - name: kling_video_o3_pro_image_to_video_result
     description: Kling Video O3 Pro Image-to-Videoリクエストの結果を取得します。
@@ -9036,8 +9047,11 @@ servers:
           description: 動画のネイティブ音声を生成するかどうか
           type: boolean
         image_url:
-          description: 開始フレーム画像のURL
+          description: 単一の開始フレーム画像URL。input_image_urls と同時に指定できません。どちらか一方が必須です。
           type: string
+        input_image_urls:
+          description: 動画生成用の参照画像URLリスト（最大4枚、Fal MultiImageToVideoRequest）。image_url と同時に指定できません。
+          type: array
         multi_prompt:
           description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
           type: array
@@ -9047,12 +9061,10 @@ servers:
         shot_type:
           description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
           type: string
-      required:
-      - image_url
       type: object
 - id: i2v-kamui-kling-video-o3-standard
   status: online
-  last_checked: '2026-04-06T09:32:10.617667+00:00'
+  last_checked: '2026-04-19T13:44:41.554607+00:00'
   tools:
   - name: kling_video_o3_standard_image_to_video_result
     description: Kling Video O3 Standard Image-to-Videoリクエストの結果を取得します。
@@ -9088,8 +9100,11 @@ servers:
           description: 動画のネイティブ音声を生成するかどうか
           type: boolean
         image_url:
-          description: 開始フレーム画像のURL
+          description: 単一の開始フレーム画像URL。input_image_urls と同時に指定できません。どちらか一方が必須です。
           type: string
+        input_image_urls:
+          description: 動画生成用の参照画像URLリスト（最大4枚、Fal MultiImageToVideoRequest）。image_url と同時に指定できません。
+          type: array
         multi_prompt:
           description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
           type: array
@@ -9099,8 +9114,6 @@ servers:
         shot_type:
           description: 'マルチショット動画生成のタイプ。指定可能な値: customize (デフォルト: customize)'
           type: string
-      required:
-      - image_url
       type: object
 - id: i2v-kamui-kling-video-v25-turbo-pro
   status: online
@@ -9249,7 +9262,7 @@ servers:
       type: object
 - id: i2v-kamui-kling-video-v3-pro
   status: online
-  last_checked: '2026-04-06T09:31:32.095113+00:00'
+  last_checked: '2026-04-19T13:44:02.827885+00:00'
   tools:
   - name: kling_video_v3_pro_image_to_video_result
     description: Kling Video V3 Pro Image-to-Videoリクエストの結果を取得します。
@@ -9272,7 +9285,8 @@ servers:
       - request_id
       type: object
   - name: kling_video_v3_pro_image_to_video_submit
-    description: Kling Video V3 Pro Image-to-Videoを使用して画像から動画を生成します。
+    description: Kling Video V3 Pro Image-to-Videoを使用して画像から動画を生成します。start_image_url と reference_image_urls（最大4、legacy input_image_urls
+      は結合可）を併用できます。要素ごとの参照は elements[].reference_image_urls。
     inputSchema:
       properties:
         aspect_ratio:
@@ -9285,7 +9299,8 @@ servers:
           description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
           type: string
         elements:
-          description: 動画に含める要素（キャラクター/オブジェクト）。各要素は画像セット（正面+参照画像）または動画。プロンプト内で@Element1、@Element2などで参照
+          description: '任意: KlingV3ComboElementInput の配列。画像要素例: {"frontal_image_url":"...","reference_image_urls":["url1","url2"]}（reference_image_urls
+            は複数URL可）。動画要素例: {"video_url":"..."}。プロンプトで @Element1, @Element2 と参照'
           type: array
         end_image_url:
           description: 動画の終了画像URL
@@ -9293,6 +9308,9 @@ servers:
         generate_audio:
           description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
           type: boolean
+        input_image_urls:
+          description: 'レガシー別名: reference_image_urls の後に結合（合計最大4）。start_image_url と併用可。'
+          type: array
         multi_prompt:
           description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
           type: array
@@ -9302,21 +9320,22 @@ servers:
         prompt:
           description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
           type: string
+        reference_image_urls:
+          description: 参照画像URLリスト（最大4）。Fal へ reference_image_urls として送信。start_image_url と併用可。legacy input_image_urls がある場合はこの後に結合される。
+          type: array
         shot_type:
           description: 'マルチショット動画生成のタイプ（multi_prompt使用時必須）。指定可能な値: customize (デフォルト: customize)'
           type: string
         start_image_url:
-          description: 動画に使用する画像のURL（必須）
+          description: 動画の開始フレーム画像URL。reference_image_urls と併用可。いずれか（または両方）で画像入力が必要。
           type: string
         voice_ids:
           description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
           type: array
-      required:
-      - start_image_url
       type: object
 - id: i2v-kamui-kling-video-v3-standard
   status: online
-  last_checked: '2026-04-06T09:31:31.926434+00:00'
+  last_checked: '2026-04-19T13:44:02.493305+00:00'
   tools:
   - name: kling_video_v3_standard_image_to_video_result
     description: Kling Video V3 Standard Image-to-Videoリクエストの結果を取得します。
@@ -9339,7 +9358,8 @@ servers:
       - request_id
       type: object
   - name: kling_video_v3_standard_image_to_video_submit
-    description: Kling Video V3 Standard Image-to-Videoを使用して画像から動画を生成します。
+    description: Kling Video V3 Standard Image-to-Videoを使用して画像から動画を生成します。start_image_url と reference_image_urls（最大4、legacy
+      input_image_urls は結合可）を併用できます。要素ごとの参照は elements[].reference_image_urls。
     inputSchema:
       properties:
         aspect_ratio:
@@ -9352,7 +9372,8 @@ servers:
           description: '動画の長さ（秒）。指定可能な値: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 (デフォルト: 5)'
           type: string
         elements:
-          description: 動画に含める要素（キャラクター/オブジェクト）。各要素は画像セット（正面+参照画像）または動画。プロンプト内で@Element1、@Element2などで参照
+          description: '任意: KlingV3ComboElementInput の配列。画像要素例: {"frontal_image_url":"...","reference_image_urls":["url1","url2"]}（reference_image_urls
+            は複数URL可）。動画要素例: {"video_url":"..."}。プロンプトで @Element1, @Element2 と参照'
           type: array
         end_image_url:
           description: 動画の終了画像URL
@@ -9360,6 +9381,9 @@ servers:
         generate_audio:
           description: '動画のネイティブ音声を生成するかどうか（デフォルト: true）'
           type: boolean
+        input_image_urls:
+          description: 'レガシー別名: reference_image_urls の後に結合（合計最大4）。start_image_url と併用可。'
+          type: array
         multi_prompt:
           description: マルチショット動画生成のためのプロンプトリスト（promptまたはmulti_promptのどちらか一方が必須）
           type: array
@@ -9369,17 +9393,18 @@ servers:
         prompt:
           description: 動画生成のためのテキストプロンプト（promptまたはmulti_promptのどちらか一方が必須）
           type: string
+        reference_image_urls:
+          description: 参照画像URLリスト（最大4）。Fal へ reference_image_urls として送信。start_image_url と併用可。legacy input_image_urls がある場合はこの後に結合される。
+          type: array
         shot_type:
           description: 'マルチショット動画生成のタイプ（multi_prompt使用時必須）。指定可能な値: customize (デフォルト: customize)'
           type: string
         start_image_url:
-          description: 動画に使用する画像のURL（必須）
+          description: 動画の開始フレーム画像URL。reference_image_urls と併用可。いずれか（または両方）で画像入力が必要。
           type: string
         voice_ids:
           description: 動画生成のためのオプショナルなボイスID（最大2つ）。プロンプト内で<<<voice_1>>>と<<<voice_2>>>で参照
           type: array
-      required:
-      - start_image_url
       type: object
 - id: i2v-kamui-longcat-video-480p
   status: online
