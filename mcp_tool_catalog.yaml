@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-04-19T13:44:54.466529+00:00'
-  total_servers: 412
-  online_servers: 410
+  generated_at: '2026-04-20T13:51:43.575291+00:00'
+  total_servers: 414
+  online_servers: 412
   offline_servers: 0
   error_servers: 2
 servers:
@@ -19120,6 +19120,72 @@ servers:
       - script
       - speaker
       type: object
+- id: t2s-kamui-fal-gemini-3-1-flash-tts
+  status: online
+  last_checked: '2026-04-20T13:51:32.617604+00:00'
+  tools:
+  - name: gemini_3_1_flash_tts_result
+    description: Get result of completed fal-ai/gemini-3.1-flash-tts request. Returns Fal JSON with audio file URL.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from gemini_3_1_flash_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gemini_3_1_flash_tts_status
+    description: Check status of fal-ai/gemini-3.1-flash-tts request by request_id. Returns Fal JSON (HTTP 202 while queued
+      is normal).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from gemini_3_1_flash_tts_submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: gemini_3_1_flash_tts_submit
+    description: Submit Fal.ai Google Gemini 3.1 Flash TTS (fal-ai/gemini-3.1-flash-tts). Next-gen speech with expressive
+      audio tags ([sigh], [laughing], [whispering], [short pause]), multi-speaker dialogue, style_instructions, voice (30
+      presets; default Kore), language_code, speakers JSON array (voice + speaker_id), temperature (default 1), output_format
+      (mp3, wav, ogg_opus), optional webhook_url. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        language_code:
+          description: Optional language for multilingual synthesis (e.g. English (US), Japanese (Japan)). Omit for auto-detection
+            from text.
+          type: string
+        output_format:
+          default: mp3
+          description: 'Audio format: mp3, wav, or ogg_opus.'
+          type: string
+        prompt:
+          description: Text to convert to speech. Inline delivery instructions and audio tags supported; for multi-speaker,
+            prefix lines with speaker_id aliases when speakers is set.
+          type: string
+        speakers:
+          description: 'Optional JSON array string for multi-speaker mode: [{"voice":"Charon","speaker_id":"Host"},...]. Clients
+            may also pass a native JSON array when supported.'
+          type: string
+        style_instructions:
+          description: Optional style and delivery instructions prepended to the prompt (accent, pace, tone, emotion).
+          type: string
+        temperature:
+          default: 1
+          description: Randomness of delivery; default 1 per API.
+          type: number
+        voice:
+          default: Kore
+          description: 'Voice preset for single-speaker mode (ignored when speakers is set). API VoiceEnum: Achernar, Kore,
+            Puck, Charon, Zephyr, Aoede, etc.'
+          type: string
+        webhook_url:
+          description: Optional webhook URL for async completion notifications.
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2s-kamui-fal-gemini-tts
   status: online
   last_checked: '2026-04-06T09:32:13.779132+00:00'
@@ -20225,6 +20291,75 @@ servers:
         resolution:
           default: 720p
           description: 'Video resolution preset. Possible values: 360p, 480p, 540p, 720p, 1080p. Default: 720p.'
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2v-kamui-fal-heygen-v3-video-agent
+  status: online
+  last_checked: '2026-04-20T13:51:38.363148+00:00'
+  tools:
+  - name: heygen_v3_video_agent_result
+    description: Get result of completed Fal.ai HeyGen v3 Video Agent generation (output includes video URL in Fal JSON).
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v3_video_agent_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v3_video_agent_status
+    description: Check status of Fal.ai HeyGen v3 Video Agent generation using request ID.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        request_id:
+          description: Request ID returned by heygen_v3_video_agent_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_v3_video_agent_submit
+    description: Submit Fal.ai HeyGen v3 Video Agent text-to-video request. Supports natural language prompt, optional style_id
+      from /v3/video-agent/styles, avatar and voice (or auto), orientation (landscape or portrait), file attachments (images,
+      videos, audio, PDFs, up to 20 URLs), and incognito_mode. Returns raw Fal queue JSON.
+    inputSchema:
+      properties:
+        api_key:
+          description: Optional Fal.ai API key. If omitted, FAL_API_KEY environment variable is used.
+          type: string
+        avatar:
+          default: auto
+          description: Avatar to use, or 'auto' for agent selection. Must be a value from Fal HeyGen v3 Video Agent AvatarEnum
+            (see API documentation for the full list).
+          type: string
+        file_urls:
+          description: Optional list of public URLs for assets to include (images, videos, audio, PDFs). Maximum 20 files
+            per API.
+          type: array
+        incognito_mode:
+          description: When true, disables the agent memory functions.
+          type: boolean
+        orientation:
+          description: 'Video orientation: landscape or portrait. Omit to auto-detect from the prompt.'
+          type: string
+        prompt:
+          description: Natural language prompt describing the video to generate. The agent handles avatar selection, script,
+            and production automatically.
+          type: string
+        style_id:
+          description: Optional style template ID from the Fal /v3/video-agent/styles endpoint.
+          type: string
+        voice:
+          default: auto
+          description: Voice for narration, or 'auto' for agent selection. Must be a value from Fal HeyGen v3 Video Agent
+            VoiceEnum (see API documentation).
           type: string
       required:
       - prompt
