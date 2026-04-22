@@ -256,6 +256,10 @@ ai_models:
       server_name: t2i-kamui-fal-patina-material
       release_date: 2026年4月10日
       features: "(fal.ai) テキストや画像からシームレスにタイリング可能なPBRマテリアル（ベースカラー、ノーマル、ラフネス、メタルネス、ハイトマップ）を最大8K解像度で生成できるモデル。画像からのバリエーション生成やインペイントにも対応している。"
+    - name: OpenAI GPT Image 2
+      server_name: t2i-kamui-fal-openai-gpt-image-2
+      release_date: 2026年4月21日
+      features: "(OpenAI) 最大約4Kまでの柔軟な解像度に対応する次世代の画像生成モデル（アルファ版）。高精度なテキスト描画や優れたプロンプト追従性を備え、テキストを多用する複雑な画像生成に最適です。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -569,6 +573,10 @@ ai_models:
       server_name: i2i-kamui-ideogram-v3-layerize-text
       release_date: 2026年4月7日
       features: "(Ideogram) 画像内のテキストを背景から分離し、編集可能なテキストレイヤーとして抽出するモデル。テキストを除去した背景画像と、フォントや配置情報を含む構造化データ（JSONやHTML）を出力し、画像を再生成することなくテキストの編集や翻訳、フォントの変更等が可能。"
+    - name: OpenAI GPT Image 2 Edit
+      server_name: i2i-kamui-fal-openai-gpt-image-2-edit
+      release_date: 2026年4月21日
+      features: "(OpenAI) 自然言語による指示と参照画像を用いて、高品質な画像編集を行うモデル。プロンプトのみでの全体的なスタイル・被写体の変更から、マスク画像を用いた精緻な部分編集（インペイント）まで対応し、指定外の領域をそのまま維持して編集することが可能。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
