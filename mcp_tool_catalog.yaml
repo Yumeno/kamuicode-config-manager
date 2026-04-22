@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-04-20T13:51:43.575291+00:00'
-  total_servers: 414
-  online_servers: 412
+  generated_at: '2026-04-22T11:02:50.761421+00:00'
+  total_servers: 416
+  online_servers: 414
   offline_servers: 0
   error_servers: 2
 servers:
@@ -2532,6 +2532,80 @@ servers:
           default: false
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      - image_urls
+      type: object
+- id: i2i-kamui-fal-openai-gpt-image-2-edit
+  status: online
+  last_checked: '2026-04-22T11:02:47.299708+00:00'
+  tools:
+  - name: openai_gpt_image_2_edit_result
+    description: Get the result of a completed OpenAI GPT Image 2 Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openai_gpt_image_2_edit_status
+    description: Check the status of an OpenAI GPT Image 2 Edit request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openai_gpt_image_2_edit_submit
+    description: Submit OpenAI GPT Image 2 Edit (fal openai/gpt-image-2/edit) image-to-image request. Reference images via
+      image_urls; optional mask_url and BYOK openai_api_key.
+    inputSchema:
+      properties:
+        image_height:
+          description: Optional. Custom height in pixels (use with image_width). When set with image_width, overrides image_size
+            preset.
+          type: number
+        image_size:
+          default: auto
+          description: 'Preset: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9, auto (default:
+            auto). Ignored if image_width and image_height are both set.'
+          type: string
+        image_urls:
+          description: URLs of input images (list of strings); also accepts base64 data URIs per Fal docs
+          type: array
+        image_width:
+          description: Optional. Custom width in pixels (use with image_height). When set with image_height, overrides image_size
+            preset.
+          type: number
+        mask_url:
+          description: Optional. URL of mask image indicating region to edit
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        openai_api_key:
+          description: Optional. Your OpenAI API key for BYOK on Fal
+          type: string
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, or webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt for image generation / editing
+          type: string
+        quality:
+          default: high
+          description: 'Quality: low, medium, or high (default: high)'
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and not stored in request history (default: false)'
           type: boolean
       required:
       - prompt
@@ -14989,6 +15063,73 @@ servers:
           default: false
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history (default: false)'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-openai-gpt-image-2
+  status: online
+  last_checked: '2026-04-22T11:02:47.211476+00:00'
+  tools:
+  - name: openai_gpt_image_2_t2i_result
+    description: Get the result of a completed OpenAI GPT Image 2 T2I request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openai_gpt_image_2_t2i_status
+    description: Check the status of an OpenAI GPT Image 2 T2I request.
+    inputSchema:
+      properties:
+        request_id:
+          description: The request ID returned from the submit request
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: openai_gpt_image_2_t2i_submit
+    description: Submit OpenAI GPT Image 2 (fal openai/gpt-image-2) text-to-image request. Supports up to 4K-style resolutions
+      and optional BYOK (openai_api_key).
+    inputSchema:
+      properties:
+        image_height:
+          description: Optional. Custom height in pixels (use with image_width). When set with image_width, overrides image_size
+            preset.
+          type: number
+        image_size:
+          default: landscape_4_3
+          description: 'Preset: square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9 (default: landscape_4_3).
+            Ignored if image_width and image_height are both set.'
+          type: string
+        image_width:
+          description: Optional. Custom width in pixels (use with image_height; multiples of 16, max edge 3840). When set
+            with image_height, overrides image_size preset.
+          type: number
+        num_images:
+          default: 1
+          description: 'Number of images to generate (default: 1)'
+          type: number
+        openai_api_key:
+          description: Optional. Your OpenAI API key for BYOK (bring your own key) on Fal
+          type: string
+        output_format:
+          default: png
+          description: 'Output format: jpeg, png, or webp (default: png)'
+          type: string
+        prompt:
+          description: The prompt for image generation
+          type: string
+        quality:
+          default: high
+          description: 'Quality: low, medium, or high (default: high)'
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as data URI and not stored in request history (default: false)'
           type: boolean
       required:
       - prompt
