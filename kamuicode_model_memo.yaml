@@ -786,6 +786,14 @@ ai_models:
       server_name: t2v-kamui-fal-heygen-v3-video-agent
       release_date: 2026年3月2日
       features: "(HeyGen) 自然言語のプロンプトからビデオを自律的に生成するエージェントAPI。アバターの選択、スクリプト作成、シーン構成から音声生成までを自動で行い、画像や音声、PDFなど最大20個のファイル添付やスタイル指定にも対応する。"
+    - name: Kling Video O3 4K Text-to-Video
+      server_name: t2v-kamui-kling-video-o3-4k
+      release_date: 2026年4月23日
+      features: "(Kuaishou) Kuaishouが開発した「Kling 3.0 Omni (O3)」アーキテクチャによる、ネイティブ4K解像度のテキストベース動画生成モデル。アップスケーリングに頼らない高品質な4K動画を直接生成でき、ネイティブ音声の同期生成にも対応しています。3〜15秒の動画生成が可能で、複数プロンプトを用いたシーン遷移やアスペクト比、カメラワーク（shot_type）の指定をサポートしています。"
+    - name: Kling Video V3 4K Text-to-Video
+      server_name: t2v-kamui-kling-video-v3-4k
+      release_date: 2026年2月4日
+      features: "(Kuaishou) テキストからV3の4Kモードで動画を生成。超高解像度・マルチショット・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt または multi_prompt、duration(3-15s)、generate_audio、shot_type（customize/intelligent）、aspect_ratio（16:9/9:16/1:1）、negative_prompt、cfg_scale。FalのJSONをそのまま返す。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -1044,6 +1052,18 @@ ai_models:
       server_name: i2v-kamui-pixverse-c1
       release_date: 2026年4月7日
       features: "(PixVerse) 映画やプロの映像制作向けに特化して構築されたAI動画生成モデル。物理法則に基づいたアクションシミュレーションや高度なVFXを強みとし、1080p解像度で最長15秒の動画をネイティブ音声（BGMや効果音など）付きで生成可能。画像を初期フレームとして、複雑なアクションやダイナミックなカメラワークを伴う高品質な映像を作成できます。"
+    - name: Alibaba Happy Horse Image-to-Video v1.0
+      server_name: i2v-kamui-alibaba-happy-horse-v1-0
+      release_date: 2026年4月27日
+      features: "(Alibaba) 静止画から高品質な動画を生成するAIモデル。初期画像とオプションのプロンプトから、同期した音声（環境音やリップシンクなど）を含む動画を生成可能です。720pまたは1080pの解像度で3〜15秒のアニメーションを出力でき、元画像の被写体や構図を維持したまま自然な動きを付与します。"
+    - name: Kling Video O3 4K
+      server_name: i2v-kamui-kling-video-o3-4k
+      release_date: 2026年2月4日
+      features: "(Kuaishou) 開始画像からO3の4Kモードで動画を生成。超高解像度・開始/終了フレーム・ネイティブ音声。4Kはシンガポールサーバーのみ。"
+    - name: Kling Video V3 4K Image-to-Video
+      server_name: i2v-kamui-kling-video-v3-4k
+      release_date: 2026年2月5日
+      features: "(Kuaishou) Kling Video V3 4K Image-to-Video（fal-ai/kling-video/v3/4k/image-to-video）— 開始画像からV3の4Kモードで動画を生成。超高解像度・マルチショット・要素(elements)・終了フレーム・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt または multi_prompt、start_image_url、duration(3-15s)、generate_audio、end_image_url、elements、shot_type、negative_prompt、cfg_scale。FalのJSONをそのまま返す。Kamui Code ⭐⭐⭐"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1257,6 +1277,10 @@ ai_models:
       server_name: v2v-kamui-kling-video-o3-pro-edit
       release_date: 2026年2月9日
       features: "(Kuaishou) Kling O3（Omni）アーキテクチャを採用した高性能なVideo-to-Video編集モデル。元動画のモーションや被写体の一貫性を保ちながら、テキストプロンプトや参照画像を用いた高度なスタイル変換、オブジェクトの変更、シーン全体の再構築などが可能。"
+    - name: Alibaba Happy Horse Video-Edit v1.0
+      server_name: v2v-kamui-alibaba-happy-horse-video-edit-v1-0
+      release_date: 2026年4月27日
+      features: "(Alibaba) 入力動画をプロンプトで編集。video_url・prompt 必須（prompt 最大2500文字、@Image1〜@Image5で参照画像指定可）。任意: reference_image_urls（最大5、JPEG/JPG/PNG/WEBP）、resolution 720p|1080p（既定1080p）、audio_setting auto|origin（既定auto）、seed、enable_safety_checker（既定true）、webhook_url。FalのJSONをそのまま返す。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1358,6 +1382,14 @@ ai_models:
       server_name: r2v-kamui-vidu-q3-reference-to-video-mix
       release_date: 2026年4月13日
       features: "(ShengShu Technology) 1〜4枚の参照画像とテキストプロンプトから、複数キャラクターの一貫性を保ったシネマティックな動画を生成するモデル。解像度最大1080p、最長16秒の出力に対応し、環境音やセリフなどの音声も同時に生成可能。"
+    - name: Happy Horse 1.0 Reference-to-Video
+      server_name: r2v-kamui-alibaba-happy-horse-v1-0
+      release_date: 2026年4月27日
+      features: "(Alibaba) 1〜9枚の参照画像とテキストプロンプトから動画を生成するモデル。プロンプト内でcharacter1〜9を指定して画像の順序と対応させることで、被写体の一貫性を保った描写が可能。1080pの高解像度や同期したネイティブ音声の生成にも対応する。"
+    - name: Kling Video O3 4K Reference-to-Video
+      server_name: r2v-kamui-kling-video-o3-4k
+      release_date: 2026年4月23日
+      features: "(Kuaishou) 参照画像や要素を指定してKling O3モデルで動画を生成するネイティブ4K対応エンドポイント。アップスケーリング不要で最初から4K（3840×2160）でレンダリングされ、一貫性を保った映画レベルの高精細な映像を最大15秒出力可能。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
@@ -1551,6 +1583,14 @@ ai_models:
       server_name: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
       release_date: 2026年1月9日
       features: "(ElevenLabs) 99言語対応の高精度音声文字起こしモデル。単語レベルのタイムスタンプ、話者ダイアライゼーション、多言語音声の自動言語検出に対応。"
+    - name: xAI Speech-to-Text v1
+      server_name: a2t-kamui-xai-speech-to-text-v1
+      release_date: 2026年4月17日
+      features: "(xAI) 25言語に対応する高精度な音声認識モデル。話者分離（ダイアライゼーション）、単語レベルのタイムスタンプ、数値や日付の自動フォーマット整形（ITN）、マルチチャネル音声入力に対応し、多様な音声フォーマットをサポートする。"
+    - name: Cohere Transcribe
+      server_name: a2t-kamui-cohere-transcribe
+      release_date: 2026年3月26日
+      features: "(Cohere) Cohereが開発した20億パラメータのオープンソース音声認識（ASR）モデル。英語や日本語など14言語の文字起こしに対応する。同等サイズのモデルと比較して高い推論速度と高い認識精度を実現しており、音声データから正確なテキストとタイムスタンプを出力できる。"
   text_to_visual:
     - name: Napkin AI
       server_name: t2visual-kamui-napkin
@@ -1621,6 +1661,10 @@ ai_models:
       server_name: i2i3d-kamui-reconviagen-0-5
       release_date: 2025年9月頃
       features: "(GAP-LAB) 複数視点（マルチビュー）の画像から高精度なテクスチャ付き3Dモデル（GLB形式）を生成するモデル。拡散モデルを用いて見えない部分の形状を自然に補完し、全体構造や細部のテクスチャの一貫性を保った3D再構築を実現する。解像度やテクスチャサイズなどの詳細な制御が可能。"
+    - name: Meshy V6 Multi-Image-to-3D
+      server_name: i2i3d-kamui-meshy-v6-multi-image-to-3d
+      release_date: 2026年1月26日
+      features: "(Meshy) 同一物体の1–4枚の画像から高品質（Meshy-6相当）な3Dモデルを生成できるモデル。トポロジ設定、ポリゴン数指定、シンメトリ、PBR対応、リギングやアニメーション付与など多彩なオプションを備える。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
