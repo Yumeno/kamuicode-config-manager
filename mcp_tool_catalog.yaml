@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-04-22T11:02:50.761421+00:00'
-  total_servers: 416
-  online_servers: 414
+  generated_at: '2026-04-28T14:04:16.267491+00:00'
+  total_servers: 428
+  online_servers: 426
   offline_servers: 0
   error_servers: 2
 servers:
@@ -256,6 +256,54 @@ servers:
       - audio_url
       - prompt
       type: object
+- id: a2t-kamui-cohere-transcribe
+  status: online
+  last_checked: '2026-04-28T14:04:11.627185+00:00'
+  tools:
+  - name: cohere_transcribe_result
+    description: Get Cohere Transcribe result (transcribed text and timings). Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: cohere_transcribe_status
+    description: Check Cohere Transcribe queue status. HTTP 202 means accepted/in progress (not an error). Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: cohere_transcribe_submit
+    description: Submit Fal.ai Cohere Transcribe (fal-ai/cohere-transcribe) to transcribe audio from a URL. Supports mp3,
+      mp4, mpeg, mpga, m4a, wav, webm, ogg, flac. Returns Fal queue JSON.
+    inputSchema:
+      properties:
+        audio_url:
+          description: Public URL of the audio file to transcribe
+          type: string
+        language:
+          description: 'ISO 639-1 language code: en, fr, de, it, es, pt, el, nl, pl, zh, ja, ko, vi, ar. Omit for API default
+            (en).'
+          type: string
+        max_new_tokens:
+          description: Max tokens per audio chunk. Omit for API default (256).
+          type: number
+        punctuation:
+          description: Include punctuation and capitalization. Omit for API default (true).
+          type: boolean
+        webhook_url:
+          description: Optional webhook URL for async completion notification.
+          type: string
+      required:
+      - audio_url
+      type: object
 - id: a2t-kamui-elevenlabs-speech-to-text-scribe-v2
   status: online
   last_checked: '2026-04-06T09:32:01.094041+00:00'
@@ -339,6 +387,59 @@ servers:
         audio_url:
           description: The URL of the audio file to analyze for speech detection. Supports publicly accessible URLs or Base64
             data URIs.
+          type: string
+      required:
+      - audio_url
+      type: object
+- id: a2t-kamui-xai-speech-to-text-v1
+  status: online
+  last_checked: '2026-04-28T14:04:10.597231+00:00'
+  tools:
+  - name: xai_speech_to_text_v1_result
+    description: Get xAI Speech-to-Text v1 result (text, language, duration, words, optional channels). Returns Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: xai_speech_to_text_v1_status
+    description: Check xAI Speech-to-Text v1 queue status. HTTP 202 means accepted/in progress (not an error). Returns Fal
+      JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: xai_speech_to_text_v1_submit
+    description: 'Submit Fal.ai xAI Speech-to-Text v1 (xai/speech-to-text/v1). Transcribe audio from URL. Formats: mp3, wav,
+      ogg, opus, flac, aac, mp4, m4a, mkv. Optional diarization, ITN (format), multichannel. Returns Fal queue JSON.'
+    inputSchema:
+      properties:
+        audio_url:
+          description: Public URL of the audio file to transcribe
+          type: string
+        diarize:
+          description: Enable speaker diarization (word-level speaker index). Omit for API default (false).
+          type: boolean
+        format:
+          description: Inverse Text Normalization (punctuation, capitalization). Disabled when language=auto. Omit for API
+            default (true).
+          type: boolean
+        language:
+          description: 'BCP-47 code or auto: auto, ar, cs, da, de, en, es, fa, fil, fr, hi, id, it, ja, ko, mk, ms, nl, pl,
+            pt, ro, ru, sv, th, tr, vi. Omit for API default (auto).'
+          type: string
+        multichannel:
+          description: Transcribe each channel independently (channels array in output). Omit for API default (false).
+          type: boolean
+        webhook_url:
+          description: Optional webhook URL for async completion notification.
           type: string
       required:
       - audio_url
@@ -7242,6 +7343,91 @@ servers:
       required:
       - image_urls
       type: object
+- id: i2i3d-kamui-meshy-v6-multi-image-to-3d
+  status: online
+  last_checked: '2026-04-28T14:04:11.607829+00:00'
+  tools:
+  - name: meshy_v6_multi_image_to_3d_result
+    description: Get completed Meshy V6 Multi-Image-to-3D result as raw Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: meshy_v6_multi_image_to_3d_status
+    description: Check status of Meshy V6 Multi-Image-to-3D using request_id.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: meshy_v6_multi_image_to_3d_submit
+    description: Submit Meshy-6 Multi-Image-to-3D request (1-4 images of the same object). Meshy-6 quality; processing about
+      5–10 minutes.
+    inputSchema:
+      properties:
+        animation_action_id:
+          default: 1001
+          description: 'Meshy animation preset ID when enable_animation is true (default: 1001)'
+          type: number
+        enable_animation:
+          description: Apply animation preset. Requires enable_rigging=true
+          type: boolean
+        enable_pbr:
+          description: PBR maps (metallic, roughness, normal). Requires should_texture=true
+          type: boolean
+        enable_rigging:
+          description: Auto rig as humanoid (walking/running). Best with clear limbs
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'Safety check on inputs (default: true)'
+          type: boolean
+        image_urls:
+          description: 1–4 image URLs or base64 data URIs (same object, different angles). Only the first 4 are used.
+          type: array
+        pose_mode:
+          description: a-pose | t-pose | omit for none (default empty)
+          type: string
+        rigging_height_meters:
+          default: 1.7
+          description: 'Character height in meters when enable_rigging is true (default: 1.7)'
+          type: number
+        should_remesh:
+          default: true
+          description: 'Enable remesh phase (default: true)'
+          type: boolean
+        should_texture:
+          default: true
+          description: 'Generate textures (default: true)'
+          type: boolean
+        symmetry_mode:
+          default: auto
+          description: 'off | auto | on (default: auto)'
+          type: string
+        target_polycount:
+          default: 30000
+          description: 'Target polygon count (default: 30000)'
+          type: number
+        texture_image_url:
+          description: 2D image URL to guide texturing. Requires should_texture=true
+          type: string
+        texture_prompt:
+          description: Text to guide texturing. Requires should_texture=true
+          type: string
+        topology:
+          default: triangle
+          description: 'quad (smooth) or triangle (detailed). Default: triangle'
+          type: string
+      required:
+      - image_urls
+      type: object
 - id: i2i3d-kamui-meshy-v6-preview-image-to-3d
   status: online
   last_checked: '2026-04-06T09:31:37.111269+00:00'
@@ -7666,6 +7852,63 @@ servers:
         texture_seed:
           description: Random seed for texture generation
           type: number
+      required:
+      - image_url
+      type: object
+- id: i2v-kamui-alibaba-happy-horse-v1-0
+  status: online
+  last_checked: '2026-04-28T14:04:11.315442+00:00'
+  tools:
+  - name: alibaba_happy_horse_image_to_video_result
+    description: Get result JSON for completed Alibaba Happy Horse Image-to-Video (video file URL, seed, etc.). Returns Fal
+      JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_image_to_video_status
+    description: Check status of Alibaba Happy Horse Image-to-Video by request_id. Returns Fal queue status JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_image_to_video_submit
+    description: 'Submit Fal.ai Alibaba Happy Horse Image-to-Video (alibaba/happy-horse/image-to-video). Animate a still image;
+      first frame from image_url. Required: image_url (JPEG/PNG/BMP/WEBP, min 300px sides, aspect 1:2.5–2.5:1, max 10MB).
+      Optional: prompt (max 2500 chars), resolution 720p|1080p (API default 1080p), duration 3–15 seconds (API default 5),
+      seed, enable_safety_checker (API default true), webhook_url. Returns Fal queue JSON as text.'
+    inputSchema:
+      properties:
+        duration:
+          description: Output length in seconds; integer 3–15 (API default 5 if omitted)
+          type: number
+        enable_safety_checker:
+          default: true
+          description: Content moderation for input and output (API default true)
+          type: boolean
+        image_url:
+          description: URL of the first-frame image (public URL or Fal storage)
+          type: string
+        prompt:
+          description: Optional text guiding animation (max 2500 characters)
+          type: string
+        resolution:
+          description: 720p or 1080p (API default 1080p if omitted)
+          type: string
+        seed:
+          description: Optional random seed (0–2147483647)
+          type: number
+        webhook_url:
+          description: Optional webhook URL for async completion notification
+          type: string
       required:
       - image_url
       type: object
@@ -9083,6 +9326,59 @@ servers:
       - start_image_url
       - end_image_url
       type: object
+- id: i2v-kamui-kling-video-o3-4k
+  status: online
+  last_checked: '2026-04-28T14:04:11.802751+00:00'
+  tools:
+  - name: kling_video_o3_4k_image_to_video_result
+    description: Kling Video O3 4K Image-to-Video リクエストの結果を取得する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_image_to_video_status
+    description: Kling Video O3 4K Image-to-Video リクエストのステータスを確認する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_image_to_video_submit
+    description: Kling Video O3 4K Image-to-Video（fal-ai/kling-video/o3/4k/image-to-video）。開始画像からO3の4Kモードで動画を生成。超高解像度・開始/終了フレーム・ネイティブ音声。4Kはシンガポールリージョンのみ。prompt
+      または multi_prompt、image_url、end_image_url、generate_audio、duration(3-15s)、shot_type（デフォルト customize）
+    inputSchema:
+      properties:
+        duration:
+          description: '秒数: 3〜15（文字列。デフォルト5）'
+          type: string
+        end_image_url:
+          description: 終了フレーム画像のURL（任意）
+          type: string
+        generate_audio:
+          description: ネイティブ音声を生成するか
+          type: boolean
+        image_url:
+          description: 開始フレーム画像のURL
+          type: string
+        multi_prompt:
+          description: マルチショット用プロンプト配列（prompt または multi_prompt のどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のテキストプロンプト（prompt または multi_prompt のどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット種別: customize（デフォルト: customize）'
+          type: string
+      required:
+      - image_url
+      type: object
 - id: i2v-kamui-kling-video-o3-pro
   status: online
   last_checked: '2026-04-19T13:44:41.520125+00:00'
@@ -9333,6 +9629,69 @@ servers:
       required:
       - prompt
       - image_url
+      type: object
+- id: i2v-kamui-kling-video-v3-4k
+  status: online
+  last_checked: '2026-04-28T14:04:12.106628+00:00'
+  tools:
+  - name: kling_video_v3_4k_image_to_video_result
+    description: Kling Video V3 4K Image-to-Video リクエストの結果を取得する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_4k_image_to_video_status
+    description: Kling Video V3 4K Image-to-Video リクエストのステータスを確認する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_4k_image_to_video_submit
+    description: Kling Video V3 4K Image-to-Video（fal-ai/kling-video/v3/4k/image-to-video）。開始画像からV3の4Kモードで動画を生成。超高解像度・マルチショット・要素(elements)・終了フレーム・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt
+      または multi_prompt、start_image_url、duration(3-15s)、generate_audio、end_image_url、elements、shot_type（デフォルト customize）、negative_prompt、cfg_scale。FalのJSONをそのまま返す。
+    inputSchema:
+      properties:
+        cfg_scale:
+          description: 'CFGスケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '秒数: 3〜15（文字列。デフォルト5）'
+          type: string
+        elements:
+          description: KlingV3ComboElementInput の配列。プロンプトで @Element1, @Element2 等で参照
+          type: array
+        end_image_url:
+          description: 終了フレーム画像のURL（任意）
+          type: string
+        generate_audio:
+          description: 'ネイティブ音声を生成するか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット用プロンプト配列（prompt または multi_prompt のどちらか一方が必須）。multi_prompt 使用時は shot_type が必要（未指定時は customize
+            がデフォルト）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のテキストプロンプト（prompt または multi_prompt のどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット種別: customize, intelligent（デフォルト: customize）'
+          type: string
+        start_image_url:
+          description: 動画の開始フレーム画像URL（必須）
+          type: string
+      required:
+      - start_image_url
       type: object
 - id: i2v-kamui-kling-video-v3-pro
   status: online
@@ -11849,6 +12208,68 @@ servers:
       - prompt
       - reference_image_urls
       type: object
+- id: r2v-kamui-alibaba-happy-horse-v1-0
+  status: online
+  last_checked: '2026-04-28T14:04:11.273345+00:00'
+  tools:
+  - name: alibaba_happy_horse_reference_to_video_result
+    description: Get result JSON for completed Alibaba Happy Horse Reference-to-Video (video file URL, seed, etc.). Returns
+      Fal JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_reference_to_video_status
+    description: Check status of Alibaba Happy Horse Reference-to-Video by request_id. Returns Fal queue status JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_reference_to_video_submit
+    description: 'Submit Fal.ai Alibaba Happy Horse Reference-to-Video (alibaba/happy-horse/reference-to-video). Generate
+      video from 1–9 reference images; use character1…character9 in prompt in image order. Required: prompt (max 2500 chars),
+      image_urls (1–9 public URLs; JPEG/JPG/PNG/WEBP, shortest side ≥400px recommended 720p+, max 10MB each). Optional: aspect_ratio
+      16:9|9:16|1:1|4:3|3:4 (API default 16:9), resolution 720p|1080p (API default 1080p), duration 3–15 seconds int (API
+      default 5), seed, enable_safety_checker (API default true), webhook_url. Returns Fal queue JSON as text.'
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 16:9, 9:16, 1:1, 4:3, or 3:4 (API default 16:9 if omitted)
+          type: string
+        duration:
+          description: Output length in seconds; integer 3–15 (API default 5 if omitted)
+          type: number
+        enable_safety_checker:
+          default: true
+          description: Content moderation for input and output (API default true)
+          type: boolean
+        image_urls:
+          description: 1–9 reference image URLs (public or Fal storage)
+          type: array
+        prompt:
+          description: Text prompt; reference subjects as character1, character2, … matching image_urls order (max 2500 characters)
+          type: string
+        resolution:
+          description: 720p or 1080p (API default 1080p if omitted)
+          type: string
+        seed:
+          description: Optional random seed (0–2147483647)
+          type: number
+        webhook_url:
+          description: Optional webhook URL for async completion notification
+          type: string
+      required:
+      - prompt
+      - image_urls
+      type: object
 - id: r2v-kamui-bytedance-dreamactor-v2
   status: online
   last_checked: '2026-04-06T09:31:26.693841+00:00'
@@ -12600,6 +13021,68 @@ servers:
           type: string
       required:
       - prompt
+      type: object
+- id: r2v-kamui-kling-video-o3-4k
+  status: online
+  last_checked: '2026-04-28T14:04:12.442122+00:00'
+  tools:
+  - name: kling_video_o3_4k_reference_to_video_result
+    description: Kling Video O3 4K Reference-to-Video リクエストの結果を取得する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_reference_to_video_status
+    description: Kling Video O3 4K Reference-to-Video リクエストのステータスを確認する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_reference_to_video_submit
+    description: Kling Video O3 4K Reference-to-Video（fal-ai/kling-video/o3/4k/reference-to-video）。参照・要素付きでO3の4Kモードで動画を生成。超高解像度。シンガポールリージョンのみ。prompt/multi_prompt、start_image_url、end_image_url、image_urls、elements、generate_audio、duration(3-15s)、shot_type、aspect_ratio。プロンプトは@Element1
+      / @Image1 形式で参照
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: '16:9, 9:16, 1:1（デフォルト: 16:9）'
+          type: string
+        duration:
+          description: '秒数: 3,4,5,6,7,8,9,10,11,12,13,14,15（デフォルト5）'
+          type: string
+        elements:
+          description: 要素（キャラクター/物体）。reference_image_urls, frontal_image_url 等。プロンプトで@Element1, @Element2 等。合計は上記と併せて最大7
+          type: array
+        end_image_url:
+          description: 最後のフレーム画像のURL（任意）
+          type: string
+        generate_audio:
+          description: ネイティブ音声を生成するか
+          type: boolean
+        image_urls:
+          description: スタイル/外観の参照画像URL。プロンプトで@Image1, @Image2 等。image_urls 本数 + elements 本数の合計は最大7
+          type: array
+        multi_prompt:
+          description: マルチショット用プロンプト配列（prompt または multi_prompt のどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のテキストプロンプト（prompt または multi_prompt のどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット種別: customize（デフォルト: customize）'
+          type: string
+        start_image_url:
+          description: 最初のフレーム画像のURL
+          type: string
+      required:
+      - start_image_url
       type: object
 - id: r2v-kamui-kling-video-o3-pro-reference-to-video
   status: online
@@ -19974,6 +20457,63 @@ servers:
       required:
       - text
       type: object
+- id: t2v-kamui-alibaba-happy-horse-v1-0
+  status: online
+  last_checked: '2026-04-28T14:04:10.736240+00:00'
+  tools:
+  - name: alibaba_happy_horse_text_to_video_result
+    description: Get result JSON for completed Alibaba Happy Horse Text-to-Video (video file URL, seed, etc.). Returns Fal
+      JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_text_to_video_status
+    description: Check status of Alibaba Happy Horse Text-to-Video by request_id. Returns Fal queue status JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_text_to_video_submit
+    description: 'Submit Fal.ai Alibaba Happy Horse Text-to-Video (alibaba/happy-horse/text-to-video). Generate video from
+      text (happyhorse-1.0-t2v). Required: prompt (max 2500 chars). Optional: aspect_ratio 16:9|9:16|1:1|4:3|3:4 (API default
+      16:9), resolution 720p|1080p (API default 1080p), duration integer 3–15 seconds (API default 5), seed (0–2147483647),
+      enable_safety_checker (API default true), webhook_url. Returns Fal queue JSON as text.'
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 16:9, 9:16, 1:1, 4:3, or 3:4 (API default 16:9 if omitted)
+          type: string
+        duration:
+          description: Output length in seconds; integer 3–15 (API default 5 if omitted)
+          type: number
+        enable_safety_checker:
+          default: true
+          description: Content moderation for input and output (API default true)
+          type: boolean
+        prompt:
+          description: Text prompt for the desired video (max 2500 characters)
+          type: string
+        resolution:
+          description: 720p or 1080p (API default 1080p if omitted)
+          type: string
+        seed:
+          description: Optional random seed (0–2147483647)
+          type: number
+        webhook_url:
+          description: Optional webhook URL for async completion notification
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2v-kamui-bytedance-seedance-v1-pro-fast
   status: online
   last_checked: '2026-04-06T09:31:27.949594+00:00'
@@ -21491,6 +22031,54 @@ servers:
       required:
       - prompt
       type: object
+- id: t2v-kamui-kling-video-o3-4k
+  status: online
+  last_checked: '2026-04-28T14:04:12.039388+00:00'
+  tools:
+  - name: kling_video_o3_4k_text_to_video_result
+    description: Kling Video O3 4K Text-to-Video リクエストの結果を取得する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_text_to_video_status
+    description: Kling Video O3 4K Text-to-Video リクエストのステータスを確認する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_o3_4k_text_to_video_submit
+    description: Kling Video O3 4K Text-to-Video（fal-ai/kling-video/o3/4k/text-to-video）。テキストからO3の4Kモードで動画を生成。超高解像度・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt
+      または multi_prompt、generate_audio、duration(3-15s)、aspect_ratio（16:9/9:16/1:1）、shot_type（デフォルト customize）
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'アスペクト比: 16:9, 9:16, 1:1（デフォルト: 16:9）'
+          type: string
+        duration:
+          description: '秒数: 3〜15（文字列。デフォルト5）'
+          type: string
+        generate_audio:
+          description: ネイティブ音声を生成するか
+          type: boolean
+        multi_prompt:
+          description: マルチショット用プロンプト配列（prompt または multi_prompt のどちらか一方が必須）
+          type: array
+        prompt:
+          description: 動画生成のテキストプロンプト（prompt または multi_prompt のどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット種別: customize（デフォルト: customize）'
+          type: string
+      type: object
 - id: t2v-kamui-kling-video-o3-pro
   status: online
   last_checked: '2026-04-06T09:32:10.587669+00:00'
@@ -21689,6 +22277,60 @@ servers:
           type: array
       required:
       - prompt
+      type: object
+- id: t2v-kamui-kling-video-v3-4k
+  status: online
+  last_checked: '2026-04-28T14:04:12.245193+00:00'
+  tools:
+  - name: kling_video_v3_4k_text_to_video_result
+    description: Kling Video V3 4K Text-to-Video リクエストの結果を取得する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_4k_text_to_video_status
+    description: Kling Video V3 4K Text-to-Video リクエストのステータスを確認する
+    inputSchema:
+      properties:
+        request_id:
+          description: リクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: kling_video_v3_4k_text_to_video_submit
+    description: Kling Video V3 4K Text-to-Video（fal-ai/kling-video/v3/4k/text-to-video）。テキストからV3の4Kモードで動画を生成。超高解像度・マルチショット・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt
+      または multi_prompt、duration(3-15s)、generate_audio、shot_type（customize/intelligent、デフォルト customize）、aspect_ratio（16:9/9:16/1:1）、negative_prompt、cfg_scale。FalのJSONをそのまま返す。
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: 'アスペクト比: 16:9, 9:16, 1:1（デフォルト: 16:9）'
+          type: string
+        cfg_scale:
+          description: 'CFGスケール（デフォルト: 0.5）'
+          type: number
+        duration:
+          description: '秒数: 3〜15（文字列。デフォルト5）'
+          type: string
+        generate_audio:
+          description: 'ネイティブ音声を生成するか（デフォルト: true）'
+          type: boolean
+        multi_prompt:
+          description: マルチショット用プロンプト配列（prompt または multi_prompt のどちらか一方が必須）
+          type: array
+        negative_prompt:
+          description: 'ネガティブプロンプト（デフォルト: blur, distort, and low quality）'
+          type: string
+        prompt:
+          description: 動画生成のテキストプロンプト（prompt または multi_prompt のどちらか一方が必須）
+          type: string
+        shot_type:
+          description: 'マルチショット種別: customize, intelligent（デフォルト: customize）'
+          type: string
       type: object
 - id: t2v-kamui-kling-video-v3-pro
   status: online
@@ -23833,6 +24475,68 @@ servers:
           type: string
       required:
       - video_path
+      type: object
+- id: v2v-kamui-alibaba-happy-horse-video-edit-v1-0
+  status: online
+  last_checked: '2026-04-28T14:04:11.109407+00:00'
+  tools:
+  - name: alibaba_happy_horse_video_edit_result
+    description: Get result JSON for completed Alibaba Happy Horse Video-Edit (output video URL, seed, etc.). Returns Fal
+      JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_video_edit_status
+    description: Check status of Alibaba Happy Horse Video-Edit by request_id. Returns Fal queue status JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID from submit response
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: alibaba_happy_horse_video_edit_submit
+    description: 'Submit Fal.ai Alibaba Happy Horse Video-Edit (alibaba/happy-horse/video-edit). Edit a source video with
+      a text prompt; optional reference images via @Image1…@Image5 in prompt. Required: video_url (MP4/MOV, H.264 recommended,
+      3–60 s, constraints per API), prompt (max 2500 chars). Optional: reference_image_urls (up to 5 JPEG/JPG/PNG/WEBP URLs),
+      resolution 720p|1080p (API default 1080p), audio_setting auto|origin (API default auto), seed (0–2147483647), enable_safety_checker
+      (API default true), webhook_url. Returns Fal queue JSON as text.'
+    inputSchema:
+      properties:
+        audio_setting:
+          description: 'auto or origin — auto: model may regenerate audio; origin: keep input audio (API default auto if omitted)'
+          type: string
+        enable_safety_checker:
+          default: true
+          description: Content moderation for input and output (API default true)
+          type: boolean
+        prompt:
+          description: Edit instruction (max 2500 characters); use @Image1…@Image5 for reference_image_urls order
+          type: string
+        reference_image_urls:
+          description: 'Optional: up to 5 reference image URLs (JPEG/JPG/PNG/WEBP; min 300px; max 10 MB each)'
+          type: array
+        resolution:
+          description: 720p or 1080p (API default 1080p if omitted)
+          type: string
+        seed:
+          description: Optional random seed (0–2147483647)
+          type: number
+        video_url:
+          description: URL of the source video to edit (MP4/MOV; 3–60 s; max 100 MB per API docs)
+          type: string
+        webhook_url:
+          description: Optional webhook URL for async completion notification
+          type: string
+      required:
+      - video_url
+      - prompt
       type: object
 - id: v2v-kamui-birefnet-v2-video
   status: online
