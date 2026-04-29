@@ -794,6 +794,10 @@ ai_models:
       server_name: t2v-kamui-kling-video-v3-4k
       release_date: 2026年2月4日
       features: "(Kuaishou) テキストからV3の4Kモードで動画を生成。超高解像度・マルチショット・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt または multi_prompt、duration(3-15s)、generate_audio、shot_type（customize/intelligent）、aspect_ratio（16:9/9:16/1:1）、negative_prompt、cfg_scale。FalのJSONをそのまま返す。"
+    - name: Happy Horse Text-to-Video v1.0
+      server_name: t2v-kamui-alibaba-happy-horse-v1-0
+      release_date: 2026年4月27日
+      features: "(Alibaba) テキストから動画を生成するモデル。最大2500文字のプロンプトから3〜15秒の動画を生成可能。解像度（720p/1080p）や複数のアスペクト比（16:9, 9:16, 1:1, 4:3, 3:4）の指定に対応し、動画と同期した音声の同時生成もサポートする。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
