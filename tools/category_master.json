@@ -134,6 +134,10 @@
     "i2v-sd2": {
       "category_key": "image_to_video",
       "description": "i2v-sd2から始まるモデルのカテゴリ (自動生成)"
+    },
+    "t2v-sd2": {
+      "category_key": "text_to_video",
+      "description": "t2v-sd2から始まるモデルのカテゴリ (自動生成)"
     }
   }
 }
