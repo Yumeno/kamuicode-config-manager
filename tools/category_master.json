@@ -130,6 +130,10 @@
     "v2char": {
       "category_key": "utility_and_analysis",
       "description": "v2charから始まるモデルのカテゴリ (自動生成)"
+    },
+    "i2v-sd2": {
+      "category_key": "image_to_video",
+      "description": "i2v-sd2から始まるモデルのカテゴリ (自動生成)"
     }
   }
 }
