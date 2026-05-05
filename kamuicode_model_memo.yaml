@@ -798,6 +798,14 @@ ai_models:
       server_name: t2v-kamui-alibaba-happy-horse-v1-0
       release_date: 2026年4月27日
       features: "(Alibaba) テキストから動画を生成するモデル。最大2500文字のプロンプトから3〜15秒の動画を生成可能。解像度（720p/1080p）や複数のアスペクト比（16:9, 9:16, 1:1, 4:3, 3:4）の指定に対応し、動画と同期した音声の同時生成もサポートする。"
+    - name: Seedance 2.0
+      server_name: t2v-sd2-kamui-bytedance-seedance-v20
+      release_date: 2026年2月12日
+      features: "(ByteDance) テキストや画像、動画、音声などのマルチモーダル入力から、物理法則に沿った高度なカメラワークや自然な動きを持つシネマティックな動画を、同期されたオーディオと共に一括生成する最先端の動画生成モデル。最大15秒の動画生成に対応。"
+    - name: ByteDance Seedance 2.0 Fast Text-to-Video
+      server_name: t2v-sd2-kamui-bytedance-seedance-v20-fast
+      release_date: 2026年2月12日
+      features: "(ByteDance) ByteDanceが開発した動画生成モデル「Seedance 2.0」の高速生成（Fast）版。テキストプロンプトから最大15秒のシネマティックな動画を生成可能。映像と同期したネイティブな音声（BGMや効果音、セリフなど）を同時に生成でき、物理演算やディレクターレベルのカメラワーク制御に対応しつつ、レイテンシとコストを抑えた高速出力を実現している。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -1068,6 +1076,14 @@ ai_models:
       server_name: i2v-kamui-kling-video-v3-4k
       release_date: 2026年2月5日
       features: "(Kuaishou) Kling Video V3 4K Image-to-Video（fal-ai/kling-video/v3/4k/image-to-video）— 開始画像からV3の4Kモードで動画を生成。超高解像度・マルチショット・要素(elements)・終了フレーム・ネイティブ音声。4Kはシンガポールサーバーのみ。prompt または multi_prompt、start_image_url、duration(3-15s)、generate_audio、end_image_url、elements、shot_type、negative_prompt、cfg_scale。FalのJSONをそのまま返す。Kamui Code ⭐⭐⭐"
+    - name: ByteDance Seedance 2.0 Image-to-Video
+      server_name: i2v-sd2-kamui-bytedance-seedance-v20
+      release_date: 2026年2月12日
+      features: "(ByteDance) ByteDanceが開発した動画生成モデル「Seedance 2.0」の画像動画変換モデル。開始画像とプロンプト（オプションで終了画像も指定可）から最大15秒の動画を生成可能。高度なカメラワーク制御や物理法則に沿った自然な動きの再現、動画と完全に同期するネイティブ音声の同時生成に対応している。"
+    - name: Seedance 2.0 Fast Image-to-Video
+      server_name: i2v-sd2-kamui-bytedance-seedance-v20-fast
+      release_date: 2026年4月9日
+      features: "(ByteDance) ByteDanceの動画生成モデル「Seedance 2.0」の高速生成版（Fast）Image-to-Videoモデル。画像とテキストプロンプトを入力として、480pまたは720pの解像度で最大15秒の動画を生成する。動画と同期した音声の自動生成機能も備えている。"
   video_to_video:
     - name: Bria AI Background Removal v2.2
       server_name: v2v-kamui-bria-bg-removal
@@ -1394,6 +1410,14 @@ ai_models:
       server_name: r2v-kamui-kling-video-o3-4k
       release_date: 2026年4月23日
       features: "(Kuaishou) 参照画像や要素を指定してKling O3モデルで動画を生成するネイティブ4K対応エンドポイント。アップスケーリング不要で最初から4K（3840×2160）でレンダリングされ、一貫性を保った映画レベルの高精細な映像を最大15秒出力可能。"
+    - name: ByteDance Seedance 2.0 Reference-to-Video
+      server_name: r2v-sd2-kamui-bytedance-seedance-v20-reference
+      release_date: 2026年2月12日
+      features: "(ByteDance) 最大12個の参照アセット（画像最大9枚、動画最大3つ、音声最大3つ）とテキストを組み合わせて動画を生成するマルチモーダル動画生成モデル。ネイティブな音声生成、高度なカメラ制御、物理シミュレーション、マルチショット編集に対応する。"
+    - name: ByteDance Seedance 2.0 Fast Reference-to-Video
+      server_name: r2v-sd2-kamui-bytedance-seedance-v20-fast-reference
+      release_date: 2026年2月12日
+      features: "(ByteDance) ByteDanceが開発した高性能な動画生成モデル「Seedance 2.0」のFal API経由でのFast版（Reference-to-Video）。テキストプロンプトに加え、画像（最大9枚）、動画（最大3つ）、音声（最大3つ）のマルチモーダル入力に対応し、ネイティブな音声同期を伴うシネマティックな動画を480p/720pで高速に生成する。"
   frame_to_video:
     - name: Google Veo 3.1 (First-Last-Frame)
       server_name: flf2v-kamui-veo31
