@@ -170,8 +170,8 @@
                 const matchesCategory = category === '' || model.category === category;
                 const matchesPeriod = period === '' || (model.release_date && model.release_date.includes(period));
                 const matchesSearch = query === '' ||
-                    model.name.toLowerCase().includes(query) ||
-                    model.server_name.toLowerCase().includes(query) ||
+                    (model.name && model.name.toLowerCase().includes(query)) ||
+                    (model.server_name && model.server_name.toLowerCase().includes(query)) ||
                     (model.features && model.features.toLowerCase().includes(query));
 
                 return matchesCategory && matchesPeriod && matchesSearch;

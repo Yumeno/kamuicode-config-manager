@@ -1,0 +1,33 @@
+name: Validate YAML Schema
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'kamuicode_model_memo.yaml'
+      - 'tools/validate_model_memo.py'
+      - '.github/workflows/validate.yml'
+  pull_request:
+    paths:
+      - 'kamuicode_model_memo.yaml'
+      - 'tools/validate_model_memo.py'
+      - '.github/workflows/validate.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Validate kamuicode_model_memo.yaml
+        run: python tools/validate_model_memo.py
