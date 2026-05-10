@@ -6,6 +6,10 @@ kamuicode_model_memo.yaml スキーマ検証スクリプト
 - 必須キー: name, server_name, release_date, features
 - 禁止キー: model, model_name, modelName, publisher, developer, model_type, url, link, description, summary, note
 - 各値が非空文字列
+- deprecated ブロック (任意) の構造:
+    - deprecated.replaced_by: 必須かつ YAML 内に実在する server_name (自己参照不可)
+    - deprecated.reason: 必須の非空文字列
+    - 他のキーは許容しない
 
 CI で実行され、違反があれば exit 1 で失敗。
 """
@@ -29,6 +33,64 @@ FORBIDDEN_KEYS = [
     "summary",
     "note",
 ]
+DEPRECATED_REQUIRED_KEYS = ["replaced_by", "reason"]
+DEPRECATED_ALLOWED_KEYS = {"replaced_by", "reason"}
+
+
+def collect_server_names(ai_models: dict) -> set[str]:
+    """全エントリの server_name を集める"""
+    names: set[str] = set()
+    for models in ai_models.values():
+        if isinstance(models, list):
+            for model in models:
+                if isinstance(model, dict):
+                    sn = model.get("server_name")
+                    if isinstance(sn, str) and sn:
+                        names.add(sn)
+    return names
+
+
+def validate_deprecated_block(
+    deprecated, label: str, own_server_name: str, all_server_names: set[str]
+) -> list[str]:
+    """deprecated ブロックを検証"""
+    errors: list[str] = []
+
+    if not isinstance(deprecated, dict):
+        return [f"{label}: 'deprecated' must be a mapping"]
+
+    # 必須キー
+    for key in DEPRECATED_REQUIRED_KEYS:
+        if key not in deprecated:
+            errors.append(f"{label}: 'deprecated.{key}' is required")
+            continue
+        value = deprecated[key]
+        if not isinstance(value, str) or not value.strip():
+            errors.append(f"{label}: 'deprecated.{key}' must be a non-empty string")
+
+    # 想定外キー
+    extra_keys = set(deprecated.keys()) - DEPRECATED_ALLOWED_KEYS
+    if extra_keys:
+        errors.append(
+            f"{label}: 'deprecated' has unknown key(s): {sorted(extra_keys)} "
+            f"(allowed: {sorted(DEPRECATED_ALLOWED_KEYS)})"
+        )
+
+    # replaced_by の参照先存在確認 + 自己参照禁止
+    replaced_by = deprecated.get("replaced_by")
+    if isinstance(replaced_by, str) and replaced_by.strip():
+        if replaced_by == own_server_name:
+            errors.append(
+                f"{label}: 'deprecated.replaced_by' must not be a self-reference "
+                f"('{replaced_by}')"
+            )
+        elif replaced_by not in all_server_names:
+            errors.append(
+                f"{label}: 'deprecated.replaced_by' references unknown server_name "
+                f"'{replaced_by}'"
+            )
+
+    return errors
 
 
 def validate(yaml_path: Path) -> list[str]:
@@ -50,6 +112,8 @@ def validate(yaml_path: Path) -> list[str]:
     ai_models = data.get("ai_models")
     if not isinstance(ai_models, dict):
         return ["'ai_models' key missing or not a mapping"]
+
+    all_server_names = collect_server_names(ai_models)
 
     for category, models in ai_models.items():
         if not isinstance(models, list):
@@ -85,6 +149,15 @@ def validate(yaml_path: Path) -> list[str]:
                         f"{label_with_server}: forbidden key '{key}' found "
                         f"(use 'features' to embed such info instead)"
                     )
+
+            # deprecated ブロックチェック (任意)
+            if "deprecated" in model:
+                own_sn = server_name if isinstance(server_name, str) else ""
+                errors.extend(
+                    validate_deprecated_block(
+                        model["deprecated"], label_with_server, own_sn, all_server_names
+                    )
+                )
 
     return errors
 

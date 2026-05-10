@@ -298,6 +298,60 @@ t2i-kamui-flux-krea-lora: false
 * ブラウザのキャッシュをクリアして再試行してください  
 * 「カスタムYAMLファイルを使用」モードに切り替えて、ローカルファイルを使用してください
 
+## **データスキーマ仕様**
+
+`kamuicode_model_memo.yaml` のスキーマは外部ツール（スキル生成ツールなど）からも利用されることを前提に、安定した形式を保つよう運用されています。
+
+### **モデルエントリの必須キー**
+
+各モデルは以下の4つのキーを必ず持ちます:
+
+| キー | 型 | 説明 |
+|---|---|---|
+| `name` | string | 人間可読のモデル名 |
+| `server_name` | string | MCPサーバーID。一意である必要があります |
+| `release_date` | string | 日本語日付 (`YYYY年M月D日`、ゼロ埋めなし)。日が不明な場合は `YYYY年M月頃` |
+| `features` | string | 開発元と機能説明 (`(開発元) 説明...` 形式) |
+
+### **`deprecated` ブロック (任意)**
+
+エンドポイント変更等で廃止になったモデルには `deprecated` ブロックを付けて、移行先を明示します。
+
+```yaml
+- name: ByteDance Seedance 2.0 Text-to-Video
+  server_name: t2v-kamui-bytedance-seedance-v20
+  release_date: 2026年2月12日
+  features: "(ByteDance) ..."
+  deprecated:
+    replaced_by: t2v-sd2-kamui-bytedance-seedance-v20
+    reason: エンドポイント変更
+```
+
+| サブキー | 型 | 説明 |
+|---|---|---|
+| `replaced_by` | string | 移行先の `server_name`。YAML 内に実在し、自己参照でないこと |
+| `reason` | string | 廃止理由（短い説明） |
+
+`deprecated` ブロックの存在は CI バリデーター (`tools/validate_model_memo.py`) によって検証されます。
+
+### **外部ツールでの参照例**
+
+スキル生成等の外部ツール側では、以下のように `deprecated` を見て新エンドポイントへ自動置換、またはスキップ等の処理を行えます。
+
+```python
+import yaml
+
+with open('kamuicode_model_memo.yaml', encoding='utf-8') as f:
+    data = yaml.safe_load(f)
+
+for category, models in data['ai_models'].items():
+    for model in models:
+        if 'deprecated' in model:
+            new_id = model['deprecated']['replaced_by']
+            print(f"{model['server_name']} -> {new_id}")
+            # 旧IDを使っていたら新IDへ置換、もしくはスキップ
+```
+
 ## **ライセンス**
 
 このプロジェクトの詳細については、リポジトリのライセンスファイルを参照してください。

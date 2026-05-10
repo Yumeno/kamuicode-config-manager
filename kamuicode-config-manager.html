@@ -91,6 +91,7 @@
                 // --- フィルタとオプション ---
                 filterCategory: '',
                 filterText: '',
+                showDeprecated: false,  // 廃止モデルを表示するか
 
                 // 出力ファイル名を変更
                 outputFileName: 'mcp-kamui-code-filtered',
@@ -499,12 +500,13 @@
                             sortableDate = this.parseDate(yamlDetails.release_date); // 日付をパース
                             // YAMLに情報がある場合
                             this.masterList.push({
-                                checked: true,
+                                checked: !yamlDetails.deprecated, // 廃止モデルは初期OFF
                                 server_name: serverName,
                                 category: yamlDetails.category,
                                 name: yamlDetails.name,
                                 release_date: yamlDetails.release_date,
                                 features: yamlDetails.features,
+                                deprecated: yamlDetails.deprecated || null,
                                 sortable_date: sortableDate, // ソート用日付を追加
                                 server_info: serverInfo,
                                 source_file: sourceFile
@@ -593,9 +595,14 @@
                 applyFilters() {
                     const category = this.filterCategory;
                     const text = this.filterText.toLowerCase();
+                    const showDeprecated = this.showDeprecated;
 
                     // フィルタリング (この時点では masterList の順序 = JSON順)
                     this.filteredList = this.masterList.filter(model => {
+                        // 廃止モデル: トグル OFF なら除外
+                        if (model.deprecated && !showDeprecated) {
+                            return false;
+                        }
                         const categoryMatch = !category || model.category === category;
                         const textMatch = !text ||
                                           (model.name && model.name.toLowerCase().includes(text)) ||
@@ -1560,6 +1567,14 @@
                         </div>
                     </div>
 
+                    <!-- 廃止モデル表示トグル -->
+                    <div class="mt-3">
+                        <label class="inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" x-model="showDeprecated" @change="applyFilters" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <span class="ml-2 text-sm text-gray-700">廃止モデルも表示</span>
+                        </label>
+                    </div>
+
                     <hr class="my-4 border-gray-200">
 
                     <!-- 一括チェック/解除ボタン と ソート解除 -->
@@ -1641,15 +1656,29 @@
                                 </tr>
                             </template>
                             <template x-for="model in filteredList" :key="model.server_name">
-                                <tr class="hover:bg-gray-50">
+                                <tr :class="model.deprecated ? 'bg-red-50/30 hover:bg-red-50' : 'hover:bg-gray-50'">
                                     <td class="px-4 py-4 text-center">
                                         <!-- masterList の状態を直接トグルする -->
                                         <input type="checkbox" x-model="masterList.find(m => m.server_name === model.server_name).checked" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                        <template x-if="model.deprecated && masterList.find(m => m.server_name === model.server_name).checked">
+                                            <div class="mt-1 text-[10px] text-red-700 font-bold" title="廃止モデルが選択されています">⚠️</div>
+                                        </template>
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.category"></td>
-                                    <td class="px-4 py-4 text-sm font-medium text-gray-900">
-                                        <span x-text="model.name"></span>
-                                        <span class="block text-xs text-gray-400" x-text="model.server_name"></span>
+                                    <td class="px-4 py-4 text-sm font-medium">
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <span :class="model.deprecated ? 'text-gray-500 line-through' : 'text-gray-900'" x-text="model.name"></span>
+                                            <template x-if="model.deprecated">
+                                                <span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-red-100 text-red-700 border border-red-200">廃止</span>
+                                            </template>
+                                        </div>
+                                        <span class="block text-xs text-gray-400 mt-0.5" x-text="model.server_name"></span>
+                                        <template x-if="model.deprecated">
+                                            <div class="mt-2 p-2 rounded border border-red-200 bg-red-50 text-xs text-red-800">
+                                                <p class="font-bold">⚠️ <span x-text="model.deprecated.reason || '廃止'"></span>のため廃止</p>
+                                                <p class="mt-1">→ <code class="px-1 py-0.5 bg-white border border-red-200 rounded font-mono text-red-900 select-all" x-text="model.deprecated.replaced_by"></code> を使用してください</p>
+                                            </div>
+                                        </template>
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600" x-text="model.release_date"></td>
                                     <!-- ソース列 (副JSONがある場合のみ表示) -->
