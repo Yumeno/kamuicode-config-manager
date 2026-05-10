@@ -979,11 +979,10 @@ ai_models:
       server_name: i2v-kamui-fal-ltx-2-19b-image-to-video
       release_date: 2026年1月6日
       features: "(Lightricks) 4K解像度・50fpsでの生成が可能な19Bパラメータのオープンソース動画生成モデル。画像からの動画生成に加え、音声の同期生成にも対応。"
-    - model_name: Wan v2.6 Image-to-Video Flash
+    - name: Wan v2.6 Image-to-Video Flash
       server_name: i2v-kamui-wan-v26-image-to-video-flash
       release_date: 2025年12月16日
-      developer: Alibaba
-      url: https://kamui-code.ai/i2v/fal/wan/v2.6/image-to-video/flash
+      features: "(Alibaba) Wan v2.6 Image-to-Videoの高速版（Flash）。画像から動画への変換に最適化。"
     - name: Pixverse V5.6 Transition
       server_name: i2v-kamui-pixverse-v5-6-transition
       release_date: 2026年1月28日
@@ -1350,10 +1349,10 @@ ai_models:
       server_name: r2v-kamui-kling-video-v26-standard-motion-control
       release_date: 2025年12月3日
       features: "(Kuaishou) 参照動画の動きを参照画像のキャラクターに転写するMotion Control機能のv2.6標準モデル。画像と動画の向き（Orientation）を制御可能で、ダンスやジェスチャーの転写に適しており、コストパフォーマンスに優れる。"
-    - model: Vidu Q2 Reference-to-Video Pro
+    - name: Vidu Q2 Reference-to-Video Pro
       server_name: r2v-kamui-vidu-q2-reference-to-video-pro
       release_date: 2025年10月21日
-      developer: ShengShu Technology
+      features: "(ShengShu Technology) Vidu Q2のReference-to-Video Pro版。参照画像を用いた高品質な動画生成。"
     - name: Kling Video O3 Pro
       server_name: r2v-kamui-kling-video-o3-pro-reference-to-video
       release_date: 2026年2月4日
@@ -1810,11 +1809,10 @@ ai_models:
       release_date: 2026年1月13日
       features: "(Yatharth Sharma) わずか52KBという超軽量かつ高速な音声超解像モデル。16kHzの音声を48kHzにアップサンプリングし、TTSの出力や低品質な音声データの明瞭度を劇的に向上させる。"
 
-    - model_name: ElevenLabs Voice Changer (Speech to Speech)
+    - name: ElevenLabs Voice Changer (Speech to Speech)
       server_name: a2a-kamui-elevenlabs-voice-changer
       release_date: 2023年11月23日
-      description: ElevenLabsのSpeech to Speech（STS）機能。オーディオファイルの声を別の声に変換する。
-      url: https://elevenlabs.io/voice-changer
+      features: "(ElevenLabs) Speech to Speech（STS）機能。オーディオファイルの声を別の声に変換する。"
   image_audio_to_video:
     - name: LongCat Avatar (LongCat-Video-Avatar)
       server_name: ia2v-kamui-fal-longcat-multi-avatar

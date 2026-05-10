@@ -1261,7 +1261,7 @@ ${categoryList}
 
 IMPORTANT: The "category" field MUST be a snake_case string (e.g. "audio_to_text", "text_to_image"). NEVER use human-readable names like "Audio to Text".
 
-## YAML Entry Format (CRITICAL)
+## YAML Entry Format (CRITICAL — VIOLATIONS WILL BREAK PRODUCTION UI)
 The "yaml_entry" field MUST follow this EXACT template with NO indentation:
 \`\`\`
 - name: {human-readable model name}
@@ -1270,13 +1270,15 @@ The "yaml_entry" field MUST follow this EXACT template with NO indentation:
   features: "({developer name}) {description of model features in Japanese}"
 \`\`\`
 
-Rules for yaml_entry:
-- MUST start with "- name: "
-- MUST contain exactly 4 fields: name, server_name, release_date, features
+Rules for yaml_entry (NON-NEGOTIABLE):
+- The FIRST line MUST be exactly "- name: " (NOT "- model: ", NOT "- model_name: ", NOT any other key). Use the literal key "name".
+- MUST contain EXACTLY these 4 keys in this order: name, server_name, release_date, features.
+- All 4 keys are REQUIRED. Never omit any of them — not even if information is missing. If unknown, write "(調査中)" for features.
 - server_name MUST be exactly: ${serverName}
-- release_date MUST use Japanese date format: YYYY年M月D日 without zero-padding (e.g. 2026年1月5日, not 2026年01月05日). Use YYYY年M月頃 / YYYY年中頃 if partially unknown
-- features MUST be a double-quoted string starting with "({developer name}) " followed by a Japanese description
-- Do NOT add any extra fields (publisher, model_name, model_type, url, description, etc.)
+- release_date MUST use Japanese date format: YYYY年M月D日 without zero-padding (e.g. 2026年1月5日, not 2026年01月05日). Use YYYY年M月頃 / YYYY年中頃 if partially unknown.
+- features MUST be a non-empty double-quoted string starting with "({developer name}) " followed by a Japanese description.
+- FORBIDDEN keys (NEVER use these as substitutes for "name", "release_date", or "features"): model, model_name, modelName, publisher, developer, model_type, url, link, description, summary, note. If you have such information, embed it inside the "features" string instead.
+- The downstream system parses YAML by exact key name. Using "model_name" or "model" instead of "name" makes the entry invisible to the search UI.
 
 ## Output JSON Schema
 {
