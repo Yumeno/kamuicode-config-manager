@@ -774,10 +774,16 @@ ai_models:
       server_name: t2v-kamui-bytedance-seedance-v20
       release_date: 2026年2月12日
       features: "(ByteDance) テキストプロンプトからシネマティックな高品質動画をネイティブな音声付きで生成できる、統合マルチモーダル動画生成モデル。高度な物理法則の再現やカメラコントロール機能を備え、最大15秒の動画生成に対応する。"
+      deprecated:
+        replaced_by: t2v-sd2-kamui-bytedance-seedance-v20
+        reason: エンドポイント変更
     - name: Seedance 2.0 Fast
       server_name: t2v-kamui-bytedance-seedance-v20-fast
       release_date: 2026年2月12日
       features: "(ByteDance) テキストプロンプトから最大15秒のシネマティックな動画を高速で生成するモデル。物理法則に基づくリアルな動きの再現や、映像と同期したネイティブな音声の生成に対応している。"
+      deprecated:
+        replaced_by: t2v-sd2-kamui-bytedance-seedance-v20-fast
+        reason: エンドポイント変更
     - name: PixVerse C1 Text-to-Video
       server_name: t2v-kamui-pixverse-c1
       release_date: 2026年4月7日
@@ -1051,10 +1057,16 @@ ai_models:
       server_name: i2v-kamui-bytedance-seedance-v20-fast
       release_date: 2026年2月12日
       features: "(ByteDance) ByteDanceによるSeedance 2.0の高速な画像生成ビデオ（Image-to-Video）モデル。元画像とプロンプトから、実世界の物理法則を反映したシネマティックで高品質な動画をネイティブな音声付きで生成可能。解像度は480p/720p、生成時間は4〜15秒に対応。"
+      deprecated:
+        replaced_by: i2v-sd2-kamui-bytedance-seedance-v20-fast
+        reason: エンドポイント変更
     - name: Seedance 2.0 Image-to-Video
       server_name: i2v-kamui-bytedance-seedance-v20
       release_date: 2026年2月12日
       features: "(ByteDance) ByteDanceが開発した動画生成AI「Seedance 2.0」のImage-to-Videoモデル。参照画像とプロンプトから、物理法則に準拠した自然な動きやネイティブな音声同期を伴う最大15秒の高品質なシネマティック動画を生成できる。開始・終了画像の指定、解像度（480p/720p）の選択、アスペクト比の調整など、高度なコントロール機能を備える。"
+      deprecated:
+        replaced_by: i2v-sd2-kamui-bytedance-seedance-v20
+        reason: エンドポイント変更
     - name: PixVerse C1 Transition
       server_name: start-end-kamui-pixverse-c1-transition
       release_date: 2026年4月7日
@@ -1389,10 +1401,16 @@ ai_models:
       server_name: r2v-kamui-bytedance-seedance-v20-reference
       release_date: 2026年2月12日
       features: "(ByteDance) 最大9枚の画像、3つの動画、3つの音声を参照用入力として組み合わせ、指定した構図や動き、カメラワークなどを反映させた動画を生成できるReference-to-Videoモデル。物理法則に忠実な動きとネイティブオーディオの同時生成が可能で、高い映像制御能力を持ちます。"
+      deprecated:
+        replaced_by: r2v-sd2-kamui-bytedance-seedance-v20-reference
+        reason: エンドポイント変更
     - name: ByteDance Seedance 2.0 Fast Reference-to-Video
       server_name: r2v-kamui-bytedance-seedance-v20-fast-reference
       release_date: 2026年2月12日
       features: "(ByteDance) 最大9枚の画像、3つの動画、3つの音声とテキストを組み合わせて入力でき、ネイティブ音声と同期したシネマティックな動画を最大15秒まで高速生成するReference-to-Videoモデル。"
+      deprecated:
+        replaced_by: r2v-sd2-kamui-bytedance-seedance-v20-fast-reference
+        reason: エンドポイント変更
     - name: Pixverse C1 Reference-to-Video
       server_name: r2v-kamui-pixverse-c1
       release_date: 2026年4月7日

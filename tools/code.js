@@ -1279,6 +1279,7 @@ Rules for yaml_entry (NON-NEGOTIABLE):
 - features MUST be a non-empty double-quoted string starting with "({developer name}) " followed by a Japanese description.
 - FORBIDDEN keys (NEVER use these as substitutes for "name", "release_date", or "features"): model, model_name, modelName, publisher, developer, model_type, url, link, description, summary, note. If you have such information, embed it inside the "features" string instead.
 - The downstream system parses YAML by exact key name. Using "model_name" or "model" instead of "name" makes the entry invisible to the search UI.
+- Do NOT add a "deprecated" key to your output. The "deprecated" key is reserved for manual annotation when an endpoint is retired. If a model is genuinely retired with a known replacement, mention it in features instead (e.g. "(ByteDance) ... ※新エンドポイント xxx-sd2-xxx を推奨").
 
 ## Output JSON Schema
 {
