@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-05-06T14:02:12.549361+00:00'
-  total_servers: 434
-  online_servers: 432
+  generated_at: '2026-05-15T14:02:39.077538+00:00'
+  total_servers: 433
+  online_servers: 431
   offline_servers: 0
   error_servers: 2
 servers:
@@ -2947,6 +2947,67 @@ servers:
       required:
       - prompt
       type: object
+- id: i2i-kamui-fal-xai-grok-imagine-image-quality-edit
+  status: online
+  last_checked: '2026-05-15T14:02:34.579253+00:00'
+  tools:
+  - name: grok_imagine_image_quality_edit_result
+    description: Get result of completed Grok Imagine Quality image edit. Returns Fal JSON (images, revised_prompt).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_image_quality_edit_status
+    description: Check status of Grok Imagine Quality image edit using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_image_quality_edit_submit
+    description: Submit xAI Grok Imagine Quality image edit (Fal xai/grok-imagine-image/quality/edit). Enhanced detail, text
+      rendering, and creative control.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: auto
+          description: 'Aspect ratio of the edited output. auto preserves first input ratio. Options: auto, 2:1, 20:9, 19.5:9,
+            16:9, 4:3, 3:2, 1:1, 2:3, 3:4, 9:16, 9:19.5, 9:20, 1:2. Default: auto'
+          type: string
+        image_url:
+          description: Legacy single image URL when image_urls is omitted.
+          type: string
+        image_urls:
+          description: URLs of images to edit (Fal API). Minimum 1, maximum 3. Preferred; or use legacy image_url.
+          type: array
+        num_images:
+          default: 1
+          description: 'Number of images to generate. Default: 1'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output format: jpeg, png, or webp. Default: jpeg'
+          type: string
+        prompt:
+          description: Text description of the desired edited image.
+          type: string
+        resolution:
+          default: 1k
+          description: 'Resolution: 1k or 2k. Default: 1k'
+          type: string
+        sync_mode:
+          description: 'If true, media is returned as data URI and output may not appear in request history. Default: false'
+          type: boolean
+      required:
+      - prompt
+      type: object
 - id: i2i-kamui-fal-z-image-turbo-controlnet
   status: online
   last_checked: '2026-04-06T09:31:53.669546+00:00'
@@ -4327,6 +4388,46 @@ servers:
       - prompt
       - image_url
       - reference_image_urls
+      type: object
+- id: i2i-kamui-ideogram-remove-background
+  status: online
+  last_checked: '2026-05-15T14:02:34.794760+00:00'
+  tools:
+  - name: fal_ai_ideogram_remove_background_result
+    description: Get result of completed Fal.ai Ideogram Remove Background request as Fal response JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_ideogram_remove_background_status
+    description: Check status of Fal.ai Ideogram Remove Background processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_ideogram_remove_background_submit
+    description: Submit Fal.ai Ideogram Remove Background request (fal-ai/ideogram/remove-background). Remove the background
+      from an input image; foreground is preserved on transparency.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL or Base64 data URI of the image (JPEG, PNG, WebP; max 10MB). Foreground subject is kept on a transparent
+            background.
+          type: string
+        sync_mode:
+          default: false
+          description: 'If true, media is returned as a data URI and output is not stored in request history (default: false).'
+          type: boolean
+      required:
+      - image_url
       type: object
 - id: i2i-kamui-ideogram-v3-layerize-text
   status: online
@@ -6542,6 +6643,74 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-smart-resize
+  status: online
+  last_checked: '2026-05-15T14:02:34.582917+00:00'
+  tools:
+  - name: fal_ai_smart_resize_result
+    description: Get result of completed Fal.ai Smart Resize request as Fal response JSON.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_smart_resize_status
+    description: Check status of Fal.ai Smart Resize processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: fal_ai_smart_resize_submit
+    description: Submit Fal.ai Smart Resize request (fal-ai/smart-resize). Resize an image to one or more exact target dimensions
+      using nano-banana-pro internally; returns pixel-perfect crops.
+    inputSchema:
+      properties:
+        image_url:
+          description: URL or Base64 data URI of the source image to resize.
+          type: string
+        num_images_per_size:
+          default: 1
+          description: 'Variants per target size (default: 1). Total images = len(target_sizes) * num_images_per_size.'
+          type: number
+        output_format:
+          default: png
+          description: 'Output image format: jpeg, png, or webp (default: png).'
+          type: string
+        prompt:
+          description: 'Optional extra instruction forwarded to nano-banana-pro; leave empty to preserve content (API default:
+            empty).'
+          type: string
+        resolution:
+          default: 1K
+          description: 'Minimum internal resolution tier hint: 1K, 2K, or 4K (default: 1K). Output dimensions still follow
+            target_sizes.'
+          type: string
+        safety_tolerance:
+          default: '4'
+          description: 'Safety tolerance for inner nano-banana-pro calls: "1" (strict) through "6" (looser), default "4".'
+          type: string
+        seed:
+          description: Optional integer seed for reproducibility; same seed is used for every target size when set.
+          type: number
+        sync_mode:
+          default: false
+          description: If true, response uses data URIs instead of CDN URLs (adds latency for large outputs).
+          type: boolean
+        target_sizes:
+          description: Target dimensions as strings "<width>x<height>" (e.g. "1024x1024", "1920x1080"). One output per size
+            (times num_images_per_size).
+          type: array
+      required:
+      - image_url
+      - target_sizes
+      type: object
 - id: i2i-kamui-wan-25-preview
   status: online
   last_checked: '2026-04-06T09:31:36.457278+00:00'
@@ -7501,6 +7670,113 @@ servers:
       required:
       - image_url
       type: object
+- id: i2i3d-kamui-pixal3d
+  status: online
+  last_checked: '2026-05-15T14:02:34.828500+00:00'
+  tools:
+  - name: pixal3d_result
+    description: Pixal3D の完了結果（model_glb・seed 等）を取得。Fal JSONをそのまま返す。
+    inputSchema:
+      properties:
+        request_id:
+          description: submit で返却されたリクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixal3d_status
+    description: Pixal3D の処理ステータスを request_id で取得。Fal JSONをそのまま返す。
+    inputSchema:
+      properties:
+        request_id:
+          description: submit で返却されたリクエストID
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: pixal3d_submit
+    description: Submit Fal.ai Pixal3D（fal-ai/pixal3d）Image-to-3D。1枚の画像からテクスチャ付きGLBを生成。FalのキューJSONをそのまま返す。
+    inputSchema:
+      properties:
+        decimation_target:
+          default: 200000
+          description: 最終メッシュの目標頂点数（既定200000）
+          type: number
+        image_url:
+          description: 入力画像のURL（3D化の元画像）
+          type: string
+        max_num_tokens:
+          default: 49152
+          description: カスケード形状サンプラのHRトークン上限（大きいほど細かい形状、既定49152）
+          type: number
+        mesh_scale:
+          default: 1
+          description: 推定メッシュのスケール係数（既定1）
+          type: number
+        remesh:
+          description: トポロジーを再構築してクリーンな三角形にする（既定true、遅いが品質向上）
+          type: boolean
+        resolution:
+          default: 1024
+          description: '出力解像度: 1024 または 1536（既定1024、高いほど詳細だが遅い）'
+          type: number
+        seed:
+          description: 乱数シード（再現性用）
+          type: number
+        shape_slat_guidance_rescale:
+          default: 0.5
+          description: 形状ステージのガイダンスリスケール（既定0.5）
+          type: number
+        shape_slat_guidance_strength:
+          default: 7.5
+          description: 形状が画像に従う強さ（既定7.5）
+          type: number
+        shape_slat_rescale_t:
+          default: 3
+          description: 形状のノイズスケジュール鋭さ（既定3）
+          type: number
+        shape_slat_sampling_steps:
+          default: 12
+          description: 形状リファインメントのステップ数（既定12）
+          type: number
+        ss_guidance_rescale:
+          default: 0.7
+          description: ステージ1のガイダンス高強度時のアーティファクト抑制（既定0.7）
+          type: number
+        ss_guidance_strength:
+          default: 7.5
+          description: 初期3D構造が入力画像に従う強さ（既定7.5）
+          type: number
+        ss_rescale_t:
+          default: 5
+          description: 構造生成のノイズスケジュール鋭さ（既定5）
+          type: number
+        ss_sampling_steps:
+          default: 12
+          description: 構造生成のデノイズステップ数（既定12）
+          type: number
+        tex_slat_guidance_rescale:
+          description: テクスチャステージのガイダンスリスケール（API任意）
+          type: number
+        tex_slat_guidance_strength:
+          default: 1
+          description: テクスチャが画像色に従う強さ（既定1）
+          type: number
+        tex_slat_rescale_t:
+          default: 3
+          description: テクスチャのノイズスケジュール鋭さ（既定3）
+          type: number
+        tex_slat_sampling_steps:
+          default: 12
+          description: テクスチャ生成のステップ数（既定12）
+          type: number
+        texture_size:
+          default: 2048
+          description: 'ベイクするテクスチャ解像度: 1024 / 2048 / 4096（既定2048）'
+          type: number
+      required:
+      - image_url
+      type: object
 - id: i2i3d-kamui-reconviagen-0-5
   status: online
   last_checked: '2026-04-15T13:52:08.478074+00:00'
@@ -8117,128 +8393,6 @@ servers:
           type: string
         seed:
           description: Random seed for video generation. -1 for random.
-          type: number
-      required:
-      - prompt
-      - image_url
-      type: object
-- id: i2v-kamui-bytedance-seedance-v20
-  status: online
-  last_checked: '2026-04-07T13:48:37.010614+00:00'
-  tools:
-  - name: bytedance_seedance_v20_i2v_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 Image-to-Video (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_i2v_status
-    description: Check status of ByteDance Seedance 2.0 Image-to-Video by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_i2v_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Image-to-Video (bytedance/seedance-2.0/image-to-video). prompt and image_url
-      required; optional end_image_url; resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio; generate_audio
-      (default true per API); seed; end_user_id. Returns Fal queue JSON.
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
-          type: string
-        duration:
-          description: auto, or 4-15 as string (e.g. "8")
-          type: string
-        end_image_url:
-          description: Optional last-frame image URL for transition to ending image
-          type: string
-        end_user_id:
-          description: End-user identifier for your integration
-          type: string
-        generate_audio:
-          description: Generate synchronized audio (default true per API)
-          type: boolean
-        image_url:
-          description: URL of the starting frame image (JPEG, PNG, WebP; public URL or data URI)
-          type: string
-        prompt:
-          description: Text prompt describing desired motion and action
-          type: string
-        resolution:
-          description: 480p or 720p (API default 720p)
-          type: string
-        seed:
-          description: Random seed for reproducibility
-          type: number
-      required:
-      - prompt
-      - image_url
-      type: object
-- id: i2v-kamui-bytedance-seedance-v20-fast
-  status: online
-  last_checked: '2026-04-07T13:48:36.959519+00:00'
-  tools:
-  - name: bytedance_seedance_v20_fast_i2v_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 Fast Image-to-Video (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_i2v_status
-    description: Check status of ByteDance Seedance 2.0 Fast Image-to-Video by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_i2v_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Image-to-Video (bytedance/seedance-2.0/fast/image-to-video). prompt
-      and image_url required; optional end_image_url; resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio;
-      generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
-          type: string
-        duration:
-          description: auto, or 4-15 as string (e.g. "8")
-          type: string
-        end_image_url:
-          description: Optional last-frame image URL for transition to ending image
-          type: string
-        end_user_id:
-          description: End-user identifier for your integration
-          type: string
-        generate_audio:
-          description: Generate synchronized audio (default true per API)
-          type: boolean
-        image_url:
-          description: URL of the starting frame image (JPEG, PNG, WebP; public URL or data URI)
-          type: string
-        prompt:
-          description: Text prompt describing desired motion and action
-          type: string
-        resolution:
-          description: 480p or 720p (API default 720p)
-          type: string
-        seed:
-          description: Random seed for reproducibility
           type: number
       required:
       - prompt
@@ -12512,134 +12666,6 @@ servers:
       - prompt
       - reference_image_urls
       type: object
-- id: r2v-kamui-bytedance-seedance-v20-fast-reference
-  status: online
-  last_checked: '2026-04-07T13:48:37.602864+00:00'
-  tools:
-  - name: bytedance_seedance_v20_fast_reference_to_video_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 Fast Reference-to-Video (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_reference_to_video_status
-    description: Check status of ByteDance Seedance 2.0 Fast Reference-to-Video by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_reference_to_video_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Reference-to-Video (bytedance/seedance-2.0/fast/reference-to-video).
-      prompt required; optional image_urls (up to 9, @Image1.. in prompt), video_urls (up to 3, @Video1..), audio_urls (up
-      to 3, @Audio1..; requires image or video); resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio auto,
-      21:9, 16:9, 4:3, 1:1, 3:4, 9:16; generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
-          type: string
-        audio_urls:
-          description: Optional reference audio URLs (MP3/WAV, up to 3; if set, at least one image_urls or video_urls required)
-          type: array
-        duration:
-          description: auto, or 4-15 as string (e.g. "8")
-          type: string
-        end_user_id:
-          description: End-user identifier for your integration
-          type: string
-        generate_audio:
-          description: Generate synchronized audio (default true per API)
-          type: boolean
-        image_urls:
-          description: Optional reference image URLs (JPEG/PNG/WebP, up to 9)
-          type: array
-        prompt:
-          description: Text prompt; reference assets as @Image1, @Video1, @Audio1, etc.
-          type: string
-        resolution:
-          description: 480p or 720p (API default 720p)
-          type: string
-        seed:
-          description: Random seed for reproducibility
-          type: number
-        video_urls:
-          description: Optional reference video URLs (MP4/MOV, up to 3)
-          type: array
-      required:
-      - prompt
-      type: object
-- id: r2v-kamui-bytedance-seedance-v20-reference
-  status: online
-  last_checked: '2026-04-07T13:48:37.489994+00:00'
-  tools:
-  - name: bytedance_seedance_v20_reference_to_video_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 Reference-to-Video (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_reference_to_video_status
-    description: Check status of ByteDance Seedance 2.0 Reference-to-Video by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_reference_to_video_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Reference-to-Video (bytedance/seedance-2.0/reference-to-video). prompt
-      required; optional image_urls (up to 9, @Image1.. in prompt), video_urls (up to 3, @Video1..), audio_urls (up to 3,
-      @Audio1..; requires image or video); resolution 480p/720p; duration auto or 4-15 (string); aspect_ratio auto, 21:9,
-      16:9, 4:3, 1:1, 3:4, 9:16; generate_audio (default true per API); seed; end_user_id. Returns Fal queue JSON.
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16
-          type: string
-        audio_urls:
-          description: Optional reference audio URLs (MP3/WAV, up to 3; if set, at least one image_urls or video_urls required)
-          type: array
-        duration:
-          description: auto, or 4-15 as string (e.g. "8")
-          type: string
-        end_user_id:
-          description: End-user identifier for your integration
-          type: string
-        generate_audio:
-          description: Generate synchronized audio (default true per API)
-          type: boolean
-        image_urls:
-          description: Optional reference image URLs (JPEG/PNG/WebP, up to 9)
-          type: array
-        prompt:
-          description: Text prompt; reference assets as @Image1, @Video1, @Audio1, etc.
-          type: string
-        resolution:
-          description: 480p or 720p (API default 720p)
-          type: string
-        seed:
-          description: Random seed for reproducibility
-          type: number
-        video_urls:
-          description: Optional reference video URLs (MP4/MOV, up to 3)
-          type: array
-      required:
-      - prompt
-      type: object
 - id: r2v-kamui-fal-ai-one-to-all-animation-13b
   status: online
   last_checked: '2026-04-06T09:31:55.270000+00:00'
@@ -16026,6 +16052,61 @@ servers:
         sync_mode:
           description: 'If True, the media will be returned as a data URI and the output data won''t be available in the request
             history. Default: false'
+          type: boolean
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-fal-xai-grok-imagine-image-quality
+  status: online
+  last_checked: '2026-05-15T14:02:20.823357+00:00'
+  tools:
+  - name: grok_imagine_image_quality_text_to_image_result
+    description: Get result of completed Grok Imagine Quality text-to-image. Returns Fal JSON (images, revised_prompt).
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_image_quality_text_to_image_status
+    description: Check status of Grok Imagine Quality text-to-image using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: grok_imagine_image_quality_text_to_image_submit
+    description: Submit xAI Grok Imagine Quality text-to-image (Fal xai/grok-imagine-image/quality/text-to-image). Higher
+      detail and text rendering than standard Grok Imagine Image.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          default: '1:1'
+          description: 'Aspect ratio. Options: 2:1, 20:9, 19.5:9, 16:9, 4:3, 3:2, 1:1, 2:3, 3:4, 9:16, 9:19.5, 9:20, 1:2.
+            Default: 1:1'
+          type: string
+        num_images:
+          default: 1
+          description: 'Number of images to generate. Default: 1'
+          type: number
+        output_format:
+          default: jpeg
+          description: 'Output format: jpeg, png, or webp. Default: jpeg'
+          type: string
+        prompt:
+          description: Text description of the desired image.
+          type: string
+        resolution:
+          default: 1k
+          description: 'Resolution: 1k (standard) or 2k (high). Default: 1k'
+          type: string
+        sync_mode:
+          description: 'If true, media is returned as data URI and output may not appear in request history. Default: false'
           type: boolean
       required:
       - prompt
@@ -20875,114 +20956,6 @@ servers:
           type: string
         seed:
           description: Random seed for video generation. -1 for random.
-          type: number
-      required:
-      - prompt
-      type: object
-- id: t2v-kamui-bytedance-seedance-v20
-  status: online
-  last_checked: '2026-04-07T13:48:36.531116+00:00'
-  tools:
-  - name: bytedance_seedance_v20_t2v_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 T2V (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_t2v_status
-    description: Check status of ByteDance Seedance 2.0 T2V request by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_t2v_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Text-to-Video. Supports prompt (required), resolution (480p, 720p, default
-      API 720p), duration (auto or 4-15 seconds as string), aspect_ratio (auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16), generate_audio
-      (default true), seed, end_user_id. Returns Fal JSON (request_id).
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: 'Aspect ratio: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16'
-          type: string
-        duration:
-          description: 'Duration: auto, or 4-15 (seconds as string, e.g. "8")'
-          type: string
-        end_user_id:
-          description: Unique end-user identifier when required by your integration
-          type: string
-        generate_audio:
-          description: Whether to generate synchronized audio (default true per API)
-          type: boolean
-        prompt:
-          description: Text prompt for video generation
-          type: string
-        resolution:
-          description: 'Video resolution: 480p (faster) or 720p (default per API)'
-          type: string
-        seed:
-          description: Random seed for reproducibility
-          type: number
-      required:
-      - prompt
-      type: object
-- id: t2v-kamui-bytedance-seedance-v20-fast
-  status: online
-  last_checked: '2026-04-07T13:48:36.954879+00:00'
-  tools:
-  - name: bytedance_seedance_v20_fast_t2v_result
-    description: Get result JSON for completed ByteDance Seedance 2.0 Fast T2V (video URL, seed).
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_t2v_status
-    description: Check status of ByteDance Seedance 2.0 Fast T2V request by request_id.
-    inputSchema:
-      properties:
-        request_id:
-          description: Request ID received from submit operation
-          type: string
-      required:
-      - request_id
-      type: object
-  - name: bytedance_seedance_v20_fast_t2v_submit
-    description: Submit Fal.ai ByteDance Seedance 2.0 Fast Text-to-Video. Supports prompt (required), resolution (480p, 720p,
-      default API 720p), duration (auto or 4-15 seconds as string), aspect_ratio (auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16),
-      generate_audio (default true), seed, end_user_id. Returns Fal JSON (request_id).
-    inputSchema:
-      properties:
-        aspect_ratio:
-          description: 'Aspect ratio: auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16'
-          type: string
-        duration:
-          description: 'Duration: auto, or 4-15 (seconds as string, e.g. "8")'
-          type: string
-        end_user_id:
-          description: Unique end-user identifier when required by your integration
-          type: string
-        generate_audio:
-          description: Whether to generate synchronized audio (default true per API)
-          type: boolean
-        prompt:
-          description: Text prompt for video generation
-          type: string
-        resolution:
-          description: 'Video resolution: 480p (faster) or 720p (default per API)'
-          type: string
-        seed:
-          description: Random seed for reproducibility
           type: number
       required:
       - prompt
