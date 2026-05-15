@@ -260,6 +260,10 @@ ai_models:
       server_name: t2i-kamui-fal-openai-gpt-image-2
       release_date: 2026年4月21日
       features: "(OpenAI) 最大約4Kまでの柔軟な解像度に対応する次世代の画像生成モデル（アルファ版）。高精度なテキスト描画や優れたプロンプト追従性を備え、テキストを多用する複雑な画像生成に最適です。"
+    - name: Grok Imagine Image Quality
+      server_name: t2i-kamui-fal-xai-grok-imagine-image-quality
+      release_date: 2026年5月6日
+      features: "(xAI) xAIの画像生成モデル「Grok Imagine」の高画質(Quality)モード。ディテールや多言語のテキスト描画能力が大幅に強化されており、より写実的で高品質な画像生成が可能。アスペクト比の指定や最大2K解像度での出力に対応している。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -577,6 +581,14 @@ ai_models:
       server_name: i2i-kamui-fal-openai-gpt-image-2-edit
       release_date: 2026年4月21日
       features: "(OpenAI) 自然言語による指示と参照画像を用いて、高品質な画像編集を行うモデル。プロンプトのみでの全体的なスタイル・被写体の変更から、マスク画像を用いた精緻な部分編集（インペイント）まで対応し、指定外の領域をそのまま維持して編集することが可能。"
+    - name: Grok Imagine Image Quality Edit
+      server_name: i2i-kamui-fal-xai-grok-imagine-image-quality-edit
+      release_date: 2026年5月6日
+      features: "(xAI) Grok Imagineの「Quality」モードを用いた高品質な画像編集モデル。必須のプロンプトと最大3枚の公開URL画像を参照し、高ディテール・正確なテキスト描画・強力な創作コントロールを反映した編集を行う。1K・2K解像度やアスペクト比の自動調整に対応している。"
+    - name: Ideogram Remove Background
+      server_name: i2i-kamui-ideogram-remove-background
+      release_date: 2026年5月頃
+      features: "(Ideogram) 高精度なAI背景除去モデル。入力画像から被写体の境界（髪の毛や透明な物体などの細部を含む）を正確に認識して背景を綺麗に切り抜き、透過PNGとして出力する。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -1710,6 +1722,10 @@ ai_models:
       server_name: i2i3d-kamui-meshy-v6-multi-image-to-3d
       release_date: 2026年1月26日
       features: "(Meshy) 同一物体の1–4枚の画像から高品質（Meshy-6相当）な3Dモデルを生成できるモデル。トポロジ設定、ポリゴン数指定、シンメトリ、PBR対応、リギングやアニメーション付与など多彩なオプションを備える。"
+    - name: Pixal3D
+      server_name: i2i3d-kamui-pixal3d
+      release_date: 2026年5月11日
+      features: "(Tencent ARC Lab) 1枚の画像からテクスチャ付きの高忠実度な3Dモデル（GLB形式）を生成するImage-to-3Dモデル。画像のピクセル特徴を3D空間に直接マッピングする技術により、入力画像に忠実な詳細形状やリアルなPBRテクスチャを再現する。シード値、解像度、メッシュ生成に関する細かなパラメータ調整が可能。"
   text_to_3d:
     - name: Meshy AI Meshy-6 Preview (Text-to-3D)
       server_name: t2i3d-kamui-meshy-v6-preview-text-to-3d
