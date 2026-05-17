@@ -589,6 +589,10 @@ ai_models:
       server_name: i2i-kamui-ideogram-remove-background
       release_date: 2026年5月頃
       features: "(Ideogram) 高精度なAI背景除去モデル。入力画像から被写体の境界（髪の毛や透明な物体などの細部を含む）を正確に認識して背景を綺麗に切り抜き、透過PNGとして出力する。"
+    - name: Fal.ai Smart Resize
+      server_name: i2i-kamui-smart-resize
+      release_date: 2026年4月頃
+      features: "(Fal.ai) 1枚の画像を指定した複数のピクセル寸法へリサイズするAPI。内部でnano-banana-proを用い、指定サイズを覆う最小プリセットで生成後にセンタークロップで厳密に合わせることで、構図を維持した自然なリサイズを実現する。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
