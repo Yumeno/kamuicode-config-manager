@@ -64,11 +64,12 @@ jobs:
         run: |
           cd tools/crawler
 
-          # Debug: Check if KAMUI_CODE_PASS_KEY is set (show length only, not the value)
-          if [ -n "$KAMUI_CODE_PASS_KEY" ]; then
-            echo "✅ KAMUI_CODE_PASS_KEY is set (length: ${#KAMUI_CODE_PASS_KEY} chars)"
+          # Check if KAMUI_CODE_PASS_KEY is configured (presence only, no metadata)
+          if [ -n "${KAMUI_CODE_PASS_KEY:-}" ]; then
+            echo "✅ KAMUI_CODE_PASS_KEY is configured"
           else
-            echo "❌ KAMUI_CODE_PASS_KEY is NOT set or empty!"
+            echo "❌ KAMUI_CODE_PASS_KEY is NOT configured"
+            exit 1
           fi
 
           # Build options
