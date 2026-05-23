@@ -1,7 +1,7 @@
 metadata:
-  generated_at: '2026-05-15T14:02:39.077538+00:00'
-  total_servers: 433
-  online_servers: 431
+  generated_at: '2026-05-23T13:57:21.660344+00:00'
+  total_servers: 445
+  online_servers: 443
   offline_servers: 0
   error_servers: 2
 servers:
@@ -3769,6 +3769,69 @@ servers:
       - prompt
       - image_urls
       type: object
+- id: i2i-kamui-flux-2-pro-outpaint
+  status: online
+  last_checked: '2026-05-23T13:57:15.847856+00:00'
+  tools:
+  - name: flux_2_pro_outpaint_result
+    description: Get result of completed Flux-2 Pro outpaint generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_outpaint_status
+    description: Check status of Flux-2 Pro outpaint processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: flux_2_pro_outpaint_submit
+    description: Submit Fal.ai Flux-2 Pro outpaint request to expand image boundaries. Returns request ID for polling.
+    inputSchema:
+      properties:
+        auto_crop:
+          description: Whether to automatically crop the output image.
+          type: boolean
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        expand_bottom:
+          description: Number of pixels to expand at the bottom of the image.
+          type: number
+        expand_left:
+          description: Number of pixels to expand at the left of the image.
+          type: number
+        expand_right:
+          description: Number of pixels to expand at the right of the image.
+          type: number
+        expand_top:
+          description: Number of pixels to expand at the top of the image.
+          type: number
+        image_url:
+          description: URL of the image to outpaint. Must be publicly accessible or a Base64 data URI.
+          type: string
+        output_format:
+          description: Output format for the generated image (jpeg or png).
+          enum:
+          - jpeg
+          - png
+          type: string
+        sync_mode:
+          description: If true, the media will be returned as a data URI and the output data won't be available in the request
+            history.
+          type: boolean
+      required:
+      - image_url
+      type: object
 - id: i2i-kamui-flux-2-turbo-edit
   status: online
   last_checked: '2026-04-06T09:31:51.736634+00:00'
@@ -4661,6 +4724,47 @@ servers:
           type: boolean
       required:
       - image_url
+      type: object
+- id: i2i-kamui-imagineart-20-edit-preview
+  status: online
+  last_checked: '2026-05-23T13:57:17.276421+00:00'
+  tools:
+  - name: imagineart_20_edit_preview_image_to_image_result
+    description: Get result of completed ImagineArt 2.0 Edit Preview image-to-image generation. Returns raw JSON response
+      from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: imagineart_20_edit_preview_image_to_image_status
+    description: Check status of ImagineArt 2.0 Edit Preview image-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: imagineart_20_edit_preview_image_to_image_submit
+    description: Submit Fal.ai ImagineArt 2.0 Edit Preview image-to-image request. Edit images using a text prompt.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: Aspect ratio for the output image.
+          type: string
+        image_urls:
+          description: Array of image URLs to use as input for editing.
+          type: array
+        prompt:
+          description: Text prompt describing the desired edit.
+          type: string
+      required:
+      - prompt
       type: object
 - id: i2i-kamui-kling-image-o1
   status: online
@@ -14452,6 +14556,63 @@ servers:
       required:
       - prompt
       type: object
+- id: t2a-kamui-mirelo-ai-sfx16
+  status: online
+  last_checked: '2026-05-23T13:57:17.581418+00:00'
+  tools:
+  - name: mirelo_ai_sfx16_text_to_audio_result
+    description: Get result of completed Mirelo.ai SFX 1.6 Text-to-Audio generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: mirelo_ai_sfx16_text_to_audio_status
+    description: Check status of Mirelo.ai SFX 1.6 Text-to-Audio processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: mirelo_ai_sfx16_text_to_audio_submit
+    description: Submit Mirelo.ai SFX 1.6 Text-to-Audio generation request to generate sound effects from text.
+    inputSchema:
+      properties:
+        ambience:
+          description: Whether to generate ambient sound effects
+          type: boolean
+        double_output:
+          description: Whether to generate double output
+          type: boolean
+        duration:
+          description: The duration of the generated audio in seconds
+          type: number
+        num_samples:
+          description: The number of audio samples to generate from the model
+          type: number
+        seed:
+          description: The seed to use for the generation
+          type: number
+        text_prompt:
+          description: Text description of the sound effects to generate
+          type: string
+        upload_audio_format:
+          description: Audio format for uploaded output (wav, mp3, aac, or flac).
+          enum:
+          - wav
+          - mp3
+          - aac
+          - flac
+          type: string
+      required:
+      - text_prompt
+      type: object
 - id: t2a-kamui-qwen-3-tts-text-to-speech-06b
   status: online
   last_checked: '2026-04-06T09:32:07.454778+00:00'
@@ -18886,6 +19047,430 @@ servers:
       required:
       - prompt
       type: object
+- id: t2i-kamui-recraft-v41
+  status: online
+  last_checked: '2026-05-23T13:57:16.614639+00:00'
+  tools:
+  - name: recraft_v4_1_text_to_image_result
+    description: Get result of completed Recraft V4.1.1 text-to-image generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_text_to_image_status
+    description: Check status of Recraft V4.1.1 text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_text_to_image_submit
+    description: Submit Fal.ai Recraft V4.1.1 text-to-image generation request and receive request ID for polling. Generate
+      images from text using Recraft V4.1.1 model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v41-pro
+  status: online
+  last_checked: '2026-05-23T13:57:16.195647+00:00'
+  tools:
+  - name: recraft_v4_1_pro_text_to_image_result
+    description: Get result of completed Recraft V4.1.1 Pro text-to-image generation. Returns raw JSON response from Fal.ai
+      API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_pro_text_to_image_status
+    description: Check status of Recraft V4.1.1 Pro text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_pro_text_to_image_submit
+    description: Submit Fal.ai Recraft V4.1.1 Pro text-to-image generation request and receive request ID for polling. Generate
+      images from text using Recraft V4.1.1 Pro model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v41-pro-vector
+  status: online
+  last_checked: '2026-05-23T13:57:16.298714+00:00'
+  tools:
+  - name: recraft_v4_1_pro_text_to_vector_result
+    description: Get result of completed Recraft V4.1.1 Pro text-to-vector generation. Returns raw JSON response from Fal.ai
+      API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_pro_text_to_vector_status
+    description: Check status of Recraft V4.1.1 Pro text-to-vector processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_pro_text_to_vector_submit
+    description: Submit Fal.ai Recraft V4.1.1 Pro text-to-vector generation request and receive request ID for polling. Generate
+      vector images from text using Recraft V4.1.1 Pro model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate a vector image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v41-utility
+  status: online
+  last_checked: '2026-05-23T13:57:17.067341+00:00'
+  tools:
+  - name: recraft_v4_1_utility_text_to_image_result
+    description: Get result of completed Recraft V4.1.1 Utility text-to-image generation. Returns raw JSON response from Fal.ai
+      API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_utility_text_to_image_status
+    description: Check status of Recraft V4.1.1 Utility text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_utility_text_to_image_submit
+    description: Submit Fal.ai Recraft V4.1.1 Utility text-to-image generation request and receive request ID for polling.
+      Generate images from text using Recraft V4.1.1 Utility model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v41-utility-pro
+  status: online
+  last_checked: '2026-05-23T13:57:16.842315+00:00'
+  tools:
+  - name: recraft_v4_1_utility_pro_text_to_image_result
+    description: Get result of completed Recraft V4.1.1 Utility Pro text-to-image generation. Returns raw JSON response from
+      Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_utility_pro_text_to_image_status
+    description: Check status of Recraft V4.1.1 Utility Pro text-to-image processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_utility_pro_text_to_image_submit
+    description: Submit Fal.ai Recraft V4.1.1 Utility Pro text-to-image generation request and receive request ID for polling.
+      Generate images from text using Recraft V4.1.1 Utility Pro model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate an image from.
+          type: string
+      required:
+      - prompt
+      type: object
+- id: t2i-kamui-recraft-v41-vector
+  status: online
+  last_checked: '2026-05-23T13:57:16.735763+00:00'
+  tools:
+  - name: recraft_v4_1_text_to_vector_result
+    description: Get result of completed Recraft V4.1.1 text-to-vector generation. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_text_to_vector_status
+    description: Check status of Recraft V4.1.1 text-to-vector processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: recraft_v4_1_text_to_vector_submit
+    description: Submit Fal.ai Recraft V4.1.1 text-to-vector generation request and receive request ID for polling. Generate
+      vector images from text using Recraft V4.1.1 model.
+    inputSchema:
+      properties:
+        background_color:
+          description: The preferable background color of the generated images. Should be an object with r, g, b integer values
+            (0-255).
+          properties: {}
+          type: object
+        colors:
+          description: An array of preferable colors. Each color should be an object with r, g, b integer values (0-255).
+          type: array
+        enable_safety_checker:
+          default: true
+          description: 'If set to true, the safety checker will be enabled. Default value: true'
+          type: boolean
+        image_size:
+          default: square_hd
+          description: 'The desired size of the generated image. Default value: square_hd. Can be a preset string (square_hd,
+            square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9) or custom object {width: number, height: number}'
+          oneOf:
+          - enum:
+            - square_hd
+            - square
+            - portrait_4_3
+            - portrait_16_9
+            - landscape_4_3
+            - landscape_16_9
+            type: string
+          - additionalProperties: false
+            properties:
+              height:
+                type: integer
+              width:
+                type: integer
+            required:
+            - width
+            - height
+            type: object
+        prompt:
+          description: The text prompt to generate a vector image from.
+          type: string
+      required:
+      - prompt
+      type: object
 - id: t2i-kamui-reve
   status: online
   last_checked: '2026-04-06T09:31:40.900643+00:00'
@@ -22088,6 +22673,87 @@ servers:
           type: boolean
       required:
       - prompt
+      type: object
+- id: t2v-kamui-heygen-avatar5-digital-twin
+  status: online
+  last_checked: '2026-05-23T13:57:16.095975+00:00'
+  tools:
+  - name: heygen_avatar5_digital_twin_result
+    description: Get result of completed Fal.ai HeyGen Avatar 5 Digital Twin video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned by heygen_avatar5_digital_twin_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar5_digital_twin_status
+    description: Check status of Fal.ai HeyGen Avatar 5 Digital Twin video generation using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID returned by heygen_avatar5_digital_twin_submit.
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: heygen_avatar5_digital_twin_submit
+    description: Submit Fal.ai HeyGen Avatar 5 Digital Twin text-to-video generation request using Avatar V rendering engine.
+      prompt is required when audio_url is not provided.
+    inputSchema:
+      properties:
+        aspect_ratio:
+          description: Video aspect ratio (16:9 or 9:16).
+          enum:
+          - '16:9'
+          - '9:16'
+          type: string
+        audio_url:
+          description: URL of pre-recorded audio to use instead of text-to-speech.
+          type: string
+        avatar:
+          description: Avatar name to use for the digital twin video.
+          type: string
+        background:
+          description: Background object with type (color, image, video) and value fields.
+          properties: {}
+          type: object
+        caption:
+          description: Whether to add captions to the video.
+          type: boolean
+        fit:
+          description: How the avatar fits in the frame (contain or cover).
+          enum:
+          - contain
+          - cover
+          type: string
+        output_format:
+          description: Output video format (mp4 or webm).
+          enum:
+          - mp4
+          - webm
+          type: string
+        prompt:
+          description: Text that the avatar will speak. Required when audio_url is not provided.
+          type: string
+        remove_background:
+          description: Whether to remove the avatar background.
+          type: boolean
+        resolution:
+          description: Video resolution preset (720p, 1080p, or 4k).
+          enum:
+          - 720p
+          - 1080p
+          - 4k
+          type: string
+        voice:
+          description: Voice name to use for speech synthesis.
+          type: string
+        watermark:
+          description: Watermark object configuration.
+          properties: {}
+          type: object
       type: object
 - id: t2v-kamui-hunyuan-video-v15-text-to-video
   status: online
@@ -27309,6 +27975,52 @@ servers:
       required:
       - video_url
       type: object
+- id: v2v-kamui-mirelo-ai-sfx16
+  status: online
+  last_checked: '2026-05-23T13:57:17.621188+00:00'
+  tools:
+  - name: mirelo_ai_sfx16_video_to_video_result
+    description: Get result of completed Mirelo.ai SFX 1.6 Video-to-Video generation.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: mirelo_ai_sfx16_video_to_video_status
+    description: Check status of Mirelo.ai SFX 1.6 Video-to-Video processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: mirelo_ai_sfx16_video_to_video_submit
+    description: Submit Mirelo.ai SFX 1.6 Video-to-Video generation request to add sound effects to a video.
+    inputSchema:
+      properties:
+        duration:
+          description: The duration of the generated audio in seconds
+          type: number
+        num_samples:
+          description: The number of audio samples to generate from the model
+          type: number
+        seed:
+          description: The seed to use for the generation
+          type: number
+        text_prompt:
+          description: Additional text description to guide the sound effects generation
+          type: string
+        video_url:
+          description: Video URL that can be accessed from the API to process and add sound effects
+          type: string
+      required:
+      - video_url
+      type: object
 - id: v2v-kamui-pixverse-extend
   status: online
   last_checked: '2026-04-06T09:31:24.786519+00:00'
@@ -28218,6 +28930,55 @@ servers:
           type: boolean
         video_url:
           description: Video URL (HTTP/HTTPS, FAL URL, or YouTube URL)
+          type: string
+      required:
+      - video_url
+      type: object
+- id: video-analysis-kamui-marlin
+  status: online
+  last_checked: '2026-05-23T13:57:16.172212+00:00'
+  tools:
+  - name: marlin_result
+    description: Get result of completed Marlin video analysis. Returns raw JSON response from Fal.ai API.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: marlin_status
+    description: Check status of Marlin video analysis processing using request ID.
+    inputSchema:
+      properties:
+        request_id:
+          description: Request ID received from submit operation
+          type: string
+      required:
+      - request_id
+      type: object
+  - name: marlin_submit
+    description: Submit Fal.ai Marlin video analysis request. Analyze video content using the Marlin model.
+    inputSchema:
+      properties:
+        do_sample:
+          description: Whether to use sampling for generation.
+          type: boolean
+        max_tokens:
+          description: Maximum number of tokens in the response.
+          type: number
+        prompt:
+          description: Optional prompt to guide the video analysis.
+          type: string
+        temperature:
+          description: Sampling temperature for generation.
+          type: number
+        top_p:
+          description: Top-p (nucleus) sampling parameter.
+          type: number
+        video_url:
+          description: URL of the video to analyze. Must be publicly accessible.
           type: string
       required:
       - video_url
