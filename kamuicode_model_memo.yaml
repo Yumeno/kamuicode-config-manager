@@ -264,6 +264,30 @@ ai_models:
       server_name: t2i-kamui-fal-xai-grok-imagine-image-quality
       release_date: 2026年5月6日
       features: "(xAI) xAIの画像生成モデル「Grok Imagine」の高画質(Quality)モード。ディテールや多言語のテキスト描画能力が大幅に強化されており、より写実的で高品質な画像生成が可能。アスペクト比の指定や最大2K解像度での出力に対応している。"
+    - name: Recraft V4.1 Pro
+      server_name: t2i-kamui-recraft-v41-pro
+      release_date: 2026年5月14日
+      features: "(Recraft) テキストから高品質な画像を生成するRecraft V4.1のプロ向けモデル。従来版より自然でリアルな写真表現や滑らかな3Dレンダリングが向上し、短いプロンプトからでもデザイン性の高い画像を生成可能。"
+    - name: Recraft V4.1 Pro Vector
+      server_name: t2i-kamui-recraft-v41-pro-vector
+      release_date: 2026年5月13日
+      features: "(Recraft) プロンプトから高解像度なベクター画像（SVG）を生成する、Recraft V4.1のプロ仕様モデル。高度なデザイン性と美学を備え、自然な描写や短いプロンプトへの正確な追従性が向上しており、印刷物や大規模な商用プロジェクトに適した高品質な出力を提供する。"
+    - name: Recraft V4.1
+      server_name: t2i-kamui-recraft-v41
+      release_date: 2026年5月14日
+      features: "(Recraft AI) デザイン用途に特化した画像生成モデル「Recraft V4.1」を利用できるエンドポイント。前バージョンから写真のリアリティ、被写体の理解、イラストスタイルの表現力が向上している。画像サイズ、色指定、背景色の調整機能をサポートし、fal.aiのAPIを経由して画像が生成される。"
+    - name: Recraft V4.1 Vector
+      server_name: t2i-kamui-recraft-v41-vector
+      release_date: 2026年5月13日
+      features: "(Recraft) テキストから編集可能なベクター画像を生成するRecraft V4.1のモデル。ロゴやアイコン、フラットイラストなどの生成に特化し、短いプロンプトからでもデザイン品質の高い洗練されたベクターデータ（SVGなど）を出力できる。"
+    - name: Recraft V4.1 Utility Pro
+      server_name: t2i-kamui-recraft-v41-utility-pro
+      release_date: 2026年5月14日
+      features: "(Recraft) Recraft V4.1の高解像度出力（最大2048x2048）とUtilityモデルの高速かつ低コストな生成能力を兼ね備えたプロフェッショナル向け画像生成モデル。フラットな照明や正面からの構図など、商用画像に特化した控えめで一貫性のある表現に調整されており、製品モックアップ、アイコン、eコマース向けアセットなどの大規模な制作ワークフローに最適。"
+    - name: Recraft V4.1 Utility
+      server_name: t2i-kamui-recraft-v41-utility
+      release_date: 2026年5月14日
+      features: "(Recraft) デザイン性に優れた画像生成モデル「Recraft V4.1」の高速・軽量バリアント。フラットなライティングや正面からの構図、予測可能なクリーンな出力に特化しており、モックアップやプロダクトショット、大量のバッチ処理など、実用性と一貫性が求められるワークフローに最適化されています。"
   image_to_image:
     - name: AuraSR
       server_name: i2i-kamui-aura-sr
@@ -593,6 +617,14 @@ ai_models:
       server_name: i2i-kamui-smart-resize
       release_date: 2026年4月頃
       features: "(Fal.ai) 1枚の画像を指定した複数のピクセル寸法へリサイズするAPI。内部でnano-banana-proを用い、指定サイズを覆う最小プリセットで生成後にセンタークロップで厳密に合わせることで、構図を維持した自然なリサイズを実現する。"
+    - name: Flux-2 Pro Outpaint
+      server_name: i2i-kamui-flux-2-pro-outpaint
+      release_date: 2025年11月25日
+      features: "(Black Forest Labs) FLUX.2 Proを利用し、画像の境界外を自然に拡張するアウトペイントモデル。上下左右の拡張指定や自動クロップに対応し、元画像とシームレスに繋がる背景やシーンを生成する。"
+    - name: ImagineArt 2.0 Edit Preview
+      server_name: i2i-kamui-imagineart-20-edit-preview
+      release_date: 2026年5月頃
+      features: "(ImagineArt) テキストプロンプトを使用して画像を編集するImage-to-Imageモデル。2K解像度での高精細な画像編集を実現し、元の画像のディテールやリアルさを保ちながら指定された変更を正確に適用します。"
   text_to_video:
     - name: Minimax Hailuo 2.3 (Pro) #[修正] モデル名 (ソース160)
       server_name: t2v-kamui-hailuo-02-pro # server_nameは元のまま
@@ -828,6 +860,10 @@ ai_models:
       server_name: t2v-sd2-kamui-bytedance-seedance-v20-fast
       release_date: 2026年2月12日
       features: "(ByteDance) ByteDanceが開発した動画生成モデル「Seedance 2.0」の高速生成（Fast）版。テキストプロンプトから最大15秒のシネマティックな動画を生成可能。映像と同期したネイティブな音声（BGMや効果音、セリフなど）を同時に生成でき、物理演算やディレクターレベルのカメラワーク制御に対応しつつ、レイテンシとコストを抑えた高速出力を実現している。"
+    - name: HeyGen Avatar 5 Digital Twin
+      server_name: t2v-kamui-heygen-avatar5-digital-twin
+      release_date: 2026年4月7日
+      features: "(HeyGen) 15秒の映像からユーザーの顔やジェスチャーを学習し、写実的なデジタルツイン動画を生成するAIアバターモデル（Avatar Vエンジン）。マルチアングルでの一貫性と高品質なリップシンクを長時間の動画でも維持する。音声URLやテキストからの生成に対応し、背景透過、透かしの追加、アスペクト比の調整、最大4K解像度での出力が可能。"
   image_to_video:
     - name: Minimax Hailuo 2.3 (Fast) #[修正] モデル名 (ソース160)
       server_name: i2v-kamui-hailuo-02-fast # server_nameは元のまま
@@ -1328,6 +1364,10 @@ ai_models:
       server_name: v2v-kamui-alibaba-happy-horse-video-edit-v1-0
       release_date: 2026年4月27日
       features: "(Alibaba) 入力動画をプロンプトで編集。video_url・prompt 必須（prompt 最大2500文字、@Image1〜@Image5で参照画像指定可）。任意: reference_image_urls（最大5、JPEG/JPG/PNG/WEBP）、resolution 720p|1080p（既定1080p）、audio_setting auto|origin（既定auto）、seed、enable_safety_checker（既定true）、webhook_url。FalのJSONをそのまま返す。"
+    - name: Mirelo SFX 1.6
+      server_name: v2v-kamui-mirelo-ai-sfx16
+      release_date: 2026年5月19日
+      features: "(Mirelo AI) 映像のアクションに同期した効果音（SFX）を生成し、新しい音声トラックとして動画に付与するVideo-to-Videoモデル。動画URLを渡すだけで足音や環境音などを自動生成でき、テキストプロンプトでの詳細な指示や生成時間の指定にも対応している。"
   reference_to_video:
     - name: Kling Video O1
       server_name: r2v-kamui-kling-video-o1
@@ -1568,6 +1608,10 @@ ai_models:
       server_name: t2a-kamui-qwen-3-tts-voice-design-17b
       release_date: 2026年1月21日
       features: "(Alibaba Cloud) テキストプロンプトで声質やスタイルを詳細に指定できるVoice Design機能を搭載したTTSモデル。1.7Bパラメータで、わずか3秒の音声からのクローン生成や、日本語を含む10言語への対応、低遅延な生成が可能。"
+    - name: Mirelo AI SFX 1.6 Text-to-Audio
+      server_name: t2a-kamui-mirelo-ai-sfx16
+      release_date: 2026年5月19日
+      features: "(Mirelo AI) テキストプロンプトから効果音や環境音を生成するオーディオ生成モデル。生成時間の指定、ループ可能な環境音（ambience）の生成、複数サンプルの出力などに対応し、高品質なサウンドエフェクトを作成できる。"
   text_to_music:
     - name: Google Lyria
       server_name: t2m-kamui-lyria
@@ -1798,6 +1842,10 @@ ai_models:
       server_name: v2char-kamui-fal-sora-2-characters
       release_date: 2025年10月29日
       features: "(OpenAI) 短いビデオクリップからSora 2の動画生成で使用するためのキャラクターを作成するユーティリティAPI。MP4形式（最小720p、最大4秒）の動画URLとキャラクター名を入力として受け取り、t2vやi2vの生成時にキャラクターを固定・一貫させるためのキャラクターID（char_...）を返す。"
+    - name: Marlin 2B
+      server_name: video-analysis-kamui-marlin
+      release_date: 2026年5月18日
+      features: "(NemoStation) 動画内で「何が」「いつ」起きているかの解析に特化して開発された2Bパラメータの視覚言語モデル（VLM）。動画内のシーンやイベントに対する秒単位のタイムスタンプ付きキャプションの生成や、自然言語のクエリに基づく特定イベントの開始・終了時刻の高精度な検索が可能。"
   voice_clone:
     - name: MiniMax Voice Clone
       server_name: voice-clone-kamui-minimax
