@@ -1,9 +1,14 @@
 name: Update MCP Tool Catalog
 
 on:
-  schedule:
-    # Run daily at UTC 13:00 (JST 22:00)
-    - cron: '0 13 * * *'
+  # NOTE: Auto-update is DISCONTINUED (2026-05-25).
+  # The catalog and model memo are no longer updated. The daily schedule
+  # is disabled. The workflow itself is kept for reference only and is
+  # gated to never run (see the `if: false` guard on the job below).
+  # Re-enable the schedule here if updates ever resume.
+  # schedule:
+  #   # Run daily at UTC 13:00 (JST 22:00)
+  #   - cron: '0 13 * * *'
   workflow_dispatch:
     # Allow manual trigger
     inputs:
@@ -28,6 +33,9 @@ on:
 
 jobs:
   update-catalog:
+    # Auto-update discontinued (2026-05-25): hard-stop guard.
+    # Even a manual run will be skipped. Remove this line to re-enable.
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
